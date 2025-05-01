@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator Tools Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>CalcHub</h1>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="#tools">Tools</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Your One-Stop Calculator Hub</h1>
+            <p>Find the perfect calculator for any calculation need</p>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search calculators...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filters">
+        <div class="filter-container">
+            <button class="filter-btn active" data-category="all">All</button>
+            <button class="filter-btn" data-category="finance">Finance</button>
+            <button class="filter-btn" data-category="health">Health & Fitness</button>
+            <button class="filter-btn" data-category="math">Math</button>
+            <button class="filter-btn" data-category="cooking">Cooking</button>
+            <button class="filter-btn" data-category="mortgage">Mortgage</button>
+            <button class="filter-btn" data-category="investment">Investment</button>
+            <button class="filter-btn" data-category="travel">Travel</button>
+            <button class="filter-btn" data-category="time">Time & Date</button>
+            <button class="filter-btn" data-category="energy">Energy</button>
+            <button class="filter-btn" data-category="tax">Tax</button>
+        </div>
+    </section>
+
+    <!-- Calculator Tools Grid -->
+    <section class="calculator-grid">
+        <!-- Example cards for each category -->
+        <div class="calculator-card" data-category="finance">
+            <i class="fas fa-percentage"></i>
+            <h3>Percentage Calculator</h3>
+            <p>Calculate percentages easily</p>
+            <a href="percentage-calculator.html" class="card-btn">Open Tool</a>
+        </div>
+        <div class="calculator-card" data-category="health">
+            <i class="fas fa-heartbeat"></i>
+            <h3>BMI Calculator</h3>
+            <p>Calculate your Body Mass Index</p>
+            <a href="#" class="card-btn">Open Tool</a>
+        </div>
+        <div class="calculator-card" data-category="math">
+            <i class="fas fa-square-root-alt"></i>
+            <h3>Scientific Calculator</h3>
+            <p>Advanced mathematical calculations</p>
+            <a href="#" class="card-btn">Open Tool</a>
+        </div>
+        <div class="calculator-card" data-category="cooking">
+            <i class="fas fa-utensils"></i>
+            <h3>Unit Converter</h3>
+            <p>Convert cooking measurements</p>
+            <a href="#" class="card-btn">Open Tool</a>
+        </div>
+        <div class="calculator-card" data-category="mortgage">
+            <i class="fas fa-home"></i>
+            <h3>Mortgage Calculator</h3>
+            <p>Calculate monthly payments</p>
+            <a href="#" class="card-btn">Open Tool</a>
+        </div>
+        <div class="calculator-card" data-category="investment">
+            <i class="fas fa-chart-line"></i>
+            <h3>Investment Returns</h3>
+            <p>Calculate investment growth</p>
+            <a href="#" class="card-btn">Open Tool</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About CalcHub</h3>
+                <p>Your trusted source for online calculation tools</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#tools">Tools</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@calchub.com</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 CalcHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="calculator.js"></script>
+</body>
+</html>
