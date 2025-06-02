@@ -1,18 +1,38 @@
-// Mobile menu functionality
-document.querySelector('.mobile-menu').addEventListener('click', function(e) {
-    e.stopPropagation();
-    document.querySelector('.nav-links').classList.toggle('show');
-});
+    // Mobile Menu Toggle Functionality
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const mobileMenuPanel = document.getElementById('mobileMenuPanel');
+    const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+    const mobileMenuClose = document.getElementById('mobileMenuClose');
 
-// Close mobile menu when clicking outside
-document.addEventListener('click', function(e) {
-    const navLinks = document.querySelector('.nav-links');
-    const mobileMenu = document.querySelector('.mobile-menu');
-    
-    if (navLinks.classList.contains('show') && !navLinks.contains(e.target) && !mobileMenu.contains(e.target)) {
-        navLinks.classList.remove('show');
+    function openMobileMenu() {
+        mobileMenuToggle.classList.add('active');
+        mobileMenuPanel.classList.add('active');
+        mobileMenuOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
     }
-});
+
+    function closeMobileMenu() {
+        mobileMenuToggle.classList.remove('active');
+        mobileMenuPanel.classList.remove('active');
+        mobileMenuOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    mobileMenuToggle.addEventListener('click', openMobileMenu);
+    mobileMenuClose.addEventListener('click', closeMobileMenu);
+    mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+
+    // Close menu when clicking on menu items
+    document.querySelectorAll('.mobile-menu-items a').forEach(item => {
+        item.addEventListener('click', closeMobileMenu);
+    });
+
+    // Close menu on escape key
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && mobileMenuPanel.classList.contains('active')) {
+            closeMobileMenu();
+        }
+    });
 
 // Filter functionality
 const filterButtons = document.querySelectorAll('.filter-btn');
