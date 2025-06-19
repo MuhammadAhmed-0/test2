@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anniversary Calculator - CalcHub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/tools/apush.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* Calculator Section Only: Custom, Responsive */
+        #result {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #ee9ca7 0%, #ffdde1 100%);
+            border-radius: 20px;
+            display: none;
+            box-shadow: 0 20px 40px rgba(238, 156, 167, 0.15);
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #result::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.10) 0%, transparent 70%);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+
+            0%,
+            100% {
+                transform: rotate(0deg);
+            }
+
+            50% {
+                transform: rotate(180deg);
+            }
+        }
+
+        #result h3 {
+            color: #d72660;
+            font-size: 1.85rem;
+            font-weight: 800;
+            margin-bottom: 1.2rem;
+            text-shadow: 0 2px 4px rgba(238, 156, 167, 0.18);
+            position: relative;
+            z-index: 1;
+        }
+
+        #annivResult {
+            font-size: 2.6rem;
+            font-weight: 900;
+            color: #ffd700;
+            margin-bottom: 1.1rem;
+            text-shadow: 0 4px 8px rgba(210, 40, 88, 0.12);
+            position: relative;
+            z-index: 1;
+        }
+
+        #milestoneResult {
+            font-size: 1.25rem;
+            color: #d72660;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        #nextAnniv {
+            font-size: 1.09rem;
+            color: #8e44ad;
+            margin-bottom: 1rem;
+        }
+
+        /* Tips Section */
+        #tips-section {
+            margin-top: 2rem;
+            background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);
+            padding: 2rem;
+            border-radius: 18px;
+            box-shadow: 0 10px 24px rgba(255, 210, 0, 0.12);
+            display: none;
+        }
+
+        #tips-section h4 {
+            font-size: 1.18rem;
+            color: #b86b0c;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-align: center;
+            text-shadow: 0 1px 2px rgba(178, 107, 12, 0.10);
+        }
+
+        #tipsText {
+            background: rgba(255, 255, 255, 0.92);
+            padding: 1rem 1.2rem;
+            border-radius: 10px;
+            font-size: 1.05rem;
+            color: #2d3436;
+            line-height: 1.6;
+            text-align: left;
+        }
+
+        /* Calculate Button */
+        .calculate-btn {
+            background: linear-gradient(135deg, #ff6a00 0%, #ee0979 100%);
+            color: white;
+            padding: 1.1rem 2.3rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.18rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 106, 0, 0.15);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calculate-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.13), transparent);
+            transition: left 0.5s;
+        }
+
+        .calculate-btn:hover::before {
+            left: 100%;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 106, 0, 0.18);
+        }
+
+        .calculate-btn:active {
+            transform: translateY(-1px);
+        }
+
+
+        /* Input Fields */
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            color: #9b145e;
+            font-weight: 600;
+            font-size: 1.13rem;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 1.1rem;
+            border: 2px solid #e0e6ed;
+            border-radius: 12px;
+            font-size: 1.08rem;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #ee9ca7;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(238, 156, 167, 0.08);
+            transform: translateY(-1px);
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.07);
+            }
+
+            70% {
+                transform: scale(0.92);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .animate-result {
+            animation: bounceIn 0.6s ease-out;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            #annivResult {
+                font-size: 1.5rem;
+            }
+
+            #result {
+                padding: 1.2rem;
+            }
+
+            .calculate-btn {
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+
+            #tips-section {
+                padding: 1rem;
+            }
+
+            #milestoneResult {
+                font-size: 1.07rem;
+            }
+
+            #nextAnniv {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Announcement section -->
+    <div class="top-announcement-bar">
+        <div class="announcement-number">New Announcement</div>
+        <div class="announcement-text">
+            Discover more date & relationship tools at <a href="https://resourcesofdev.com" target="_blank"
+                rel="noopener noreferrer" class="announcement-link">Resourcesofdev.com</a>
+        </div>
+    </div>
+
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>CalcHub</h1>
+            </div>
+            <div class="nav-links">
+                <a href="../index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="../index.html"><i class="fas fa-tools"></i> Tools</a>
+                <a href="#about"><i class="fas fa-info-circle"></i> About</a>
+                <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+            </div>
+            <div class="mobile-menu-toggle" id="mobileMenuToggle">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+    <div class="mobile-menu-panel" id="mobileMenuPanel">
+        <div class="mobile-menu-header">
+            <h2>Menu</h2>
+            <button class="mobile-menu-close" id="mobileMenuClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="mobile-menu-items">
+            <a href="index.html"><i class="fas fa-home"></i><span>Home</span></a>
+            <a href="#tools"><i class="fas fa-tools"></i><span>Tools</span></a>
+            <a href="#about"><i class="fas fa-info-circle"></i><span>About</span></a>
+            <a href="#contact"><i class="fas fa-envelope"></i><span>Contact</span></a>
+        </div>
+    </div>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Anniversary Calculator</h1>
+            <p class="hero-subtitle">
+                Find out exactly how long you’ve been together! See your anniversary, time passed, next milestone, and
+                fun facts—perfect for couples, friends, or work!
+            </p>
+        </div>
+    </section>
+
+    <div class="tool-container">
+        <aside class="left-sidebar">
+            <h3>Related Tools</h3>
+            <ul>
+                <li><a href="age-calculator.html">Age Calculator</a></li>
+                <li><a href="date-difference-calculator.html">Date Difference Calculator</a></li>
+                <li><a href="birthday-calculator.html">Birthday Calculator</a></li>
+                <li><a href="countdown-calculator.html">Countdown Calculator</a></li>
+            </ul>
+        </aside>
+        <div class="main-content-column">
+            <main class="calculator-content">
+                <h1>Anniversary Date & Duration Calculator</h1>
+                <div class="calculator-box">
+                    <div class="input-group">
+                        <label for="startDate">Anniversary or Start Date <span class="help-tip"
+                                title="The date you want to celebrate or measure from (wedding, first date, work start, etc).">?</span></label>
+                        <input type="date" id="startDate" max="">
+                    </div>
+                    <div class="input-group">
+                        <label for="name1">Name 1 <span class="help-tip"
+                                title="Enter name for a personal touch (optional).">?</span></label>
+                        <input type="text" id="name1" placeholder="e.g. Alex (optional)">
+                    </div>
+                    <div class="input-group">
+                        <label for="name2">Name 2 <span class="help-tip"
+                                title="Enter partner's or friend's name (optional).">?</span></label>
+                        <input type="text" id="name2" placeholder="e.g. Taylor (optional)">
+                    </div>
+                    <button onclick="calculateAnniversary()" class="calculate-btn">Calculate Anniversary</button>
+                    <div id="result" class="result">
+                        <h3>Anniversary Details</h3>
+                        <div id="annivResult"></div>
+                        <div id="milestoneResult"></div>
+                        <div id="nextAnniv"></div>
+                    </div>
+                    <div id="tips-section">
+                        <h4>Fun Tips & Milestones</h4>
+                        <div id="tipsText"></div>
+                    </div>
+                </div>
+            </main>
+            <article class="calculator-article">
+                <h2>What is an Anniversary Calculator?</h2>
+                <p>
+                    This tool quickly calculates the <strong>time since your special date</strong> and shows you how
+                    many years, months, days, and even minutes you’ve shared! It also tells you your next big milestone
+                    (like 5 years, 1000 days, etc) and helps you celebrate more meaningfully.
+                </p>
+                <ul>
+                    <li>Works for <strong>wedding anniversaries</strong>, <strong>dating</strong>, <strong>work
+                            anniversaries</strong>, or any occasion!</li>
+                    <li>Shows time passed in all units, upcoming milestones, and fun facts.</li>
+                    <li>Personalize by adding names to make it extra special.</li>
+                </ul>
+                <p>
+                    <em>Try it now—never forget your next anniversary again!</em>
+                </p>
+            </article>
+        </div>
+        <aside class="right-sidebar">
+            <div class="ad-space">
+                <div class="ad-placeholder">
+                    <img src="../learn-more-heinz-300x250-call-to-action.webp" alt="Advertisement 1">
+                </div>
+            </div>
+            <div class="ad-space">
+                <div class="ad-placeholder">
+                    <img src="../learn-more-heinz-300x250-call-to-action.webp" alt="Advertisement 2">
+                </div>
+            </div>
+        </aside>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About CalcHub</h3>
+                <p>Your trusted source for online calculation tools</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#tools">Tools</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@calchub.com</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 CalcHub. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="../js/calculator.js"></script>
+    <script>
+        // Set max today's date for input
+        document.addEventListener('DOMContentLoaded', function () {
+            const d = new Date();
+            const iso = d.toISOString().split('T')[0];
+            document.getElementById('startDate').setAttribute('max', iso);
+        });
+
+        function calculateAnniversary() {
+            const startDateStr = document.getElementById('startDate').value;
+            const name1 = document.getElementById('name1').value.trim();
+            const name2 = document.getElementById('name2').value.trim();
+            if (!startDateStr) {
+                alert('Please select your anniversary or start date.');
+                return;
+            }
+            const startDate = new Date(startDateStr);
+            const now = new Date();
+            if (startDate > now) {
+                alert('Start date cannot be in the future!');
+                return;
+            }
+
+            // Calculate difference
+            const diffMs = now - startDate;
+            const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+            const diffYears = now.getFullYear() - startDate.getFullYear() -
+                (now.getMonth() < startDate.getMonth() || (now.getMonth() === startDate.getMonth() && now.getDate() < startDate.getDate()) ? 1 : 0);
+            let months = (now.getFullYear() - startDate.getFullYear()) * 12 + (now.getMonth() - startDate.getMonth());
+            if (now.getDate() < startDate.getDate()) months--;
+            const diffMonths = months;
+            const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+            const diffMinutes = Math.floor(diffMs / (1000 * 60));
+            const diffSeconds = Math.floor(diffMs / 1000);
+
+            // Format result
+            let names = "";
+            if (name1 && name2) names = `<b>${name1}</b> & <b>${name2}</b>`;
+            else if (name1) names = `<b>${name1}</b>`;
+            else if (name2) names = `<b>${name2}</b>`;
+            else names = "You";
+
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('result').className = 'result animate-result';
+
+            document.getElementById('annivResult').innerHTML =
+                `${names} have been together for:<br>
+        <span style="font-size:2.2rem;color:#ee0979;font-weight:800">${diffYears} years</span>, 
+        <span style="font-size:2rem;color:#8e44ad">${diffMonths} months</span>, 
+        <span style="font-size:1.5rem;color:#d72660">${diffDays} days</span>`;
+
+            document.getElementById('milestoneResult').innerHTML =
+                `<span style="color:#9b145e">That's <b>${diffHours.toLocaleString()}</b> hours, <b>${diffMinutes.toLocaleString()}</b> minutes, and <b>${diffSeconds.toLocaleString()}</b> seconds!</span>`;
+
+            // Next milestone logic
+            let nextMilestone = "";
+            // Next full year
+            const nextAnnivYear = startDate.getFullYear() + diffYears + 1;
+            const nextAnnivDate = new Date(startDate);
+            nextAnnivDate.setFullYear(nextAnnivYear);
+            let msToNext = nextAnnivDate - now;
+            if (msToNext < 0) { // already passed this year, so next one
+                nextAnnivDate.setFullYear(nextAnnivDate.getFullYear() + 1);
+                msToNext = nextAnnivDate - now;
+            }
+            const daysToNext = Math.ceil(msToNext / (1000 * 60 * 60 * 24));
+            nextMilestone = `<b>Next anniversary:</b> <span style="color:#8e44ad">${nextAnnivDate.toLocaleDateString()}</span> (${daysToNext} days left)`;
+
+            // Also show fun milestones (e.g., 1000 days, 10,000 hours, etc.)
+            let funMilestone = "";
+            const milestoneList = [
+                { label: "100 days", days: 100 },
+                { label: "500 days", days: 500 },
+                { label: "1000 days", days: 1000 },
+                { label: "5000 days", days: 5000 }
+            ];
+            let foundMilestone = null;
+            for (let i = 0; i < milestoneList.length; i++) {
+                if (diffDays < milestoneList[i].days) {
+                    foundMilestone = milestoneList[i];
+                    break;
+                }
+            }
+            if (foundMilestone) {
+                const msToMilestone = startDate.getTime() + foundMilestone.days * 86400000 - now.getTime();
+                const daysUntil = Math.ceil(msToMilestone / (1000 * 60 * 60 * 24));
+                funMilestone = `<br><b>Fun milestone:</b> <span style="color:#f7971e">${foundMilestone.label}</span> in ${daysUntil} days!`;
+            }
+
+            document.getElementById('nextAnniv').innerHTML = nextMilestone + (funMilestone || "");
+
+            // Tips
+            document.getElementById('tips-section').style.display = 'block';
+            document.getElementById('tipsText').innerHTML = `
+        <ul>
+          <li>Celebrate your next anniversary with something meaningful—plan a trip, write a letter, or try something new together!</li>
+          <li>Share your anniversary details with friends or on social media—spread the love.</li>
+          <li>Fun fact: You’ve shared <b>${diffHours.toLocaleString()}</b> hours and counting!</li>
+          <li>Check back often to see your next big milestone.</li>
+        </ul>
+        <em>Use this tool for any important date: marriage, first date, friendship, work, or any special moment!</em>
+      `;
+        }
+    </script>
+</body>
+
+</html>

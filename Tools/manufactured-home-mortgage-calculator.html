@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manufactured Home Mortgage Calculator - CalcHub</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/tools/apush.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    /* Result Section */
+    #result {
+      margin-top: 2rem;
+      padding: 2rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 20px;
+      display: none;
+      box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #result::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+      animation: shimmer 3s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+
+      0%,
+      100% {
+        transform: rotate(0deg);
+      }
+
+      50% {
+        transform: rotate(180deg);
+      }
+    }
+
+    #result h3 {
+      color: white;
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Monthly Payment Display */
+    #monthlyPayment {
+      font-size: 4rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 1rem;
+      text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      position: relative;
+      z-index: 1;
+      background: linear-gradient(45deg, #ffd700, #ffed4e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* DTI Info Section */
+    #dti-info {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(240, 147, 251, 0.3);
+      display: none;
+    }
+
+    #dti-info h4 {
+      color: white;
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    #dti-info p {
+      color: #f0f0f0;
+      font-size: 1.1rem;
+      margin: 0.5rem 0;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    #dtiRatio {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #ffd700;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Summary Section */
+    #summary-section {
+      margin-top: 2rem;
+      background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(252, 182, 159, 0.3);
+      display: none;
+    }
+
+    #summary-section h4 {
+      font-size: 1.8rem;
+      color: #8b4513;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      text-shadow: 0 2px 4px rgba(139, 69, 19, 0.2);
+    }
+
+    #summaryText {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-left: 4px solid #ff6b35;
+      font-size: 1.1rem;
+      color: #2c3e50;
+      line-height: 1.6;
+    }
+
+    /* Calculate Button */
+    .calculate-btn {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 1.2rem 3rem;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      font-weight: 700;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .calculate-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.5s;
+    }
+
+    .calculate-btn:hover::before {
+      left: 100%;
+    }
+
+    .calculate-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+    }
+
+    .calculate-btn:active {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    }
+
+    /* Input Fields */
+    .input-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 0.8rem;
+      color: #2c3e50;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .input-group input,
+    .input-group select {
+      width: 100%;
+      padding: 1.2rem;
+      border: 2px solid #e0e6ed;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      background: #f8f9fa;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .input-group input:focus,
+    .input-group select:focus {
+      outline: none;
+      border-color: #667eea;
+      background-color: #ffffff;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      transform: translateY(-1px);
+    }
+
+    /* Toggle Input for Down Payment */
+    .toggle-input {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .toggle-input input {
+      flex: 1;
+    }
+
+    .toggle-input select {
+      width: 80px;
+      flex-shrink: 0;
+    }
+
+    /* Animations */
+    @keyframes bounceIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.3);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1.05);
+      }
+
+      70% {
+        transform: scale(0.9);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .animate-result {
+      animation: bounceIn 0.6s ease-out;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+                  .calculator-box {
+                padding: 1.5rem;
+            }
+
+      #monthlyPayment {
+        font-size: 2.5rem;
+      }
+
+      #result {
+        padding: 1.5rem;
+      }
+
+      .calculate-btn {
+        padding: 1rem 2rem;
+        font-size: 1rem;
+      }
+
+      .toggle-input {
+        flex-direction: column;
+      }
+
+      .toggle-input select {
+        width: 100%;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+  <!-- Announcemnet section -->
+  <div class="top-announcement-bar">
+    <div class="announcement-number">New Announcement</div>
+    <div class="announcement-text">
+      Explore the latest IT tools and expert resources at <a href="https://resourcesofdev.com" target="_blank"
+        rel="noopener noreferrer" class="announcement-link">Resourcesofdev.com</a>
+    </div>
+  </div>
+
+  <header>
+    <nav>
+      <div class="logo">
+        <h1>CalcHub</h1>
+      </div>
+      <div class="nav-links">
+        <a href="../index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="../index.html"><i class="fas fa-tools"></i> Tools</a>
+        <a href="#about"><i class="fas fa-info-circle"></i> About</a>
+        <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+      </div>
+      <div class="mobile-menu-toggle" id="mobileMenuToggle">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+  <!-- Mobile Menu Panel -->
+  <div class="mobile-menu-panel" id="mobileMenuPanel">
+    <div class="mobile-menu-header">
+      <h2>Menu</h2>
+      <button class="mobile-menu-close" id="mobileMenuClose">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="mobile-menu-items">
+      <a href="index.html">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </a>
+      <a href="#tools">
+        <i class="fas fa-tools"></i>
+        <span>Tools</span>
+      </a>
+      <a href="#about">
+        <i class="fas fa-info-circle"></i>
+        <span>About</span>
+      </a>
+      <a href="#contact">
+        <i class="fas fa-envelope"></i>
+        <span>Contact</span>
+      </a>
+    </div>
+  </div>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Manufactured Home Mortgage Calculator</h1>
+    </div>
+  </section>
+
+  <div class="tool-container">
+    <aside class="left-sidebar">
+      <h3>Related Tools</h3>
+      <ul>
+        <li><a href="snow-day-calculator.html">Snow Day Calculator</a></li>
+        <li><a href="terminus-calculator.html">Terminus Calculator</a></li>
+        <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
+        <li><a href="dunk-calculator.html">Dunk Calculator</a></li>
+      </ul>
+    </aside>
+    <div class="main-content-column">
+      <main class="calculator-content">
+        <h1>Calculate Your Manufactured Home Mortgage</h1>
+        <div class="calculator-box">
+          <div class="input-group">
+            <label for="income">Gross Income (Monthly):</label>
+            <input type="text" id="income" value="$5000" placeholder="Enter your monthly income">
+          </div>
+          <div class="input-group">
+            <label for="debts">Monthly Debts:</label>
+            <input type="text" id="debts" value="$500" placeholder="Enter your monthly debts">
+          </div>
+          <div class="input-group">
+            <label for="homePrice">Home Price:</label>
+            <input type="text" id="homePrice" value="$100000" placeholder="Enter home price">
+          </div>
+          <div class="input-group">
+            <label for="downPayment">Down Payment:</label>
+            <div class="toggle-input">
+              <input type="text" id="downPayment" value="$20000" placeholder="Enter down payment">
+              <select id="downType">
+                <option value="$">$</option>
+                <option value="%">%</option>
+              </select>
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="loanTerm">Loan Term (Years):</label>
+            <input type="number" id="loanTerm" value="30" placeholder="Enter loan term">
+          </div>
+          <div class="input-group">
+            <label for="interestRate">Interest Rate (%):</label>
+            <input type="number" step="0.01" id="interestRate" value="7.5" placeholder="Enter interest rate">
+          </div>
+          <div class="input-group">
+            <label for="creditScore">Credit Score:</label>
+            <select id="creditScore">
+              <option>620–639</option>
+              <option>640–659</option>
+              <option>660–679</option>
+              <option>680–699</option>
+              <option>700–719</option>
+              <option>720+</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label for="propTax">Property Tax (Yearly):</label>
+            <input type="text" id="propTax" value="$1200" placeholder="Enter yearly property tax">
+          </div>
+          <div class="input-group">
+            <label for="insurance">Homeowners Insurance (Yearly):</label>
+            <input type="text" id="insurance" value="$800" placeholder="Enter yearly insurance">
+          </div>
+          <div class="input-group">
+            <label for="pmi">PMI (Yearly):</label>
+            <input type="text" id="pmi" value="$1500" placeholder="Enter yearly PMI">
+          </div>
+          <div class="input-group">
+            <label for="hoa">HOA Dues (Monthly):</label>
+            <input type="text" id="hoa" value="$0" placeholder="Enter monthly HOA dues">
+          </div>
+          <button onclick="calculateMortgage()" class="calculate-btn">Calculate Mortgage</button>
+
+          <div id="result" class="result">
+            <h3>Monthly Mortgage Payment</h3>
+            <p id="monthlyPayment">$0.00</p>
+          </div>
+
+          <!-- DTI Info Section -->
+          <div id="dti-info">
+            <h4>Debt-to-Income Ratio</h4>
+            <p id="dtiRatio">0%</p>
+            <p>Typically, a DTI under 36% is ideal. Many loan programs allow up to 50% DTI.</p>
+          </div>
+
+          <!-- Summary Section -->
+          <div id="summary-section">
+            <h4>Mortgage Summary</h4>
+            <div id="summaryText">
+              Waiting for calculation...
+            </div>
+          </div>
+        </div>
+      </main>
+
+
+      <article class="calculator-article">
+        <h2>Understanding Manufactured Home Mortgages</h2>
+        <p>Manufactured homes offer an affordable path to homeownership, but financing can be different from traditional
+          mortgages. Here's what you need to know:</p>
+        <ul>
+          <li><strong>Loan Types:</strong> Chattel loans (personal property) vs. real estate loans (land + home)</li>
+          <li><strong>Down Payment:</strong> Typically 5-20% depending on the loan program</li>
+          <li><strong>Interest Rates:</strong> May be higher than traditional mortgages</li>
+          <li><strong>Debt-to-Income Ratio:</strong> Lenders prefer DTI under 36%, but some allow up to 50%</li>
+          <li><strong>Credit Requirements:</strong> Minimum credit score usually 620-640</li>
+          <li><strong>PMI:</strong> Private Mortgage Insurance may be required with less than 20% down</li>
+        </ul>
+        <p>Use this calculator to estimate your monthly payments and determine if you qualify for financing. Always
+          consult with a qualified mortgage professional for personalized advice.</p>
+      </article>
+    </div>
+
+    <aside class="right-sidebar">
+      <div class="ad-space">
+        <div class="ad-placeholder">
+          <img src="../learn-more-heinz-300x250-call-to-action.webp" alt="Advertisement 1">
+        </div>
+      </div>
+      <div class="ad-space">
+        <div class="ad-placeholder">
+          <img src="../learn-more-heinz-300x250-call-to-action.webp" alt="Advertisement 2">
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>About CalcHub</h3>
+        <p>Your trusted source for online calculation tools</p>
+      </div>
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#tools">Tools</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#privacy">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Contact Us</h3>
+        <p>Email: info@calchub.com</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 CalcHub. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="../js/calculator.js"></script>
+  <script>
+function calculateMortgage() {
+    // Get input values and remove any dollar signs or non-numeric characters
+    const income = parseFloat(document.getElementById('income').value.replace(/[^0-9.]/g, '')) || 0;
+    const debts = parseFloat(document.getElementById('debts').value.replace(/[^0-9.]/g, '')) || 0;
+    const homePrice = parseFloat(document.getElementById('homePrice').value.replace(/[^0-9.]/g, '')) || 0;
+    let downPayment = parseFloat(document.getElementById('downPayment').value.replace(/[^0-9.]/g, '')) || 0;
+    const downType = document.getElementById('downType').value;
+    const interestRate = parseFloat(document.getElementById('interestRate').value) / 100 || 0;
+    const loanTerm = parseInt(document.getElementById('loanTerm').value) || 30;
+    const pmiYearly = parseFloat(document.getElementById('pmi').value.replace(/[^0-9.]/g, '')) || 0;
+    const hoa = parseFloat(document.getElementById('hoa').value.replace(/[^0-9.]/g, '')) || 0;
+    const propTax = parseFloat(document.getElementById('propTax').value.replace(/[^0-9.]/g, '')) || 0;
+    const insurance = parseFloat(document.getElementById('insurance').value.replace(/[^0-9.]/g, '')) || 0;
+
+    // Validate homePrice (only this field is mandatory)
+    if (homePrice <= 0) {
+        alert('Please enter a valid value for home price.');
+        return;
+    }
+
+    // Convert percentage down payment to dollar amount
+    if (downType === '%') {
+        downPayment = (downPayment / 100) * homePrice;
+    }
+
+    // Calculate loan amount
+    const loanAmount = homePrice - downPayment;
+
+    if (loanAmount <= 0) {
+        alert('Down payment cannot be greater than or equal to home price.');
+        return;
+    }
+
+    // Monthly interest rate
+    const monthlyRate = interestRate / 12;
+    const totalPayments = loanTerm * 12;
+
+    // Calculate monthly principal and interest
+    let monthlyPI = 0;
+    if (monthlyRate > 0) {
+        monthlyPI = (loanAmount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -totalPayments));
+    } else {
+        monthlyPI = loanAmount / totalPayments;
+    }
+
+    // Calculate PMI (only if down payment is less than 20%)
+    const downPaymentPercentage = downPayment / homePrice;
+    const monthlyPMI = (downPaymentPercentage < 0.2) ? (pmiYearly / 12) : 0;
+
+    // Calculate monthly property tax and insurance
+    const monthlyPropTax = propTax / 12;
+    const monthlyInsurance = insurance / 12;
+
+    // Calculate total monthly payment (excluding the "debts")
+    const totalMonthly = monthlyPI + monthlyPMI + monthlyPropTax + monthlyInsurance + hoa;
+
+    // Calculate debt-to-income ratio (DTI) **only using debts and income**
+    let dti = 0;
+    let dtiMessage = '';
+    if (income > 0 && debts > 0) {
+        // Use only the user's debts, not totalMonthly
+        const totalDebt = debts;
+        dti = (totalDebt / income) * 100;
+
+        // DTI calculation message
+        const dtiStatus = dti <= 36 ? 'excellent' : (dti <= 43 ? 'good' : (dti <= 50 ? 'acceptable' : 'high'));
+        dtiMessage = `Your debt-to-income ratio is <strong>${dti.toFixed(2)}%</strong>, which is considered ${dtiStatus}. ` + 
+                    (dti > 50 ? 'You may need to reduce debt or increase income to qualify for most loan programs.' : 
+                    dti > 43 ? 'You should qualify for most loan programs, but shop around for the best rates.' :
+                    'You have excellent qualifying ratios for most loan programs.');
+    } else {
+        // If DTI fields are not provided, add message to results
+        dtiMessage = 'To calculate the Debt-to-Income ratio, please enter both your monthly income and monthly debts.';
+    }
+
+    // Display results
+    const resultDiv = document.getElementById('result');
+    resultDiv.style.display = 'block';
+    resultDiv.className = 'result animate-result';
+
+    document.getElementById('monthlyPayment').textContent = '$' + totalMonthly.toFixed(2);
+
+    // Show DTI section
+    const dtiSection = document.getElementById('dti-info');
+    dtiSection.style.display = 'block';
+    document.getElementById('dtiRatio').textContent = dti > 0 ? dti.toFixed(2) + '%' : 'N/A';
+
+    // Show summary section
+    const summarySection = document.getElementById('summary-section');
+    summarySection.style.display = 'block';
+
+    document.getElementById('summaryText').innerHTML = `
+        <strong>Monthly Payment Breakdown:</strong><br>
+        • Principal & Interest: $${monthlyPI.toFixed(2)}<br>
+        • Property Tax: $${monthlyPropTax.toFixed(2)}<br>
+        • Insurance: $${monthlyInsurance.toFixed(2)}<br>
+        • PMI: $${monthlyPMI.toFixed(2)}<br>
+        • HOA Dues: $${hoa.toFixed(2)}<br><br>
+
+        <strong>Total Monthly Payment: $${totalMonthly.toFixed(2)}</strong><br><br>
+        ${dtiMessage}
+    `;
+}
+
+
+
+  </script>
+</body>
+
+</html>

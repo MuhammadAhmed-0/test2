@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salt Box Roof Calculator - CalcHub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/tools/apush.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* Calculator Grid Layout */
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .calculator-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+
+        /* Input Groups */
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 1.2rem;
+            border: 2px solid #e0e6ed;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            transform: translateY(-1px);
+        }
+
+        /* Calculate Button */
+        .calculate-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.2rem 3rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .calculate-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .calculate-btn:hover::before {
+            left: 100%;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+
+        .calculate-btn:active {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Result Section */
+        #results {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            display: none;
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+            font-family: 'Arial', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #results::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(180deg); }
+        }
+
+        #results h3 {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .result-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .result-item {
+            background: rgba(255, 255, 255, 0.15);
+            margin-bottom: 1rem;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-left: 4px solid #ffd700;
+            backdrop-filter: blur(10px);
+        }
+
+        .result-item p {
+            color: white;
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .result-label {
+            font-weight: 700;
+            color: #ffd700;
+        }
+
+        .shingle-type-display {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(252, 182, 159, 0.3);
+        }
+
+        .shingle-type-display h4 {
+            color: #8b4513;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        /* Animations */
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .animate-result {
+            animation: bounceIn 0.6s ease-out;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            #results {
+                padding: 1.5rem;
+            }
+            
+            .calculate-btn {
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- Announcement section -->
+    <div class="top-announcement-bar">
+        <div class="announcement-number">New Announcement</div>
+        <div class="announcement-text">
+            Explore the latest IT tools and expert resources at <a href="https://resourcesofdev.com" target="_blank"
+                rel="noopener noreferrer" class="announcement-link">Resourcesofdev.com</a>
+        </div>
+    </div>
+
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>CalcHub</h1>
+            </div>
+            <div class="nav-links">
+                <a href="../index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="../index.html"><i class="fas fa-tools"></i> Tools</a>
+                <a href="#about"><i class="fas fa-info-circle"></i> About</a>
+                <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+            </div>
+            <div class="mobile-menu-toggle" id="mobileMenuToggle">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+    <!-- Mobile Menu Panel -->
+    <div class="mobile-menu-panel" id="mobileMenuPanel">
+        <div class="mobile-menu-header">
+            <h2>Menu</h2>
+            <button class="mobile-menu-close" id="mobileMenuClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="mobile-menu-items">
+            <a href="index.html">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="#tools">
+                <i class="fas fa-tools"></i>
+                <span>Tools</span>
+            </a>
+            <a href="#about">
+                <i class="fas fa-info-circle"></i>
+                <span>About</span>
+            </a>
+            <a href="#contact">
+                <i class="fas fa-envelope"></i>
+                <span>Contact</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Salt Box Roof Calculator</h1>
+        </div>
+    </section>
+
+    <div class="tool-container">
+        <aside class="left-sidebar">
+            <h3>Related Tools</h3>
+            <ul>
+                <li><a href="dunk-calculator.html">Dunk Calculator</a></li>
+                <li><a href="snow-day-calculator.html">Snow Day Calculator</a></li>
+                <li><a href="terminus-calculator.html">Terminus Calculator</a></li>
+                <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
+            </ul>
+        </aside>
+        
+        <div class="main-content-column">
+            <main class="calculator-content">
+                <h1>Calculate Your Salt Box Roof Materials</h1>
+                <div class="calculator-box">
+                    <div class="calculator-grid">
+                        <div>
+                            <div class="input-group">
+                                <label for="width">Building Width (ft):</label>
+                                <input type="number" id="width" min="1" placeholder="Enter building width">
+                            </div>
+                            <div class="input-group">
+                                <label for="length">Building Length (ft):</label>
+                                <input type="number" id="length" min="1" placeholder="Enter building length">
+                            </div>
+                            <div class="input-group">
+                                <label for="overhang">Overhang (inches):</label>
+                                <input type="number" id="overhang" min="0" value="12" placeholder="Enter overhang">
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="input-group">
+                                <label for="shortPitch">Short Side Pitch (e.g. 6:12):</label>
+                                <input type="text" id="shortPitch" placeholder="e.g. 6:12">
+                            </div>
+                            <div class="input-group">
+                                <label for="longPitch">Long Side Pitch (e.g. 4:12):</label>
+                                <input type="text" id="longPitch" placeholder="e.g. 4:12">
+                            </div>
+                            <div class="input-group">
+                                <label for="waste">Waste Factor (%):</label>
+                                <input type="number" id="waste" min="0" value="10" placeholder="Enter waste factor">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="shingleType">Select Shingle Type:</label>
+                        <select id="shingleType">
+                            <option value="Asphalt">Asphalt</option>
+                            <option value="Metal">Metal</option>
+                            <option value="Clay Tile">Clay Tile</option>
+                            <option value="Wood Shake">Wood Shake</option>
+                            <option value="Slate">Slate</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="currency">Select Currency:</label>
+                        <select id="currency">
+                            <option value="$">$ - USD (Dollar)</option>
+                            <option value="€">€ - Euro</option>
+                            <option value="£">£ - Pound Sterling</option>
+                            <option value="₹">₹ - Indian Rupee</option>
+                            <option value="¥">¥ - Japanese Yen</option>
+                            <option value="Custom">Custom Currency</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="price">Enter Price per sq ft:</label>
+                        <input type="number" id="price" min="0" step="0.01" placeholder="e.g. 3.00">
+                    </div>
+
+                    <button onclick="calculate()" class="calculate-btn">Calculate Roof Materials</button>
+
+                    <div id="results" class="result">
+                        <h3>Calculation Results</h3>
+                        <div class="result-content" id="resultContent">
+                            <!-- Results will be populated here -->
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <article class="calculator-article">
+                <h2>Understanding Salt Box Roof Calculations</h2>
+                <p>A salt box roof is a traditional asymmetrical roof design where one side has a longer slope than the other. This calculator helps you determine the materials needed for your salt box roof project:</p>
+                <ul>
+                    <li><strong>Roof Surface Area:</strong> Total area including both short and long slopes with overhang</li>
+                    <li><strong>Shingles Needed:</strong> Calculated in bundles (assuming 33.3 sq ft per bundle)</li>
+                    <li><strong>Underlayment:</strong> Protective layer underneath shingles (matches roof area)</li>
+                    <li><strong>Sheathing:</strong> Plywood or OSB sheets (4x8 sheets = 32 sq ft each)</li>
+                    <li><strong>Pitch Angles:</strong> Converted from rise:run ratio to degrees for proper installation</li>
+                </ul>
+                <p>The waste factor accounts for cuts, overlaps, and potential mistakes during installation. A 10% waste factor is typical for most roofing projects.</p>
+            </article>
+        </div>
+
+        <aside class="right-sidebar">
+            <div class="ad-space">
+                <div class="ad-placeholder">
+                    <img src="../learn-more-heinz-300x250-call-to-action.webp" alt="Advertisement 1">
+                </div>
+            </div>
+            <div class="ad-space">
+                <div class="ad-placeholder">
+                    <img src="../learn-more-heinz-300x250-call-to-action.webp" alt="Advertisement 2">
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About CalcHub</h3>
+                <p>Your trusted source for online calculation tools</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#tools">Tools</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@calchub.com</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 CalcHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/calculator.js"></script>
+    <script>
+        function parsePitch(pitch) {
+            if (!pitch.includes(':')) return null;
+            const parts = pitch.split(':');
+            if (parts.length !== 2) return null;
+            const rise = parseFloat(parts[0]);
+            const run = parseFloat(parts[1]);
+            if (isNaN(rise) || isNaN(run) || run === 0) return null;
+            const pitchRatio = rise / run;
+            const angle = Math.atan(pitchRatio) * (180 / Math.PI);
+            return { pitchRatio, angle };
+        }
+
+        function calculate() {
+            const width = parseFloat(document.getElementById('width').value);
+            const length = parseFloat(document.getElementById('length').value);
+            const overhangIn = parseFloat(document.getElementById('overhang').value);
+            const shortPitchInput = document.getElementById('shortPitch').value.trim();
+            const longPitchInput = document.getElementById('longPitch').value.trim();
+            const waste = parseFloat(document.getElementById('waste').value);
+            const currency = document.getElementById('currency').value;
+            const price = parseFloat(document.getElementById('price').value);
+            const shingleType = document.getElementById('shingleType').value;
+
+            // Validate inputs
+            if (
+                isNaN(width) || width <= 0 ||
+                isNaN(length) || length <= 0 ||
+                isNaN(overhangIn) || overhangIn < 0 ||
+                isNaN(waste) || waste < 0 ||
+                isNaN(price) || price < 0
+            ) {
+                alert('Please enter valid positive numbers for dimensions, waste, and price.');
+                return;
+            }
+
+            const shortPitch = parsePitch(shortPitchInput);
+            const longPitch = parsePitch(longPitchInput);
+
+            if (!shortPitch || !longPitch) {
+                alert('Please enter valid pitches in the format rise:run (e.g. 6:12).');
+                return;
+            }
+
+            const overhangFt = overhangIn / 12;
+            const halfWidth = width / 2 + overhangFt;
+
+            const shortSlope = Math.sqrt(halfWidth ** 2 + (halfWidth * shortPitch.pitchRatio) ** 2);
+            const longSlope = Math.sqrt(halfWidth ** 2 + (halfWidth * longPitch.pitchRatio) ** 2);
+
+            const effectiveLength = length + 2 * overhangFt;
+
+            const shortArea = shortSlope * effectiveLength;
+            const longArea = longSlope * effectiveLength;
+
+            const totalArea = shortArea + longArea;
+            const adjustedArea = totalArea * (1 + waste / 100);
+
+            const shinglesNeeded = adjustedArea / 33.3;
+            const underlayment = adjustedArea;
+            const plywoodSheets = Math.ceil(adjustedArea / 32); // 4x8 = 32 sq ft per sheet
+            const totalCost = adjustedArea * price;
+
+            // Formatting price string with currency or custom
+            let pricePrefix = '';
+            let customCurrencyMessage = '';
+            if (currency !== 'Custom') {
+                pricePrefix = currency;
+            } else {
+                customCurrencyMessage = ' (According to your Currency)';
+            }
+
+            // Update UI with results
+            const resultDiv = document.getElementById('results');
+            const resultContent = document.getElementById('resultContent');
+            
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'result animate-result';
+
+            resultContent.innerHTML = `
+                <div class="shingle-type-display">
+                    <h4>Shingle Type: ${shingleType}</h4>
+                </div>
+                <div class="result-item">
+                    <p><span class="result-label">Roof Surface Area:</span> ${adjustedArea.toFixed(2)} sq ft</p>
+                </div>
+                <div class="result-item">
+                    <p><span class="result-label">Pitch (Short Side):</span> ${shortPitch.angle.toFixed(2)}°</p>
+                </div>
+                <div class="result-item">
+                    <p><span class="result-label">Pitch (Long Side):</span> ${longPitch.angle.toFixed(2)}°</p>
+                </div>
+                <div class="result-item">
+                    <p><span class="result-label">Shingles Needed:</span> ${shinglesNeeded.toFixed(1)} bundles</p>
+                </div>
+                <div class="result-item">
+                    <p><span class="result-label">Underlayment Needed:</span> ${underlayment.toFixed(2)} sq ft</p>
+                </div>
+                <div class="result-item">
+                    <p><span class="result-label">Sheathing (4x8 sheets):</span> ${plywoodSheets}</p>
+                </div>
+                <div class="result-item">
+                    <p><span class="result-label">Estimated Material Cost:</span> ${pricePrefix}${totalCost.toFixed(2)}${customCurrencyMessage}</p>
+                </div>
+            `;
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Productivity Calculator - CalcHub</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/tools/apush.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    /* Calculator Section: Custom CSS, Fully Responsive */
+    #result {
+      margin-top: 2rem;
+      padding: 2rem;
+      background: linear-gradient(135deg, #ffa751 0%, #ffe259 100%);
+      border-radius: 20px;
+      display: none;
+      box-shadow: 0 20px 40px rgba(255, 167, 81, 0.25);
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    #result::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.13) 0%, transparent 70%);
+      animation: shimmer 3s ease-in-out infinite;
+    }
+    @keyframes shimmer {
+      0%, 100% { transform: rotate(0deg);}
+      50% { transform: rotate(180deg);}
+    }
+    #result h3 {
+      color: #fff;
+      font-size: 1.85rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.22);
+      position: relative;
+      z-index: 1;
+    }
+    #productivityPercent {
+      font-size: 4rem;
+      font-weight: 900;
+      color: #ffd700;
+      margin-bottom: 1rem;
+      text-shadow: 0 4px 8px rgba(0,0,0,0.25);
+      position: relative;
+      z-index: 1;
+      background: none;
+      -webkit-text-fill-color: unset;
+      background-clip: unset;
+    }
+    /* Feedback Section */
+    #feedback-section {
+      margin-top: 2rem;
+      background: linear-gradient(135deg, #8fd3f4 0%, #84fab0 100%);
+      padding: 2rem;
+      border-radius: 18px;
+      box-shadow: 0 12px 30px rgba(132, 250, 176, 0.13);
+      display: none;
+    }
+    #feedback-section h4 {
+      font-size: 1.35rem;
+      color: #186b6d;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      text-align: center;
+      text-shadow: 0 2px 4px rgba(24, 107, 109, 0.08);
+    }
+    #feedbackText {
+      background: rgba(255,255,255,0.94);
+      padding: 1.2rem;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      color: #2d3436;
+      line-height: 1.6;
+      text-align: left;
+    }
+    /* Calculate Button */
+    .calculate-btn {
+      background: linear-gradient(135deg, #ffa751 0%, #ffe259 100%);
+      color: #444;
+      padding: 1.2rem 3rem;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      font-weight: 700;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(255, 167, 81, 0.25);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      overflow: hidden;
+    }
+    .calculate-btn::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.21), transparent);
+      transition: left 0.5s;
+    }
+    .calculate-btn:hover::before { left: 100%; }
+    .calculate-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(255, 167, 81, 0.38);
+    }
+    .calculate-btn:active { transform: translateY(-1px); }
+
+    /* Input Fields */
+    .input-group {
+      margin-bottom: 1.5rem;
+    }
+    .input-group label {
+      display: block;
+      margin-bottom: 0.8rem;
+      color: #2c3e50;
+      font-weight: 600;
+      font-size: 1.13rem;
+    }
+    .input-group input, .input-group select {
+      width: 100%;
+      padding: 1.2rem;
+      border: 2px solid #e0e6ed;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      background: #f8f9fa;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.09);
+    }
+    .input-group input:focus, .input-group select:focus {
+      outline: none;
+      border-color: #ffa751;
+      background-color: #ffffff;
+      box-shadow: 0 0 0 3px rgba(255, 167, 81, 0.07);
+      transform: translateY(-1px);
+    }
+
+    @keyframes bounceIn {
+      0% { opacity: 0; transform: scale(0.3);}
+      50% { opacity: 1; transform: scale(1.07);}
+      70% { transform: scale(0.92);}
+      100% { opacity: 1; transform: scale(1);}
+    }
+    .animate-result { animation: bounceIn 0.6s ease-out; }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      #productivityPercent { font-size: 2.5rem; }
+      #result { padding: 1.2rem; }
+      .calculate-btn { padding: 1rem 2rem; font-size: 1rem;}
+      #feedback-section { padding: 1rem;}
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Announcement section -->
+  <div class="top-announcement-bar">
+    <div class="announcement-number">New Announcement</div>
+    <div class="announcement-text">
+      Discover more productivity tools at <a href="https://resourcesofdev.com" target="_blank"
+        rel="noopener noreferrer" class="announcement-link">Resourcesofdev.com</a>
+    </div>
+  </div>
+
+  <header>
+    <nav>
+      <div class="logo">
+        <h1>CalcHub</h1>
+      </div>
+      <div class="nav-links">
+        <a href="../index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="../index.html"><i class="fas fa-tools"></i> Tools</a>
+        <a href="#about"><i class="fas fa-info-circle"></i> About</a>
+        <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+      </div>
+      <div class="mobile-menu-toggle" id="mobileMenuToggle">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+  <div class="mobile-menu-panel" id="mobileMenuPanel">
+    <div class="mobile-menu-header">
+      <h2>Menu</h2>
+      <button class="mobile-menu-close" id="mobileMenuClose">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="mobile-menu-items">
+      <a href="index.html"><i class="fas fa-home"></i><span>Home</span></a>
+      <a href="#tools"><i class="fas fa-tools"></i><span>Tools</span></a>
+      <a href="#about"><i class="fas fa-info-circle"></i><span>About</span></a>
+      <a href="#contact"><i class="fas fa-envelope"></i><span>Contact</span></a>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Productivity Calculator</h1>
+      <p class="hero-subtitle">Measure your real productivity — see where your time goes and boost your efficiency!</p>
+    </div>
+  </section>
+
+  <div class="tool-container">
+    <aside class="left-sidebar">
+      <h3>Related Tools</h3>
+      <ul>
+        <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
+        <li><a href="hourly-to-salary-calculator.html">Hourly to Salary Calculator</a></li>
+        <li><a href="paycheck-calculator.html">Paycheck Calculator</a></li>
+        <li><a href="therapy-productivity-calculator.html">Therapy Productivity Calculator</a></li>
+      </ul>
+    </aside>
+    <div class="main-content-column">
+      <main class="calculator-content">
+        <h1>Calculate Your Productivity</h1>
+        <div class="calculator-box">
+          <div class="input-group">
+            <label for="productiveTime">Productive Time <span style="color:#888;">(minutes or hours, choose below)</span>:</label>
+            <input type="number" id="productiveTime" value="320" min="0" placeholder="e.g. 320">
+          </div>
+          <div class="input-group">
+            <label for="totalTime">Total Time <span style="color:#888;">(same unit as above)</span>:</label>
+            <input type="number" id="totalTime" value="400" min="0" placeholder="e.g. 400">
+          </div>
+          <div class="input-group">
+            <label for="unitType">Time Unit:</label>
+            <select id="unitType">
+              <option value="minutes">Minutes</option>
+              <option value="hours">Hours</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label for="productivityGoal">Productivity Goal (%) <span style="color:#888;">(optional)</span>:</label>
+            <input type="number" id="productivityGoal" value="80" min="0" max="100" placeholder="e.g. 80">
+          </div>
+          <div class="input-group">
+            <label for="workType">Work Type / Role:</label>
+            <select id="workType">
+              <option value="General">General/Office</option>
+              <option value="Remote">Remote Work</option>
+              <option value="Developer">Software Developer</option>
+              <option value="Manager">Manager</option>
+              <option value="Student">Student</option>
+              <option value="Custom">Other/Custom</option>
+            </select>
+          </div>
+          <button onclick="calculateProductivity()" class="calculate-btn">Calculate Productivity</button>
+
+          <div id="result" class="result">
+            <h3>Your Productivity</h3>
+            <p id="productivityPercent">0%</p>
+          </div>
+
+          <div id="feedback-section">
+            <h4>Feedback & Suggestions</h4>
+            <div id="feedbackText">Waiting for calculation...</div>
+          </div>
+        </div>
+      </main>
+
+      <article class="calculator-article">
+        <h2>What is Productivity?</h2>
+        <p>
+          Productivity is the percentage of your total work time spent on meaningful, value-adding or "productive" tasks. It's a powerful metric for professionals, students, and teams to track efficiency and identify opportunities for improvement.
+        </p>
+        <ul>
+          <li><strong>Productive Time:</strong> Time spent on tasks that directly contribute to your goals (e.g., coding, writing, client work, studying).</li>
+          <li><strong>Total Time:</strong> All tracked time including meetings, emails, breaks, admin work, and distractions.</li>
+          <li><strong>Productivity Formula:</strong> <code>Productive Time ÷ Total Time × 100</code></li>
+          <li><strong>Typical Goals:</strong>
+            <ul>
+              <li>Office/General: 65–80%</li>
+              <li>Remote: 70–85%</li>
+              <li>Developers: 60–75%</li>
+              <li>Managers: 50–65%</li>
+              <li>Students: 60–80%</li>
+            </ul>
+          </li>
+        </ul>
+        <p>
+          <em>Tip: Use this calculator regularly to spot trends, reduce time-wasters, and achieve a healthier work-life balance. Compare your results to realistic goals for your role!</em>
+        </p>
+      </article>
+    </div>
+
+    <aside class="right-sidebar">
+      <div class="ad-space">
+        <div class="ad-placeholder">
+          <img src="../learn-more-heinz-300x250-call-to-action.webp" alt="Advertisement 1">
+        </div>
+      </div>
+      <div class="ad-space">
+        <div class="ad-placeholder">
+          <img src="../learn-more-heinz-300x250-call-to-action.webp" alt="Advertisement 2">
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>About CalcHub</h3>
+        <p>Your trusted source for online calculation tools</p>
+      </div>
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#tools">Tools</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#privacy">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Contact Us</h3>
+        <p>Email: info@calchub.com</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 CalcHub. All rights reserved.</p>
+    </div>
+  </footer>
+  <script src="../js/calculator.js"></script>
+  <script>
+    function calculateProductivity() {
+      const productive = parseFloat(document.getElementById('productiveTime').value) || 0;
+      const total = parseFloat(document.getElementById('totalTime').value) || 0;
+      const goal = parseFloat(document.getElementById('productivityGoal').value) || null;
+      const unitType = document.getElementById('unitType').value;
+      const workType = document.getElementById('workType').value;
+
+      // Validation
+      if (productive <= 0 || total <= 0) {
+        alert('Please enter valid numbers for both productive and total time.');
+        return;
+      }
+      if (productive > total) {
+        alert('Productive time cannot exceed total time.');
+        return;
+      }
+
+      // Calculate productivity
+      const productivity = (productive / total) * 100;
+
+      // Display main result
+      const resultDiv = document.getElementById('result');
+      resultDiv.style.display = 'block';
+      resultDiv.className = 'result animate-result';
+      document.getElementById('productivityPercent').textContent = productivity.toFixed(2) + "%";
+
+      // Show feedback section
+      const feedbackSection = document.getElementById('feedback-section');
+      feedbackSection.style.display = 'block';
+
+      // Typical goals by work type
+      let typicalGoalLow = 65, typicalGoalHigh = 80;
+      switch (workType) {
+        case "Remote": typicalGoalLow = 70; typicalGoalHigh = 85; break;
+        case "Developer": typicalGoalLow = 60; typicalGoalHigh = 75; break;
+        case "Manager": typicalGoalLow = 50; typicalGoalHigh = 65; break;
+        case "Student": typicalGoalLow = 60; typicalGoalHigh = 80; break;
+        default: typicalGoalLow = 65; typicalGoalHigh = 80;
+      }
+
+      // Color logic
+      let color = "#2ecc40";
+      if (productivity < typicalGoalLow) color = "#e74c3c";
+      else if (productivity > typicalGoalHigh) color = "#f39c12";
+
+      // Feedback message
+      let msg = "";
+      if (goal !== null && !isNaN(goal)) {
+        if (productivity >= goal) {
+          msg += `🎯 <strong>Your productivity (${productivity.toFixed(2)}%) meets or exceeds your goal of ${goal}%!</strong><br>`;
+        } else {
+          msg += `⚠️ <strong>Your productivity (${productivity.toFixed(2)}%) is below your goal of ${goal}%.</strong><br>`;
+        }
+      } else {
+        msg += `<strong>Your productivity is <span style="color:${color};">${productivity.toFixed(2)}%</span>.</strong><br>`;
+      }
+
+      msg += `<br><strong>Typical for ${workType.replace("Custom", "your role")}:</strong> ${typicalGoalLow}% – ${typicalGoalHigh}%<br>`;
+      if (productivity < typicalGoalLow) {
+        msg += `<span style="color:#e74c3c;">Consider identifying time-wasters, prioritizing key tasks, or adjusting your workload.</span>`;
+      } else if (productivity > typicalGoalHigh) {
+        msg += `<span style="color:#f39c12;">You're above typical targets. Ensure you're not sacrificing quality or burning out for quantity!</span>`;
+      } else {
+        msg += `<span style="color:#27ae60;">You're within the typical range for your work type!</span>`;
+      }
+
+      msg += `<br><br><em>Tip: Track your productivity regularly. Try using the same time unit (hours or minutes) for both fields.</em>`;
+
+      document.getElementById('feedbackText').innerHTML = msg;
+    }
+  </script>
+</body>
+</html>

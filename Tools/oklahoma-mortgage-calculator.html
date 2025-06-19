@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oklahoma Mortgage Calculator - CalcHub</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/tools/apush.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    /* Result Section */
+    #result {
+      margin-top: 2rem;
+      padding: 2rem;
+      background: linear-gradient(135deg, #c74545 0%, #8b2635 100%);
+      border-radius: 20px;
+      display: none;
+      box-shadow: 0 20px 40px rgba(199, 69, 69, 0.3);
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #result::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+      animation: shimmer 3s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0%, 100% {
+        transform: rotate(0deg);
+      }
+      50% {
+        transform: rotate(180deg);
+      }
+    }
+
+    #result h3 {
+      color: white;
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Monthly Payment Display */
+    #monthlyPayment {
+      font-size: 4rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 1rem;
+      text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      position: relative;
+      z-index: 1;
+      background: linear-gradient(45deg, #ffd700, #ffed4e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Oklahoma Program Info Section */
+    #oklahoma-program-info {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(74, 144, 226, 0.3);
+      display: none;
+    }
+
+    #oklahoma-program-info h4 {
+      color: white;
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    #oklahoma-program-info p {
+      color: #f0f0f0;
+      font-size: 1rem;
+      margin: 0.5rem 0;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Affordability Info Section */
+    #affordability-info {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(40, 167, 69, 0.3);
+      display: none;
+    }
+
+    #affordability-info h4 {
+      color: white;
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    #affordability-info p {
+      color: #f0f0f0;
+      font-size: 1.1rem;
+      margin: 0.5rem 0;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    #affordabilityAmount {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #ffd700;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Summary Section */
+    #summary-section {
+      margin-top: 2rem;
+      background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(252, 182, 159, 0.3);
+      display: none;
+    }
+
+    #summary-section h4 {
+      font-size: 1.8rem;
+      color: #8b4513;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      text-shadow: 0 2px 4px rgba(139, 69, 19, 0.2);
+    }
+
+    #summaryText {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-left: 4px solid #c74545;
+      font-size: 1.1rem;
+      color: #2c3e50;
+      line-height: 1.6;
+    }
+
+    /* Calculate Button */
+    .calculate-btn {
+      background: linear-gradient(135deg, #c74545 0%, #8b2635 100%);
+      color: white;
+      padding: 1.2rem 3rem;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      font-weight: 700;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(199, 69, 69, 0.4);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .calculate-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.5s;
+    }
+
+    .calculate-btn:hover::before {
+      left: 100%;
+    }
+
+    .calculate-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(199, 69, 69, 0.6);
+    }
+
+    .calculate-btn:active {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 25px rgba(199, 69, 69, 0.4);
+    }
+
+    /* Input Fields */
+    .input-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 0.8rem;
+      color: #2c3e50;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .input-group input,
+    .input-group select {
+      width: 100%;
+      padding: 1.2rem;
+      border: 2px solid #e0e6ed;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      background: #f8f9fa;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .input-group input:focus,
+    .input-group select:focus {
+      outline: none;
+      border-color: #c74545;
+      background-color: #ffffff;
+      box-shadow: 0 0 0 3px rgba(199, 69, 69, 0.1);
+      transform: translateY(-1px);
+    }
+
+    /* Toggle Input for Down Payment */
+    .toggle-input {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .toggle-input input {
+      flex: 1;
+    }
+
+    .toggle-input select {
+      width: 80px;
+      flex-shrink: 0;
+    }
+
+    /* Checkbox styling for Oklahoma programs */
+    .program-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 0.5rem 0;
+    }
+
+    .program-checkbox input[type="checkbox"] {
+      width: auto;
+      margin: 0;
+    }
+
+    .program-checkbox label {
+      margin: 0;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    /* Animations */
+    @keyframes bounceIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.3);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.05);
+      }
+      70% {
+        transform: scale(0.9);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .animate-result {
+      animation: bounceIn 0.6s ease-out;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      #monthlyPayment {
+        font-size: 2.5rem;
+      }
+
+      #result {
+        padding: 1.5rem;
+      }
+
+      .calculate-btn {
+        padding: 1rem 2rem;
+        font-size: 1rem;
+      }
+
+      .toggle-input {
+        flex-direction: column;
+      }
+
+      .toggle-input select {
+        width: 100%;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+  <!-- Announcemnet section -->
+  <div class="top-announcement-bar">
+    <div class="announcement-number">New Announcement</div>
+    <div class="announcement-text">
+      Explore the latest IT tools and expert resources at <a href="https://resourcesofdev.com" target="_blank"
+        rel="noopener noreferrer" class="announcement-link">Resourcesofdev.com</a>
+    </div>
+  </div>
+
+  <header>
+    <nav>
+      <div class="logo">
+        <h1>CalcHub</h1>
+      </div>
+      <div class="nav-links">
+        <a href="../index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="../index.html"><i class="fas fa-tools"></i> Tools</a>
+        <a href="#about"><i class="fas fa-info-circle"></i> About</a>
+        <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+      </div>
+      <div class="mobile-menu-toggle" id="mobileMenuToggle">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+  <!-- Mobile Menu Panel -->
+  <div class="mobile-menu-panel" id="mobileMenuPanel">
+    <div class="mobile-menu-header">
+      <h2>Menu</h2>
+      <button class="mobile-menu-close" id="mobileMenuClose">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="mobile-menu-items">
+      <a href="index.html">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </a>
+      <a href="#tools">
+        <i class="fas fa-tools"></i>
+        <span>Tools</span>
+      </a>
+      <a href="#about">
+        <i class="fas fa-info-circle"></i>
+        <span>About</span>
+      </a>
+      <a href="#contact">
+        <i class="fas fa-envelope"></i>
+        <span>Contact</span>
+      </a>
+    </div>
+  </div>
+  
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Oklahoma Mortgage Calculator</h1>
+    </div>
+  </section>
+
+  <div class="tool-container">
+    <aside class="left-sidebar">
+      <h3>Related Tools</h3>
+      <ul>
+        <li><a href="manufactured-home-mortgage-calculator.html">Manufactured Home Calculator</a></li>
+        <li><a href="snow-day-calculator.html">Snow Day Calculator</a></li>
+        <li><a href="terminus-calculator.html">Terminus Calculator</a></li>
+        <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
+        <li><a href="dunk-calculator.html">Dunk Calculator</a></li>
+      </ul>
+    </aside>
+    
+    <div class="main-content-column">
+      <main class="calculator-content">
+        <h1>Calculate Your Oklahoma Mortgage Payment</h1>
+        <div class="calculator-box">
+          
+          <div class="input-group">
+            <label for="homePrice">Home Price:</label>
+            <input type="text" id="homePrice" value="$175000" placeholder="Enter home price">
+          </div>
+          
+          <div class="input-group">
+            <label for="downPayment">Down Payment:</label>
+            <div class="toggle-input">
+              <input type="text" id="downPayment" value="20" placeholder="Enter down payment">
+              <select id="downType">
+                <option value="%">%</option>
+                <option value="$">$</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="input-group">
+            <label for="loanTerm">Loan Term (Years):</label>
+            <select id="loanTerm">
+              <option value="15">15 years</option>
+              <option value="20">20 years</option>
+              <option value="25">25 years</option>
+              <option value="30" selected>30 years</option>
+            </select>
+          </div>
+          
+          <div class="input-group">
+            <label for="interestRate">Interest Rate (%):</label>
+            <input type="number" step="0.01" id="interestRate" value="7.25" placeholder="Enter interest rate">
+          </div>
+          
+          <div class="input-group">
+            <label for="county">Oklahoma County:</label>
+            <select id="county">
+              <option value="oklahoma">Oklahoma County</option>
+              <option value="tulsa">Tulsa County</option>
+              <option value="cleveland">Cleveland County</option>
+              <option value="comanche">Comanche County</option>
+              <option value="canadian">Canadian County</option>
+              <option value="washington">Washington County</option>
+              <option value="muskogee">Muskogee County</option>
+              <option value="garfield">Garfield County</option>
+              <option value="payne">Payne County</option>
+              <option value="rogers">Rogers County</option>
+              <option value="other">Other County</option>
+            </select>
+          </div>
+          
+          <div class="input-group">
+            <label for="propTax">Property Tax Rate (%):</label>
+            <input type="number" step="0.01" id="propTax" value="1.1" placeholder="Enter property tax rate">
+            <small style="color: #666; font-size: 0.9rem;">Oklahoma average: 0.9% - 1.3%</small>
+          </div>
+          
+          <div class="input-group">
+            <label for="insurance">Homeowners Insurance (Yearly):</label>
+            <input type="text" id="insurance" value="$2400" placeholder="Enter yearly insurance">
+            <small style="color: #666; font-size: 0.9rem;">Oklahoma average: $2,000 - $3,500</small>
+          </div>
+          
+          <div class="input-group">
+            <label for="pmi">PMI (Monthly):</label>
+            <input type="text" id="pmi" value="$200" placeholder="Enter monthly PMI">
+          </div>
+          
+          <div class="input-group">
+            <label for="hoa">HOA Dues (Monthly):</label>
+            <input type="text" id="hoa" value="$0" placeholder="Enter monthly HOA dues">
+          </div>
+          
+          <div class="input-group">
+            <label for="income">Annual Household Income:</label>
+            <input type="text" id="income" value="$75000" placeholder="Enter annual income">
+          </div>
+
+          <!-- Oklahoma Specific Programs -->
+          <div class="input-group">
+            <label>Oklahoma Housing Programs:</label>
+            <div class="program-checkbox">
+              <input type="checkbox" id="ohfaProgram">
+              <label for="ohfaProgram">OHFA First-Time Buyer Program</label>
+            </div>
+            <div class="program-checkbox">
+              <input type="checkbox" id="veteranProgram">
+              <label for="veteranProgram">Oklahoma Veteran Loan Program</label>
+            </div>
+            <div class="program-checkbox">
+              <input type="checkbox" id="ruralProgram">
+              <label for="ruralProgram">USDA Rural Development Loan</label>
+            </div>
+          </div>
+
+          <button onclick="calculateOklahomaMortgage()" class="calculate-btn">Calculate Oklahoma Mortgage</button>
+
+          <div id="result" class="result">
+            <h3>Monthly Mortgage Payment</h3>
+            <p id="monthlyPayment">$0.00</p>
+          </div>
+
+          <!-- Oklahoma Program Benefits -->
+          <div id="oklahoma-program-info">
+            <h4>Oklahoma Program Benefits</h4>
+            <div id="programBenefits"></div>
+          </div>
+
+          <!-- Affordability Info Section -->
+          <div id="affordability-info">
+            <h4>Home Affordability Analysis</h4>
+            <p>Based on your income, you can afford a home up to:</p>
+            <p id="affordabilityAmount">$0</p>
+            <p id="affordabilityDetails"></p>
+          </div>
+
+          <!-- Summary Section -->
+          <div id="summary-section">
+            <h4>Oklahoma Mortgage Summary</h4>
+            <div id="summaryText">
+              Waiting for calculation...
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <article class="calculator-article">
+        <h2>Oklahoma Mortgage Guide</h2>
+        <p>Oklahoma offers unique opportunities for homebuyers with various state-specific programs and competitive market conditions. Here's what you need to know about getting a mortgage in Oklahoma:</p>
+        
+        <h3>Oklahoma Housing Market Overview</h3>
+        <ul>
+          <li><strong>Median Home Price:</strong> Oklahoma has one of the most affordable housing markets in the US</li>
+          <li><strong>Property Taxes:</strong> Relatively low, averaging 0.9% to 1.3% depending on county</li>
+          <li><strong>Insurance Costs:</strong> Higher due to severe weather risks (tornadoes, hail)</li>
+          <li><strong>First-Time Buyer Programs:</strong> OHFA offers down payment assistance and competitive rates</li>
+        </ul>
+
+        <h3>Oklahoma-Specific Mortgage Programs</h3>
+        <ul>
+          <li><strong>OHFA First-Time Homebuyer Program:</strong> Down payment assistance up to $7,500</li>
+          <li><strong>Oklahoma Veteran Loan Program:</strong> No down payment required for qualified veterans</li>
+          <li><strong>USDA Rural Development:</strong> 100% financing for eligible rural areas</li>
+          <li><strong>Indian Home Loan Guarantee Program:</strong> Special programs for Native Americans</li>
+        </ul>
+
+        <h3>County-Specific Considerations</h3>
+        <ul>
+          <li><strong>Oklahoma County:</strong> Higher property values, urban amenities</li>
+          <li><strong>Tulsa County:</strong> Strong job market, cultural attractions</li>
+          <li><strong>Cleveland County:</strong> University of Oklahoma area, growing market</li>
+          <li><strong>Rural Counties:</strong> Lower costs, USDA loan eligibility</li>
+        </ul>
+
+        <p>Use this calculator to estimate your monthly payments and explore Oklahoma-specific financing options. Always consult with a local mortgage professional familiar with Oklahoma programs and market conditions.</p>
+      </article>
+    </div>
+
+    <aside class="right-sidebar">
+      <div class="ad-space">
+        <div class="ad-placeholder">
+          <img src="../learn-more-heinz-300x250-call-to-action.webp" alt="Advertisement 1">
+        </div>
+      </div>
+      <div class="ad-space">
+        <div class="ad-placeholder">
+          <img src="../learn-more-heinz-300x250-call-to-action.webp" alt="Advertisement 2">
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>About CalcHub</h3>
+        <p>Your trusted source for online calculation tools</p>
+      </div>
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#tools">Tools</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#privacy">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Contact Us</h3>
+        <p>Email: info@calchub.com</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 CalcHub. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="../js/calculator.js"></script>
+  <script>
+function calculateOklahomaMortgage() {
+    // Get input values and remove any dollar signs or non-numeric characters
+    const homePrice = parseFloat(document.getElementById('homePrice').value.replace(/[^0-9.]/g, '')) || 0;
+    let downPayment = parseFloat(document.getElementById('downPayment').value.replace(/[^0-9.]/g, '')) || 0;
+    const downType = document.getElementById('downType').value;
+    const interestRate = parseFloat(document.getElementById('interestRate').value) / 100 || 0;
+    const loanTerm = parseInt(document.getElementById('loanTerm').value) || 30;
+    const county = document.getElementById('county').value;
+    const propTaxRate = parseFloat(document.getElementById('propTax').value) / 100 || 0.011;
+    const insurance = parseFloat(document.getElementById('insurance').value.replace(/[^0-9.]/g, '')) || 0;
+    const pmi = parseFloat(document.getElementById('pmi').value.replace(/[^0-9.]/g, '')) || 0;
+    const hoa = parseFloat(document.getElementById('hoa').value.replace(/[^0-9.]/g, '')) || 0;
+    const annualIncome = parseFloat(document.getElementById('income').value.replace(/[^0-9.]/g, '')) || 0;
+    
+    // Oklahoma program checkboxes
+    const ohfaProgram = document.getElementById('ohfaProgram').checked;
+    const veteranProgram = document.getElementById('veteranProgram').checked;
+    const ruralProgram = document.getElementById('ruralProgram').checked;
+
+    // Validate required fields
+    if (homePrice <= 0) {
+        alert('Please enter a valid home price.');
+        return;
+    }
+
+    // Convert percentage down payment to dollar amount
+    if (downType === '%') {
+        downPayment = (downPayment / 100) * homePrice;
+    }
+
+    // Oklahoma program adjustments
+    let adjustedDownPayment = downPayment;
+    let adjustedInterestRate = interestRate;
+    let programBenefits = [];
+
+    if (ohfaProgram) {
+        // OHFA provides up to $7,500 down payment assistance
+        const ohfaAssistance = Math.min(7500, homePrice * 0.05);
+        adjustedDownPayment += ohfaAssistance;
+        adjustedInterestRate -= 0.0025; // Slight rate reduction
+        programBenefits.push(`OHFA Down Payment Assistance: $${ohfaAssistance.toFixed(0)}`);
+    }
+
+    if (veteranProgram) {
+        // Oklahoma Veteran Program - no down payment required
+        adjustedDownPayment = homePrice * 0.001; // Minimal down payment
+        adjustedInterestRate -= 0.005; // Better rate for veterans
+        programBenefits.push('Oklahoma Veteran Program: No down payment required');
+    }
+
+    if (ruralProgram) {
+        // USDA Rural - 100% financing
+        adjustedDownPayment = 0;
+        adjustedInterestRate -= 0.0025;
+        programBenefits.push('USDA Rural Development: 100% financing available');
+    }
+
+    // Calculate loan amount
+    const loanAmount = homePrice - adjustedDownPayment;
+
+    if (loanAmount <= 0) {
+        alert('Down payment cannot be greater than or equal to home price.');
+        return;
+    }
+
+    // Monthly interest rate
+    const monthlyRate = adjustedInterestRate / 12;
+    const totalPayments = loanTerm * 12;
+
+    // Calculate monthly principal and interest
+    let monthlyPI = 0;
+    if (monthlyRate > 0) {
+        monthlyPI = (loanAmount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -totalPayments));
+    } else {
+        monthlyPI = loanAmount / totalPayments;
+    }
+
+    // Calculate property tax based on Oklahoma county
+    const countyTaxMultiplier = getCountyTaxMultiplier(county);
+    const yearlyPropTax = homePrice * propTaxRate * countyTaxMultiplier;
+    const monthlyPropTax = yearlyPropTax / 12;
+
+    // Calculate monthly insurance
+    const monthlyInsurance = insurance / 12;
+
+    // Calculate PMI (only if down payment is less than 20%)
+    const downPaymentPercentage = adjustedDownPayment / homePrice;
+    const monthlyPMI = (downPaymentPercentage < 0.2) ? pmi : 0;
+
+    // Calculate total monthly payment
+    const totalMonthly = monthlyPI + monthlyPropTax + monthlyInsurance + monthlyPMI + hoa;
+
+    // Calculate affordability based on income
+    const monthlyIncome = annualIncome / 12;
+    const maxAffordablePayment = monthlyIncome * 0.28; // 28% rule
+    const maxAffordableHomePrice = calculateMaxHomePrice(monthlyIncome, adjustedInterestRate, loanTerm, propTaxRate, insurance);
+
+    // Display results
+    const resultDiv = document.getElementById('result');
+    resultDiv.style.display = 'block';
+    resultDiv.className = 'result animate-result';
+
+    document.getElementById('monthlyPayment').textContent = '$' + totalMonthly.toFixed(2);
+
+    // Show Oklahoma program benefits
+    if (programBenefits.length > 0) {
+        const programSection = document.getElementById('oklahoma-program-info');
+        programSection.style.display = 'block';
+        document.getElementById('programBenefits').innerHTML = programBenefits.map(benefit => `<p>• ${benefit}</p>`).join('');
+    }
+
+    // Show affordability analysis
+    if (annualIncome > 0) {
+        const affordabilitySection = document.getElementById('affordability-info');
+        affordabilitySection.style.display = 'block';
+        document.getElementById('affordabilityAmount').textContent = '$' + maxAffordableHomePrice.toFixed(0);
+        
+        const affordabilityStatus = totalMonthly <= maxAffordablePayment ? 'within' : 'above';
+        const statusColor = affordabilityStatus === 'within' ? '#ffd700' : '#dc3545';
+        
+        document.getElementById('affordabilityDetails').innerHTML = `
+            <span style="color: ${statusColor}">This payment is ${affordabilityStatus} your recommended budget of $${maxAffordablePayment.toFixed(0)}/month</span>
+        `;
+    }
+
+    // Show summary section
+    const summarySection = document.getElementById('summary-section');
+    summarySection.style.display = 'block';
+
+    const countyName = getCountyName(county);
+    document.getElementById('summaryText').innerHTML = `
+        <strong>Monthly Payment Breakdown:</strong><br>
+        • Principal & Interest: $${monthlyPI.toFixed(2)}<br>
+        • Property Tax (${countyName}): $${monthlyPropTax.toFixed(2)}<br>
+        • Homeowners Insurance: $${monthlyInsurance.toFixed(2)}<br>
+        • PMI: $${monthlyPMI.toFixed(2)}<br>
+        • HOA Dues: $${hoa.toFixed(2)}<br><br>
+
+        <strong>Total Monthly Payment: $${totalMonthly.toFixed(2)}</strong><br><br>
+        
+        <strong>Loan Details:</strong><br>
+        • Home Price: ${homePrice.toFixed(0)}<br>
+        • Down Payment: ${adjustedDownPayment.toFixed(0)} (${((adjustedDownPayment/homePrice)*100).toFixed(1)}%)<br>
+        • Loan Amount: ${loanAmount.toFixed(0)}<br>
+        • Interest Rate: ${(adjustedInterestRate*100).toFixed(3)}%<br>
+        • Loan Term: ${loanTerm} years<br><br>
+        
+        <strong>Oklahoma Market Info:</strong><br>
+        • County: ${countyName}<br>
+        • Property Tax Rate: ${(propTaxRate*countyTaxMultiplier*100).toFixed(2)}%<br>
+        • Estimated Annual Insurance: ${insurance.toFixed(0)}<br>
+        ${programBenefits.length > 0 ? '<br><strong>Program Benefits Applied:</strong><br>' + programBenefits.map(b => `• ${b}`).join('<br>') : ''}
+    `;
+}
+
+function getCountyTaxMultiplier(county) {
+    const multipliers = {
+        'oklahoma': 1.0,
+        'tulsa': 0.95,
+        'cleveland': 1.05,
+        'comanche': 0.9,
+        'canadian': 1.1,
+        'washington': 0.85,
+        'muskogee': 0.8,
+        'garfield': 0.85,
+        'payne': 0.9,
+        'rogers': 0.95,
+        'other': 1.0
+    };
+    return multipliers[county] || 1.0;
+}
+
+function getCountyName(county) {
+    const names = {
+        'oklahoma': 'Oklahoma County',
+        'tulsa': 'Tulsa County',
+        'cleveland': 'Cleveland County',
+        'comanche': 'Comanche County',
+        'canadian': 'Canadian County',
+        'washington': 'Washington County',
+        'muskogee': 'Muskogee County',
+        'garfield': 'Garfield County',
+        'payne': 'Payne County',
+        'rogers': 'Rogers County',
+        'other': 'Other County'
+    };
+    return names[county] || 'Other County';
+}
+
+function calculateMaxHomePrice(monthlyIncome, interestRate, loanTerm, propTaxRate, yearlyInsurance) {
+    const maxPayment = monthlyIncome * 0.28;
+    const monthlyRate = interestRate / 12;
+    const totalPayments = loanTerm * 12;
+    const monthlyInsurance = yearlyInsurance / 12;
+    
+    // Estimate maximum home price using iterative approach
+    let homePrice = 100000;
+    let increment = 50000;
+    
+    for (let i = 0; i < 20; i++) {
+        const loanAmount = homePrice * 0.8; // Assume 20% down
+        const monthlyPI = monthlyRate > 0 ? 
+            (loanAmount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -totalPayments)) :
+            loanAmount / totalPayments;
+        const monthlyPropTax = (homePrice * propTaxRate) / 12;
+        const totalPayment = monthlyPI + monthlyPropTax + monthlyInsurance;
+        
+        if (totalPayment < maxPayment) {
+            homePrice += increment;
+        } else {
+            homePrice -= increment;
+            increment /= 2;
+        }
+        
+        if (increment < 1000) break;
+    }
+    
+    return homePrice;
+}
+
+ </script>
+</body>
+
+</html>

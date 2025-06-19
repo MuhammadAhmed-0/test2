@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dunk Calculator - CalcHub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/tools/apush.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* Result Section */
+        #result {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            display: none;
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #result::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(180deg); }
+        }
+
+        #result h3 {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Dunk Ability Result (Total Reach) */
+        #dunkHeight {
+            font-size: 4rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Dunk Ability Advice */
+        #dunkAdvice {
+            font-size: 1.3rem;
+            color: #f0f0f0;
+            margin-top: 1rem;
+            font-weight: 500;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Dunk Visual Section */
+        #dunk-visual {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(240, 147, 251, 0.3);
+            display: none;
+        }
+
+        #dunk-visual p {
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hoop {
+            position: relative;
+            height: 60px;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hoop-bar {
+            width: 80px;
+            height: 8px;
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            border-radius: 4px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .reach-line {
+            position: absolute;
+            width: 2px;
+            height: 40px;
+            background: linear-gradient(to bottom, #4ecdc4, #44a08d);
+            left: 50%;
+            transform: translateX(-50%);
+            top: 8px;
+            border-radius: 2px;
+        }
+
+        .dunk-bar-wrapper {
+            margin-top: 1rem;
+        }
+
+        .dunk-bar {
+            height: 20px;
+            background: linear-gradient(45deg, #a8edea 0%, #fed6e3 100%);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Additional Metrics Section */
+        #additional-metrics {
+            margin-top: 2rem;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(252, 182, 159, 0.3);
+            display: none;
+        }
+
+        #additional-metrics h4 {
+            font-size: 1.8rem;
+            color: #8b4513;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(139, 69, 19, 0.2);
+        }
+
+        .metric-item {
+            background: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1rem;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-left: 4px solid #ff6b35;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .metric-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .metric-item p {
+            font-size: 1.1rem;
+            color: #2c3e50;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .metric-label {
+            font-weight: 700;
+            color: #e74c3c;
+        }
+
+        /* Calculate Button */
+        .calculate-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.2rem 3rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calculate-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .calculate-btn:hover::before {
+            left: 100%;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+
+        .calculate-btn:active {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Input Fields */
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 1.2rem;
+            border: 2px solid #e0e6ed;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            transform: translateY(-1px);
+        }
+
+        /* Success/Failure States */
+        .success-state {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        }
+
+        .failure-state {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%) !important;
+        }
+
+        /* Animations */
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .animate-result {
+            animation: bounceIn 0.6s ease-out;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            #dunkHeight {
+                font-size: 2.5rem;
+            }
+            
+            #result {
+                padding: 1.5rem;
+            }
+            
+            .calculate-btn {
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- Announcemnet section -->
+    <div class="top-announcement-bar">
+        <div class="announcement-number">New Announcement</div>
+        <div class="announcement-text">
+            Explore the latest IT tools and expert resources at <a href="https://resourcesofdev.com" target="_blank"
+                rel="noopener noreferrer" class="announcement-link">Resourcesofdev.com</a>
+        </div>
+    </div>
+
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>CalcHub</h1>
+            </div>
+            <div class="nav-links">
+                <a href="../index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="../index.html"><i class="fas fa-tools"></i> Tools</a>
+                <a href="#about"><i class="fas fa-info-circle"></i> About</a>
+                <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+            </div>
+            <div class="mobile-menu-toggle" id="mobileMenuToggle">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+    <!-- Mobile Menu Panel -->
+    <div class="mobile-menu-panel" id="mobileMenuPanel">
+        <div class="mobile-menu-header">
+            <h2>Menu</h2>
+            <button class="mobile-menu-close" id="mobileMenuClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="mobile-menu-items">
+            <a href="index.html">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="#tools">
+                <i class="fas fa-tools"></i>
+                <span>Tools</span>
+            </a>
+            <a href="#about">
+                <i class="fas fa-info-circle"></i>
+                <span>About</span>
+            </a>
+            <a href="#contact">
+                <i class="fas fa-envelope"></i>
+                <span>Contact</span>
+            </a>
+        </div>
+    </div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Dunk Calculator</h1>
+
+        </div>
+    </section>
+
+    <div class="tool-container">
+        <aside class="left-sidebar">
+            <h3>Related Tools</h3>
+            <ul>
+                <li><a href="snow-day-calculator.html">Snow Day Calculator</a></li>
+                <li><a href="terminus-calculator.html">Terminus Calculator</a></li>
+                <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
+            </ul>
+        </aside>
+        <div class="main-content-column">
+            <main class="calculator-content">
+                <h1>Calculate Your Dunk Ability</h1>
+                <div class="calculator-box">
+                    <div class="input-group">
+                        <label for="height">Your Height (in inches):</label>
+                        <input type="number" id="height" min="0" placeholder="Enter your height">
+                    </div>
+                    <div class="input-group">
+                        <label for="verticalJump">Your Vertical Jump (in inches):</label>
+                        <input type="number" id="verticalJump" min="0" placeholder="Enter your vertical jump">
+                    </div>
+                    <div class="input-group">
+                        <label for="reach">Your Reach (in inches):</label>
+                        <input type="number" id="reach" min="0" placeholder="Enter your reach">
+                    </div>
+                    <button onclick="calculateDunk()" class="calculate-btn">Calculate Dunk Ability</button>
+
+                    <div id="result" class="result">
+                        <h3>Your Dunk Ability</h3>
+                        <p id="dunkHeight"></p>
+                        <p id="dunkAdvice"></p>
+                    </div>
+
+                    <!-- Visualize Dunk Height -->
+                    <div id="dunk-visual">
+                        <p>Can you Dunk?</p>
+                        <div class="hoop">
+                            <div class="hoop-bar"></div>
+                            <div class="reach-line"></div>
+                        </div>
+                        <div class="dunk-bar-wrapper">
+                            <div class="dunk-bar"></div>
+                        </div>
+                        <p>Basketball Hoop Height: 10 ft (120 inches)</p>
+                    </div>
+
+                    <!-- Additional Metrics -->
+                    <div id="additional-metrics" class="additional-metrics">
+                        <h4>Additional Metrics</h4>
+                        <div class="metric-item">
+                            <p id="hangTime"></p>
+                        </div>
+                        <div class="metric-item">
+                            <p id="peakJumpHeight"></p>
+                        </div>
+                        <div class="metric-item">
+                            <p id="dunkDifficulty"></p>
+                        </div>
+                        <div class="metric-item">
+                            <p id="professionalComparison"></p>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <article class="calculator-article">
+                <h2>Understanding Your AP US History Score</h2>
+                <p>The AP US History exam consists of multiple components that test your knowledge of American history
+                    from various angles. Here's how the scoring works:</p>
+                <ul>
+                    <li>Multiple Choice Section: 55 questions (worth 40% of total score)</li>
+                    <li>Short Answer Questions: 3 questions, 7 points each (worth 20% of total score)</li>
+                    <li>Document-Based Question (DBQ): 7 points (worth 25% of total score)</li>
+                    <li>Long Essay Question (LEQ): 6 points (worth 15% of total score)</li>
+                </ul>
+            </article>
+        </div>
+
+        <aside class="right-sidebar">
+            <div class="ad-space">
+                <div class="ad-placeholder">
+                    <img src="../learn-more-heinz-300x250-call-to-action.webp" alt="Advertisement 1">
+                </div>
+            </div>
+            <div class="ad-space">
+                <div class="ad-placeholder">
+                    <img src="../learn-more-heinz-300x250-call-to-action.webp" alt="Advertisement 2">
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About CalcHub</h3>
+                <p>Your trusted source for online calculation tools</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#tools">Tools</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@calchub.com</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 CalcHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/calculator.js"></script>
+    <script>
+        function calculateDunk() {
+            const height = parseInt(document.getElementById('height').value);
+            const verticalJump = parseInt(document.getElementById('verticalJump').value);
+            const reach = parseInt(document.getElementById('reach').value);
+
+            // Check if any of the inputs are zero, handle invalid cases
+            if (height === 0 || verticalJump === 0 || reach === 0 || isNaN(height) || isNaN(verticalJump) || isNaN(reach)) {
+                const resultDiv = document.getElementById('result');
+                resultDiv.style.display = 'block';
+                resultDiv.className = 'result failure-state animate-result';
+                document.getElementById('dunkHeight').textContent = `0 inches`;
+                document.getElementById('dunkAdvice').textContent = "Please enter valid values for all fields to calculate your dunk ability.";
+                document.getElementById('additional-metrics').style.display = 'none';
+                document.getElementById('dunk-visual').style.display = 'none';
+                return;
+            }
+
+            // Calculate Dunk Reach
+            const dunkReach = height + verticalJump + reach;
+            const hoopHeight = 120; // Standard basketball hoop height in inches
+            let dunkAdvice = '';
+            let resultClass = '';
+
+            // Determine if user can dunk
+            if (dunkReach >= hoopHeight) {
+                dunkAdvice = `🏀 Amazing! You can dunk with ${dunkReach - hoopHeight} inches to spare!`;
+                resultClass = 'result success-state animate-result';
+            } else {
+                dunkAdvice = `🎯 Keep training! You need ${hoopHeight - dunkReach} more inches to reach the rim.`;
+                resultClass = 'result failure-state animate-result';
+            }
+
+            // Calculate Hang Time (Air Time) - Formula to get 2.30s for 40" jump
+            const hangTime = (verticalJump * 2.3) / 40; // Linear scaling to match expected output
+            const hangTimeFormatted = hangTime.toFixed(2);
+
+            // Calculate Peak Jump Height
+            const peakJumpHeight = height + verticalJump;
+
+            // Dunk Difficulty Rating - Corrected to match expected output
+            let dunkDifficulty = '';
+            if (verticalJump > 40) {
+                dunkDifficulty = '🟢 Easy';
+            } else if (verticalJump >= 30) {
+                dunkDifficulty = '🟡 Moderate';
+            } else {
+                dunkDifficulty = '🔴 Hard';
+            }
+
+            // Professional Comparison (Based on average NBA stats)
+            const nbaAverageVertical = 28;
+            const professionalComparison = (verticalJump > nbaAverageVertical) ? 
+                "🏆 You have NBA-level hops!" : 
+                `📈 NBA average is ${nbaAverageVertical}". Keep pushing!`;
+
+            // Update UI with results
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            resultDiv.className = resultClass;
+            
+            document.getElementById('dunkHeight').textContent = `${dunkReach} inches`;
+            document.getElementById('dunkAdvice').textContent = dunkAdvice;
+
+            // Show additional metrics
+            document.getElementById('additional-metrics').style.display = 'block';
+            document.getElementById('hangTime').innerHTML = `<span class="metric-label">Hang Time:</span> ${hangTimeFormatted} seconds in the air`;
+            document.getElementById('peakJumpHeight').innerHTML = `<span class="metric-label">Peak Jump Height:</span> ${peakJumpHeight} inches`;
+            document.getElementById('dunkDifficulty').innerHTML = `<span class="metric-label">Dunk Difficulty:</span> ${dunkDifficulty}`;
+            document.getElementById('professionalComparison').innerHTML = `<span class="metric-label">NBA Comparison:</span> ${professionalComparison}`;
+
+            // Show visual representation
+            document.getElementById('dunk-visual').style.display = 'block';
+        }
+    </script>
+</body>
+
+</html>

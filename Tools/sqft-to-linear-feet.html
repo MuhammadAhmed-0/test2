@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Square Feet to Linear Feet Calculator - CalcHub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/tools/apush.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* Calculator Section Only: Custom, Responsive */
+        #result {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            border-radius: 20px;
+            display: none;
+            box-shadow: 0 20px 40px rgba(56, 239, 125, 0.15);
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #result::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.09) 0%, transparent 70%);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+
+            0%,
+            100% {
+                transform: rotate(0deg);
+            }
+
+            50% {
+                transform: rotate(180deg);
+            }
+        }
+
+        #result h3 {
+            color: #fff;
+            font-size: 1.85rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.20);
+            position: relative;
+            z-index: 1;
+        }
+
+        #linearFeetResult {
+            font-size: 3.2rem;
+            font-weight: 900;
+            color: #ffd700;
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+            position: relative;
+            z-index: 1;
+        }
+
+        #formulaBreakdown {
+            background: rgba(255, 255, 255, 0.96);
+            padding: 1rem 1.2rem;
+            border-radius: 10px;
+            color: #222;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            box-shadow: 0 2px 8px rgba(17, 153, 142, 0.08);
+            text-align: left;
+            display: inline-block;
+        }
+
+        /* Tips Section */
+        #tips-section {
+            margin-top: 2rem;
+            background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);
+            padding: 2rem;
+            border-radius: 18px;
+            box-shadow: 0 10px 24px rgba(255, 210, 0, 0.12);
+            display: none;
+        }
+
+        #tips-section h4 {
+            font-size: 1.25rem;
+            color: #7c5a05;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-align: center;
+            text-shadow: 0 1px 3px rgba(120, 114, 2, 0.10);
+        }
+
+        #tipsText {
+            background: rgba(255, 255, 255, 0.91);
+            padding: 1rem 1.2rem;
+            border-radius: 10px;
+            font-size: 1.05rem;
+            color: #2d3436;
+            line-height: 1.6;
+            text-align: left;
+        }
+
+        /* Calculate Button */
+        .calculate-btn {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            padding: 1.1rem 2.3rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.18rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(56, 239, 125, 0.16);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calculate-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.13), transparent);
+            transition: left 0.5s;
+        }
+
+        .calculate-btn:hover::before {
+            left: 100%;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(56, 239, 125, 0.18);
+        }
+
+        .calculate-btn:active {
+            transform: translateY(-1px);
+        }
+
+        /* Input Fields */
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 1.13rem;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 1.1rem;
+            border: 2px solid #e0e6ed;
+            border-radius: 12px;
+            font-size: 1.08rem;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #11998e;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(17, 153, 142, 0.07);
+            transform: translateY(-1px);
+        }
+
+        .toggle-unit {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .toggle-unit select {
+            min-width: 95px;
+            width: auto;
+            flex-shrink: 0;
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.07);
+            }
+
+            70% {
+                transform: scale(0.92);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .animate-result {
+            animation: bounceIn 0.6s ease-out;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            #linearFeetResult {
+                font-size: 2rem;
+            }
+
+            #result {
+                padding: 1.2rem;
+            }
+
+            .calculate-btn {
+                padding: 1rem 1.3rem;
+                font-size: 1rem;
+            }
+
+            #tips-section {
+                padding: 1rem;
+            }
+
+            .toggle-unit {
+                flex-direction: column;
+            }
+
+            .toggle-unit select {
+                width: 100%;
+            }
+
+            #formulaBreakdown {
+                font-size: 0.98rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Announcemnet section -->
+    <div class="top-announcement-bar">
+        <div class="announcement-number">New Announcement</div>
+        <div class="announcement-text">
+            Try more pro construction tools at <a href="https://resourcesofdev.com" target="_blank"
+                rel="noopener noreferrer" class="announcement-link">Resourcesofdev.com</a>
+        </div>
+    </div>
+
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>CalcHub</h1>
+            </div>
+            <div class="nav-links">
+                <a href="../index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="../index.html"><i class="fas fa-tools"></i> Tools</a>
+                <a href="#about"><i class="fas fa-info-circle"></i> About</a>
+                <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+            </div>
+            <div class="mobile-menu-toggle" id="mobileMenuToggle">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+    <div class="mobile-menu-panel" id="mobileMenuPanel">
+        <div class="mobile-menu-header">
+            <h2>Menu</h2>
+            <button class="mobile-menu-close" id="mobileMenuClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="mobile-menu-items">
+            <a href="index.html"><i class="fas fa-home"></i><span>Home</span></a>
+            <a href="#tools"><i class="fas fa-tools"></i><span>Tools</span></a>
+            <a href="#about"><i class="fas fa-info-circle"></i><span>About</span></a>
+            <a href="#contact"><i class="fas fa-envelope"></i><span>Contact</span></a>
+        </div>
+    </div>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Square Feet to Linear Feet Calculator</h1>
+            <p class="hero-subtitle">Quickly convert area (sq ft) to linear feet for flooring, siding, lumber, and
+                more—get accurate results with visual breakdowns!</p>
+        </div>
+    </section>
+
+    <div class="tool-container">
+        <aside class="left-sidebar">
+            <h3>Related Tools</h3>
+            <ul>
+                <li><a href="square-footage-calculator.html">Square Footage Calculator</a></li>
+                <li><a href="cubic-feet-calculator.html">Cubic Feet Calculator</a></li>
+                <li><a href="board-feet-calculator.html">Board Feet Calculator</a></li>
+                <li><a href="paint-calculator.html">Paint Calculator</a></li>
+            </ul>
+        </aside>
+        <div class="main-content-column">
+            <main class="calculator-content">
+                <h1>Convert Square Feet to Linear Feet</h1>
+                <div class="calculator-box">
+                    <div class="input-group">
+                        <label for="area">Total Area <span class="help-tip"
+                                title="Enter the total area in square feet or square meters.">?</span></label>
+                        <div class="toggle-unit">
+                            <input type="number" id="area" value="100" min="0.01" step="0.01" placeholder="e.g. 100">
+                            <select id="areaUnit">
+                                <option value="sqft">sq ft</option>
+                                <option value="sqm">sq m</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="width">Material Width <span class="help-tip"
+                                title="Width of one board, roll, plank, etc.">?</span></label>
+                        <div class="toggle-unit">
+                            <input type="number" id="width" value="6" min="0.01" step="0.01" placeholder="e.g. 6">
+                            <select id="widthUnit">
+                                <option value="in">inches</option>
+                                <option value="ft">feet</option>
+                                <option value="mm">mm</option>
+                                <option value="cm">cm</option>
+                                <option value="m">meters</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button onclick="calculateLinearFeet()" class="calculate-btn">Convert to Linear Feet</button>
+                    <div id="result" class="result">
+                        <h3>Linear Feet Needed</h3>
+                        <div id="linearFeetResult">0</div>
+                        <div id="formulaBreakdown"></div>
+                    </div>
+                    <div id="tips-section">
+                        <h4>Pro Tips</h4>
+                        <div id="tipsText"></div>
+                    </div>
+                </div>
+            </main>
+            <article class="calculator-article">
+                <h2>How to Convert Square Feet to Linear Feet</h2>
+                <p>
+                    Converting square feet (area) to linear feet (length) is easy—just divide the area by the width of
+                    your material. Be sure all measurements use the same units!
+                </p>
+                <ul>
+                    <li><strong>Formula:</strong> <code>Linear Feet = Area (sq ft) ÷ Width (ft)</code></li>
+                    <li>For <strong>flooring</strong>, <strong>siding</strong>, <strong>lumber</strong>, and
+                        <strong>fabric</strong>, this formula tells you how many running feet you need.</li>
+                    <li><strong>Tip:</strong> Always add extra for waste (usually 5–15%).</li>
+                </ul>
+                <p>
+                    <em>This calculator supports any combination of area and width units—no need for manual
+                        conversion!</em>
+                </p>
+            </article>
+        </div>
+        <aside class="right-sidebar">
+            <div class="ad-space">
+                <div class="ad-placeholder">
+                    <img src="../learn-more-heinz-300x250-call-to-action.webp" alt="Advertisement 1">
+                </div>
+            </div>
+            <div class="ad-space">
+                <div class="ad-placeholder">
+                    <img src="../learn-more-heinz-300x250-call-to-action.webp" alt="Advertisement 2">
+                </div>
+            </div>
+        </aside>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About CalcHub</h3>
+                <p>Your trusted source for online calculation tools</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#tools">Tools</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@calchub.com</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 CalcHub. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="../js/calculator.js"></script>
+    <script>
+        // Conversion helpers
+        function toSqFt(area, unit) {
+            if (unit === 'sqft') return area;
+            if (unit === 'sqm') return area * 10.7639;
+            return area;
+        }
+        function widthToFeet(width, unit) {
+            if (unit === 'ft') return width;
+            if (unit === 'in') return width / 12;
+            if (unit === 'mm') return width / 304.8;
+            if (unit === 'cm') return width / 30.48;
+            if (unit === 'm') return width / 0.3048;
+            return width;
+        }
+        function plural(val, singular, plural) {
+            return val === 1 ? singular : plural;
+        }
+        function calculateLinearFeet() {
+            // Input
+            const area = parseFloat(document.getElementById('area').value) || 0;
+            const areaUnit = document.getElementById('areaUnit').value;
+            const width = parseFloat(document.getElementById('width').value) || 0;
+            const widthUnit = document.getElementById('widthUnit').value;
+
+            if (area <= 0 || width <= 0) {
+                alert('Please enter valid area and width values.');
+                return;
+            }
+            // Convert to sq ft and width in feet
+            const areaSqFt = toSqFt(area, areaUnit);
+            const widthFt = widthToFeet(width, widthUnit);
+
+            if (widthFt === 0) {
+                alert('Material width must be greater than zero.');
+                return;
+            }
+            // Calculation
+            const linearFeet = areaSqFt / widthFt;
+
+            // Output
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('result').className = 'result animate-result';
+            document.getElementById('linearFeetResult').textContent = `${linearFeet.toLocaleString(undefined, { maximumFractionDigits: 2 })} linear feet`;
+
+            // Formula breakdown
+            document.getElementById('formulaBreakdown').innerHTML =
+                `<strong>Formula:</strong> Linear Feet = Area ÷ Width<br>
+        <strong>Values:</strong> ${areaSqFt.toLocaleString(undefined, { maximumFractionDigits: 2 })} sq ft ÷ ${widthFt.toLocaleString(undefined, { maximumFractionDigits: 4 })} ft<br>
+        <strong>Result:</strong> ${linearFeet.toLocaleString(undefined, { maximumFractionDigits: 2 })} linear feet`;
+
+            // Tips
+            document.getElementById('tips-section').style.display = 'block';
+            document.getElementById('tipsText').innerHTML = `
+        <ul>
+          <li>Round up to the next whole foot for easy ordering.</li>
+          <li>Add 5–15% extra for cuts, waste, and errors.</li>
+          <li>For irregular shapes, break into smaller rectangles and sum the areas.</li>
+          <li>You can use this tool for flooring, siding, lumber, fabric, wire, and more.</li>
+        </ul>
+        <em>Need to reverse the calculation? Try our <a href="linear-feet-to-square-feet-calculator.html">Linear Feet to Square Feet Calculator</a>.</em>
+      `;
+        }
+    </script>
+</body>
+
+</html>

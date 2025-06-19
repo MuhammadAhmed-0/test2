@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crosswind Component Calculator - CalcHub</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/tools/apush.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    /* Calculator Section Only: Custom, Responsive */
+    #result {
+      margin-top: 2rem;
+      padding: 2rem;
+      background: linear-gradient(135deg, #00c3ff 0%, #ffff1c 100%);
+      border-radius: 20px;
+      display: none;
+      box-shadow: 0 20px 40px rgba(0, 195, 255, 0.12);
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    #result::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.12) 0%, transparent 70%);
+      animation: shimmer 3s ease-in-out infinite;
+    }
+    @keyframes shimmer {
+      0%, 100% { transform: rotate(0deg);}
+      50% { transform: rotate(180deg);}
+    }
+    #result h3 {
+      color: #004e92;
+      font-size: 1.85rem;
+      font-weight: 800;
+      margin-bottom: 1.1rem;
+      text-shadow: 0 2px 4px rgba(0, 76, 146, 0.13);
+      position: relative;
+      z-index: 1;
+    }
+    #crosswindResult {
+      font-size: 2.7rem;
+      font-weight: 900;
+      color: #004e92;
+      margin-bottom: 1.1rem;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.09);
+      position: relative;
+      z-index: 1;
+    }
+    #headwindResult {
+      font-size: 1.25rem;
+      color: #004e92;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    #tailwindResult {
+      font-size: 1.13rem;
+      color: #e67e22;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    #angleInfo {
+      font-size: 1.1rem;
+      color: #222;
+      margin-bottom: 0.5rem;
+    }
+    #formulaBreakdown {
+      background: rgba(255,255,255,0.96);
+      padding: 1rem 1.2rem;
+      border-radius: 10px;
+      color: #222;
+      font-size: 1.08rem;
+      margin-top: 1rem;
+      box-shadow: 0 2px 8px rgba(0,195,255,0.07);
+      text-align: left;
+      display: inline-block;
+    }
+    /* Tips Section */
+    #tips-section {
+      margin-top: 2rem;
+      background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);
+      padding: 2rem;
+      border-radius: 18px;
+      box-shadow: 0 10px 24px rgba(255, 210, 0, 0.12);
+      display: none;
+    }
+    #tips-section h4 {
+      font-size: 1.18rem;
+      color: #b86b0c;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      text-align: center;
+      text-shadow: 0 1px 2px rgba(178, 107, 12, 0.10);
+    }
+    #tipsText {
+      background: rgba(255,255,255,0.92);
+      padding: 1rem 1.2rem;
+      border-radius: 10px;
+      font-size: 1.05rem;
+      color: #2d3436;
+      line-height: 1.6;
+      text-align: left;
+    }
+    /* Calculate Button */
+        .calculate-btn {
+            background: linear-gradient(135deg, #ff6a00 0%, #ee0979 100%);
+            color: white;
+            padding: 1.1rem 2.3rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.18rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 106, 0, 0.15);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calculate-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.13), transparent);
+            transition: left 0.5s;
+        }
+
+        .calculate-btn:hover::before {
+            left: 100%;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 106, 0, 0.18);
+        }
+
+        .calculate-btn:active {
+            transform: translateY(-1px);
+        }
+    /* Input Fields */
+    .input-group {
+      margin-bottom: 1.5rem;
+    }
+    .input-group label {
+      display: block;
+      margin-bottom: 0.8rem;
+      color: #004e92;
+      font-weight: 600;
+      font-size: 1.13rem;
+    }
+    .input-group input, .input-group select {
+      width: 100%;
+      padding: 1.1rem;
+      border: 2px solid #e0e6ed;
+      border-radius: 12px;
+      font-size: 1.08rem;
+      background: #f8f9fa;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+    .input-group input:focus, .input-group select:focus {
+      outline: none;
+      border-color: #00c3ff;
+      background-color: #ffffff;
+      box-shadow: 0 0 0 3px rgba(0, 195, 255, 0.08);
+      transform: translateY(-1px);
+    }
+    @keyframes bounceIn {
+      0% { opacity: 0; transform: scale(0.3);}
+      50% { opacity: 1; transform: scale(1.07);}
+      70% { transform: scale(0.92);}
+      100% { opacity: 1; transform: scale(1);}
+    }
+    .animate-result { animation: bounceIn 0.6s ease-out; }
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      #crosswindResult { font-size: 1.6rem; }
+      #result { padding: 1.2rem; }
+      .calculate-btn { padding: 1rem 2rem; font-size: 1rem;}
+      #tips-section { padding: 1rem;}
+      #headwindResult, #tailwindResult { font-size: 1rem;}
+      #angleInfo { font-size: 1rem;}
+      #formulaBreakdown { font-size: 0.98rem; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Announcement section -->
+  <div class="top-announcement-bar">
+    <div class="announcement-number">New Announcement</div>
+    <div class="announcement-text">
+      Try more pilot tools at <a href="https://resourcesofdev.com" target="_blank"
+        rel="noopener noreferrer" class="announcement-link">Resourcesofdev.com</a>
+    </div>
+  </div>
+
+  <header>
+    <nav>
+      <div class="logo">
+        <h1>CalcHub</h1>
+      </div>
+      <div class="nav-links">
+        <a href="../index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="../index.html"><i class="fas fa-tools"></i> Tools</a>
+        <a href="#about"><i class="fas fa-info-circle"></i> About</a>
+        <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+      </div>
+      <div class="mobile-menu-toggle" id="mobileMenuToggle">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+  <div class="mobile-menu-panel" id="mobileMenuPanel">
+    <div class="mobile-menu-header">
+      <h2>Menu</h2>
+      <button class="mobile-menu-close" id="mobileMenuClose">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="mobile-menu-items">
+      <a href="index.html"><i class="fas fa-home"></i><span>Home</span></a>
+      <a href="#tools"><i class="fas fa-tools"></i><span>Tools</span></a>
+      <a href="#about"><i class="fas fa-info-circle"></i><span>About</span></a>
+      <a href="#contact"><i class="fas fa-envelope"></i><span>Contact</span></a>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Crosswind Component Calculator</h1>
+      <p class="hero-subtitle">
+        Instantly calculate crosswind, headwind, and tailwind components for safe landings and takeoffs—optimized for pilots and students!
+      </p>
+    </div>
+  </section>
+
+  <div class="tool-container">
+    <aside class="left-sidebar">
+      <h3>Related Tools</h3>
+      <ul>
+        <li><a href="runway-length-calculator.html">Runway Length Calculator</a></li>
+        <li><a href="wind-chill-calculator.html">Wind Chill Calculator</a></li>
+        <li><a href="fuel-burn-calculator.html">Fuel Burn Calculator</a></li>
+        <li><a href="aviation-time-converter.html">Aviation Time Converter</a></li>
+      </ul>
+    </aside>
+    <div class="main-content-column">
+      <main class="calculator-content">
+        <h1>Crosswind & Headwind Calculator</h1>
+        <div class="calculator-box">
+          <div class="input-group">
+            <label for="windSpeed">Wind Speed <span class="help-tip" title="Enter the wind speed (knots, mph, or km/h).">?</span></label>
+            <input type="number" id="windSpeed" value="15" min="0.1" step="any" placeholder="e.g. 15">
+            <select id="windUnit">
+              <option value="kt">knots</option>
+              <option value="mph">mph</option>
+              <option value="kph">km/h</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label for="windDir">Wind Direction <span class="help-tip" title="Direction from which the wind blows (degrees FROM, e.g. METAR 270° means FROM the west).">?</span></label>
+            <input type="number" id="windDir" value="230" min="0" max="360" step="1" placeholder="e.g. 230">
+          </div>
+          <div class="input-group">
+            <label for="runwayDir">Runway Heading <span class="help-tip" title="Runway direction (degrees TO, e.g. runway 24 = 240°).">?</span></label>
+            <input type="number" id="runwayDir" value="240" min="0" max="360" step="1" placeholder="e.g. 240">
+          </div>
+          <button onclick="calculateCrosswind()" class="calculate-btn">Calculate Crosswind</button>
+          <div id="result" class="result">
+            <h3>Wind Components</h3>
+            <div id="angleInfo"></div>
+            <div id="crosswindResult"></div>
+            <div id="headwindResult"></div>
+            <div id="tailwindResult"></div>
+            <div id="formulaBreakdown"></div>
+          </div>
+          <div id="tips-section">
+            <h4>Pilot Tips</h4>
+            <div id="tipsText"></div>
+          </div>
+        </div>
+      </main>
+      <article class="calculator-article">
+        <h2>How Crosswind Calculations Work</h2>
+        <p>
+          The crosswind component is the part of the wind blowing perpendicular to your runway. The headwind (or tailwind) component is the part blowing directly along the runway. Both are crucial for safe takeoffs and landings.
+        </p>
+        <ul>
+          <li><strong>Formula:</strong>
+            <ul>
+              <li>Crosswind = Wind Speed × sin(angle)</li>
+              <li>Headwind = Wind Speed × cos(angle)</li>
+            </ul>
+          </li>
+          <li>Angle = difference between wind direction (FROM) and runway heading (TO).</li>
+          <li>Always use runway magnetic heading (not number × 10).</li>
+          <li>Result is positive for crosswind from the right, negative for left.</li>
+        </ul>
+        <p>
+          <em>This tool supports knots, mph, and km/h. Make sure to check your aircraft's limitations before flight!</em>
+        </p>
+      </article>
+    </div>
+    <aside class="right-sidebar">
+      <div class="ad-space">
+        <div class="ad-placeholder">
+          <img src="../learn-more-heinz-300x250-call-to-action.webp" alt="Advertisement 1">
+        </div>
+      </div>
+      <div class="ad-space">
+        <div class="ad-placeholder">
+          <img src="../learn-more-heinz-300x250-call-to-action.webp" alt="Advertisement 2">
+        </div>
+      </div>
+    </aside>
+  </div>
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>About CalcHub</h3>
+        <p>Your trusted source for online calculation tools</p>
+      </div>
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#tools">Tools</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#privacy">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Contact Us</h3>
+        <p>Email: info@calchub.com</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 CalcHub. All rights reserved.</p>
+    </div>
+  </footer>
+  <script>
+    function toKnots(speed, unit) {
+      if (unit === 'kt') return speed;
+      if (unit === 'mph') return speed * 0.868976;
+      if (unit === 'kph') return speed * 0.539957;
+      return speed;
+    }
+    function normalize360(angle) {
+      // Return angle between 0-360
+      return ((angle % 360) + 360) % 360;
+    }
+    function calculateCrosswind() {
+      const windSpeed = parseFloat(document.getElementById('windSpeed').value) || 0;
+      const windUnit = document.getElementById('windUnit').value;
+      const windDir = parseFloat(document.getElementById('windDir').value) || 0;
+      const runwayDir = parseFloat(document.getElementById('runwayDir').value) || 0;
+
+      if (windSpeed <= 0) {
+        alert("Please enter a valid wind speed.");
+        return;
+      }
+
+      // Convert wind speed to knots for calculation, but display in original unit
+      const wsKt = toKnots(windSpeed, windUnit);
+
+      // Calculate angle between wind and runway (difference)
+      let angle = normalize360(windDir - runwayDir);
+      let absAngle = Math.abs(angle);
+      if (absAngle > 180) absAngle = 360 - absAngle;
+
+      // Use the smallest angle (0-180)
+      const theta = absAngle * Math.PI / 180;
+
+      // Components
+      const crosswindKt = wsKt * Math.sin(theta);
+      const headwindKt = wsKt * Math.cos(theta);
+
+      // Reconvert to user's unit for display
+      function fromKnots(val, toUnit) {
+        if (toUnit === 'kt') return val;
+        if (toUnit === 'mph') return val / 0.868976;
+        if (toUnit === 'kph') return val / 0.539957;
+        return val;
+      }
+      const crosswind = fromKnots(crosswindKt, windUnit);
+      const headwind = fromKnots(headwindKt, windUnit);
+
+      // Directionality
+      const crossDir = (normalize360(windDir - runwayDir) < 180) ? 'from the right' : 'from the left';
+      const headOrTail = (headwind >= 0) ? 'Headwind' : 'Tailwind';
+
+      // Show result
+      document.getElementById('result').style.display = 'block';
+      document.getElementById('result').className = 'result animate-result';
+
+      document.getElementById('angleInfo').innerHTML =
+        `Wind angle relative to runway: <b>${absAngle.toFixed(1)}°</b>`;
+
+      document.getElementById('crosswindResult').innerHTML =
+        `<b>Crosswind:</b> <span style="color:#d72660">${Math.abs(crosswind).toFixed(1)}</span> ${windUnit} <span style="font-size:1rem;">${crossDir}</span>`;
+
+      if (headwind >= 0) {
+        document.getElementById('headwindResult').innerHTML =
+          `<b>Headwind:</b> <span style="color:#004e92">${Math.abs(headwind).toFixed(1)}</span> ${windUnit}`;
+        document.getElementById('tailwindResult').innerHTML = '';
+      } else {
+        document.getElementById('headwindResult').innerHTML = '';
+        document.getElementById('tailwindResult').innerHTML =
+          `<b>Tailwind:</b> <span style="color:#e67e22">${Math.abs(headwind).toFixed(1)}</span> ${windUnit}`;
+      }
+
+      document.getElementById('formulaBreakdown').innerHTML =
+        `<strong>Formulas:</strong><br>
+        &raquo; Crosswind = Wind Speed × sin(angle) = ${windSpeed} × sin(${absAngle.toFixed(1)}°) = <b>${Math.abs(crosswind).toFixed(2)} ${windUnit}</b><br>
+        &raquo; ${headOrTail} = Wind Speed × cos(angle) = ${windSpeed} × cos(${absAngle.toFixed(1)}°) = <b>${Math.abs(headwind).toFixed(2)} ${windUnit}</b>`;
+
+      // Tips
+      document.getElementById('tips-section').style.display = 'block';
+      document.getElementById('tipsText').innerHTML = `
+        <ul>
+          <li>Check your aircraft's crosswind and tailwind limits before operating.</li>
+          <li>Avoid tailwinds for takeoff or landing—use the runway with the strongest headwind.</li>
+          <li>Crosswind from the right requires right aileron and left rudder (and vice versa).</li>
+          <li>Practice landings in varying wind conditions to stay proficient.</li>
+        </ul>
+        <em>Use this calculator for every flight—safety first!</em>
+      `;
+    }
+  </script>
+</body>
+</html>

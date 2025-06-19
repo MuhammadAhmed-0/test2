@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suit Size Calculator - CalcHub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/tools/apush.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* Calculator Section Only: Custom, Responsive */
+        #result {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
+            border-radius: 20px;
+            display: none;
+            box-shadow: 0 20px 40px rgba(0, 114, 255, 0.18);
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #result::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.09) 0%, transparent 70%);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+
+            0%,
+            100% {
+                transform: rotate(0deg);
+            }
+
+            50% {
+                transform: rotate(180deg);
+            }
+        }
+
+        #result h3 {
+            color: #fff;
+            font-size: 1.85rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.22);
+            position: relative;
+            z-index: 1;
+        }
+
+        #suitSizeResult {
+            font-size: 3.2rem;
+            font-weight: 900;
+            color: #ffd700;
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            position: relative;
+            z-index: 1;
+        }
+
+        #fitTypeResult {
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        /* Tips Section */
+        #tips-section {
+            margin-top: 2rem;
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            padding: 2rem;
+            border-radius: 18px;
+            box-shadow: 0 12px 30px rgba(56, 249, 215, 0.09);
+            display: none;
+        }
+
+        #tips-section h4 {
+            font-size: 1.35rem;
+            color: #0b6b6b;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(11, 107, 107, 0.09);
+        }
+
+        #tipsText {
+            background: rgba(255, 255, 255, 0.92);
+            padding: 1.2rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            color: #2d3436;
+            line-height: 1.6;
+            text-align: left;
+        }
+
+        /* Calculate Button */
+        .calculate-btn {
+            background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
+            color: white;
+            padding: 1.2rem 3rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 114, 255, 0.19);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calculate-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.17), transparent);
+            transition: left 0.5s;
+        }
+
+        .calculate-btn:hover::before {
+            left: 100%;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 114, 255, 0.22);
+        }
+
+        .calculate-btn:active {
+            transform: translateY(-1px);
+        }
+
+        /* Input Fields */
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 1.13rem;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 1.2rem;
+            border: 2px solid #e0e6ed;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.09);
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #00c6ff;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(0, 198, 255, 0.09);
+            transform: translateY(-1px);
+        }
+
+        .toggle-unit {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .toggle-unit select {
+            width: 87px;
+            flex-shrink: 0;
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.07);
+            }
+
+            70% {
+                transform: scale(0.92);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .animate-result {
+            animation: bounceIn 0.6s ease-out;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            #suitSizeResult {
+                font-size: 2rem;
+            }
+
+            #result {
+                padding: 1.2rem;
+            }
+
+            .calculate-btn {
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+
+            #tips-section {
+                padding: 1rem;
+            }
+
+            .toggle-unit {
+                flex-direction: column;
+            }
+
+            .toggle-unit select {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Announcemnet section -->
+    <div class="top-announcement-bar">
+        <div class="announcement-number">New Announcement</div>
+        <div class="announcement-text">
+            Find expert style & sizing tips at <a href="https://resourcesofdev.com" target="_blank"
+                rel="noopener noreferrer" class="announcement-link">Resourcesofdev.com</a>
+        </div>
+    </div>
+
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>CalcHub</h1>
+            </div>
+            <div class="nav-links">
+                <a href="../index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="../index.html"><i class="fas fa-tools"></i> Tools</a>
+                <a href="#about"><i class="fas fa-info-circle"></i> About</a>
+                <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+            </div>
+            <div class="mobile-menu-toggle" id="mobileMenuToggle">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+    <div class="mobile-menu-panel" id="mobileMenuPanel">
+        <div class="mobile-menu-header">
+            <h2>Menu</h2>
+            <button class="mobile-menu-close" id="mobileMenuClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="mobile-menu-items">
+            <a href="index.html"><i class="fas fa-home"></i><span>Home</span></a>
+            <a href="#tools"><i class="fas fa-tools"></i><span>Tools</span></a>
+            <a href="#about"><i class="fas fa-info-circle"></i><span>About</span></a>
+            <a href="#contact"><i class="fas fa-envelope"></i><span>Contact</span></a>
+        </div>
+    </div>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Suit Size Calculator</h1>
+            <p class="hero-subtitle">Find your perfect suit size for a sharp, tailored look—use our precise, easy tool
+                for classic or modern fits!</p>
+        </div>
+    </section>
+
+    <div class="tool-container">
+        <aside class="left-sidebar">
+            <h3>Related Tools</h3>
+            <ul>
+                <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
+                <li><a href="bmi-calculator.html">BMI Calculator</a></li>
+                <li><a href="body-fat-calculator.html">Body Fat Calculator</a></li>
+                <li><a href="ideal-weight-calculator.html">Ideal Weight Calculator</a></li>
+            </ul>
+        </aside>
+
+        <div class="main-content-column">
+            <main class="calculator-content">
+                <h1>Find Your Suit Size</h1>
+                <div class="calculator-box">
+                    <div class="input-group">
+                        <label for="gender">Gender <span class="help-tip"
+                                title="Select the closest match for most accurate size.">?</span></label>
+                        <select id="gender">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other / Non-binary</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="fit">Preferred Fit <span class="help-tip"
+                                title="Slim is closer to the body; Regular is classic; Athletic for V-shape; Relaxed for comfort.">?</span></label>
+                        <select id="fit">
+                            <option value="regular">Regular</option>
+                            <option value="slim">Slim</option>
+                            <option value="athletic">Athletic</option>
+                            <option value="relaxed">Relaxed</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="chest">Chest Circumference <span class="help-tip"
+                                title="Measure under arms, at the fullest part.">?</span></label>
+                        <div class="toggle-unit">
+                            <input type="number" id="chest" value="100" min="70" max="160" step="0.5"
+                                placeholder="e.g. 100 cm">
+                            <select id="chestUnit">
+                                <option value="cm">cm</option>
+                                <option value="in">inches</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="height">Height <span class="help-tip"
+                                title="Include shoes if you wear them with suits.">?</span></label>
+                        <div class="toggle-unit">
+                            <input type="number" id="height" value="180" min="120" max="250" step="1"
+                                placeholder="e.g. 180 cm">
+                            <select id="heightUnit">
+                                <option value="cm">cm</option>
+                                <option value="in">inches</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button onclick="calculateSuitSize()" class="calculate-btn">Show My Suit Size</button>
+                    <div id="result" class="result">
+                        <h3>Recommended Jacket Size</h3>
+                        <div id="suitSizeResult">40 Regular</div>
+                        <div id="fitTypeResult"></div>
+                    </div>
+                </div>
+            </main>
+
+            <article class="calculator-article">
+                <h2>How Suit Sizing Works</h2>
+                <p>
+                    Suit sizing is based on your chest measurement, height, and body proportions. The jacket "size" is
+                    typically your chest circumference (in inches or centimeters), and the fit (slim, regular, athletic,
+                    relaxed) can influence which size is ideal.
+                </p>
+                <ul>
+                    <li><strong>Chest:</strong> The most important measurement. Wrap the tape under your armpits, at the
+                        fullest part.</li>
+                    <li><strong>Waist:</strong> Around your natural waistline.</li>
+                    <li><strong>Sleeve:</strong> From shoulder seam to wrist bone (arm slightly bent).</li>
+                    <li><strong>Height & Weight:</strong> Help determine "Short", "Regular", or "Long" jacket lengths.
+                    </li>
+                    <li><strong>Fit Preference:</strong> Slim (closer cut), Athletic (broad shoulders, tapered waist),
+                        Relaxed (looser), Regular (classic cut).</li>
+                </ul>
+                <p>
+                    <em>For best results, always check the size chart of your chosen brand. This calculator gives a
+                        great starting point for your perfect fit!</em>
+                </p>
+            </article>
+        </div>
+
+        <aside class="right-sidebar">
+            <div class="ad-space">
+                <div class="ad-placeholder">
+                    <img src="../learn-more-heinz-300x250-call-to-action.webp" alt="Advertisement 1">
+                </div>
+            </div>
+            <div class="ad-space">
+                <div class="ad-placeholder">
+                    <img src="../learn-more-heinz-300x250-call-to-action.webp" alt="Advertisement 2">
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About CalcHub</h3>
+                <p>Your trusted source for online calculation tools</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#tools">Tools</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@calchub.com</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 CalcHub. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="../js/calculator.js"></script>
+    <script>
+        function inToCm(val) { return val * 2.54; }
+        function cmToIn(val) { return val / 2.54; }
+
+        // Optional: Auto-convert units when the user changes the dropdown
+        function setupUnitAutoConvert() {
+            const pairs = [
+                { input: 'height', select: 'heightUnit', cm: 'cm', in: 'in' },
+                { input: 'chest', select: 'chestUnit', cm: 'cm', in: 'in' }
+            ];
+            pairs.forEach(pair => {
+                const input = document.getElementById(pair.input);
+                const select = document.getElementById(pair.select);
+                let lastUnit = select.value;
+                select.addEventListener('change', function () {
+                    let val = parseFloat(input.value);
+                    if (isNaN(val) || val === 0) { lastUnit = select.value; return; }
+                    if (lastUnit !== select.value) {
+                        // Convert value
+                        if (pair.cm && lastUnit === pair.cm && select.value === pair.in) input.value = (cmToIn(val)).toFixed(1);
+                        else if (pair.in && lastUnit === pair.in && select.value === pair.cm) input.value = (inToCm(val)).toFixed(1);
+                        lastUnit = select.value;
+                    }
+                });
+            });
+        }
+
+        function calculateSuitSize() {
+            // Get user input
+            const gender = document.getElementById('gender').value;
+            const fit = document.getElementById('fit').value;
+
+            let height = parseFloat(document.getElementById('height').value) || 0;
+            let heightUnit = document.getElementById('heightUnit').value;
+            if (heightUnit === "in") height = inToCm(height);
+
+            let chest = parseFloat(document.getElementById('chest').value) || 0;
+            let chestUnit = document.getElementById('chestUnit').value;
+            if (chestUnit === "in") chest = inToCm(chest);
+
+            // Validate required fields
+            if (height <= 0 || chest <= 0) {
+                alert("Please enter all measurements.");
+                return;
+            }
+
+            // Main suit size logic (uses chest, then adjusts by fit & height)
+            let chestIn = cmToIn(chest);
+
+            // Standard suit size: round to nearest even number (US/UK sizing)
+            let baseSize = Math.round(chestIn / 2) * 2;
+
+            // Fit adjustments (slim = closer cut, athletic = adjust for V-shape, relaxed = looser)
+            if (fit === "slim") baseSize -= 2;
+            // Athletic/relaxed fit adjustments are not possible without waist, so skip.
+
+            // Height for length
+            let lengthType = "Regular";
+            if (height < 168) lengthType = "Short";
+            else if (height > 183) lengthType = "Long";
+
+            // Women's/Other: Suggest closest jacket (chest), then size chart reference
+            let sizeLabel = "";
+            if (gender === "male") {
+                sizeLabel = `${baseSize} ${lengthType}`;
+            } else if (gender === "female") {
+                // Estimate women's jacket size (EU): chest(cm)-bust divided by 2, or use UK/US equivalents
+                let euSize = Math.round((chest - 80) / 2) * 2 + 36;
+                sizeLabel = `EU ${euSize} / UK ${Math.round(euSize / 2 + 4)} ${lengthType}`;
+            } else {
+                // Neutral suggestion
+                sizeLabel = `${baseSize} / EU ${Math.round((chest - 80) / 2) * 2 + 36} ${lengthType}`;
+            }
+
+            // Fit type label
+            let fitLabel = "";
+            if (fit === "slim") fitLabel = "Slim Fit (tailored, close to body)";
+            else if (fit === "athletic") fitLabel = "Athletic Fit (broad shoulders, tapered waist)";
+            else if (fit === "relaxed") fitLabel = "Relaxed Fit (looser cut)";
+            else fitLabel = "Regular Fit (classic, comfortable)";
+
+            // Show result
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'result animate-result';
+            document.getElementById('suitSizeResult').textContent = sizeLabel;
+            document.getElementById('fitTypeResult').textContent = fitLabel;
+        }
+
+        if (document.readyState !== 'loading') {
+            setupUnitAutoConvert();
+        } else {
+            document.addEventListener('DOMContentLoaded', setupUnitAutoConvert);
+        }
+    </script>
+</body>
+
+</html>

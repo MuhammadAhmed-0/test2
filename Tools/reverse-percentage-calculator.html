@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reverse Percentage Calculator - CalcHub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/tools/apush.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* Calculator Container */
+        .calculator-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 25px;
+            padding: 2.5rem;
+            box-shadow: 0 25px 50px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calculator-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: shimmer 4s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+
+            0%,
+            100% {
+                transform: rotate(0deg);
+            }
+
+            50% {
+                transform: rotate(180deg);
+            }
+        }
+
+        /* Calculator Mode Selector */
+        .mode-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .mode-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 1rem;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+
+        .mode-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+        }
+
+        .mode-btn.active {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            color: #2c3e50;
+            border-color: #ffd700;
+            transform: scale(1.05);
+        }
+
+        .mode-btn i {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* Input Groups */
+        .input-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 1.2rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            font-size: 1.1rem;
+            background: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #ffd700;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Calculate Button */
+        .calculate-btn {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            color: #2c3e50;
+            padding: 1.2rem 3rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            z-index: 2;
+        }
+
+        .calculate-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .calculate-btn:hover::before {
+            left: 100%;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.6);
+        }
+
+        .calculate-btn:active {
+            transform: translateY(-1px);
+        }
+
+        /* Result Section */
+        .result-container {
+            margin-top: 2rem;
+            display: none;
+            position: relative;
+            z-index: 2;
+        }
+
+        .result-card {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(255, 154, 158, 0.3);
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .result-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ff9a9e, #fecfef, #ff9a9e);
+            border-radius: 20px;
+            z-index: -1;
+            animation: borderGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes borderGlow {
+
+            0%,
+            100% {
+                opacity: 0.8;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .result-value {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 4px 8px rgba(44, 62, 80, 0.2);
+        }
+
+        .result-label {
+            font-size: 1.2rem;
+            color: #34495e;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Step-by-step Solution */
+        .solution-steps {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 1rem;
+            box-shadow: 0 15px 35px rgba(168, 237, 234, 0.3);
+        }
+
+        .solution-steps h4 {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .step {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            border-left: 4px solid #3498db;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .step:hover {
+            transform: translateX(5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .step-number {
+            background: #3498db;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-right: 1rem;
+        }
+
+        .step-content {
+            display: inline-block;
+            font-size: 1.1rem;
+            color: #2c3e50;
+            line-height: 1.5;
+        }
+
+        /* Formula Display */
+        .formula-display {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(255, 234, 167, 0.3);
+        }
+
+        .formula-display h5 {
+            color: #2c3e50;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .formula {
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1rem;
+            border-radius: 10px;
+            color: #e17055;
+            font-weight: bold;
+            border: 2px dashed #e17055;
+        }
+
+        /* Calculator Mode Styles */
+        .calculator-mode {
+            display: none;
+        }
+
+        .calculator-mode.active {
+            display: block;
+        }
+
+        /* Example Section */
+        .examples-section {
+            background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 15px 35px rgba(210, 153, 194, 0.3);
+        }
+
+        .examples-section h4 {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .example-item {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            border-left: 4px solid #e74c3c;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .example-question {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .example-answer {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        /* Animations */
+        @keyframes slideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-result {
+            animation: slideIn 0.6s ease-out;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .calculator-box {
+                padding: 1.5rem;
+            }
+
+            .mode-selector {
+                grid-template-columns: 1fr;
+            }
+
+            .result-value {
+                font-size: 2.5rem;
+            }
+
+            .calculate-btn {
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+
+            .step-content {
+                font-size: 1rem;
+            }
+        }
+
+        /* Clear Button */
+        .clear-btn {
+            background: linear-gradient(135deg, #ff7675 0%, #fd79a8 100%);
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-left: 1rem;
+            box-shadow: 0 5px 15px rgba(255, 118, 117, 0.4);
+        }
+
+        .clear-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 118, 117, 0.6);
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        @media (max-width: 768px) {
+            .button-group {
+                flex-direction: column;
+            }
+
+            .clear-btn {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .calculate-btn {
+                width: 100%;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- Announcement section -->
+    <div class="top-announcement-bar">
+        <div class="announcement-number">New Announcement</div>
+        <div class="announcement-text">
+            Explore the latest IT tools and expert resources at <a href="https://resourcesofdev.com" target="_blank"
+                rel="noopener noreferrer" class="announcement-link">Resourcesofdev.com</a>
+        </div>
+    </div>
+
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>CalcHub</h1>
+            </div>
+            <div class="nav-links">
+                <a href="../index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="../index.html"><i class="fas fa-tools"></i> Tools</a>
+                <a href="#about"><i class="fas fa-info-circle"></i> About</a>
+                <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+            </div>
+            <div class="mobile-menu-toggle" id="mobileMenuToggle">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+    <!-- Mobile Menu Panel -->
+    <div class="mobile-menu-panel" id="mobileMenuPanel">
+        <div class="mobile-menu-header">
+            <h2>Menu</h2>
+            <button class="mobile-menu-close" id="mobileMenuClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="mobile-menu-items">
+            <a href="index.html">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="#tools">
+                <i class="fas fa-tools"></i>
+                <span>Tools</span>
+            </a>
+            <a href="#about">
+                <i class="fas fa-info-circle"></i>
+                <span>About</span>
+            </a>
+            <a href="#contact">
+                <i class="fas fa-envelope"></i>
+                <span>Contact</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Reverse Percentage Calculator</h1>
+        </div>
+    </section>
+
+    <div class="tool-container">
+        <aside class="left-sidebar">
+            <h3>Related Tools</h3>
+            <ul>
+                <li><a href="manufactured-home-mortgage-calculator.html">Mortgage Calculator</a></li>
+                <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
+                <li><a href="snow-day-calculator.html">Snow Day Calculator</a></li>
+                <li><a href="terminus-calculator.html">Terminus Calculator</a></li>
+            </ul>
+        </aside>
+
+        <div class="main-content-column">
+            <main class="calculator-content">
+                <h1>Calculate Reverse Percentages Instantly</h1>
+                <div class="calculator-box">
+
+                    <!-- Mode Selector -->
+                    <div class="mode-selector">
+                        <button class="mode-btn active" onclick="setMode('original')" id="mode-original">
+                            <i class="fas fa-search-minus"></i>
+                            Find Original Value
+                        </button>
+                        <button class="mode-btn" onclick="setMode('percentage')" id="mode-percentage">
+                            <i class="fas fa-percent"></i>
+                            Find Percentage Rate
+                        </button>
+                        <button class="mode-btn" onclick="setMode('part')" id="mode-part">
+                            <i class="fas fa-puzzle-piece"></i>
+                            Find Part Value
+                        </button>
+                    </div>
+
+                    <!-- Find Original Value Mode -->
+                    <div id="calculator-original" class="calculator-mode active">
+                        <div class="input-group">
+                            <label for="partValue">Part Value (Result after percentage):</label>
+                            <input type="number" id="partValue" placeholder="e.g., 80" step="any">
+                        </div>
+                        <div class="input-group">
+                            <label for="percentageRate">Percentage Rate (%):</label>
+                            <input type="number" id="percentageRate" placeholder="e.g., 20" step="any">
+                        </div>
+                    </div>
+
+                    <!-- Find Percentage Rate Mode -->
+                    <div id="calculator-percentage" class="calculator-mode">
+                        <div class="input-group">
+                            <label for="partValue2">Part Value:</label>
+                            <input type="number" id="partValue2" placeholder="e.g., 25" step="any">
+                        </div>
+                        <div class="input-group">
+                            <label for="originalValue2">Original Value (Whole):</label>
+                            <input type="number" id="originalValue2" placeholder="e.g., 100" step="any">
+                        </div>
+                    </div>
+
+                    <!-- Find Part Value Mode -->
+                    <div id="calculator-part" class="calculator-mode">
+                        <div class="input-group">
+                            <label for="originalValue3">Original Value (Whole):</label>
+                            <input type="number" id="originalValue3" placeholder="e.g., 200" step="any">
+                        </div>
+                        <div class="input-group">
+                            <label for="percentageRate3">Percentage Rate (%):</label>
+                            <input type="number" id="percentageRate3" placeholder="e.g., 15" step="any">
+                        </div>
+                    </div>
+
+                    <div class="button-group">
+                        <button onclick="calculate()" class="calculate-btn">
+                            <i class="fas fa-calculator"></i> Calculate
+                        </button>
+                        <button onclick="clearAll()" class="clear-btn">
+                            <i class="fas fa-eraser"></i> Clear
+                        </button>
+                    </div>
+
+                    <!-- Result Container -->
+                    <div id="result-container" class="result-container">
+                        <div class="result-card">
+                            <div id="result-value" class="result-value">0</div>
+                            <div id="result-label" class="result-label">Result</div>
+                        </div>
+
+                        <div class="solution-steps">
+                            <h4><i class="fas fa-list-ol"></i> Step-by-Step Solution</h4>
+                            <div id="steps-container"></div>
+                        </div>
+
+                        <div class="formula-display">
+                            <h5><i class="fas fa-formula"></i> Formula Used</h5>
+                            <div id="formula-used" class="formula"></div>
+                        </div>
+                    </div>
+
+                    <!-- Examples Section -->
+                    <div class="examples-section">
+                        <h4><i class="fas fa-lightbulb"></i> Common Examples</h4>
+                        <div class="example-item">
+                            <div class="example-question">Q: If 20% of a number is 40, what is the original number?
+                            </div>
+                            <div class="example-answer">A: 200 (40 ÷ 0.20 = 200)</div>
+                        </div>
+                        <div class="example-item">
+                            <div class="example-question">Q: What percentage is 25 of 150?</div>
+                            <div class="example-answer">A: 16.67% (25 ÷ 150 × 100 = 16.67%)</div>
+                        </div>
+                        <div class="example-item">
+                            <div class="example-question">Q: What is 30% of 250?</div>
+                            <div class="example-answer">A: 75 (250 × 0.30 = 75)</div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <article class="calculator-article">
+                <h2>Understanding Reverse Percentage Calculations</h2>
+                <p>Reverse percentage calculations help you find missing values when you know some parts of a percentage
+                    relationship. This powerful tool can solve three different types of problems:</p>
+
+                <h3>1. Finding the Original Value</h3>
+                <p>When you know what percentage a number represents and the result, you can find the original whole
+                    number. For example, if 20% equals 40, the original number is 200.</p>
+
+                <h3>2. Finding the Percentage Rate</h3>
+                <p>When you know both the part and the whole, you can determine what percentage the part represents. For
+                    example, 25 out of 100 is 25%.</p>
+
+                <h3>3. Finding the Part Value</h3>
+                <p>This is regular percentage calculation - finding what a certain percentage of a number equals. For
+                    example, 15% of 200 is 30.</p>
+
+                <h3>Common Applications</h3>
+                <ul>
+                    <li><strong>Sales & Discounts:</strong> Finding original prices before discounts</li>
+                    <li><strong>Tax Calculations:</strong> Determining pre-tax amounts</li>
+                    <li><strong>Grade Analysis:</strong> Finding total points from percentage scores</li>
+                    <li><strong>Financial Planning:</strong> Calculating savings goals and investment returns</li>
+                    <li><strong>Statistics:</strong> Working with survey data and percentages</li>
+                    <li><strong>Business Analysis:</strong> Profit margins and growth rates</li>
+                </ul>
+
+                <h3>Tips for Accurate Calculations</h3>
+                <ul>
+                    <li>Always identify what you're looking for: original value, percentage rate, or part value</li>
+                    <li>Double-check your inputs - small errors can lead to big mistakes</li>
+                    <li>Use the step-by-step solution to understand the process</li>
+                    <li>Verify your answer by working backwards</li>
+                    <li>Consider context - does your answer make logical sense?</li>
+                </ul>
+            </article>
+        </div>
+
+        <aside class="right-sidebar">
+            <div class="ad-space">
+                <div class="ad-placeholder">
+                    <img src="../learn-more-heinz-300x250-call-to-action.webp" alt="Advertisement 1">
+                </div>
+            </div>
+            <div class="ad-space">
+                <div class="ad-placeholder">
+                    <img src="../learn-more-heinz-300x250-call-to-action.webp" alt="Advertisement 2">
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About CalcHub</h3>
+                <p>Your trusted source for online calculation tools</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#tools">Tools</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@calchub.com</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 CalcHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/calculator.js"></script>
+    <script>
+ let currentMode = 'original';
+
+function setMode(mode) {
+    // Update current mode
+    currentMode = mode;
+
+    // Update button states
+    document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+    document.getElementById(`mode-${mode}`).classList.add('active');
+
+    // Update calculator displays
+    document.querySelectorAll('.calculator-mode').forEach(calc => calc.classList.remove('active'));
+    document.getElementById(`calculator-${mode}`).classList.add('active');
+
+    // Clear results
+    document.getElementById('result-container').style.display = 'none';
+}
+
+function calculate() {
+    let result = null;
+
+    try {
+        switch (currentMode) {
+            case 'original':
+                result = calculateOriginal();
+                break;
+            case 'percentage':
+                result = calculatePercentage();
+                break;
+            case 'part':
+                result = calculatePart();
+                break;
+        }
+
+        if (result !== null) {
+            displayResult(result.value, result.label, result.steps, result.formula);
+        }
+    } catch (error) {
+        alert('Please enter valid numbers for all fields.');
+        console.error('Calculation error:', error);
+    }
+}
+
+function calculateOriginal() {
+    const partValue = parseFloat(document.getElementById('partValue').value);
+    const percentageRate = parseFloat(document.getElementById('percentageRate').value);
+
+    if (isNaN(partValue) || isNaN(percentageRate)) {
+        alert('Please enter valid numbers for both fields.');
+        return null;
+    }
+
+    if (percentageRate === 0) {
+        alert('Percentage rate cannot be zero.');
+        return null;
+    }
+
+    const originalValue = partValue / (percentageRate / 100);
+
+    const steps = [
+        `Given: ${percentageRate}% of original value = ${partValue}`,
+        `Convert percentage to decimal: ${percentageRate}% = ${(percentageRate / 100).toFixed(4)}`,
+        `Use formula: Original Value = Part Value ÷ Decimal`,
+        `Original Value = ${partValue} ÷ ${(percentageRate / 100).toFixed(4)}`,
+        `Original Value = ${originalValue.toFixed(2)}`
+    ];
+
+    return {
+        value: originalValue.toFixed(2),
+        label: 'Original Value',
+        steps: steps,
+        formula: 'Original Value = Part Value ÷ (Percentage ÷ 100)'
+    };
+}
+
+function calculatePercentage() {
+    const partValue = parseFloat(document.getElementById('partValue2').value);
+    const originalValue = parseFloat(document.getElementById('originalValue2').value);
+
+    if (isNaN(partValue) || isNaN(originalValue)) {
+        alert('Please enter valid numbers for both fields.');
+        return null;
+    }
+
+    if (originalValue === 0) {
+        alert('Original value cannot be zero.');
+        return null;
+    }
+
+    const percentageRate = (partValue / originalValue) * 100;
+
+    const steps = [
+        `Given: Part Value = ${partValue}, Original Value = ${originalValue}`,
+        `Use formula: Percentage = (Part Value ÷ Original Value) × 100`,
+        `Percentage = (${partValue} ÷ ${originalValue}) × 100`,
+        `Percentage = ${(partValue / originalValue).toFixed(4)} × 100`,
+        `Percentage = ${percentageRate.toFixed(2)}%`
+    ];
+
+    return {
+        value: percentageRate.toFixed(2) + '%',
+        label: 'Percentage Rate',
+        steps: steps,
+        formula: 'Percentage = (Part Value ÷ Original Value) × 100'
+    };
+}
+
+function calculatePart() {
+    const originalValue = parseFloat(document.getElementById('originalValue3').value);
+    const percentageRate = parseFloat(document.getElementById('percentageRate3').value);
+
+    if (isNaN(originalValue) || isNaN(percentageRate)) {
+        alert('Please enter valid numbers for both fields.');
+        return null;
+    }
+
+    const partValue = originalValue * (percentageRate / 100);
+
+    const steps = [
+        `Given: Original Value = ${originalValue}, Percentage = ${percentageRate}%`,
+        `Convert percentage to decimal: ${percentageRate}% = ${(percentageRate / 100).toFixed(4)}`,
+        `Use formula: Part Value = Original Value × Decimal`,
+        `Part Value = ${originalValue} × ${(percentageRate / 100).toFixed(4)}`,
+        `Part Value = ${partValue.toFixed(2)}`
+    ];
+
+    return {
+        value: partValue.toFixed(2),
+        label: 'Part Value',
+        steps: steps,
+        formula: 'Part Value = Original Value × (Percentage ÷ 100)'
+    };
+}
+
+function displayResult(value, label, steps, formula) {
+    // Show result container
+    const resultContainer = document.getElementById('result-container');
+    resultContainer.style.display = 'block';
+    resultContainer.className = 'result-container animate-result';
+
+    // Update result display
+    document.getElementById('result-value').textContent = value;
+    document.getElementById('result-label').textContent = label;
+
+    // Update steps
+    const stepsContainer = document.getElementById('steps-container');
+    stepsContainer.innerHTML = '';
+    
+    steps.forEach((step, index) => {
+        const stepDiv = document.createElement('div');
+        stepDiv.className = 'step';
+        stepDiv.innerHTML = `
+            <span class="step-number">${index + 1}</span>
+            <span class="step-content">${step}</span>
+        `;
+        stepsContainer.appendChild(stepDiv);
+    });
+
+    // Update formula
+    document.getElementById('formula-used').textContent = formula;
+
+    // Scroll to result
+    setTimeout(() => {
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 100);
+}
+
+function clearAll() {
+    // Clear all input fields
+    document.querySelectorAll('input[type="number"]').forEach(input => {
+        input.value = '';
+    });
+
+    // Hide results
+    document.getElementById('result-container').style.display = 'none';
+
+    // Focus on first input of current mode
+    const firstInput = document.querySelector(`#calculator-${currentMode} input`);
+    if (firstInput) {
+        firstInput.focus();
+    }
+}
+
+// Add keyboard support
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        calculate();
+    } else if (event.key === 'Escape') {
+        clearAll();
+    }
+});
+
+// Add input validation and formatting
+document.querySelectorAll('input[type="number"]').forEach(input => {
+    input.addEventListener('input', function() {
+        // Remove any non-numeric characters except decimal point and minus sign
+        this.value = this.value.replace(/[^0-9.-]/g, '');
+
+        // Ensure only one decimal point
+        const parts = this.value.split('.');
+        if (parts.length > 2) {
+            this.value = parts[0] + '.' + parts.slice(1).join('');
+        }
+
+        // Ensure only one minus sign at the beginning
+        if (this.value.indexOf('-') > 0) {
+            this.value = this.value.replace(/[-]/g, '');
+        }
+        
+        // If starts with multiple minus signs, keep only one
+        if (this.value.startsWith('--')) {
+            this.value = '-' + this.value.replace(/[-]/g, '');
+        }
+    });
+
+    input.addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            calculate();
+        }
+    });
+});
+
+// Initialize with first input focused
+document.addEventListener('DOMContentLoaded', function() {
+    const firstInput = document.querySelector('#calculator-original input');
+    if (firstInput) {
+        setTimeout(() => {
+            firstInput.focus();
+        }, 100);
+    }
+});
+</script>
+</body>
+
+</html>

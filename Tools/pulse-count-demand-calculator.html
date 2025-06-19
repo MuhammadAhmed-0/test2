@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pulse Count in Demand Calculator - CalcHub</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/tools/apush.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    /* Calculator Section Only: Custom, Responsive */
+    #result {
+      margin-top: 2rem;
+      padding: 2rem;
+      background: linear-gradient(135deg, #ff6a00 0%, #ee0979 100%);
+      border-radius: 20px;
+      display: none;
+      box-shadow: 0 20px 40px rgba(255, 106, 0, 0.17);
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #result::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.10) 0%, transparent 70%);
+      animation: shimmer 3s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0%, 100% { transform: rotate(0deg);}
+      50% { transform: rotate(180deg);}
+    }
+
+    #result h3 {
+      color: #fff;
+      font-size: 1.85rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.20);
+      position: relative;
+      z-index: 1;
+    }
+
+    #pulseResult {
+      font-size: 3.2rem;
+      font-weight: 900;
+      color: #ffd700;
+      margin-bottom: 1rem;
+      text-shadow: 0 4px 8px rgba(0,0,0,0.18);
+      position: relative;
+      z-index: 1;
+    }
+
+    #formulaBreakdown {
+      background: rgba(255,255,255,0.96);
+      padding: 1rem 1.2rem;
+      border-radius: 10px;
+      color: #222;
+      font-size: 1.08rem;
+      margin-top: 1rem;
+      box-shadow: 0 2px 8px rgba(255,106,0,0.08);
+      text-align: left;
+      display: inline-block;
+    }
+
+    /* Tips Section */
+    #tips-section {
+      margin-top: 2rem;
+      background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);
+      padding: 2rem;
+      border-radius: 18px;
+      box-shadow: 0 10px 24px rgba(255, 210, 0, 0.12);
+      display: none;
+    }
+
+    #tips-section h4 {
+      font-size: 1.25rem;
+      color: #7c5a05;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      text-align: center;
+      text-shadow: 0 1px 3px rgba(120, 114, 2, 0.10);
+    }
+
+    #tipsText {
+      background: rgba(255,255,255,0.90);
+      padding: 1rem 1.2rem;
+      border-radius: 10px;
+      font-size: 1.04rem;
+      color: #2d3436;
+      line-height: 1.6;
+      text-align: left;
+    }
+
+    /* Calculate Button */
+    .calculate-btn {
+      background: linear-gradient(135deg, #ff6a00 0%, #ee0979 100%);
+      color: white;
+      padding: 1.1rem 2.3rem;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1.18rem;
+      font-weight: 700;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(255, 106, 0, 0.15);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      overflow: hidden;
+    }
+    .calculate-btn::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.13), transparent);
+      transition: left 0.5s;
+    }
+    .calculate-btn:hover::before { left: 100%; }
+    .calculate-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(255, 106, 0, 0.18);
+    }
+    .calculate-btn:active { transform: translateY(-1px); }
+
+    /* Input Fields */
+    .input-group {
+      margin-bottom: 1.5rem;
+    }
+    .input-group label {
+      display: block;
+      margin-bottom: 0.8rem;
+      color: #2c3e50;
+      font-weight: 600;
+      font-size: 1.13rem;
+    }
+    .input-group input, .input-group select {
+      width: 100%;
+      padding: 1.1rem;
+      border: 2px solid #e0e6ed;
+      border-radius: 12px;
+      font-size: 1.08rem;
+      background: #f8f9fa;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+    .input-group input:focus, .input-group select:focus {
+      outline: none;
+      border-color: #ff6a00;
+      background-color: #ffffff;
+      box-shadow: 0 0 0 3px rgba(255, 106, 0, 0.07);
+      transform: translateY(-1px);
+    }
+    .toggle-unit {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .toggle-unit select {
+      min-width: 95px;
+      width: auto;
+      flex-shrink: 0;
+    }
+    @keyframes bounceIn {
+      0% { opacity: 0; transform: scale(0.3);}
+      50% { opacity: 1; transform: scale(1.07);}
+      70% { transform: scale(0.92);}
+      100% { opacity: 1; transform: scale(1);}
+    }
+    .animate-result { animation: bounceIn 0.6s ease-out; }
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      #pulseResult { font-size: 2rem; }
+      #result { padding: 1.2rem; }
+      .calculate-btn { padding: 1rem 1.3rem; font-size: 1rem;}
+      #tips-section { padding: 1rem;}
+      .toggle-unit { flex-direction: column; }
+      .toggle-unit select { width: 100%; }
+      #formulaBreakdown { font-size: 0.99rem; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Announcemnet section -->
+  <div class="top-announcement-bar">
+    <div class="announcement-number">New Announcement</div>
+    <div class="announcement-text">
+      Discover more advanced calculators at <a href="https://resourcesofdev.com" target="_blank"
+        rel="noopener noreferrer" class="announcement-link">Resourcesofdev.com</a>
+    </div>
+  </div>
+
+  <header>
+    <nav>
+      <div class="logo">
+        <h1>CalcHub</h1>
+      </div>
+      <div class="nav-links">
+        <a href="../index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="../index.html"><i class="fas fa-tools"></i> Tools</a>
+        <a href="#about"><i class="fas fa-info-circle"></i> About</a>
+        <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+      </div>
+      <div class="mobile-menu-toggle" id="mobileMenuToggle">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+  <div class="mobile-menu-panel" id="mobileMenuPanel">
+    <div class="mobile-menu-header">
+      <h2>Menu</h2>
+      <button class="mobile-menu-close" id="mobileMenuClose">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="mobile-menu-items">
+      <a href="index.html"><i class="fas fa-home"></i><span>Home</span></a>
+      <a href="#tools"><i class="fas fa-tools"></i><span>Tools</span></a>
+      <a href="#about"><i class="fas fa-info-circle"></i><span>About</span></a>
+      <a href="#contact"><i class="fas fa-envelope"></i><span>Contact</span></a>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Pulse Count in Demand Calculator</h1>
+      <p class="hero-subtitle">
+        Instantly calculate required pulse counts for any demand (energy, flow, process) — perfect for utility, automation, and industrial applications!
+      </p>
+    </div>
+  </section>
+
+  <div class="tool-container">
+    <aside class="left-sidebar">
+      <h3>Related Tools</h3>
+      <ul>
+        <li><a href="unit-converter.html">Unit Converter</a></li>
+        <li><a href="frequency-calculator.html">Frequency Calculator</a></li>
+        <li><a href="rpm-calculator.html">RPM Calculator</a></li>
+        <li><a href="energy-cost-calculator.html">Energy Cost Calculator</a></li>
+      </ul>
+    </aside>
+    <div class="main-content-column">
+      <main class="calculator-content">
+        <h1>Calculate Pulse Count in Demand</h1>
+        <div class="calculator-box">
+          <div class="input-group">
+            <label for="totalDemand">Total Demand
+              <span class="help-tip" title="The total value to measure (e.g., kWh, liters, or units) for your period.">?</span>
+            </label>
+            <input type="number" id="totalDemand" min="0.001" step="any" value="1000" placeholder="e.g. 1000">
+            <select id="demandUnit">
+              <option value="kWh">kWh</option>
+              <option value="liters">Liters</option>
+              <option value="gallons">Gallons</option>
+              <option value="units">Units</option>
+              <option value="custom">Custom</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label for="pulseValue">Value per Pulse
+              <span class="help-tip" title="How much each pulse represents (e.g., 1 kWh/pulse, 10 liters/pulse, etc).">?</span>
+            </label>
+            <input type="number" id="pulseValue" min="0.0001" step="any" value="1" placeholder="e.g. 1">
+            <select id="pulseValueUnit">
+              <option value="kWh">kWh/pulse</option>
+              <option value="liters">Liters/pulse</option>
+              <option value="gallons">Gallons/pulse</option>
+              <option value="units">Units/pulse</option>
+              <option value="custom">Custom</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label for="period">Measurement Period
+              <span class="help-tip" title="Set the relevant timeframe for your demand. Used for reference only.">?</span>
+            </label>
+            <input type="text" id="period" value="1 hour" placeholder="e.g. 1 hour, 1 day">
+          </div>
+          <button onclick="calculatePulseCount()" class="calculate-btn">Calculate Pulse Count</button>
+          <div id="result" class="result">
+            <h3>Required Pulse Count</h3>
+            <div id="pulseResult">0</div>
+            <div id="formulaBreakdown"></div>
+          </div>
+          <div id="tips-section">
+            <h4>Pro Tips</h4>
+            <div id="tipsText"></div>
+          </div>
+        </div>
+      </main>
+      <article class="calculator-article">
+        <h2>What is Pulse Count in Demand?</h2>
+        <p>
+          Pulse count is commonly used in energy, water, gas, and process monitoring to convert a measured demand (like kWh, liters, or gallons) into a number of pulses for a meter, PLC, or monitoring system.
+        </p>
+        <ul>
+          <li><strong>Formula:</strong> <code>Pulse Count = Total Demand ÷ Value per Pulse</code></li>
+          <li>Example: If you use 1200 kWh and your meter gives 1 pulse per 10 kWh: <code>1200 ÷ 10 = 120 pulses</code></li>
+          <li>Use this calculator for any measurable demand: energy, water, gas, product, or custom units.</li>
+          <li>Great for SCADA, BMS, smart metering, and industrial automation.</li>
+        </ul>
+        <p>
+          <em>Tip: Always match the demand and pulse units for accurate results. Use “custom” for arbitrary units.</em>
+        </p>
+      </article>
+    </div>
+    <aside class="right-sidebar">
+      <div class="ad-space">
+        <div class="ad-placeholder">
+          <img src="../learn-more-heinz-300x250-call-to-action.webp" alt="Advertisement 1">
+        </div>
+      </div>
+      <div class="ad-space">
+        <div class="ad-placeholder">
+          <img src="../learn-more-heinz-300x250-call-to-action.webp" alt="Advertisement 2">
+        </div>
+      </div>
+    </aside>
+  </div>
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>About CalcHub</h3>
+        <p>Your trusted source for online calculation tools</p>
+      </div>
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#tools">Tools</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#privacy">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Contact Us</h3>
+        <p>Email: info@calchub.com</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 CalcHub. All rights reserved.</p>
+    </div>
+  </footer>
+  <script>
+    function calculatePulseCount() {
+      const totalDemand = parseFloat(document.getElementById('totalDemand').value) || 0;
+      const demandUnit = document.getElementById('demandUnit').value;
+      const pulseValue = parseFloat(document.getElementById('pulseValue').value) || 0;
+      const pulseValueUnit = document.getElementById('pulseValueUnit').value;
+      const period = document.getElementById('period').value;
+
+      if (totalDemand <= 0 || pulseValue <= 0) {
+        alert('Please enter valid values for total demand and value per pulse.');
+        return;
+      }
+
+      // Check matching units for accuracy
+      let mismatch = false;
+      if (demandUnit !== 'custom' && pulseValueUnit !== 'custom' && demandUnit !== pulseValueUnit) {
+        mismatch = true;
+      }
+
+      // Core calculation
+      const pulseCount = totalDemand / pulseValue;
+
+      document.getElementById('result').style.display = 'block';
+      document.getElementById('result').className = 'result animate-result';
+      document.getElementById('pulseResult').textContent = `${pulseCount.toLocaleString(undefined, {maximumFractionDigits: 2})} pulses`;
+
+      // Formula breakdown
+      document.getElementById('formulaBreakdown').innerHTML =
+        `<strong>Formula:</strong> Pulse Count = Total Demand ÷ Value per Pulse<br>
+        <strong>Values:</strong> ${totalDemand} ${demandUnit} ÷ ${pulseValue} ${pulseValueUnit.replace('/pulse','')}<br>
+        <strong>Result:</strong> ${pulseCount.toLocaleString(undefined, {maximumFractionDigits: 2})} pulses<br>
+        <strong>Period:</strong> ${period ? period : 'N/A'}`;
+
+      // Pro tips
+      document.getElementById('tips-section').style.display = 'block';
+      document.getElementById('tipsText').innerHTML =
+        `<ul>
+          <li>Always check you are using the same units for demand and pulse value.</li>
+          <li>If your meter or PLC gives more than one kind of pulse (high/low), use the value per pulse for the channel you are measuring.</li>
+          <li>For very small pulse values, your system may count a lot of pulses—make sure your hardware/software can handle the rate.</li>
+          <li>Add a safety margin for unmetered or unexpected demand spikes.</li>
+        </ul>
+        ${mismatch ? `<span style="color:#ee0979;"><strong>Warning:</strong> Mismatched units detected (${demandUnit} vs ${pulseValueUnit}). Results may not be accurate!</span><br>` : ''}
+        <em>Perfect for use with energy meters, flow meters, PLCs, and industrial monitoring systems.</em>
+        `;
+    }
+  </script>
+</body>
+</html>

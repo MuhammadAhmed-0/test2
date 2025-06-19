@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Land Loan Calculator - CalcHub</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/tools/apush.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    /* Result Section */
+    #result {
+      margin-top: 2rem;
+      padding: 2rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 20px;
+      display: none;
+      box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #result::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+      animation: shimmer 3s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0%, 100% {
+        transform: rotate(0deg);
+      }
+      50% {
+        transform: rotate(180deg);
+      }
+    }
+
+    #result h3 {
+      color: white;
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Monthly Payment Display */
+    #monthlyPayment {
+      font-size: 4rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 1rem;
+      text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      position: relative;
+      z-index: 1;
+      background: linear-gradient(45deg, #ffd700, #ffed4e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* DTI Info Section */
+    #dti-info {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: linear-gradient(135deg, #FF6F00 0%, #FF8F00 100%);
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(255, 111, 0, 0.3);
+      display: none;
+    }
+
+    #dti-info h4 {
+      color: white;
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    #dti-info p {
+      color: #f0f0f0;
+      font-size: 1.1rem;
+      margin: 0.5rem 0;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    #dtiRatio {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #FFF8E1;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Summary Section */
+    #summary-section {
+      margin-top: 2rem;
+      background: linear-gradient(135deg, #E8F5E8 0%, #C8E6C9 100%);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(200, 230, 201, 0.3);
+      display: none;
+    }
+
+    #summary-section h4 {
+      font-size: 1.8rem;
+      color: #2E7D32;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      text-shadow: 0 2px 4px rgba(46, 125, 50, 0.2);
+    }
+
+    #summaryText {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-left: 4px solid #4CAF50;
+      font-size: 1.1rem;
+      color: #2c3e50;
+      line-height: 1.6;
+    }
+
+    /* Loan Type Info Section */
+    #loan-type-info {
+      margin-top: 2rem;
+      background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(187, 222, 251, 0.3);
+      display: none;
+    }
+
+    #loan-type-info h4 {
+      font-size: 1.8rem;
+      color: #1976D2;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      text-shadow: 0 2px 4px rgba(25, 118, 210, 0.2);
+    }
+
+    #loanTypeText {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-left: 4px solid #2196F3;
+      font-size: 1.1rem;
+      color: #2c3e50;
+      line-height: 1.6;
+    }
+
+    /* Calculate Button */
+    .calculate-btn {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 1.2rem 3rem;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      font-weight: 700;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .calculate-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.5s;
+    }
+
+    .calculate-btn:hover::before {
+      left: 100%;
+    }
+
+    .calculate-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+    }
+
+    .calculate-btn:active {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    }
+
+    /* Input Fields */
+    .input-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 0.8rem;
+      color: #2c3e50;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .input-group input,
+    .input-group select {
+      width: 100%;
+      padding: 1.2rem;
+      border: 2px solid #e0e6ed;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      background: #f8f9fa;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .input-group input:focus,
+    .input-group select:focus {
+      outline: none;
+      border-color: #4CAF50;
+      background-color: #ffffff;
+      box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+      transform: translateY(-1px);
+    }
+
+    /* Toggle Input for Down Payment */
+    .toggle-input {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .toggle-input input {
+      flex: 1;
+    }
+
+    .toggle-input select {
+      width: 80px;
+      flex-shrink: 0;
+    }
+
+    /* Info tooltips */
+    .info-tooltip {
+      position: relative;
+      display: inline-block;
+      margin-left: 5px;
+      color: #4CAF50;
+      cursor: help;
+    }
+
+    .info-tooltip .tooltip-text {
+      visibility: hidden;
+      width: 250px;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 10px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      margin-left: -125px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 0.9rem;
+      font-weight: normal;
+    }
+
+    .info-tooltip:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    /* Animations */
+    @keyframes bounceIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.3);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.05);
+      }
+      70% {
+        transform: scale(0.9);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .animate-result {
+      animation: bounceIn 0.6s ease-out;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      #monthlyPayment {
+        font-size: 2.5rem;
+      }
+
+      #result {
+        padding: 1.5rem;
+      }
+
+      .calculate-btn {
+        padding: 1rem 2rem;
+        font-size: 1rem;
+      }
+
+      .toggle-input {
+        flex-direction: column;
+      }
+
+      .toggle-input select {
+        width: 100%;
+      }
+
+      .info-tooltip .tooltip-text {
+        width: 200px;
+        margin-left: -100px;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+  <!-- Announcemnet section -->
+  <div class="top-announcement-bar">
+    <div class="announcement-number">New Announcement</div>
+    <div class="announcement-text">
+      Explore the latest IT tools and expert resources at <a href="https://resourcesofdev.com" target="_blank"
+        rel="noopener noreferrer" class="announcement-link">Resourcesofdev.com</a>
+    </div>
+  </div>
+
+  <header>
+    <nav>
+      <div class="logo">
+        <h1>CalcHub</h1>
+      </div>
+      <div class="nav-links">
+        <a href="../index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="../index.html"><i class="fas fa-tools"></i> Tools</a>
+        <a href="#about"><i class="fas fa-info-circle"></i> About</a>
+        <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+      </div>
+      <div class="mobile-menu-toggle" id="mobileMenuToggle">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+  <!-- Mobile Menu Panel -->
+  <div class="mobile-menu-panel" id="mobileMenuPanel">
+    <div class="mobile-menu-header">
+      <h2>Menu</h2>
+      <button class="mobile-menu-close" id="mobileMenuClose">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="mobile-menu-items">
+      <a href="index.html">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </a>
+      <a href="#tools">
+        <i class="fas fa-tools"></i>
+        <span>Tools</span>
+      </a>
+      <a href="#about">
+        <i class="fas fa-info-circle"></i>
+        <span>About</span>
+      </a>
+      <a href="#contact">
+        <i class="fas fa-envelope"></i>
+        <span>Contact</span>
+      </a>
+    </div>
+  </div>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Land Loan Calculator</h1>
+    </div>
+  </section>
+
+  <div class="tool-container">
+    <aside class="left-sidebar">
+      <h3>Related Tools</h3>
+      <ul>
+        <li><a href="manufactured-home-mortgage-calculator.html">Manufactured Home Calculator</a></li>
+        <li><a href="mortgage-calculator.html">Mortgage Calculator</a></li>
+        <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
+        <li><a href="investment-calculator.html">Investment Calculator</a></li>
+      </ul>
+    </aside>
+    <div class="main-content-column">
+      <main class="calculator-content">
+        <h1>Calculate Your Land Loan Payment</h1>
+        <div class="calculator-box">
+          <div class="input-group">
+            <label for="income">Monthly Gross Income:
+              <span class="info-tooltip">
+                <i class="fas fa-info-circle"></i>
+                <span class="tooltip-text">Your total monthly income before taxes and deductions</span>
+              </span>
+            </label>
+            <input type="text" id="income" value="$6000" placeholder="Enter your monthly income">
+          </div>
+          <div class="input-group">
+            <label for="debts">Monthly Debt Payments:
+              <span class="info-tooltip">
+                <i class="fas fa-info-circle"></i>
+                <span class="tooltip-text">Total monthly payments for credit cards, auto loans, student loans, etc.</span>
+              </span>
+            </label>
+            <input type="text" id="debts" value="$800" placeholder="Enter your monthly debts">
+          </div>
+          <div class="input-group">
+            <label for="landPrice">Land Purchase Price:</label>
+            <input type="text" id="landPrice" value="$75000" placeholder="Enter land price">
+          </div>
+          <div class="input-group">
+            <label for="downPayment">Down Payment:
+              <span class="info-tooltip">
+                <i class="fas fa-info-circle"></i>
+                <span class="tooltip-text">Land loans typically require 20-50% down payment</span>
+              </span>
+            </label>
+            <div class="toggle-input">
+              <input type="text" id="downPayment" value="$18750" placeholder="Enter down payment">
+              <select id="downType">
+                <option value="$">$</option>
+                <option value="%">%</option>
+              </select>
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="loanTerm">Loan Term (Years):
+              <span class="info-tooltip">
+                <i class="fas fa-info-circle"></i>
+                <span class="tooltip-text">Land loans typically range from 10-20 years</span>
+              </span>
+            </label>
+            <select id="loanTerm">
+              <option value="10">10 years</option>
+              <option value="15" selected>15 years</option>
+              <option value="20">20 years</option>
+              <option value="25">25 years</option>
+              <option value="30">30 years</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label for="interestRate">Interest Rate (%):
+              <span class="info-tooltip">
+                <i class="fas fa-info-circle"></i>
+                <span class="tooltip-text">Land loan rates are typically 1-3% higher than home mortgages</span>
+              </span>
+            </label>
+            <input type="number" step="0.01" id="interestRate" value="8.5" placeholder="Enter interest rate">
+          </div>
+          <div class="input-group">
+            <label for="landType">Land Type:</label>
+            <select id="landType">
+              <option value="raw">Raw/Undeveloped Land</option>
+              <option value="improved" selected>Improved Land (utilities available)</option>
+              <option value="recreational">Recreational Land</option>
+              <option value="agricultural">Agricultural Land</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label for="creditScore">Credit Score Range:</label>
+            <select id="creditScore">
+              <option value="excellent">740+ (Excellent)</option>
+              <option value="good" selected>680-739 (Good)</option>
+              <option value="fair">620-679 (Fair)</option>
+              <option value="poor">580-619 (Poor)</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label for="propertyTax">Annual Property Tax:
+              <span class="info-tooltip">
+                <i class="fas fa-info-circle"></i>
+                <span class="tooltip-text">Estimated yearly property tax based on land value and local rates</span>
+              </span>
+            </label>
+            <input type="text" id="propertyTax" value="$750" placeholder="Enter annual property tax">
+          </div>
+          <div class="input-group">
+            <label for="insurance">Annual Land Insurance:
+              <span class="info-tooltip">
+                <i class="fas fa-info-circle"></i>
+                <span class="tooltip-text">Liability insurance for vacant land (optional but recommended)</span>
+              </span>
+            </label>
+            <input type="text" id="insurance" value="$300" placeholder="Enter annual insurance">
+          </div>
+          <button onclick="calculateLandLoan()" class="calculate-btn">Calculate Land Loan</button>
+
+          <div id="result" class="result">
+            <h3>Monthly Land Loan Payment</h3>
+            <p id="monthlyPayment">$0.00</p>
+          </div>
+
+          <!-- DTI Info Section -->
+          <div id="dti-info">
+            <h4>Debt-to-Income Analysis</h4>
+            <p id="dtiRatio">0%</p>
+            <p>Land loans typically require DTI under 36%. Some lenders allow up to 43% with excellent credit.</p>
+          </div>
+          <!-- Summary Section -->
+          <div id="summary-section">
+            <h4>Land Loan Summary</h4>
+            <div id="summaryText">
+              Waiting for calculation...
+            </div>
+          </div>
+          <!-- Loan Type Info Section -->
+          <div id="loan-type-info">
+            <h4>Land Loan Information</h4>
+            <div id="loanTypeText">
+              Information about your land loan type will appear here...
+            </div>
+          </div>
+
+
+        </div>
+      </main>
+
+      <article class="calculator-article">
+        <h2>Understanding Land Loans</h2>
+        <p>Land loans are specialized financing options for purchasing vacant land. They differ significantly from traditional home mortgages in terms of requirements, rates, and terms:</p>
+        
+        <h3>Types of Land Loans</h3>
+        <ul>
+          <li><strong>Raw Land Loans:</strong> For undeveloped land without utilities or road access. Highest rates and down payments (25-50%)</li>
+          <li><strong>Improved Land Loans:</strong> For land with basic utilities and road access. More favorable terms (10-20% down)</li>
+          <li><strong>Construction-to-Permanent Loans:</strong> For land where you plan to build immediately</li>
+        </ul>
+
+        <h3>Key Requirements</h3>
+        <ul>
+          <li><strong>Down Payment:</strong> Typically 20-50% depending on land type and intended use</li>
+          <li><strong>Interest Rates:</strong> Usually 1-3% higher than conventional mortgages</li>
+          <li><strong>Loan Terms:</strong> Shorter terms (10-20 years) compared to home loans</li>
+          <li><strong>Credit Score:</strong> Minimum 640-680, with best rates for 740+</li>
+          <li><strong>Debt-to-Income:</strong> Typically under 36%, some lenders allow up to 43%</li>
+          <li><strong>Cash Reserves:</strong> Lenders often require 6+ months of payments in savings</li>
+        </ul>
+
+        <h3>Factors Affecting Approval</h3>
+        <ul>
+          <li><strong>Land Use Plans:</strong> Clear plans for development improve approval odds</li>
+          <li><strong>Location:</strong> Proximity to developed areas and utilities</li>
+          <li><strong>Market Value:</strong> Professional appraisal required</li>
+          <li><strong>Environmental Issues:</strong> Surveys for wetlands, flood zones, etc.</li>
+        </ul>
+
+        <p>Use this calculator to estimate your monthly payments and assess affordability. Always consult with agricultural or land loan specialists for the most accurate information based on your specific situation.</p>
+      </article>
+    </div>
+
+    <aside class="right-sidebar">
+      <div class="ad-space">
+        <div class="ad-placeholder">
+          <img src="../learn-more-heinz-300x250-call-to-action.webp" alt="Advertisement 1">
+        </div>
+      </div>
+      <div class="ad-space">
+        <div class="ad-placeholder">
+          <img src="../learn-more-heinz-300x250-call-to-action.webp" alt="Advertisement 2">
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>About CalcHub</h3>
+        <p>Your trusted source for online calculation tools</p>
+      </div>
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#tools">Tools</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#privacy">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Contact Us</h3>
+        <p>Email: info@calchub.com</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 CalcHub. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="../js/calculator.js"></script>
+  <script>
+function calculateLandLoan() {
+    // Get input values and remove any dollar signs or non-numeric characters
+    const income = parseFloat(document.getElementById('income').value.replace(/[^0-9.]/g, '')) || 0;
+    const debts = parseFloat(document.getElementById('debts').value.replace(/[^0-9.]/g, '')) || 0;
+    const landPrice = parseFloat(document.getElementById('landPrice').value.replace(/[^0-9.]/g, '')) || 0;
+    let downPayment = parseFloat(document.getElementById('downPayment').value.replace(/[^0-9.]/g, '')) || 0;
+    const downType = document.getElementById('downType').value;
+    const interestRate = parseFloat(document.getElementById('interestRate').value) / 100 || 0;
+    const loanTerm = parseInt(document.getElementById('loanTerm').value) || 15;
+    const landType = document.getElementById('landType').value;
+    const creditScore = document.getElementById('creditScore').value;
+    const propertyTax = parseFloat(document.getElementById('propertyTax').value.replace(/[^0-9.]/g, '')) || 0;
+    const insurance = parseFloat(document.getElementById('insurance').value.replace(/[^0-9.]/g, '')) || 0;
+
+    // Validate landPrice (mandatory field)
+    if (landPrice <= 0) {
+        alert('Please enter a valid land purchase price.');
+        return;
+    }
+
+    // Convert percentage down payment to dollar amount
+    if (downType === '%') {
+        downPayment = (downPayment / 100) * landPrice;
+    }
+
+    // Calculate loan amount
+    const loanAmount = landPrice - downPayment;
+
+    if (loanAmount <= 0) {
+        alert('Down payment cannot be greater than or equal to land price.');
+        return;
+    }
+
+    // Monthly interest rate
+    const monthlyRate = interestRate / 12;
+    const totalPayments = loanTerm * 12;
+
+    // Calculate monthly principal and interest
+    let monthlyPI = 0;
+    if (monthlyRate > 0) {
+        monthlyPI = (loanAmount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -totalPayments));
+    } else {
+        monthlyPI = loanAmount / totalPayments;
+    }
+
+    // Calculate monthly property tax and insurance
+    const monthlyPropertyTax = propertyTax / 12;
+    const monthlyInsurance = insurance / 12;
+
+    // Calculate total monthly payment
+    const totalMonthly = monthlyPI + monthlyPropertyTax + monthlyInsurance;
+
+    // Calculate debt-to-income ratio
+    let dti = 0;
+    let dtiMessage = '';
+    if (income > 0 && debts > 0) {
+        dti = (debts / income) * 100;
+        const dtiStatus = dti <= 28 ? 'excellent' : (dti <= 36 ? 'good' : (dti <= 43 ? 'acceptable' : 'high'));
+        dtiMessage = `Your current debt-to-income ratio is <strong>${dti.toFixed(2)}%</strong>, which is considered ${dtiStatus} for land loans. `;
+        
+        if (dti > 43) {
+            dtiMessage += 'You may need to reduce debt or increase income to qualify for most land loan programs.';
+        } else if (dti > 36) {
+            dtiMessage += 'You should qualify for most land loan programs, but may need to shop around for the best rates.';
+        } else if (dti > 28) {
+            dtiMessage += 'You have good qualifying ratios for most land loan programs.';
+        } else {
+            dtiMessage += 'You have excellent qualifying ratios for land loan programs.';
+        }
+    } else {
+        dtiMessage = 'To calculate the Debt-to-Income ratio, please enter both your monthly income and monthly debts.';
+    }
+
+    // Down payment percentage
+    const downPaymentPercentage = (downPayment / landPrice) * 100;
+
+    // Get land type information
+    const landTypeInfo = getLandTypeInfo(landType, downPaymentPercentage, creditScore);
+
+    // Total interest paid over life of loan
+    const totalInterest = (monthlyPI * totalPayments) - loanAmount;
+
+    // Display results
+    const resultDiv = document.getElementById('result');
+    resultDiv.style.display = 'block';
+    resultDiv.className = 'result animate-result';
+
+    document.getElementById('monthlyPayment').textContent = '$' + totalMonthly.toFixed(2);
+
+    // Show DTI section
+    const dtiSection = document.getElementById('dti-info');
+    dtiSection.style.display = 'block';
+    document.getElementById('dtiRatio').textContent = dti > 0 ? dti.toFixed(2) + '%' : 'N/A';
+
+    // Show land type info section
+    const landTypeSection = document.getElementById('loan-type-info');
+    landTypeSection.style.display = 'block';
+    document.getElementById('loanTypeText').innerHTML = landTypeInfo;
+
+    // Show summary section
+    const summarySection = document.getElementById('summary-section');
+    summarySection.style.display = 'block';
+
+    document.getElementById('summaryText').innerHTML = `
+        <strong>Monthly Payment Breakdown:</strong><br>
+        • Principal & Interest: $${monthlyPI.toFixed(2)}<br>
+        • Property Tax: $${monthlyPropertyTax.toFixed(2)}<br>
+        • Land Insurance: $${monthlyInsurance.toFixed(2)}<br><br>
+
+        <strong>Total Monthly Payment: $${totalMonthly.toFixed(2)}</strong><br><br>
+
+        <strong>Loan Details:</strong><br>
+        • Land Price: $${landPrice.toLocaleString()}<br>
+        • Down Payment: $${downPayment.toLocaleString()} (${downPaymentPercentage.toFixed(1)}%)<br>
+        • Loan Amount: $${loanAmount.toLocaleString()}<br>
+        • Total Interest: $${totalInterest.toLocaleString()}<br>
+        • Total Cost: $${(loanAmount + totalInterest).toLocaleString()}<br><br>
+
+        ${dtiMessage}
+    `;
+}
+
+function getLandTypeInfo(landType, downPayment, creditScore) {
+    let info = '';
+    
+    switch(landType) {
+        case 'raw':
+            info = `<strong>Raw/Undeveloped Land Loan:</strong><br>
+                    • Typical down payment: 25-50% (yours: ${downPayment.toFixed(1)}%)<br>
+                    • Higher interest rates due to increased risk<br>
+                    • Shorter loan terms (10-15 years typical)<br>
+                    • May require detailed development plans<br>
+                    • Environmental surveys often required<br>
+                    • Limited lender options available`;
+            break;
+        case 'improved':
+            info = `<strong>Improved Land Loan:</strong><br>
+                    • Typical down payment: 10-25% (yours: ${downPayment.toFixed(1)}%)<br>
+                    • More favorable rates than raw land<br>
+                    • Utilities and road access available<br>
+                    • Easier to qualify and faster approval<br>
+                    • More lender options available<br>
+                    • Good option for future home construction`;
+            break;
+        case 'recreational':
+            info = `<strong>Recreational Land Loan:</strong><br>
+                    • Typical down payment: 20-30% (yours: ${downPayment.toFixed(1)}%)<br>
+                    • Moderate interest rates<br>
+                    • Used for hunting, camping, or recreation<br>
+                    • May have seasonal access limitations<br>
+                    • Consider ongoing maintenance costs<br>
+                    • Potential for appreciation in desirable areas`;
+            break;
+        case 'agricultural':
+            info = `<strong>Agricultural Land Loan:</strong><br>
+                    • Typical down payment: 15-25% (yours: ${downPayment.toFixed(1)}%)<br>
+                    • May qualify for USDA programs<br>
+                    • Longer loan terms possible (20-30 years)<br>
+                    • Income potential from farming/leasing<br>
+                    • Tax advantages may apply<br>
+                    • Consider soil quality and water rights`;
+            break;
+        default:
+            info = 'Please select a land type for specific information.';
+    }
+
+    // Add credit score impact
+    const creditImpact = getCreditScoreImpact(creditScore);
+    info += `<br><br><strong>Credit Score Impact:</strong><br>${creditImpact}`;
+
+    return info;
+}
+
+function getCreditScoreImpact(creditScore) {
+    switch(creditScore) {
+        case 'excellent':
+            return '• Excellent credit (740+) qualifies for best rates<br>• Widest selection of lenders<br>• May qualify for lower down payment options<br>• Faster approval process';
+        case 'good':
+            return '• Good credit (680-739) gets competitive rates<br>• Good selection of lenders<br>• Standard down payment requirements<br>• Normal approval timeline';
+        case 'fair':
+            return '• Fair credit (620-679) may face higher rates<br>• Limited lender options<br>• Higher down payment may be required<br>• Longer approval process';
+        case 'poor':
+            return '• Poor credit (580-619) results in highest rates<br>• Very limited lender options<br>• Maximum down payment typically required<br>• May need co-signer or additional collateral';
+        default:
+            return 'Credit score impact varies by lender and loan program.';
+    }
+}
+
+</script>
+</body>
+
+</html>

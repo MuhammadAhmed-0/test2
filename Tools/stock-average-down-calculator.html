@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Average Down Calculator - CalcHub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/tools/apush.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .calculator-box {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
+        /* Result Section */
+        #result {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #2E8B57 0%, #228B22 100%);
+            border-radius: 20px;
+            display: none;
+            box-shadow: 0 20px 40px rgba(46, 139, 87, 0.3);
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #result::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+
+            0%,
+            100% {
+                transform: rotate(0deg);
+            }
+
+            50% {
+                transform: rotate(180deg);
+            }
+        }
+
+        #result h3 {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* New Average Price Display */
+        #newAveragePrice {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(45deg, #32CD32, #98FB98);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Profit Loss Info Section */
+        #profit-loss-info {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+            display: none;
+        }
+
+        #profit-loss-info h4 {
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        #profit-loss-info p {
+            color: #f0f0f0;
+            font-size: 1.1rem;
+            margin: 0.5rem 0;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .profit-positive {
+            background: linear-gradient(135deg, #2E8B57 0%, #228B22 100%) !important;
+        }
+
+        .loss-amount {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #FFD700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Analysis Section */
+        #analysis-section {
+            margin-top: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.3);
+            display: none;
+        }
+
+        #analysis-section h4 {
+            font-size: 1.8rem;
+            color: white;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        #analysisText {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #667eea;
+            font-size: 1.1rem;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        /* Strategy Section */
+        #strategy-section {
+            margin-top: 2rem;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(252, 182, 159, 0.3);
+            display: none;
+        }
+
+        #strategy-section h4 {
+            font-size: 1.8rem;
+            color: #8b4513;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(139, 69, 19, 0.2);
+        }
+
+        #strategyText {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #ff6b35;
+            font-size: 1.1rem;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        /* Position Tracker */
+        #position-tracker {
+            margin-top: 2rem;
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(168, 237, 234, 0.3);
+            display: none;
+        }
+
+        #position-tracker h4 {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .tracker-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tracker-card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1.2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .tracker-card h5 {
+            color: #2c3e50;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .tracker-value {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        /* Calculate Button */
+        .calculate-btn {
+            background: linear-gradient(135deg, #2E8B57 0%, #228B22 100%);
+            color: white;
+            padding: 1.2rem 3rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(46, 139, 87, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calculate-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .calculate-btn:hover::before {
+            left: 100%;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(46, 139, 87, 0.6);
+        }
+
+        .calculate-btn:active {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 25px rgba(46, 139, 87, 0.4);
+        }
+
+        /* Add Position Button */
+        .add-position-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+            margin-left: 0.5rem;
+        }
+
+        .add-position-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Input Fields */
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 1.2rem;
+            border: 2px solid #e0e6ed;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #2E8B57;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(46, 139, 87, 0.1);
+            transform: translateY(-1px);
+        }
+
+        /* Multiple Positions */
+        .position-entry {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 12px;
+            border: 2px solid #e9ecef;
+            position: relative;
+        }
+
+        .position-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .position-number {
+            font-weight: 700;
+            color: #2E8B57;
+            font-size: 1.2rem;
+        }
+
+        .remove-position {
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .remove-position:hover {
+            background: #c82333;
+            transform: scale(1.1);
+        }
+
+        .position-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        /* Target Price Section */
+        .target-section {
+            background: linear-gradient(135deg, #FFE066 0%, #FF6B35 100%);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-top: 1rem;
+        }
+
+        .target-section label {
+            color: white !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Animations */
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+
+            70% {
+                transform: scale(0.9);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .animate-result {
+            animation: bounceIn 0.6s ease-out;
+        }
+
+        /* Enhanced Mobile Responsive CSS - Add this to your existing CSS */
+        /* This CSS only affects mobile devices and preserves desktop styling */
+
+        /* Mobile-first responsive design - ONLY affects screens 768px and below */
+        @media (max-width: 768px) {
+
+            /* Ensure base container doesn't overflow */
+            .calculator-box {
+                width: 100%;
+                max-width: 100%;
+                overflow-x: hidden;
+                box-sizing: border-box;
+            }
+
+            /* Result Section Mobile Fix */
+            #result {
+                padding: 1rem;
+                margin: 1rem 0;
+                border-radius: 15px;
+                overflow: hidden;
+                width: 100%;
+                max-width: 100%;
+                box-sizing: border-box;
+            }
+
+            #result h3 {
+                font-size: 1.3rem;
+                margin-bottom: 1rem;
+                word-wrap: break-word;
+            }
+
+            #newAveragePrice {
+                font-size: 2rem !important;
+                margin-bottom: 0.5rem;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+                line-height: 1.2;
+            }
+
+            /* Position Tracker Mobile Fix */
+            #position-tracker {
+                padding: 1rem;
+                margin: 1rem 0;
+                width: 100%;
+                max-width: 100%;
+                box-sizing: border-box;
+            }
+
+            #position-tracker h4 {
+                font-size: 1.3rem;
+                margin-bottom: 1rem;
+            }
+
+            .tracker-grid {
+                grid-template-columns: 1fr 1fr !important;
+                gap: 0.5rem;
+            }
+
+            .tracker-card {
+                padding: 0.8rem;
+                text-align: center;
+                min-width: 0;
+            }
+
+            .tracker-card h5 {
+                font-size: 0.85rem;
+                margin-bottom: 0.3rem;
+            }
+
+            .tracker-value {
+                font-size: 1rem !important;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+
+            /* Profit Loss Section Mobile Fix */
+            #profit-loss-info {
+                padding: 1rem;
+                margin: 1rem 0;
+                width: 100%;
+                max-width: 100%;
+                box-sizing: border-box;
+            }
+
+            #profit-loss-info h4 {
+                font-size: 1.2rem;
+                margin-bottom: 0.8rem;
+            }
+
+            #profit-loss-info p {
+                font-size: 0.95rem;
+                margin: 0.3rem 0;
+                word-wrap: break-word;
+            }
+
+            .loss-amount {
+                font-size: 1.4rem !important;
+                word-wrap: break-word;
+            }
+
+            /* Analysis Section Mobile Fix */
+            #analysis-section {
+                padding: 1rem;
+                margin: 1rem 0;
+                width: 100%;
+                max-width: 100%;
+                box-sizing: border-box;
+            }
+
+            #analysis-section h4 {
+                font-size: 1.3rem;
+                margin-bottom: 1rem;
+            }
+
+            #analysisText {
+                padding: 1rem;
+                font-size: 0.95rem;
+                line-height: 1.5;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+
+            /* Strategy Section Mobile Fix */
+            #strategy-section {
+                padding: 1rem;
+                margin: 1rem 0;
+                width: 100%;
+                max-width: 100%;
+                box-sizing: border-box;
+            }
+
+            #strategy-section h4 {
+                font-size: 1.3rem;
+                margin-bottom: 1rem;
+            }
+
+            #strategyText {
+                padding: 1rem;
+                font-size: 0.95rem;
+                line-height: 1.5;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+
+            /* Input Groups Mobile Fix */
+            .input-group {
+                margin-bottom: 1rem;
+                width: 100%;
+            }
+
+            .input-group label {
+                font-size: 1rem;
+                margin-bottom: 0.5rem;
+                display: block;
+                word-wrap: break-word;
+            }
+
+            .input-group input,
+            .input-group select {
+                padding: 1rem;
+                font-size: 1rem;
+                width: 100%;
+                box-sizing: border-box;
+                border-radius: 8px;
+            }
+
+            /* Position Entry Mobile Fix */
+            .position-entry {
+                padding: 1rem;
+                margin-bottom: 1rem;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .position-header {
+                flex-direction: row !important;
+                justify-content: space-between;
+                align-items: center;
+                gap: 0.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .position-number {
+                font-size: 1rem;
+                flex: 1;
+            }
+
+            .position-inputs {
+                grid-template-columns: 1fr !important;
+                gap: 1rem;
+            }
+
+            /* Button Mobile Fix */
+            .calculate-btn {
+                padding: 1rem 2rem !important;
+                font-size: 1rem !important;
+                width: 100%;
+                margin: 1rem 0;
+                box-sizing: border-box;
+            }
+
+            .add-position-btn {
+                padding: 0.8rem 1.2rem;
+                font-size: 0.85rem;
+                margin: 0.5rem 0;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            /* Target Section Mobile Fix */
+            .target-section {
+                padding: 1rem;
+                margin: 1rem 0;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            /* Risk Warning Mobile Fix */
+            .risk-warning {
+                padding: 0.8rem;
+                margin-bottom: 1rem;
+                font-size: 0.9rem;
+                text-align: center;
+                word-wrap: break-word;
+            }
+
+            .risk-warning i {
+                margin-right: 0.3rem;
+                font-size: 1rem;
+            }
+        }
+
+        /* Extra small devices (phones in portrait) */
+        @media (max-width: 480px) {
+            #newAveragePrice {
+                font-size: 1.8rem !important;
+            }
+
+            .tracker-grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            .tracker-card {
+                padding: 1rem;
+            }
+
+            .tracker-value {
+                font-size: 1.2rem !important;
+            }
+
+            #analysisText,
+            #strategyText {
+                font-size: 0.9rem;
+                padding: 0.8rem;
+            }
+
+            .position-header {
+                flex-direction: column !important;
+                text-align: center;
+            }
+
+            .remove-position {
+                margin-top: 0.5rem;
+            }
+        }
+
+        /* Ensure no horizontal overflow on mobile only */
+        @media (max-width: 768px) {
+
+            .tool-container,
+            .main-content-column,
+            .calculator-content {
+                width: 100%;
+                max-width: 100%;
+                overflow-x: hidden;
+                box-sizing: border-box;
+            }
+
+            /* Text overflow handling for mobile only */
+            .tracker-value,
+            #newAveragePrice,
+            .loss-amount {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 100%;
+            }
+        }
+
+        /* Responsive text sizing */
+        @media (max-width: 360px) {
+            #newAveragePrice {
+                font-size: 1.5rem !important;
+            }
+
+            .tracker-value {
+                font-size: 1rem !important;
+            }
+
+            .loss-amount {
+                font-size: 1.2rem !important;
+            }
+        }
+
+        /* Risk Warning */
+        .risk-warning {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .risk-warning i {
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- Announcemnet section -->
+    <div class="top-announcement-bar">
+        <div class="announcement-number">New Announcement</div>
+        <div class="announcement-text">
+            Explore the latest IT tools and expert resources at <a href="https://resourcesofdev.com" target="_blank"
+                rel="noopener noreferrer" class="announcement-link">Resourcesofdev.com</a>
+        </div>
+    </div>
+
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>CalcHub</h1>
+            </div>
+            <div class="nav-links">
+                <a href="../index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="../index.html"><i class="fas fa-tools"></i> Tools</a>
+                <a href="#about"><i class="fas fa-info-circle"></i> About</a>
+                <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+            </div>
+            <div class="mobile-menu-toggle" id="mobileMenuToggle">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+    <!-- Mobile Menu Panel -->
+    <div class="mobile-menu-panel" id="mobileMenuPanel">
+        <div class="mobile-menu-header">
+            <h2>Menu</h2>
+            <button class="mobile-menu-close" id="mobileMenuClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="mobile-menu-items">
+            <a href="index.html">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="#tools">
+                <i class="fas fa-tools"></i>
+                <span>Tools</span>
+            </a>
+            <a href="#about">
+                <i class="fas fa-info-circle"></i>
+                <span>About</span>
+            </a>
+            <a href="#contact">
+                <i class="fas fa-envelope"></i>
+                <span>Contact</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Stock Average Down Calculator</h1>
+        </div>
+    </section>
+
+    <div class="tool-container">
+        <aside class="left-sidebar">
+            <h3>Related Tools</h3>
+            <ul>
+                <li><a href="manufactured-home-mortgage-calculator.html">Mortgage Calculator</a></li>
+                <li><a href="snow-day-calculator.html">Snow Day Calculator</a></li>
+                <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
+                <li><a href="dunk-calculator.html">Dunk Calculator</a></li>
+            </ul>
+        </aside>
+
+        <div class="main-content-column">
+            <main class="calculator-content">
+                <h1>Calculate Your Stock Average Down Strategy</h1>
+
+                <div class="risk-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Investment Warning: Averaging down can increase losses. Only invest what you can afford to lose.
+                </div>
+
+                <div class="calculator-box">
+                    <div id="positions-container">
+                        <div class="position-entry" data-position="1">
+                            <div class="position-header">
+                                <span class="position-number">Position #1 (Initial)</span>
+                            </div>
+                            <div class="position-inputs">
+                                <div class="input-group">
+                                    <label>Shares Bought:</label>
+                                    <input type="number" class="shares-input" value="100"
+                                        placeholder="Enter number of shares">
+                                </div>
+                                <div class="input-group">
+                                    <label>Price per Share ($):</label>
+                                    <input type="number" step="0.01" class="price-input" value="50.00"
+                                        placeholder="Enter price per share">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="addPosition()" class="add-position-btn">
+                        <i class="fas fa-plus"></i> Add Another Position
+                    </button>
+
+                    <div class="target-section">
+                        <div class="input-group">
+                            <label for="targetPrice">Target Selling Price ($) - Optional:</label>
+                            <input type="number" step="0.01" id="targetPrice"
+                                placeholder="Enter your target selling price">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="currentPrice">Current Market Price ($) - Optional:</label>
+                        <input type="number" step="0.01" id="currentPrice" placeholder="Enter current market price">
+                    </div>
+
+                    <button onclick="calculateAverageDown()" class="calculate-btn">
+                        <i class="fas fa-calculator"></i> Calculate Average Down
+                    </button>
+
+                    <div id="result" class="result">
+                        <h3>New Average Cost Per Share</h3>
+                        <p id="newAveragePrice">$0.00</p>
+                    </div>
+
+                    <!-- Position Tracker -->
+                    <div id="position-tracker">
+                        <h4><i class="fas fa-chart-line"></i> Position Summary</h4>
+                        <div class="tracker-grid">
+                            <div class="tracker-card">
+                                <h5>Total Shares</h5>
+                                <div class="tracker-value" id="totalShares">0</div>
+                            </div>
+                            <div class="tracker-card">
+                                <h5>Total Investment</h5>
+                                <div class="tracker-value" id="totalInvestment">$0.00</div>
+                            </div>
+                            <div class="tracker-card">
+                                <h5>Average Cost</h5>
+                                <div class="tracker-value" id="averageCost">$0.00</div>
+                            </div>
+                            <div class="tracker-card">
+                                <h5>Breakeven Price</h5>
+                                <div class="tracker-value" id="breakevenPrice">$0.00</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Profit/Loss Info Section -->
+                    <div id="profit-loss-info">
+                        <h4><i class="fas fa-chart-bar"></i> Current Position Status</h4>
+                        <p id="profitLossAmount" class="loss-amount">$0.00</p>
+                        <p id="profitLossPercentage">0.00%</p>
+                        <p id="profitLossMessage">Enter current market price to see profit/loss analysis</p>
+                    </div>
+
+                    <!-- Analysis Section -->
+                    <div id="analysis-section">
+                        <h4><i class="fas fa-analytics"></i> Investment Analysis</h4>
+                        <div id="analysisText">
+                            Waiting for calculation...
+                        </div>
+                    </div>
+
+                    <!-- Strategy Section -->
+                    <div id="strategy-section">
+                        <h4><i class="fas fa-lightbulb"></i> Strategic Recommendations</h4>
+                        <div id="strategyText">
+                            Waiting for calculation...
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <article class="calculator-article">
+                <h2>Understanding Stock Average Down Strategy</h2>
+                <p>Averaging down is an investment strategy where you buy additional shares of a stock as its price
+                    falls, reducing your average cost per share. Here's what you need to know:</p>
+                <ul>
+                    <li><strong>Risk Management:</strong> Never average down on fundamentally weak companies</li>
+                    <li><strong>Capital Requirements:</strong> Ensure you have sufficient funds for multiple purchases
+                    </li>
+                    <li><strong>Position Sizing:</strong> Don't commit all capital to initial purchase</li>
+                    <li><strong>Stop Loss:</strong> Always have a maximum loss threshold</li>
+                    <li><strong>Company Analysis:</strong> Only average down on quality companies with temporary
+                        setbacks</li>
+                    <li><strong>Market Conditions:</strong> Consider overall market trends and sector performance</li>
+                </ul>
+                <p><strong>Important:</strong> Averaging down can magnify losses if the stock continues to decline. This
+                    strategy works best with fundamentally strong companies experiencing temporary price weakness.
+                    Always conduct thorough research and consider consulting with a financial advisor.</p>
+            </article>
+        </div>
+
+        <aside class="right-sidebar">
+            <div class="ad-space">
+                <div class="ad-placeholder">
+                    <img src="../learn-more-heinz-300x250-call-to-action.webp" alt="Advertisement 1">
+                </div>
+            </div>
+            <div class="ad-space">
+                <div class="ad-placeholder">
+                    <img src="../learn-more-heinz-300x250-call-to-action.webp" alt="Advertisement 2">
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About CalcHub</h3>
+                <p>Your trusted source for online calculation tools</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#tools">Tools</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@calchub.com</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 CalcHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/calculator.js"></script>
+    <script>
+        let positionCounter = 1;
+
+        function addPosition() {
+            positionCounter++;
+            const container = document.getElementById('positions-container');
+
+            const positionDiv = document.createElement('div');
+            positionDiv.className = 'position-entry';
+            positionDiv.setAttribute('data-position', positionCounter);
+
+            positionDiv.innerHTML = `
+        <div class="position-header">
+            <span class="position-number">Position #${positionCounter}</span>
+            <button onclick="removePosition(${positionCounter})" class="remove-position">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="position-inputs">
+            <div class="input-group">
+                <label>Shares Bought:</label>
+                <input type="number" class="shares-input" placeholder="Enter number of shares">
+            </div>
+            <div class="input-group">
+                <label>Price per Share ($):</label>
+                <input type="number" step="0.01" class="price-input" placeholder="Enter price per share">
+            </div>
+        </div>
+    `;
+
+            container.appendChild(positionDiv);
+
+            // Add animation
+            positionDiv.style.opacity = '0';
+            positionDiv.style.transform = 'translateY(-20px)';
+            setTimeout(() => {
+                positionDiv.style.transition = 'all 0.3s ease';
+                positionDiv.style.opacity = '1';
+                positionDiv.style.transform = 'translateY(0)';
+            }, 10);
+        }
+
+        function removePosition(positionNumber) {
+            const position = document.querySelector(`[data-position="${positionNumber}"]`);
+            if (position && positionCounter > 1) {
+                position.style.transition = 'all 0.3s ease';
+                position.style.opacity = '0';
+                position.style.transform = 'translateY(-20px)';
+                setTimeout(() => {
+                    position.remove();
+                }, 300);
+            }
+        }
+
+        function calculateAverageDown() {
+            const positions = document.querySelectorAll('.position-entry');
+            let totalShares = 0;
+            let totalCost = 0;
+            let validPositions = 0;
+
+            const positionData = [];
+
+            // Collect and validate position data
+            positions.forEach((position, index) => {
+                const sharesInput = position.querySelector('.shares-input');
+                const priceInput = position.querySelector('.price-input');
+
+                const shares = parseFloat(sharesInput.value) || 0;
+                const price = parseFloat(priceInput.value) || 0;
+
+                if (shares > 0 && price > 0) {
+                    totalShares += shares;
+                    totalCost += shares * price;
+                    validPositions++;
+                    positionData.push({
+                        position: index + 1,
+                        shares: shares,
+                        price: price,
+                        cost: shares * price
+                    });
+                }
+            });
+
+            if (validPositions === 0) {
+                alert('Please enter valid data for at least one position (shares > 0 and price > 0).');
+                return;
+            }
+
+            // Calculate average cost
+            const averageCost = totalCost / totalShares;
+            const targetPrice = parseFloat(document.getElementById('targetPrice').value) || 0;
+            const currentPrice = parseFloat(document.getElementById('currentPrice').value) || 0;
+
+            // Display main results
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'result animate-result';
+
+            document.getElementById('newAveragePrice').textContent = '$' + averageCost.toFixed(2);
+
+            // Update position tracker
+            updatePositionTracker(totalShares, totalCost, averageCost);
+
+            // Update profit/loss analysis
+            updateProfitLossAnalysis(totalShares, totalCost, averageCost, currentPrice);
+
+            // Generate analysis
+            generateAnalysis(positionData, averageCost, targetPrice, currentPrice, totalShares, totalCost);
+
+            // Generate strategy recommendations
+            generateStrategy(positionData, averageCost, targetPrice, currentPrice, totalShares, totalCost);
+        }
+
+        function updatePositionTracker(totalShares, totalCost, averageCost) {
+            const trackerSection = document.getElementById('position-tracker');
+            trackerSection.style.display = 'block';
+
+            document.getElementById('totalShares').textContent = totalShares.toLocaleString();
+            document.getElementById('totalInvestment').textContent = '$' + totalCost.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            document.getElementById('averageCost').textContent = '$' + averageCost.toFixed(2);
+            document.getElementById('breakevenPrice').textContent = '$' + averageCost.toFixed(2);
+        }
+
+        function updateProfitLossAnalysis(totalShares, totalCost, averageCost, currentPrice) {
+            const profitLossSection = document.getElementById('profit-loss-info');
+            profitLossSection.style.display = 'block';
+
+            if (currentPrice > 0) {
+                const currentValue = totalShares * currentPrice;
+                const profitLoss = currentValue - totalCost;
+                const profitLossPercentage = (profitLoss / totalCost) * 100;
+
+                // Update styling based on profit/loss
+                if (profitLoss >= 0) {
+                    profitLossSection.classList.add('profit-positive');
+                    profitLossSection.classList.remove('profit-loss-info');
+                } else {
+                    profitLossSection.classList.remove('profit-positive');
+                }
+
+                document.getElementById('profitLossAmount').textContent =
+                    (profitLoss >= 0 ? '+ ' : '- ') + Math.abs(profitLoss).toFixed(2);
+
+                document.getElementById('profitLossPercentage').textContent =
+                    (profitLoss >= 0 ? '+' : '') + profitLossPercentage.toFixed(2) + '%';
+
+                const statusMessage = profitLoss >= 0 ?
+                    `Your position is currently profitable by ${profitLoss.toFixed(2)}` :
+                    `Your position is currently down by ${Math.abs(profitLoss).toFixed(2)}`;
+                document.getElementById('profitLossMessage').textContent = statusMessage;
+            } else {
+                profitLossSection.classList.remove('profit-positive');
+                document.getElementById('profitLossAmount').textContent = 'N/A';
+                document.getElementById('profitLossPercentage').textContent = 'N/A';
+                document.getElementById('profitLossMessage').textContent = 'Enter current market price to see profit/loss analysis';
+            }
+        }
+
+        function generateAnalysis(positionData, averageCost, targetPrice, currentPrice, totalShares, totalCost) {
+            const analysisSection = document.getElementById('analysis-section');
+            analysisSection.style.display = 'block';
+
+            let analysisText = `<strong>Position Analysis:</strong><br>`;
+            analysisText += `• You have ${positionData.length} position(s) with a total of ${totalShares.toLocaleString()} shares<br>`;
+            analysisText += `• Your average cost per share is ${averageCost.toFixed(2)}<br>`;
+            analysisText += `• Total investment amount: ${totalCost.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}<br><br>`;
+
+            // Position breakdown
+            analysisText += `<strong>Position Breakdown:</strong><br>`;
+            positionData.forEach((pos, index) => {
+                const weightPercent = (pos.cost / totalCost * 100).toFixed(1);
+                analysisText += `• Position ${pos.position}: ${pos.shares} shares @ ${pos.price.toFixed(2)} = ${pos.cost.toFixed(2)} (${weightPercent}%)<br>`;
+            });
+
+            if (currentPrice > 0) {
+                analysisText += `<br><strong>Current Market Analysis:</strong><br>`;
+                const currentValue = totalShares * currentPrice;
+                const unrealizedPL = currentValue - totalCost;
+                const percentageChange = ((currentPrice - averageCost) / averageCost * 100);
+
+                analysisText += `• Current market price: ${currentPrice.toFixed(2)}<br>`;
+                analysisText += `• Current position value: ${currentValue.toFixed(2)}<br>`;
+                analysisText += `• Unrealized P&L: ${unrealizedPL >= 0 ? '+' : ''}${unrealizedPL.toFixed(2)} (${percentageChange >= 0 ? '+' : ''}${percentageChange.toFixed(2)}%)<br>`;
+
+                if (targetPrice > 0) {
+                    const targetValue = totalShares * targetPrice;
+                    const potentialProfit = targetValue - totalCost;
+                    const potentialReturn = (potentialProfit / totalCost * 100);
+
+                    analysisText += `<br><strong>Target Price Analysis:</strong><br>`;
+                    analysisText += `• Target selling price: ${targetPrice.toFixed(2)}<br>`;
+                    analysisText += `• Potential position value: ${targetValue.toFixed(2)}<br>`;
+                    analysisText += `• Potential profit: ${potentialProfit.toFixed(2)} (${potentialReturn.toFixed(2)}% return)<br>`;
+
+                    const priceChangeNeeded = ((targetPrice - currentPrice) / currentPrice * 100);
+                    analysisText += `• Price change needed: ${priceChangeNeeded >= 0 ? '+' : ''}${priceChangeNeeded.toFixed(2)}%<br>`;
+                }
+            }
+
+            document.getElementById('analysisText').innerHTML = analysisText;
+        }
+
+        function generateStrategy(positionData, averageCost, targetPrice, currentPrice, totalShares, totalCost) {
+            const strategySection = document.getElementById('strategy-section');
+            strategySection.style.display = 'block';
+
+            let strategyText = `<strong>Strategic Recommendations:</strong><br><br>`;
+
+            // Risk Assessment
+            const positionCount = positionData.length;
+            if (positionCount === 1) {
+                strategyText += `<strong>🔴 Risk Level: High</strong><br>`;
+                strategyText += `• You have only one position. Consider adding more positions at lower prices to reduce average cost.<br>`;
+                strategyText += `• Ensure you have additional capital available for potential averaging down opportunities.<br><br>`;
+            } else if (positionCount <= 3) {
+                strategyText += `<strong>🟡 Risk Level: Moderate</strong><br>`;
+                strategyText += `• You have ${positionCount} positions which provides some averaging benefit.<br>`;
+                strategyText += `• Monitor for additional entry points if the stock continues to decline.<br><br>`;
+            } else {
+                strategyText += `<strong>🟢 Risk Level: Well Diversified</strong><br>`;
+                strategyText += `• You have ${positionCount} positions which shows good averaging strategy execution.<br>`;
+                strategyText += `• Consider your position size and avoid over-concentration.<br><br>`;
+            }
+
+            // Price-based recommendations
+            if (currentPrice > 0) {
+                const percentFromAverage = ((currentPrice - averageCost) / averageCost * 100);
+
+                if (percentFromAverage < -20) {
+                    strategyText += `<strong>💡 Current Situation:</strong><br>`;
+                    strategyText += `• Stock is ${Math.abs(percentFromAverage).toFixed(1)}% below your average cost.<br>`;
+                    strategyText += `• This could be a significant averaging down opportunity if fundamentals remain strong.<br>`;
+                    strategyText += `• However, ensure you're not catching a falling knife - analyze company fundamentals.<br><br>`;
+                } else if (percentFromAverage < -10) {
+                    strategyText += `<strong>💡 Current Situation:</strong><br>`;
+                    strategyText += `• Stock is ${Math.abs(percentFromAverage).toFixed(1)}% below your average cost.<br>`;
+                    strategyText += `• Moderate averaging down opportunity if you believe in the company's prospects.<br>`;
+                    strategyText += `• Consider your risk tolerance and available capital.<br><br>`;
+                } else if (percentFromAverage > 10) {
+                    strategyText += `<strong>💡 Current Situation:</strong><br>`;
+                    strategyText += `• Stock is ${percentFromAverage.toFixed(1)}% above your average cost - you're in profit!<br>`;
+                    strategyText += `• Consider taking partial profits or setting stop-loss orders to protect gains.<br>`;
+                    strategyText += `• Review your exit strategy and target prices.<br><br>`;
+                }
+            }
+
+            // General recommendations
+            strategyText += `<strong>📋 General Recommendations:</strong><br>`;
+            strategyText += `• <strong>Position Size:</strong> Never risk more than 5-10% of your portfolio on a single stock<br>`;
+            strategyText += `• <strong>Stop Loss:</strong> Set a maximum loss threshold (e.g., 20-30% below average cost)<br>`;
+            strategyText += `• <strong>Fundamental Analysis:</strong> Only average down on quality companies with strong fundamentals<br>`;
+            strategyText += `• <strong>Market Conditions:</strong> Consider overall market trends and sector performance<br>`;
+            strategyText += `• <strong>Capital Management:</strong> Keep some cash reserves for unexpected opportunities<br><br>`;
+
+            if (targetPrice > 0 && currentPrice > 0) {
+                const targetReturn = ((targetPrice - averageCost) / averageCost * 100);
+                if (targetReturn > 50) {
+                    strategyText += `<strong>⚠️ Target Price Warning:</strong><br>`;
+                    strategyText += `• Your target price implies a ${targetReturn.toFixed(1)}% return from your average cost.<br>`;
+                    strategyText += `• While ambitious, ensure this target is realistic based on company valuation and market conditions.<br>`;
+                }
+            }
+
+            document.getElementById('strategyText').innerHTML = strategyText;
+        }
+
+        // Auto-format price inputs
+        document.addEventListener('DOMContentLoaded', function () {
+            document.addEventListener('input', function (e) {
+                if (e.target.classList.contains('price-input') || e.target.id === 'targetPrice' || e.target.id === 'currentPrice') {
+                    let value = e.target.value;
+                    if (value && !isNaN(value)) {
+                        // Auto-format to 2 decimal places when user stops typing
+                        setTimeout(() => {
+                            if (document.activeElement !== e.target) {
+                                e.target.value = parseFloat(value).toFixed(2);
+                            }
+                        }, 1000);
+                    }
+                }
+            });
+        });
+
+        // Add keyboard shortcut for calculation
+        document.addEventListener('keydown', function (e) {
+            if (e.ctrlKey && e.key === 'Enter') {
+                calculateAverageDown();
+            }
+        });
+
+        // Initialize with sample calculation on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            // Add a subtle hint for users
+            setTimeout(() => {
+                const hint = document.createElement('div');
+                hint.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        `;
+                hint.innerHTML = '<i class="fas fa-keyboard"></i> Tip: Press Ctrl+Enter to calculate quickly!';
+                document.body.appendChild(hint);
+
+                setTimeout(() => hint.style.opacity = '1', 100);
+                setTimeout(() => {
+                    hint.style.opacity = '0';
+                    setTimeout(() => hint.remove(), 500);
+                }, 3000);
+            }, 2000);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blended Rate Calculator - CalcHub</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/tools/apush.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+   /* Result Section */
+#result {
+  margin-top: 2rem;
+  padding: clamp(1rem, 4vw, 2rem);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20px;
+  display: none;
+  box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#result::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+}
+
+#result h3 {
+  color: white;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 1;
+}
+
+/* Blended Rate Display */
+#blendedRate {
+  font-size: clamp(2rem, 8vw, 4rem);
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(45deg, #ffd700, #ffed4e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  word-break: break-word;
+}
+
+/* Loan Entry Section */
+.loan-entry {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  padding: clamp(1rem, 3vw, 1.5rem);
+  border-radius: 15px;
+  margin-bottom: 1rem;
+  box-shadow: 0 10px 30px rgba(240, 147, 251, 0.3);
+  position: relative;
+  transition: all 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.loan-entry:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 35px rgba(240, 147, 251, 0.4);
+}
+
+.loan-entry h4 {
+  color: white;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.remove-loan {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  min-width: 2rem;
+  min-height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.remove-loan:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.loan-inputs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  width: 100%;
+}
+
+.loan-inputs input {
+  padding: 0.8rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  transition: all 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.loan-inputs input:focus {
+  outline: none;
+  border-color: #ffd700;
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.3);
+}
+
+.loan-inputs label {
+  color: white;
+  font-size: clamp(0.8rem, 1.8vw, 0.9rem);
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+  display: block;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Add Loan Button */
+.add-loan-btn {
+  background: linear-gradient(135deg, #00c851 0%, #007e33 100%);
+  color: white;
+  padding: clamp(0.8rem, 2.5vw, 1rem) clamp(1.5rem, 4vw, 2rem);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: clamp(0.9rem, 2.2vw, 1rem);
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(0, 200, 81, 0.3);
+  margin-bottom: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.add-loan-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(0, 200, 81, 0.4);
+}
+
+/* Calculate Button */
+.calculate-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: clamp(1rem, 3vw, 1.2rem) clamp(2rem, 6vw, 3rem);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  font-weight: 700;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  margin-top: 1rem;
+  box-sizing: border-box;
+}
+
+.calculate-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s;
+}
+
+.calculate-btn:hover::before {
+  left: 100%;
+}
+
+.calculate-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+}
+
+/* Summary Section */
+#summary-section {
+  margin-top: 2rem;
+  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+  padding: clamp(1rem, 4vw, 2rem);
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(252, 182, 159, 0.3);
+  display: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#summary-section h4 {
+  font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+  color: #8b4513;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(139, 69, 19, 0.2);
+}
+
+#summaryText {
+  background: rgba(255, 255, 255, 0.9);
+  padding: clamp(1rem, 3vw, 1.5rem);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #ff6b35;
+  font-size: clamp(0.9rem, 2.2vw, 1.1rem);
+  color: #2c3e50;
+  line-height: 1.6;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: auto;
+}
+
+/* Breakdown Table */
+.breakdown-table {
+  margin-top: 2rem;
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  padding: clamp(1rem, 4vw, 2rem);
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(168, 237, 234, 0.3);
+  display: none;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: auto;
+}
+
+.breakdown-table h4 {
+  font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+  color: #2c3e50;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.breakdown-table table {
+  width: 100%;
+  min-width: 600px;
+  border-collapse: collapse;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.breakdown-table th,
+.breakdown-table td {
+  padding: clamp(0.5rem, 2vw, 1rem);
+  text-align: left;
+  border-bottom: 1px solid #e0e6ed;
+  font-size: clamp(0.8rem, 1.8vw, 1rem);
+}
+
+.breakdown-table th {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.breakdown-table tr:hover {
+  background-color: rgba(102, 126, 234, 0.1);
+}
+
+/* Comparison Section */
+.comparison-section {
+  margin-top: 2rem;
+  background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);
+  padding: clamp(1rem, 4vw, 2rem);
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(210, 153, 194, 0.3);
+  display: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.comparison-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.comparison-card {
+  background: rgba(255, 255, 255, 0.9);
+  padding: clamp(1rem, 3vw, 1.5rem);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  border-top: 4px solid #667eea;
+}
+
+.comparison-card h5 {
+  color: #667eea;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.comparison-card .value {
+  font-size: clamp(1.3rem, 4vw, 2rem);
+  font-weight: 800;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+  word-break: break-word;
+}
+
+.comparison-card .label {
+  color: #7f8c8d;
+  font-size: clamp(0.7rem, 1.6vw, 0.9rem);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Animations */
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-result {
+  animation: bounceIn 0.6s ease-out;
+}
+
+/* Quick Presets */
+.preset-buttons {
+  margin-bottom: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  width: 100%;
+}
+
+.preset-btn {
+  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+  color: #2c3e50;
+  padding: clamp(0.6rem, 2vw, 0.8rem) clamp(1rem, 3vw, 1.5rem);
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: clamp(0.8rem, 1.8vw, 0.9rem);
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 154, 158, 0.3);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.preset-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 154, 158, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  #blendedRate {
+    font-size: clamp(1.8rem, 6vw, 2.5rem);
+  }
+
+  .loan-inputs {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+
+  .preset-buttons {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+
+  .comparison-cards {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .loan-entry h4 {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .remove-loan {
+    align-self: flex-end;
+  }
+
+  .breakdown-table {
+    padding: 1rem;
+  }
+
+  .breakdown-table table {
+    min-width: 500px;
+  }
+
+  #summaryText {
+    font-size: 0.9rem;
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #result {
+    padding: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .calculate-btn {
+    padding: 1rem 1.5rem;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+  }
+
+  .loan-entry {
+    padding: 1rem;
+  }
+
+  #blendedRate {
+    font-size: 1.8rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .breakdown-table table {
+    min-width: 400px;
+  }
+
+  .breakdown-table th,
+  .breakdown-table td {
+    padding: 0.5rem 0.3rem;
+    font-size: 0.8rem;
+  }
+
+  .comparison-card {
+    padding: 1rem;
+  }
+
+  .comparison-card .value {
+    font-size: 1.5rem;
+  }
+
+  #summary-section,
+  #comparison-section,
+  .breakdown-table {
+    margin-top: 1.5rem;
+    padding: 1rem;
+  }
+
+  .preset-buttons {
+    margin-bottom: 1.5rem;
+  }
+
+  .add-loan-btn,
+  .calculate-btn {
+    margin-bottom: 0.8rem;
+    margin-top: 0.8rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .loan-inputs {
+    gap: 0.5rem;
+  }
+
+  .loan-inputs input {
+    padding: 0.6rem;
+  }
+
+  .breakdown-table table {
+    min-width: 320px;
+  }
+
+  .breakdown-table th,
+  .breakdown-table td {
+    padding: 0.4rem 0.2rem;
+    font-size: 0.75rem;
+  }
+
+  #summaryText {
+    padding: 0.8rem;
+    font-size: 0.85rem;
+  }
+
+  .comparison-card .value {
+    font-size: 1.3rem;
+  }
+
+  .preset-btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* Container fixes for small screens */
+@media (max-width: 1024px) {
+  .calculator-box {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+/* Ensure no horizontal overflow */
+.calculator-content,
+.calculator-box,
+#loans-container {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+/* Fix for grid items that might overflow */
+.loan-inputs > div {
+  min-width: 0;
+  width: 100%;
+}
+
+/* Summary text responsive improvements */
+#summaryText div {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Ensure table wrapper scrolls horizontally on small screens */
+.breakdown-table {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Additional mobile optimizations */
+@media (max-width: 640px) {
+  .loan-inputs {
+    grid-template-columns: 1fr;
+  }
+  
+  .comparison-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .preset-buttons {
+    grid-template-columns: 1fr;
+  }
+}
+  </style>
+
+</head>
+
+<body>
+  <!-- Announcement section -->
+  <div class="top-announcement-bar">
+    <div class="announcement-number">New Announcement</div>
+    <div class="announcement-text">
+      Explore the latest IT tools and expert resources at <a href="https://resourcesofdev.com" target="_blank"
+        rel="noopener noreferrer" class="announcement-link">Resourcesofdev.com</a>
+    </div>
+  </div>
+
+  <header>
+    <nav>
+      <div class="logo">
+        <h1>CalcHub</h1>
+      </div>
+      <div class="nav-links">
+        <a href="../index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="../index.html"><i class="fas fa-tools"></i> Tools</a>
+        <a href="#about"><i class="fas fa-info-circle"></i> About</a>
+        <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+      </div>
+      <div class="mobile-menu-toggle" id="mobileMenuToggle">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+  <!-- Mobile Menu Panel -->
+  <div class="mobile-menu-panel" id="mobileMenuPanel">
+    <div class="mobile-menu-header">
+      <h2>Menu</h2>
+      <button class="mobile-menu-close" id="mobileMenuClose">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="mobile-menu-items">
+      <a href="index.html">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </a>
+      <a href="#tools">
+        <i class="fas fa-tools"></i>
+        <span>Tools</span>
+      </a>
+      <a href="#about">
+        <i class="fas fa-info-circle"></i>
+        <span>About</span>
+      </a>
+      <a href="#contact">
+        <i class="fas fa-envelope"></i>
+        <span>Contact</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Blended Rate Calculator</h1>
+    </div>
+  </section>
+
+  <div class="tool-container">
+    <aside class="left-sidebar">
+      <h3>Related Tools</h3>
+      <ul>
+        <li><a href="manufactured-home-mortgage-calculator.html">Manufactured Home Mortgage Calculator</a></li>
+        <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
+        <li><a href="loan-calculator.html">Loan Calculator</a></li>
+        <li><a href="interest-calculator.html">Interest Calculator</a></li>
+      </ul>
+    </aside>
+
+    <div class="main-content-column">
+      <main class="calculator-content">
+        <h1>Calculate Your Blended Interest Rate</h1>
+        
+        <!-- Quick Presets -->
+        <div class="preset-buttons">
+          <button class="preset-btn" onclick="loadPreset('mortgage')">
+            <i class="fas fa-home"></i> Mortgage Refinance
+          </button>
+          <button class="preset-btn" onclick="loadPreset('business')">
+            <i class="fas fa-briefcase"></i> Business Loans
+          </button>
+          <button class="preset-btn" onclick="loadPreset('personal')">
+            <i class="fas fa-user"></i> Personal Loans
+          </button>
+          <button class="preset-btn" onclick="loadPreset('investment')">
+            <i class="fas fa-chart-line"></i> Investment Portfolio
+          </button>
+        </div>
+
+        <div class="calculator-box">
+          <div id="loans-container">
+            <!-- Loans will be added here dynamically -->
+          </div>
+
+          <button onclick="addLoan()" class="add-loan-btn">
+            <i class="fas fa-plus"></i> Add Another Loan
+          </button>
+
+          <button onclick="calculateBlendedRate()" class="calculate-btn">
+            <i class="fas fa-calculator"></i> Calculate Blended Rate
+          </button>
+
+          <div id="result" class="result">
+            <h3>Blended Interest Rate</h3>
+            <p id="blendedRate">0.00%</p>
+          </div>
+
+          <!-- Summary Section -->
+          <div id="summary-section">
+            <h4><i class="fas fa-chart-pie"></i> Portfolio Summary</h4>
+            <div id="summaryText">
+              Waiting for calculation...
+            </div>
+          </div>
+
+          <!-- Breakdown Table -->
+          <div class="breakdown-table" id="breakdown-table">
+            <h4><i class="fas fa-table"></i> Loan Breakdown</h4>
+            <table id="breakdownTable">
+              <thead>
+                <tr>
+                  <th>Loan</th>
+                  <th>Amount</th>
+                  <th>Rate</th>
+                  <th>Weight</th>
+                  <th>Contribution</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Table rows will be added here dynamically -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Comparison Section -->
+          <div class="comparison-section" id="comparison-section">
+            <h4><i class="fas fa-balance-scale"></i> Rate Comparison</h4>
+            <div class="comparison-cards" id="comparison-cards">
+              <!-- Comparison cards will be added here dynamically -->
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <article class="calculator-article">
+        <h2>Understanding Blended Interest Rates</h2>
+        <p>A blended rate is the weighted average interest rate of multiple loans or investments. This calculation is essential for:</p>
+        <ul>
+          <li><strong>Portfolio Management:</strong> Understanding your average cost of capital across multiple loans</li>
+          <li><strong>Refinancing Decisions:</strong> Comparing current blended rates with new loan offers</li>
+          <li><strong>Investment Analysis:</strong> Calculating weighted average returns on diversified portfolios</li>
+          <li><strong>Business Finance:</strong> Determining overall cost of debt for financial planning</li>
+          <li><strong>Personal Finance:</strong> Optimizing debt consolidation strategies</li>
+        </ul>
+        
+        <h3>How Blended Rate Calculation Works</h3>
+        <p>The blended rate is calculated using the formula:</p>
+        <p><strong>Blended Rate = Σ(Loan Amount × Interest Rate) / Total Loan Amount</strong></p>
+        
+        <p>Each loan's contribution to the blended rate is proportional to its size relative to the total portfolio. Larger loans have more influence on the overall rate than smaller ones.</p>
+        
+        <h3>Practical Applications</h3>
+        <p><strong>Mortgage Refinancing:</strong> Compare your current blended rate across multiple mortgages with refinancing options.</p>
+        <p><strong>Debt Consolidation:</strong> Determine if consolidating multiple debts into a single loan would improve your overall rate.</p>
+        <p><strong>Business Financing:</strong> Evaluate the cost-effectiveness of different financing combinations for business expansion.</p>
+        
+        <p>Use this advanced calculator to make informed financial decisions and optimize your borrowing strategy.</p>
+      </article>
+    </div>
+
+    <aside class="right-sidebar">
+      <div class="ad-space">
+        <div class="ad-placeholder">
+          <img src="../learn-more-heinz-300x250-call-to-action.webp" alt="Advertisement 1">
+        </div>
+      </div>
+      <div class="ad-space">
+        <div class="ad-placeholder">
+          <img src="../learn-more-heinz-300x250-call-to-action.webp" alt="Advertisement 2">
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>About CalcHub</h3>
+        <p>Your trusted source for online calculation tools</p>
+      </div>
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#tools">Tools</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#privacy">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Contact Us</h3>
+        <p>Email: info@calchub.com</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 CalcHub. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="../js/calculator.js"></script>
+  <script>
+    let loanCount = 0;
+
+    // Initialize with two default loans
+    document.addEventListener('DOMContentLoaded', function() {
+      addLoan(50000, 4.5, 'Primary Mortgage');
+      addLoan(20000, 6.2, 'Personal Loan');
+    });
+
+    function addLoan(amount = '', rate = '', name = '') {
+      loanCount++;
+      const container = document.getElementById('loans-container');
+      
+      const loanDiv = document.createElement('div');
+      loanDiv.className = 'loan-entry';
+      loanDiv.id = `loan-${loanCount}`;
+      
+      loanDiv.innerHTML = `
+        <h4>
+          <span>${name || `Loan ${loanCount}`}</span>
+          ${loanCount > 1 ? `<button class="remove-loan" onclick="removeLoan(${loanCount})"><i class="fas fa-trash"></i></button>` : ''}
+        </h4>
+        <div class="loan-inputs">
+          <div>
+            <label>Loan Amount ($)</label>
+            <input type="number" id="amount-${loanCount}" value="${amount}" placeholder="Enter loan amount" min="0" step="0.01">
+          </div>
+          <div>
+            <label>Interest Rate (%)</label>
+            <input type="number" id="rate-${loanCount}" value="${rate}" placeholder="Enter interest rate" min="0" step="0.01">
+          </div>
+          <div>
+            <label>Loan Name (Optional)</label>
+            <input type="text" id="name-${loanCount}" value="${name}" placeholder="Enter loan name">
+          </div>
+        </div>
+      `;
+      
+      container.appendChild(loanDiv);
+      
+      // Add animation
+      setTimeout(() => {
+        loanDiv.classList.add('animate-result');
+      }, 100);
+    }
+
+    function removeLoan(id) {
+      const loanDiv = document.getElementById(`loan-${id}`);
+      if (loanDiv) {
+        loanDiv.remove();
+      }
+    }
+
+    function loadPreset(type) {
+      // Clear existing loans
+      document.getElementById('loans-container').innerHTML = '';
+      loanCount = 0;
+
+      switch(type) {
+        case 'mortgage':
+          addLoan(350000, 3.8, 'Primary Mortgage');
+          addLoan(80000, 4.2, 'HELOC');
+          addLoan(25000, 6.5, 'Home Improvement Loan');
+          break;
+        case 'business':
+          addLoan(100000, 5.5, 'Business Term Loan');
+          addLoan(50000, 7.2, 'Equipment Financing');
+          addLoan(30000, 9.8, 'Business Credit Line');
+          break;
+        case 'personal':
+          addLoan(25000, 6.8, 'Personal Loan');
+          addLoan(15000, 18.9, 'Credit Card Debt');
+          addLoan(12000, 4.5, 'Student Loan');
+          break;
+        case 'investment':
+          addLoan(200000, 4.2, 'Investment Property');
+          addLoan(75000, 5.8, 'Margin Loan');
+          addLoan(40000, 3.5, 'Portfolio Line of Credit');
+          break;
+      }
+    }
+
+    function calculateBlendedRate() {
+      const loans = [];
+      let totalAmount = 0;
+      let weightedSum = 0;
+      let hasValidData = false;
+
+      // Collect loan data
+      for (let i = 1; i <= loanCount; i++) {
+        const amountElement = document.getElementById(`amount-${i}`);
+        const rateElement = document.getElementById(`rate-${i}`);
+        const nameElement = document.getElementById(`name-${i}`);
+        
+        if (amountElement && rateElement) {
+          const amount = parseFloat(amountElement.value) || 0;
+          const rate = parseFloat(rateElement.value) || 0;
+          const name = nameElement ? nameElement.value || `Loan ${i}` : `Loan ${i}`;
+          
+          if (amount > 0 && rate >= 0) {
+            loans.push({ amount, rate, name, id: i });
+            totalAmount += amount;
+            weightedSum += amount * rate;
+            hasValidData = true;
+          }
+        }
+      }
+
+      if (!hasValidData || totalAmount === 0) {
+        alert('Please enter valid loan amounts and interest rates.');
+        return;
+      }
+
+      const blendedRate = weightedSum / totalAmount;
+
+      // Display main result
+      const resultDiv = document.getElementById('result');
+      resultDiv.style.display = 'block';
+      resultDiv.className = 'result animate-result';
+      document.getElementById('blendedRate').textContent = blendedRate.toFixed(3) + '%';
+
+      // Generate detailed summary
+      generateSummary(loans, totalAmount, blendedRate);
+      generateBreakdownTable(loans, totalAmount, blendedRate);
+      generateComparison(loans, blendedRate);
+    }
+
+    function generateSummary(loans, totalAmount, blendedRate) {
+      const summarySection = document.getElementById('summary-section');
+      summarySection.style.display = 'block';
+
+      const highestRate = Math.max(...loans.map(loan => loan.rate));
+      const lowestRate = Math.min(...loans.map(loan => loan.rate));
+      const rateSpread = highestRate - lowestRate;
+      
+      const largestLoan = loans.reduce((max, loan) => loan.amount > max.amount ? loan : max);
+      const largestLoanWeight = (largestLoan.amount / totalAmount) * 100;
+
+      const summaryText = `
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+          <div style="text-align: center; padding: 1rem; background: rgba(102, 126, 234, 0.1); border-radius: 8px;">
+            <div style="font-size: 1.8rem; font-weight: 700; color: #667eea;">$${totalAmount.toLocaleString()}</div>
+            <div style="font-size: 0.9rem; color: #7f8c8d;">Total Portfolio Value</div>
+          </div>
+          <div style="text-align: center; padding: 1rem; background: rgba(240, 147, 251, 0.1); border-radius: 8px;">
+            <div style="font-size: 1.8rem; font-weight: 700; color: #f093fb;">${loans.length}</div>
+            <div style="font-size: 0.9rem; color: #7f8c8d;">Total Loans</div>
+          </div>
+          <div style="text-align: center; padding: 1rem; background: rgba(255, 154, 158, 0.1); border-radius: 8px;">
+            <div style="font-size: 1.8rem; font-weight: 700; color: #ff9a9e;">${rateSpread.toFixed(2)}%</div>
+            <div style="font-size: 0.9rem; color: #7f8c8d;">Rate Spread</div>
+          </div>
+        </div>
+
+        <strong>Portfolio Analysis:</strong><br>
+        • Your blended rate of <strong>${blendedRate.toFixed(3)}%</strong> represents the weighted average across all loans<br>
+        • Highest rate: <strong>${highestRate.toFixed(2)}%</strong> | Lowest rate: <strong>${lowestRate.toFixed(2)}%</strong><br>
+        • Largest loan: <strong>${largestLoan.name}</strong> (${largestLoanWeight.toFixed(1)}% of portfolio)<br>
+        • Rate spread: <strong>${rateSpread.toFixed(2)}%</strong> indicates ${rateSpread > 5 ? 'high' : rateSpread > 2 ? 'moderate' : 'low'} rate diversity<br><br>
+
+        <strong>Optimization Insights:</strong><br>
+        ${blendedRate > 7 ? '• Consider refinancing high-rate loans to reduce overall cost' : ''}
+        ${rateSpread > 5 ? '• Large rate spread suggests potential consolidation opportunities' : ''}
+        ${largestLoanWeight > 70 ? '• Portfolio heavily weighted toward one loan - diversification may help' : ''}
+        ${blendedRate < 4 ? '• Excellent blended rate - your portfolio is well-optimized' : ''}
+      `;
+
+      document.getElementById('summaryText').innerHTML = summaryText;
+    }
+
+    function generateBreakdownTable(loans, totalAmount, blendedRate) {
+      const breakdownTable = document.getElementById('breakdown-table');
+      breakdownTable.style.display = 'block';
+
+      const tbody = document.querySelector('#breakdownTable tbody');
+      tbody.innerHTML = '';
+
+      loans.forEach((loan, index) => {
+        const weight = (loan.amount / totalAmount) * 100;
+        const contribution = (loan.amount * loan.rate) / totalAmount;
+        
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td><strong>${loan.name}</strong></td>
+          <td>${loan.amount.toLocaleString()}</td>
+          <td>${loan.rate.toFixed(2)}%</td>
+          <td>${weight.toFixed(1)}%</td>
+          <td>${contribution.toFixed(3)}%</td>
+        `;
+        tbody.appendChild(row);
+      });
+
+      // Add totals row
+      const totalRow = document.createElement('tr');
+      totalRow.style.backgroundColor = 'rgba(102, 126, 234, 0.1)';
+      totalRow.style.fontWeight = 'bold';
+      totalRow.innerHTML = `
+        <td><strong>TOTAL</strong></td>
+        <td><strong>${totalAmount.toLocaleString()}</strong></td>
+        <td><strong>${blendedRate.toFixed(3)}%</strong></td>
+        <td><strong>100.0%</strong></td>
+        <td><strong>${blendedRate.toFixed(3)}%</strong></td>
+      `;
+      tbody.appendChild(totalRow);
+    }
+
+    function generateComparison(loans, blendedRate) {
+      const comparisonSection = document.getElementById('comparison-section');
+      comparisonSection.style.display = 'block';
+
+      const comparisonCards = document.getElementById('comparison-cards');
+      
+      const highestRate = Math.max(...loans.map(loan => loan.rate));
+      const lowestRate = Math.min(...loans.map(loan => loan.rate));
+      const averageRate = loans.reduce((sum, loan) => sum + loan.rate, 0) / loans.length;
+      
+      // Calculate potential savings scenarios
+      const totalAmount = loans.reduce((sum, loan) => sum + loan.amount, 0);
+      const currentAnnualCost = totalAmount * (blendedRate / 100);
+      
+      // Scenario 1: If all loans were at the lowest rate
+      const bestCaseAnnualCost = totalAmount * (lowestRate / 100);
+      const bestCaseSavings = currentAnnualCost - bestCaseAnnualCost;
+      
+      // Scenario 2: If all loans were at a competitive rate (assuming 1% below blended)
+      const competitiveRate = Math.max(blendedRate - 1, lowestRate);
+      const competitiveAnnualCost = totalAmount * (competitiveRate / 100);
+      const competitiveSavings = currentAnnualCost - competitiveAnnualCost;
+
+      comparisonCards.innerHTML = `
+        <div class="comparison-card">
+          <h5>Current Blended Rate</h5>
+          <div class="value">${blendedRate.toFixed(3)}%</div>
+          <div class="label">Weighted Average</div>
+        </div>
+        <div class="comparison-card">
+          <h5>Simple Average</h5>
+          <div class="value">${averageRate.toFixed(2)}%</div>
+          <div class="label">Unweighted Average</div>
+        </div>
+        <div class="comparison-card">
+          <h5>Rate Range</h5>
+          <div class="value">${lowestRate.toFixed(2)}% - ${highestRate.toFixed(2)}%</div>
+          <div class="label">Min to Max</div>
+        </div>
+        <div class="comparison-card">
+          <h5>Annual Interest Cost</h5>
+          <div class="value">${currentAnnualCost.toLocaleString(undefined, {maximumFractionDigits: 0})}</div>
+          <div class="label">Current Portfolio</div>
+        </div>
+        <div class="comparison-card">
+          <h5>Best Case Scenario</h5>
+          <div class="value">${bestCaseSavings.toLocaleString(undefined, {maximumFractionDigits: 0})}</div>
+          <div class="label">Annual Savings Potential</div>
+        </div>
+        <div class="comparison-card">
+          <h5>Refinance Potential</h5>
+          <div class="value">${competitiveSavings.toLocaleString(undefined, {maximumFractionDigits: 0})}</div>
+          <div class="label">Conservative Savings</div>
+        </div>
+      `;
+    }
+
+    // Input formatting and validation
+    document.addEventListener('input', function(e) {
+      if (e.target.type === 'number') {
+        // Remove negative values for amount fields
+        if (e.target.id.includes('amount') && parseFloat(e.target.value) < 0) {
+          e.target.value = 0;
+        }
+        // Limit rate fields to reasonable ranges
+        if (e.target.id.includes('rate') && parseFloat(e.target.value) > 50) {
+          e.target.value = 50;
+        }
+        if (e.target.id.includes('rate') && parseFloat(e.target.value) < 0) {
+          e.target.value = 0;
+        }
+      }
+    });
+
+    // Auto-calculate on input change (with debouncing)
+    let calculateTimeout;
+    document.addEventListener('input', function(e) {
+      if (e.target.type === 'number') {
+        clearTimeout(calculateTimeout);
+        calculateTimeout = setTimeout(() => {
+          // Only auto-calculate if we have at least one valid loan
+          const hasValidLoan = Array.from({length: loanCount}, (_, i) => i + 1).some(i => {
+            const amount = document.getElementById(`amount-${i}`);
+            const rate = document.getElementById(`rate-${i}`);
+            return amount && rate && parseFloat(amount.value) > 0 && parseFloat(rate.value) >= 0;
+          });
+          
+          if (hasValidLoan) {
+            calculateBlendedRate();
+          }
+        }, 1000);
+      }
+    });
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+      if (e.ctrlKey || e.metaKey) {
+        switch(e.key) {
+          case 'Enter':
+            e.preventDefault();
+            calculateBlendedRate();
+            break;
+          case 'n':
+            e.preventDefault();
+            addLoan();
+            break;
+        }
+      }
+    });
+
+    // Export functionality
+    function exportResults() {
+      const loans = [];
+      let totalAmount = 0;
+      let weightedSum = 0;
+
+      for (let i = 1; i <= loanCount; i++) {
+        const amountElement = document.getElementById(`amount-${i}`);
+        const rateElement = document.getElementById(`rate-${i}`);
+        const nameElement = document.getElementById(`name-${i}`);
+        
+        if (amountElement && rateElement) {
+          const amount = parseFloat(amountElement.value) || 0;
+          const rate = parseFloat(rateElement.value) || 0;
+          const name = nameElement ? nameElement.value || `Loan ${i}` : `Loan ${i}`;
+          
+          if (amount > 0 && rate >= 0) {
+            loans.push({ amount, rate, name });
+            totalAmount += amount;
+            weightedSum += amount * rate;
+          }
+        }
+      }
+
+      if (loans.length === 0) return;
+
+      const blendedRate = weightedSum / totalAmount;
+      const currentDate = new Date().toLocaleDateString();
+      
+      let exportText = `Blended Rate Calculator Results - ${currentDate}\n`;
+      exportText += `${'='.repeat(50)}\n\n`;
+      exportText += `Blended Rate: ${blendedRate.toFixed(3)}%\n`;
+      exportText += `Total Portfolio: ${totalAmount.toLocaleString()}\n`;
+      exportText += `Number of Loans: ${loans.length}\n\n`;
+      exportText += `Loan Breakdown:\n`;
+      exportText += `${'-'.repeat(50)}\n`;
+      
+      loans.forEach((loan, index) => {
+        const weight = (loan.amount / totalAmount) * 100;
+        exportText += `${loan.name}:\n`;
+        exportText += `  Amount: ${loan.amount.toLocaleString()}\n`;
+        exportText += `  Rate: ${loan.rate.toFixed(2)}%\n`;
+        exportText += `  Weight: ${weight.toFixed(1)}%\n\n`;
+      });
+
+      // Create download
+      const blob = new Blob([exportText], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `blended-rate-calculation-${new Date().toISOString().split('T')[0]}.txt`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // Add export button after calculations
+    function addExportButton() {
+      const existingButton = document.getElementById('export-btn');
+      if (existingButton) return;
+
+      const exportBtn = document.createElement('button');
+      exportBtn.id = 'export-btn';
+      exportBtn.className = 'calculate-btn';
+      exportBtn.style.marginTop = '1rem';
+      exportBtn.style.background = 'linear-gradient(135deg, #28a745 0%, #20c997 100%)';
+      exportBtn.innerHTML = '<i class="fas fa-download"></i> Export Results';
+      exportBtn.onclick = exportResults;
+
+      const summarySection = document.getElementById('summary-section');
+      summarySection.appendChild(exportBtn);
+    }
+
+    // Call addExportButton after successful calculation
+    const originalCalculate = calculateBlendedRate;
+    calculateBlendedRate = function() {
+      originalCalculate();
+      setTimeout(addExportButton, 100);
+    };
+  </script>
+</body>
+
+</html>

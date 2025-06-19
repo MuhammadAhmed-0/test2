@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aggregate Calculator - CalcHub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/tools/apush.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* Result Section */
+        #result {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            display: none;
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #result::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+
+            0%,
+            100% {
+                transform: rotate(0deg);
+            }
+
+            50% {
+                transform: rotate(180deg);
+            }
+        }
+
+        #result h3 {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Output Section */
+        .output-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .output-item {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 1.5rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .output-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .output-label {
+            font-size: 0.9rem;
+            color: #e0e6ed;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .output-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Additional Details Section */
+        #additional-details {
+            margin-top: 2rem;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(252, 182, 159, 0.3);
+            display: none;
+        }
+
+        #additional-details h4 {
+            font-size: 1.8rem;
+            color: #8b4513;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(139, 69, 19, 0.2);
+        }
+
+        .detail-item {
+            background: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1rem;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #ff6b35;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .detail-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .detail-item p {
+            font-size: 1.1rem;
+            color: #2c3e50;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .detail-label {
+            font-weight: 700;
+            color: #e74c3c;
+        }
+
+        /* Calculate Button */
+        .calculate-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.2rem 3rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .calculate-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .calculate-btn:hover::before {
+            left: 100%;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+
+        .calculate-btn:active {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Input Fields */
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 1.2rem;
+            border: 2px solid #e0e6ed;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            transform: translateY(-1px);
+        }
+
+        /* Split Input Group for Currency */
+        .split-input {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .split-input .input-sub-group {
+            margin-bottom: 0;
+        }
+
+        .split-input .input-sub-group label {
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        /* Animations */
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+
+            70% {
+                transform: scale(0.9);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .animate-result {
+            animation: bounceIn 0.6s ease-out;
+        }
+
+        /* Error State */
+        .error-message {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            /* Responsive Design */
+            @media (max-width: 768px) {
+                #result {
+                    padding: 1.5rem;
+                    width: 95%;
+                    /* Adjust width for smaller screens */
+                }
+
+                .output-container {
+                    grid-template-columns: 1fr;
+                    /* Stack items in a single column */
+                }
+
+                .calculate-btn {
+                    padding: 1rem 2rem;
+                    font-size: 1rem;
+                }
+
+                .split-input {
+                    grid-template-columns: 1fr;
+                    /* Stack inputs in a single column */
+                    gap: 0.5rem;
+                }
+
+                .input-group label {
+                    font-size: 1rem;
+                    /* Adjust label font size */
+                }
+
+                .input-group input,
+                .input-group select {
+                    font-size: 1rem;
+                    /* Adjust input font size */
+                }
+
+                #additional-details h4 {
+                    font-size: 1.5rem;
+                    /* Adjust heading size */
+                }
+
+                .detail-item p {
+                    font-size: 1rem;
+                    /* Adjust detail item font size */
+                }
+            }
+
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- Announcemnet section -->
+    <div class="top-announcement-bar">
+        <div class="announcement-number">New Announcement</div>
+        <div class="announcement-text">
+            Explore the latest IT tools and expert resources at <a href="https://resourcesofdev.com" target="_blank"
+                rel="noopener noreferrer" class="announcement-link">Resourcesofdev.com</a>
+        </div>
+    </div>
+
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>CalcHub</h1>
+            </div>
+            <div class="nav-links">
+                <a href="../index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="../index.html"><i class="fas fa-tools"></i> Tools</a>
+                <a href="#about"><i class="fas fa-info-circle"></i> About</a>
+                <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+            </div>
+            <div class="mobile-menu-toggle" id="mobileMenuToggle">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+    <!-- Mobile Menu Panel -->
+    <div class="mobile-menu-panel" id="mobileMenuPanel">
+        <div class="mobile-menu-header">
+            <h2>Menu</h2>
+            <button class="mobile-menu-close" id="mobileMenuClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="mobile-menu-items">
+            <a href="index.html">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="#tools">
+                <i class="fas fa-tools"></i>
+                <span>Tools</span>
+            </a>
+            <a href="#about">
+                <i class="fas fa-info-circle"></i>
+                <span>About</span>
+            </a>
+            <a href="#contact">
+                <i class="fas fa-envelope"></i>
+                <span>Contact</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Aggregate Calculator</h1>
+        </div>
+    </section>
+
+    <div class="tool-container">
+        <aside class="left-sidebar">
+            <h3>Related Tools</h3>
+            <ul>
+                <li><a href="dunk-calculator.html">Dunk Calculator</a></li>
+                <li><a href="snow-day-calculator.html">Snow Day Calculator</a></li>
+                <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
+            </ul>
+        </aside>
+        <div class="main-content-column">
+            <main class="calculator-content">
+                <h1>Calculate Aggregate Requirements</h1>
+                <div class="calculator-box">
+                    <div class="input-group">
+                        <label for="projectType">Project Type:</label>
+                        <select id="projectType" onchange="updateProjectSpecificFields()">
+                            <option value="concrete">Concrete Mix</option>
+                            <option value="road">Road Construction</option>
+                            <option value="landscaping">Landscaping/Decorative</option>
+                            <option value="foundation">Foundation Base</option>
+                            <option value="driveway">Driveway/Patio</option>
+                            <option value="drainage">Drainage System</option>
+                            <option value="other">Other/Custom</option>
+                        </select>
+                    </div>
+
+                    <!-- Project-specific fields that appear based on selection -->
+                    <div id="projectSpecificFields"></div>
+
+                    <div class="input-group">
+                        <label for="length">Length (m):</label>
+                        <input type="number" id="length" min="0" step="0.01" placeholder="Enter length in meters">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="width">Width (m):</label>
+                        <input type="number" id="width" min="0" step="0.01" placeholder="Enter width in meters">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="diameter">Or Diameter (m) - for circular projects:</label>
+                        <input type="number" id="diameter" min="0" step="0.01" placeholder="Enter diameter in meters">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="depth">Depth (m):</label>
+                        <input type="number" id="depth" min="0" step="0.01" placeholder="Enter depth in meters">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="density">Material Density (kg/m³):</label>
+                        <select id="densityPreset" onchange="updateDensity()">
+                            <option value="custom">Custom Density</option>
+                            <option value="2400">Concrete Mix (2400 kg/m³)</option>
+                            <option value="1600">Gravel/Crushed Stone (1600 kg/m³)</option>
+                            <option value="1500">Sand (1500 kg/m³)</option>
+                            <option value="1400">Limestone (1400 kg/m³)</option>
+                            <option value="1300">Recycled Concrete (1300 kg/m³)</option>
+                            <option value="900">Expanded Clay (900 kg/m³)</option>
+                        </select>
+                        <input type="number" id="density" min="0" step="0.01" placeholder="Enter custom density"
+                            style="margin-top: 0.5rem;">
+                    </div>
+
+                    <div class="input-group">
+                        <div class="split-input">
+                            <div class="input-sub-group">
+                                <label for="cost">Cost per m³:</label>
+                                <input type="number" id="cost" min="0" step="0.01" placeholder="Enter cost per m³">
+                            </div>
+                            <div class="input-sub-group">
+                                <label for="currency">Currency:</label>
+                                <select id="currency">
+                                    <option value="usd">$ USD</option>
+                                    <option value="eur">€ EUR</option>
+                                    <option value="gbp">£ GBP</option>
+                                    <option value="inr">₹ INR</option>
+                                    <option value="jpy">¥ JPY</option>
+                                    <option value="custom">Custom</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="wasteFactor">Waste Factor (%):</label>
+                        <input type="number" id="wasteFactor" min="0" max="100" step="0.1"
+                            placeholder="Enter waste factor as percentage">
+                    </div>
+
+                    <button onclick="calculateAggregate()" class="calculate-btn">Calculate Aggregate</button>
+
+                    <div class="error-message" id="errorMessage"></div>
+
+                    <div id="result" class="result">
+                        <h3>Calculation Results</h3>
+                        <div class="output-container">
+                            <div class="output-item">
+                                <div class="output-label">Total Volume</div>
+                                <div class="output-value" id="volumeResult">0 m³</div>
+                            </div>
+                            <div class="output-item">
+                                <div class="output-label">Total Weight</div>
+                                <div class="output-value" id="weightResult">0 kg</div>
+                            </div>
+                            <div class="output-item">
+                                <div class="output-label">Total Cost</div>
+                                <div class="output-value" id="costResult">$0</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Details -->
+                    <div id="additional-details" class="additional-details">
+                        <h4>Project Details</h4>
+                        <div class="detail-item">
+                            <p id="projectTypeDetail"></p>
+                        </div>
+                        <div class="detail-item">
+                            <p id="dimensionsDetail"></p>
+                        </div>
+                        <div class="detail-item">
+                            <p id="wasteDetail"></p>
+                        </div>
+                        <div class="detail-item">
+                            <p id="densityDetail"></p>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <article class="calculator-article">
+                <h2>Professional Aggregate Calculation Guide</h2>
+                <p>Our enhanced aggregate calculator provides project-specific calculations for accurate material
+                    estimation. Here's what makes it comprehensive:</p>
+                <ul>
+                    <li><strong>Project-Specific Logic:</strong> Different compaction factors and waste percentages for
+                        each project type</li>
+                    <li><strong>Compaction Factor:</strong> Accounts for material settling - critical for roads (1.25x)
+                        and foundations (1.3x)</li>
+                    <li><strong>Material Presets:</strong> Industry-standard densities for common materials</li>
+                    <li><strong>Validation:</strong> Project-specific depth and dimension validation</li>
+                    <li><strong>Professional Recommendations:</strong> Context-aware advice for each project type</li>
+                </ul>
+                <p><strong>Key Features by Project Type:</strong></p>
+                <ul>
+                    <li><strong>Concrete:</strong> Precise mixing ratios, minimal waste (5%)</li>
+                    <li><strong>Road Construction:</strong> High compaction factor (1.25x), considers traffic load</li>
+                    <li><strong>Foundation:</strong> Maximum compaction (1.3x), structural requirements</li>
+                    <li><strong>Landscaping:</strong> Higher waste allowance (15%), aesthetic considerations</li>
+                    <li><strong>Drainage:</strong> Specific aggregate sizing, flow requirements</li>
+                </ul>
+            </article>
+        </div>
+
+        <aside class="right-sidebar">
+            <div class="ad-space">
+                <div class="ad-placeholder">
+                    <img src="../learn-more-heinz-300x250-call-to-action.webp" alt="Advertisement 1">
+                </div>
+            </div>
+            <div class="ad-space">
+                <div class="ad-placeholder">
+                    <img src="../learn-more-heinz-300x250-call-to-action.webp" alt="Advertisement 2">
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About CalcHub</h3>
+                <p>Your trusted source for online calculation tools</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#tools">Tools</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@calchub.com</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 CalcHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/calculator.js"></script>
+    <script>
+        // Project-specific configurations
+        const projectConfigs = {
+            concrete: {
+                defaultWaste: 5,
+                compactionFactor: 1.0,
+                layers: ['Concrete Mix'],
+                recommendations: 'Concrete projects require precise mixing ratios. Consider reinforcement requirements.',
+                minDepth: 0.1,
+                maxDepth: 2.0
+            },
+            road: {
+                defaultWaste: 10,
+                compactionFactor: 1.25,
+                layers: ['Base Course', 'Sub-base', 'Surface Course'],
+                recommendations: 'Road construction requires proper drainage and compaction. Consider traffic load.',
+                minDepth: 0.15,
+                maxDepth: 1.0
+            },
+            landscaping: {
+                defaultWaste: 15,
+                compactionFactor: 1.1,
+                layers: ['Decorative Stone', 'Mulch', 'Soil'],
+                recommendations: 'Landscaping projects benefit from good drainage. Consider seasonal changes.',
+                minDepth: 0.05,
+                maxDepth: 0.5
+            },
+            foundation: {
+                defaultWaste: 8,
+                compactionFactor: 1.3,
+                layers: ['Foundation Base', 'Leveling Course'],
+                recommendations: 'Foundation work requires proper soil preparation and compaction.',
+                minDepth: 0.2,
+                maxDepth: 3.0
+            },
+            driveway: {
+                defaultWaste: 12,
+                compactionFactor: 1.2,
+                layers: ['Base Layer', 'Surface Layer'],
+                recommendations: 'Driveways need proper slope for drainage and durable surface materials.',
+                minDepth: 0.1,
+                maxDepth: 0.4
+            },
+            drainage: {
+                defaultWaste: 20,
+                compactionFactor: 1.15,
+                layers: ['Drainage Aggregate', 'Filter Layer'],
+                recommendations: 'Drainage systems require specific aggregate sizes for proper water flow.',
+                minDepth: 0.3,
+                maxDepth: 2.0
+            },
+            other: {
+                defaultWaste: 10,
+                compactionFactor: 1.1,
+                layers: ['Custom Material'],
+                recommendations: 'Custom projects may require specialized calculations.',
+                minDepth: 0.01,
+                maxDepth: 10.0
+            }
+        };
+
+        function updateProjectSpecificFields() {
+            const projectType = document.getElementById('projectType').value;
+            const config = projectConfigs[projectType];
+            const container = document.getElementById('projectSpecificFields');
+
+            // Update waste factor with default
+            document.getElementById('wasteFactor').value = config.defaultWaste;
+
+            // Show project-specific information
+            container.innerHTML = `
+        <div class="input-group" style="background: #f0f8ff; padding: 1rem; border-radius: 10px; margin-bottom: 1rem;">
+            <h4 style="color: #2c3e50; margin-bottom: 0.5rem;">${projectType.charAt(0).toUpperCase() + projectType.slice(1)} Project Guidelines</h4>
+            <p style="color: #34495e; margin-bottom: 0.5rem;"><strong>Recommended Depth:</strong> ${config.minDepth}m - ${config.maxDepth}m</p>
+            <p style="color: #34495e; margin-bottom: 0.5rem;"><strong>Typical Layers:</strong> ${config.layers.join(', ')}</p>
+            <p style="color: #34495e; font-style: italic;">${config.recommendations}</p>
+        </div>
+    `;
+        }
+
+        function updateDensity() {
+            const preset = document.getElementById('densityPreset').value;
+            const densityInput = document.getElementById('density');
+
+            if (preset !== 'custom') {
+                densityInput.value = preset;
+                densityInput.style.display = 'none';
+            } else {
+                densityInput.style.display = 'block';
+                densityInput.value = '';
+            }
+        }
+
+        function calculateAggregate() {
+            console.log("Calculate Aggregate function called");
+
+            // Get values from input fields
+            const length = parseFloat(document.getElementById('length').value) || 0;
+            const width = parseFloat(document.getElementById('width').value) || 0;
+            const diameter = parseFloat(document.getElementById('diameter').value) || 0;
+            const depth = parseFloat(document.getElementById('depth').value) || 0;
+            const density = parseFloat(document.getElementById('density').value) || 0;
+            const cost = parseFloat(document.getElementById('cost').value) || 0;
+            const wasteFactor = parseFloat(document.getElementById('wasteFactor').value) || 0;
+            const currency = document.getElementById('currency').value;
+            const projectType = document.getElementById('projectType').value;
+
+            // Hide previous error messages
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.style.display = 'none';
+
+            // Get project configuration
+            const config = projectConfigs[projectType];
+
+            // Enhanced validation with project-specific checks
+            if (length <= 0 && width <= 0 && diameter <= 0) {
+                showError("Please enter valid dimensions (Length & Width or Diameter).");
+                return;
+            }
+            if (depth <= 0) {
+                showError("Please enter a valid Depth.");
+                return;
+            }
+            if (depth < config.minDepth || depth > config.maxDepth) {
+                showError(`For ${projectType} projects, depth should be between ${config.minDepth}m and ${config.maxDepth}m.`);
+                return;
+            }
+            if (density <= 0) {
+                showError("Please select a material density or enter a custom value.");
+                return;
+            }
+            if (cost <= 0) {
+                showError("Please enter a valid Cost per m³.");
+                return;
+            }
+
+            let baseVolume = 0;
+            let dimensionText = '';
+
+            // Calculate base volume
+            if (diameter > 0) {
+                baseVolume = Math.PI * Math.pow(diameter / 2, 2) * depth;
+                dimensionText = `Circular area: ${diameter}m diameter × ${depth}m depth`;
+            } else {
+                if (length <= 0 || width <= 0) {
+                    showError("Please enter valid Length and Width.");
+                    return;
+                }
+                baseVolume = length * width * depth;
+                dimensionText = `Rectangular area: ${length}m × ${width}m × ${depth}m`;
+            }
+
+            // Apply compaction factor for the project type
+            const compactedVolume = baseVolume * config.compactionFactor;
+
+            // Apply waste factor
+            const finalVolume = compactedVolume * (1 + (wasteFactor / 100));
+
+            // Calculate weight and cost
+            const totalWeight = finalVolume * density;
+            const totalCost = finalVolume * cost;
+
+            // Get currency symbol
+            const currencySymbols = {
+                'usd': '$',
+                'eur': '€',
+                'gbp': '£',
+                'inr': '₹',
+                'jpy': '¥',
+                'custom': ''
+            };
+
+            const currencySymbol = currencySymbols[currency] || '';
+            const currencyText = currency === 'custom' ? '(According to your currency)' : currency.toUpperCase();
+
+            // Update UI with results
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'result animate-result';
+
+            document.getElementById('volumeResult').textContent = `${finalVolume.toFixed(2)} m³`;
+            document.getElementById('weightResult').textContent = `${totalWeight.toFixed(2)} kg`;
+
+            if (currency === 'custom') {
+                document.getElementById('costResult').textContent = `${totalCost.toFixed(2)} ${currencyText}`;
+            } else {
+                document.getElementById('costResult').textContent = `${currencySymbol}${totalCost.toFixed(2)}`;
+            }
+
+            // Enhanced additional details
+            document.getElementById('additional-details').style.display = 'block';
+            document.getElementById('projectTypeDetail').innerHTML = `<span class="detail-label">Project Type:</span> ${projectType.charAt(0).toUpperCase() + projectType.slice(1)} Construction`;
+            document.getElementById('dimensionsDetail').innerHTML = `<span class="detail-label">Dimensions:</span> ${dimensionText}`;
+
+            // Enhanced waste and compaction details
+            let detailsHTML = `<span class="detail-label">Volume Breakdown:</span><br>`;
+            detailsHTML += `• Base Volume: ${baseVolume.toFixed(2)} m³<br>`;
+            const compactionVolume = compactedVolume - baseVolume;
+            if (compactionVolume > 0) {
+                detailsHTML += `• Compaction Factor (${config.compactionFactor}x): +${compactionVolume.toFixed(2)} m³<br>`;
+            }
+            const wasteVolume = finalVolume - compactedVolume;
+            detailsHTML += `• Waste Factor (${wasteFactor}%): +${wasteVolume.toFixed(2)} m³<br>`;
+            detailsHTML += `• <strong>Total Required: ${finalVolume.toFixed(2)} m³</strong>`;
+
+            document.getElementById('wasteDetail').innerHTML = detailsHTML;
+            document.getElementById('densityDetail').innerHTML = `<span class="detail-label">Material Properties:</span> ${density} kg/m³ density, ${config.layers.join(', ')}`;
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+
+            // Hide results
+            document.getElementById('result').style.display = 'none';
+            document.getElementById('additional-details').style.display = 'none';
+        }
+
+        // Initialize project-specific fields on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            updateProjectSpecificFields();
+            updateDensity();
+        });
+
+        // Auto-hide diameter when length/width are filled and vice versa
+        document.getElementById('length').addEventListener('input', function () {
+            if (this.value || document.getElementById('width').value) {
+                document.getElementById('diameter').value = '';
+            }
+        });
+
+        document.getElementById('width').addEventListener('input', function () {
+            if (this.value || document.getElementById('length').value) {
+                document.getElementById('diameter').value = '';
+            }
+        });
+
+        document.getElementById('diameter').addEventListener('input', function () {
+            if (this.value) {
+                document.getElementById('length').value = '';
+                document.getElementById('width').value = '';
+            }
+        });
+
+    </script>
+</body>
+
+</html>

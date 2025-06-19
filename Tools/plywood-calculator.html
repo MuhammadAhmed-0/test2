@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plywood Calculator - CalcHub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/tools/apush.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* Plywood Calculator Specific Styles */
+        .plywood-calculator {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 0;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+            position: relative;
+        }
+
+        .plywood-calculator::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .calculator-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .calculator-header h2 {
+            color: white;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin: 0;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .calculator-body {
+            background: white;
+            padding: 2.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Mode Selector Styles */
+
+        /* Mode Selector Fixes - Replace the existing .mode-selector styles */
+        .mode-selector {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 15px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(240, 147, 251, 0.2);
+        }
+
+        .mode-selector legend {
+            color: #764ba2;
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 1rem;
+            padding: 0 0.5rem;
+        }
+
+        .mode-selector .radio-group {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .mode-selector label {
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid transparent;
+            min-width: fit-content;
+        }
+
+        .mode-selector label:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .mode-selector input[type="radio"] {
+            margin-right: 0.8rem;
+            transform: scale(1.2);
+            accent-color: white;
+            flex-shrink: 0;
+        }
+
+        .mode-selector label i {
+            margin-right: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* Input Groups */
+        .input-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.6rem;
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .input-group label i {
+            margin-right: 0.5rem;
+            color: #667eea;
+            width: 16px;
+            text-align: center;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 1.2rem;
+            border: 2px solid #e0e6ed;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .row {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .row>div {
+            flex: 1;
+        }
+
+        .hint {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        /* Parts Input Section */
+        #partsInputs {
+            margin-top: 1.5rem;
+        }
+
+        .part-input {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 25px rgba(168, 237, 234, 0.3);
+        }
+
+        .part-input strong {
+            color: #2c3e50;
+            font-size: 1.1rem;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .part-input label {
+            display: inline-block;
+            margin-right: 1rem;
+            margin-bottom: 0.5rem;
+            color: #34495e;
+        }
+
+        .part-input input {
+            width: 120px;
+            padding: 0.8rem;
+            margin-left: 0.5rem;
+        }
+
+        /* Calculate Button */
+        .calculate-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.2rem 3rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            margin-top: 2rem;
+        }
+
+        .calculate-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .calculate-btn:hover::before {
+            left: 100%;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+
+        .calculate-btn:active {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Results Section */
+        #result {
+            margin-top: 2rem;
+            padding: 2.5rem;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(252, 182, 159, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #result::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+
+            0%,
+            100% {
+                transform: rotate(0deg);
+            }
+
+            50% {
+                transform: rotate(180deg);
+            }
+        }
+
+        #result h3 {
+            color: #8b4513;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(139, 69, 19, 0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        #result ul {
+            list-style: none;
+            padding: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        #result li {
+            background: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1rem;
+            padding: 1.2rem 1.8rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #ff6b35;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            font-size: 1.1rem;
+            color: #2c3e50;
+        }
+
+        #result li:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        #result li strong {
+            color: #e74c3c;
+            font-weight: 700;
+        }
+
+        /* Custom Currency Input */
+        #customCurrency {
+            margin-top: 1rem;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Icon Enhancements */
+        .input-group::before {
+            content: '';
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            background-size: contain;
+            opacity: 0.5;
+            z-index: 1;
+        }
+
+        /* Success Animation */
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+
+            70% {
+                transform: scale(0.9);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .animate-result {
+            animation: bounceIn 0.6s ease-out;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+
+            /* Main Container */
+            .plywood-calculator {
+                width: 100%;
+                padding: 10px;
+                /* Add padding to avoid content being cut off */
+                box-sizing: border-box;
+                /* Ensure padding doesn't push content out of view */
+                overflow-x: hidden;
+                /* Prevent horizontal scrolling */
+            }
+
+            /* Header */
+            .calculator-header {
+                padding: 1rem;
+                /* Adjust padding for smaller screens */
+            }
+
+            .calculator-header h2 {
+                font-size: 1.8rem;
+                /* Smaller font for header */
+            }
+
+            /* Body */
+            .calculator-body {
+                padding: 1rem;
+                /* Adjust padding inside body */
+            }
+
+            /* Inputs */
+            .input-group input,
+            .input-group select {
+                width: 100%;
+                /* Ensure inputs are responsive */
+                padding: 0.8rem;
+                /* Adjust padding */
+            }
+
+            /* Mode Selector */
+            .mode-selector label {
+                font-size: 1rem;
+                /* Smaller font for labels */
+                padding: 0.5rem;
+                /* Reduce padding for small screens */
+            }
+
+            /* Button */
+            .calculate-btn {
+                width: 100%;
+                /* Make button take full width */
+                padding: 1rem;
+                /* Adjust padding */
+                font-size: 1rem;
+                /* Smaller button font size */
+            }
+
+            /* Results Section */
+            #result {
+                padding: 1.5rem;
+                /* Adjust result section padding */
+            }
+
+            #result h3 {
+                font-size: 1.5rem;
+                /* Smaller font for result header */
+            }
+
+            #result li {
+                font-size: 1rem;
+                /* Adjust font size for list items */
+            }
+
+            /* Stacked Layout for Inputs */
+            .row {
+                flex-direction: column;
+                /* Stack items vertically */
+            }
+
+            .part-input input {
+                width: 100%;
+                /* Ensure part input fields are responsive */
+                padding: 1rem;
+                /* Adjust padding */
+            }
+
+            /* Hide large text or additional content on small screens */
+            .hint {
+                display: none;
+                /* Hide hints on small screens */
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- Announcement section -->
+    <div class="top-announcement-bar">
+        <div class="announcement-number">New Announcement</div>
+        <div class="announcement-text">
+            Explore the latest IT tools and expert resources at <a href="https://resourcesofdev.com" target="_blank"
+                rel="noopener noreferrer" class="announcement-link">Resourcesofdev.com</a>
+        </div>
+    </div>
+
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>CalcHub</h1>
+            </div>
+            <div class="nav-links">
+                <a href="../index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="../index.html"><i class="fas fa-tools"></i> Tools</a>
+                <a href="#about"><i class="fas fa-info-circle"></i> About</a>
+                <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+            </div>
+            <div class="mobile-menu-toggle" id="mobileMenuToggle">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+    <!-- Mobile Menu Panel -->
+    <div class="mobile-menu-panel" id="mobileMenuPanel">
+        <div class="mobile-menu-header">
+            <h2>Menu</h2>
+            <button class="mobile-menu-close" id="mobileMenuClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="mobile-menu-items">
+            <a href="index.html">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="#tools">
+                <i class="fas fa-tools"></i>
+                <span>Tools</span>
+            </a>
+            <a href="#about">
+                <i class="fas fa-info-circle"></i>
+                <span>About</span>
+            </a>
+            <a href="#contact">
+                <i class="fas fa-envelope"></i>
+                <span>Contact</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Plywood Calculator</h1>
+        </div>
+    </section>
+
+    <div class="tool-container">
+        <aside class="left-sidebar">
+            <h3>Related Tools</h3>
+            <ul>
+                <li><a href="dunk-calculator.html">Dunk Calculator</a></li>
+                <li><a href="snow-day-calculator.html">Snow Day Calculator</a></li>
+                <li><a href="terminus-calculator.html">Terminus Calculator</a></li>
+                <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
+            </ul>
+        </aside>
+
+        <div class="main-content-column">
+            <main class="calculator-content">
+                <div class="calculator-box plywood-calculator">
+                    <div class="calculator-header">
+                        <h2><i class="fas fa-hammer"></i> Plywood Calculator</h2>
+                    </div>
+
+                    <div class="calculator-body">
+                        <form id="plywoodForm" aria-label="Plywood Calculator Form">
+                            <!-- Mode Selector -->
+                            <fieldset class="mode-selector">
+                                <legend><i class="fas fa-cog"></i> Select Input Mode</legend>
+                                <label>
+                                    <input type="radio" name="inputMode" value="totalArea" checked>
+                                    <i class="fas fa-square"></i> Enter Total Area
+                                </label>
+                                <label>
+                                    <input type="radio" name="inputMode" value="parts">
+                                    <i class="fas fa-th-large"></i> Enter Parts Individually
+                                </label>
+                            </fieldset>
+
+                            <!-- Total Area Input -->
+                            <div id="totalAreaDiv" class="input-group">
+                                <label for="totalArea"><i class="fas fa-ruler-combined"></i> Total Area to Cover (square
+                                    feet)</label>
+                                <input type="number" id="totalArea" name="totalArea" min="0" step="0.1"
+                                    placeholder="e.g. 150" />
+                                <div class="hint">Enter the total area you need to cover with plywood</div>
+                            </div>
+
+                            <!-- Parts Count Input -->
+                            <div id="partsCountDiv" class="input-group" style="display:none;">
+                                <label for="partsCount"><i class="fas fa-list-ol"></i> Number of Parts</label>
+                                <input type="number" id="partsCount" name="partsCount" min="0" step="1"
+                                    placeholder="e.g. 5" />
+                                <div class="hint">Enter how many parts you want to specify individually (e.g., shelves,
+                                    panels)</div>
+                                <div id="partsInputs"></div>
+                            </div>
+
+                            <!-- Sheet Dimensions -->
+                            <div class="row">
+                                <div class="input-group">
+                                    <label for="sheetLength"><i class="fas fa-arrows-alt-h"></i> Sheet Length
+                                        (feet)</label>
+                                    <input type="number" id="sheetLength" name="sheetLength" value="8" min="1"
+                                        step="0.1" required />
+                                </div>
+                                <div class="input-group">
+                                    <label for="sheetWidth"><i class="fas fa-arrows-alt-v"></i> Sheet Width
+                                        (feet)</label>
+                                    <input type="number" id="sheetWidth" name="sheetWidth" value="4" min="1" step="0.1"
+                                        required />
+                                </div>
+                            </div>
+
+                            <!-- Thickness and Wastage -->
+                            <div class="row">
+                                <div class="input-group">
+                                    <label for="thickness"><i class="fas fa-layer-group"></i> Plywood Thickness</label>
+                                    <select id="thickness" name="thickness" required>
+                                        <option value="" disabled selected>Select thickness</option>
+                                        <option value="6">6 mm</option>
+                                        <option value="12">12 mm</option>
+                                        <option value="18">18 mm</option>
+                                    </select>
+                                </div>
+                                <div class="input-group">
+                                    <label for="wastage"><i class="fas fa-recycle"></i> Wastage Tolerance</label>
+                                    <select id="wastage" name="wastage" required>
+                                        <option value="" disabled selected>Select wastage tolerance</option>
+                                        <option value="low">Low (minimize wastage)</option>
+                                        <option value="medium" selected>Medium (standard)</option>
+                                        <option value="high">High (allow more wastage)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Price Section -->
+                            <div class="input-group">
+                                <label for="sheetPrice"><i class="fas fa-dollar-sign"></i> Price per Sheet</label>
+                                <div class="row">
+                                    <div>
+                                        <select id="currency" aria-label="Currency Selector" required>
+                                            <option value="$" selected>USD ($)</option>
+                                            <option value="₹">INR (₹)</option>
+                                            <option value="€">EUR (€)</option>
+                                            <option value="£">GBP (£)</option>
+                                            <option value="A$">AUD (A$)</option>
+                                            <option value="C$">CAD (C$)</option>
+                                            <option value="¥">JPY (¥)</option>
+                                            <option value="custom">Custom</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <input type="number" id="sheetPrice" name="sheetPrice" min="0" step="0.01"
+                                            placeholder="e.g. 50" required />
+                                    </div>
+                                </div>
+                                <input type="text" id="customCurrency" placeholder="Enter custom currency symbol/name"
+                                    style="display:none;" />
+                                <div class="hint">Enter local price per plywood sheet in selected currency</div>
+                            </div>
+
+                            <button type="submit" class="calculate-btn">
+                                <i class="fas fa-calculator"></i> Calculate Requirements
+                            </button>
+                        </form>
+
+                        <div id="result" class="animate-result" aria-live="polite" style="display:none;"></div>
+                    </div>
+                </div>
+            </main>
+
+            <article class="calculator-article">
+                <h2>Understanding Plywood Calculations</h2>
+                <p>Our plywood calculator helps you determine the exact amount of plywood needed for your project,
+                    minimizing waste and optimizing costs. Here's what the calculator considers:</p>
+                <ul>
+                    <li><strong>Material Area:</strong> Total surface area requiring plywood coverage</li>
+                    <li><strong>Sheet Dimensions:</strong> Standard plywood sheet sizes (typically 4x8 feet)</li>
+                    <li><strong>Wastage Factor:</strong> Accounts for cutting waste and material loss</li>
+                    <li><strong>Weight Calculation:</strong> Estimates total weight based on thickness</li>
+                    <li><strong>Cost Estimation:</strong> Provides budget planning with local pricing</li>
+                </ul>
+                <p>The calculator supports both total area input and individual part specifications, making it versatile
+                    for various construction and woodworking projects.</p>
+            </article>
+        </div>
+
+        <aside class="right-sidebar">
+            <div class="ad-space">
+                <div class="ad-placeholder">
+                    <img src="../learn-more-heinz-300x250-call-to-action.webp" alt="Advertisement 1">
+                </div>
+            </div>
+            <div class="ad-space">
+                <div class="ad-placeholder">
+                    <img src="../learn-more-heinz-300x250-call-to-action.webp" alt="Advertisement 2">
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About CalcHub</h3>
+                <p>Your trusted source for online calculation tools</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#tools">Tools</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@calchub.com</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 CalcHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/calculator.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mode toggle radio buttons
+            const modeRadios = document.querySelectorAll('input[name="inputMode"]');
+            const totalAreaDiv = document.getElementById('totalAreaDiv');
+            const partsCountDiv = document.getElementById('partsCountDiv');
+            const partsCountInput = document.getElementById('partsCount');
+            const partsInputsDiv = document.getElementById('partsInputs');
+
+            const form = document.getElementById('plywoodForm');
+            const resultsDiv = document.getElementById('result');
+
+            // Currency selector
+            const currencySelect = document.getElementById('currency');
+
+            // Toggle input mode sections
+            modeRadios.forEach(radio => {
+                radio.addEventListener('change', () => {
+                    if (radio.value === 'totalArea' && radio.checked) {
+                        totalAreaDiv.style.display = 'block';
+                        partsCountDiv.style.display = 'none';
+                        partsInputsDiv.innerHTML = '';
+                        partsCountInput.value = '';
+                    } else if (radio.value === 'parts' && radio.checked) {
+                        totalAreaDiv.style.display = 'none';
+                        partsCountDiv.style.display = 'block';
+                        partsInputsDiv.innerHTML = '';
+                        partsCountInput.value = '';
+                    }
+                    resultsDiv.style.display = 'none';
+                    resultsDiv.innerHTML = '';
+                });
+            });
+
+            // Generate parts inputs dynamically based on parts count
+            partsCountInput.addEventListener('input', () => {
+                partsInputsDiv.innerHTML = '';
+                const count = parseInt(partsCountInput.value, 10);
+                if (isNaN(count) || count < 1) return;
+                for (let i = 1; i <= count; i++) {
+                    const partDiv = document.createElement('div');
+                    partDiv.classList.add('part-input');
+                    partDiv.style.marginBottom = '10px';
+                    partDiv.innerHTML = `
+        <strong>Part ${i}:</strong><br/>
+        <label>Length (ft):
+          <input type="number" min="0.1" step="any" class="part-length" required />
+        </label>
+        <label style="margin-left: 15px;">Width (ft):
+          <input type="number" min="0.1" step="any" class="part-width" required />
+        </label>
+      `;
+                    partsInputsDiv.appendChild(partDiv);
+                }
+            });
+
+            // Form submission handler for calculation
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                resultsDiv.style.display = 'none';
+                resultsDiv.innerHTML = '';
+
+                // Get common inputs
+                const sheetLength = parseFloat(document.getElementById('sheetLength').value);
+                const sheetWidth = parseFloat(document.getElementById('sheetWidth').value);
+                const thickness = parseFloat(document.getElementById('thickness').value);
+                const wastageValue = document.getElementById('wastage').value;
+
+                if (isNaN(sheetLength) || sheetLength <= 0) return alert('Enter valid sheet length');
+                if (isNaN(sheetWidth) || sheetWidth <= 0) return alert('Enter valid sheet width');
+                if (isNaN(thickness) || thickness <= 0) return alert('Select valid thickness');
+                if (!wastageValue) return alert('Select wastage tolerance');
+
+                // Map wastage tolerance to multiplier
+                const wastageMultipliers = {
+                    low: 1.05,
+                    medium: 1.10,
+                    high: 1.20
+                };
+                const wastageTolerance = wastageMultipliers[wastageValue] || 1.10;
+
+                // Currency and price per sheet
+                const currency = currencySelect.value;
+                const pricePerSheet = parseFloat(document.getElementById('sheetPrice').value);
+                if (isNaN(pricePerSheet) || pricePerSheet < 0) return alert('Enter valid price per sheet');
+
+                const sheetArea = sheetLength * sheetWidth;
+                if (sheetArea <= 0) return alert('Sheet area must be positive');
+
+                // Determine mode and calculate total material area
+                const selectedMode = [...modeRadios].find(r => r.checked).value;
+                let totalMaterialArea = 0;
+
+                if (selectedMode === 'totalArea') {
+                    const totalAreaInput = parseFloat(document.getElementById('totalArea').value);
+                    if (isNaN(totalAreaInput) || totalAreaInput <= 0) {
+                        alert('Please enter a valid total area greater than 0');
+                        return;
+                    }
+                    totalMaterialArea = totalAreaInput;
+
+                } else if (selectedMode === 'parts') {
+                    const partsCount = parseInt(partsCountInput.value, 10);
+                    if (isNaN(partsCount) || partsCount < 1) {
+                        alert('Please enter the number of parts (at least 1)');
+                        return;
+                    }
+
+                    const lengths = partsInputsDiv.querySelectorAll('.part-length');
+                    const widths = partsInputsDiv.querySelectorAll('.part-width');
+
+                    let partsAreaSum = 0;
+                    for (let i = 0; i < partsCount; i++) {
+                        const l = parseFloat(lengths[i].value);
+                        const w = parseFloat(widths[i].value);
+                        if (isNaN(l) || l <= 0 || isNaN(w) || w <= 0) {
+                            alert(`Please enter valid length and width for part ${i + 1}`);
+                            return;
+                        }
+                        partsAreaSum += l * w;
+                    }
+
+                    if (partsAreaSum <= 0) {
+                        alert('Total parts area must be greater than 0');
+                        return;
+                    }
+
+                    totalMaterialArea = partsAreaSum;
+                }
+
+                // Apply wastage tolerance multiplier
+                const adjustedArea = totalMaterialArea * wastageTolerance;
+
+                // Calculate sheets needed (round up)
+                const sheetsNeeded = Math.ceil(adjustedArea / sheetArea);
+
+                // Calculate material wastage percentage
+                const wastagePercent = ((sheetsNeeded * sheetArea - totalMaterialArea) / (sheetsNeeded * sheetArea)) * 100;
+
+                // Weight calculation: weight per sheet = (thickness / 18) * 15.4 (kg)
+                const weightPerSheet = (thickness / 18) * 15.4;
+                const totalWeight = weightPerSheet * sheetsNeeded;
+
+                // Cost calculation
+                const totalCost = sheetsNeeded * pricePerSheet;
+
+                // Build output price string:
+                let priceOutput;
+                if (currency === 'custom') {
+                    priceOutput = `${totalCost.toFixed(2)} (According to your currency)`;
+                } else {
+                    priceOutput = `${currency} ${totalCost.toFixed(2)}`;
+                }
+
+                // Show results
+                resultsDiv.style.display = 'block';
+                resultsDiv.innerHTML = `
+      <h3>Calculation Results:</h3>
+      <ul>
+        <li><strong>Total Material Area:</strong> ${totalMaterialArea.toFixed(2)} sq ft</li>
+        <li><strong>Adjusted Area (with wastage):</strong> ${adjustedArea.toFixed(2)} sq ft</li>
+        <li><strong>Sheets Required:</strong> ${sheetsNeeded}</li>
+        <li><strong>Material Wastage:</strong> ${wastagePercent.toFixed(2)}%</li>
+        <li><strong>Total Weight:</strong> ${totalWeight.toFixed(2)} kg</li>
+        <li><strong>Total Estimated Cost:</strong> ${priceOutput}</li>
+      </ul>
+    `;
+            });
+        });
+
+    </script>
+
+</body>
+
+</html>

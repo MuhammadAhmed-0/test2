@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade Curve Calculator - CalcHub</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/tools/apush.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+
+  <style>
+    /* Calculator Section Styles */
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
+      gap: 0.5rem;
+    }
+
+    .tab-button {
+      background: linear-gradient(135deg, #e0e0e0 0%, #f5f5f5 100%);
+      border: none;
+      padding: 1rem 2rem;
+      font-weight: 600;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+      color: #555;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .tab-button.active {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    .tab-button:hover:not(.active) {
+      background: linear-gradient(135deg, #d0d0d0 0%, #e8e8e8 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .curving-method {
+      display: none;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    .curving-method.active {
+      display: block;
+    }
+
+    .input-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 0.8rem;
+      color: #2c3e50;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .input-group input, .input-group select {
+      width: 100%;
+      padding: 1.2rem;
+      border: 2px solid #e0e6ed;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      background: #f8f9fa;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .input-group input:focus, .input-group select:focus {
+      outline: none;
+      border-color: #667eea;
+      background-color: #ffffff;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      transform: translateY(-1px);
+    }
+
+    .calculate-btn {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 1.2rem 3rem;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      font-weight: 700;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      margin-top: 1.5rem;
+    }
+
+    .calculate-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.5s;
+    }
+
+    .calculate-btn:hover::before {
+      left: 100%;
+    }
+
+    .calculate-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+    }
+
+    .calculate-btn:active {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    }
+
+    .results-section {
+      margin-top: 2rem;
+    }
+
+    .results-section h3 {
+      color: #2c3e50;
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .output {
+      background: linear-gradient(135deg, #eef4fb 0%, #f8fbff 100%);
+      border-radius: 15px;
+      padding: 2rem;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      min-height: 120px;
+      color: #2c3e50;
+      user-select: text;
+      border-left: 4px solid #667eea;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.1);
+      font-family: 'Courier New', monospace;
+      display: none;
+    }
+
+    .output.show {
+      display: block;
+      animation: slideIn 0.5s ease forwards;
+    }
+
+    .chart-container {
+      margin-top: 2rem;
+      background: white;
+      padding: 1.5rem;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      display: none;
+    }
+
+    .chart-container.show {
+      display: block;
+      animation: slideIn 0.5s ease forwards;
+    }
+
+    .chart-container canvas {
+      max-width: 100%;
+      height: 400px;
+    }
+
+    #customDistribution {
+      display: none;
+    }
+
+    #customDistribution .custom-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+    }
+
+    @keyframes fadeIn {
+      from { 
+        opacity: 0; 
+        transform: translateY(20px); 
+      }
+      to { 
+        opacity: 1; 
+        transform: translateY(0); 
+      }
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .info-section {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 15px;
+      margin-top: 30px;
+      border-left: 4px solid #28a745;
+    }
+
+    .info-section h3 {
+      color: #2c3e50;
+      margin-bottom: 15px;
+    }
+
+    .info-section p {
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .tabs {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .tab-button {
+        width: 100%;
+        max-width: 300px;
+        margin-bottom: 0.5rem;
+      }
+
+      .calculate-btn {
+        padding: 1rem 2rem;
+        font-size: 1rem;
+      }
+
+      .output {
+        padding: 1.5rem;
+        font-size: 1rem;
+      }
+
+      #customDistribution .custom-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+  <!-- Announcement section -->
+  <div class="top-announcement-bar">
+    <div class="announcement-number">New Announcement</div>
+    <div class="announcement-text">
+      Explore the latest IT tools and expert resources at <a href="https://resourcesofdev.com" target="_blank"
+        rel="noopener noreferrer" class="announcement-link">Resourcesofdev.com</a>
+    </div>
+  </div>
+
+  <header>
+    <nav>
+      <div class="logo">
+        <h1>CalcHub</h1>
+      </div>
+      <div class="nav-links">
+        <a href="../index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="../index.html"><i class="fas fa-tools"></i> Tools</a>
+        <a href="#about"><i class="fas fa-info-circle"></i> About</a>
+        <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+      </div>
+      <div class="mobile-menu-toggle" id="mobileMenuToggle">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+  <!-- Mobile Menu Panel -->
+  <div class="mobile-menu-panel" id="mobileMenuPanel">
+    <div class="mobile-menu-header">
+      <h2>Menu</h2>
+      <button class="mobile-menu-close" id="mobileMenuClose">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="mobile-menu-items">
+      <a href="index.html">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </a>
+      <a href="#tools">
+        <i class="fas fa-tools"></i>
+        <span>Tools</span>
+      </a>
+      <a href="#about">
+        <i class="fas fa-info-circle"></i>
+        <span>About</span>
+      </a>
+      <a href="#contact">
+        <i class="fas fa-envelope"></i>
+        <span>Contact</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Grade Curve Calculator</h1>
+    </div>
+  </section>
+
+  <div class="tool-container">
+    <aside class="left-sidebar">
+      <h3>Related Tools</h3>
+      <ul>
+        <li><a href="snow-day-calculator.html">Snow Day Calculator</a></li>
+        <li><a href="terminus-calculator.html">Terminus Calculator</a></li>
+        <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
+        <li><a href="dunk-calculator.html">Dunk Calculator</a></li>
+      </ul>
+    </aside>
+    
+    <div class="main-content-column">
+      <main class="calculator-content">
+        <h1>Calculate Grade Distribution and Curves</h1>
+        <div class="calculator-box">
+          
+          <div class="tabs">
+            <button id="gradeCurveTab" class="tab-button active">Bell Curve Distribution</button>
+            <button id="squareRootCurveTab" class="tab-button">Square Root Curve</button>
+          </div>
+
+          <div id="gradeCurveInputs" class="curving-method active">
+            <div class="input-group">
+              <label for="totalPopulation">Total Number of Students:</label>
+              <input type="number" id="totalPopulation" placeholder="e.g. 30" min="1" />
+            </div>
+
+            <div class="input-group">
+              <label for="highestScore">Highest Score in Class:</label>
+              <input type="number" id="highestScore" placeholder="e.g. 90" min="0" max="100" step="0.1" />
+            </div>
+
+            <div class="input-group">
+              <label for="lowestScore">Lowest Score in Class:</label>
+              <input type="number" id="lowestScore" placeholder="e.g. 50" min="0" max="100" step="0.1" />
+            </div>
+
+            <div class="input-group">
+              <label for="curveType">Curve Distribution Type:</label>
+              <select id="curveType">
+                <option value="standard">Standard Bell Curve (10%-20%-40%-20%-10%)</option>
+                <option value="lenient">Lenient Curve (5%-15%-35%-25%-20%)</option>
+                <option value="strict">Strict Curve (15%-25%-30%-20%-10%)</option>
+                <option value="custom">Custom Distribution</option>
+              </select>
+            </div>
+
+            <div id="customDistribution">
+              <div class="input-group">
+                <label>Custom Grade Distribution (must total 100%):</label>
+                <div class="custom-grid">
+                  <input type="number" id="customA" placeholder="A %" min="0" max="100" step="0.1" />
+                  <input type="number" id="customB" placeholder="B %" min="0" max="100" step="0.1" />
+                  <input type="number" id="customC" placeholder="C %" min="0" max="100" step="0.1" />
+                  <input type="number" id="customD" placeholder="D %" min="0" max="100" step="0.1" />
+                  <input type="number" id="customF" placeholder="F %" min="0" max="100" step="0.1" />
+                </div>
+              </div>
+            </div>
+
+            <button id="applyGradeCurveBtn" class="calculate-btn">Calculate Grade Distribution</button>
+          </div>
+
+          <div id="squareRootCurveInputs" class="curving-method">
+            <div class="input-group">
+              <label for="percentageGrade">Original Percentage Grade (0-100):</label>
+              <input type="number" id="percentageGrade" placeholder="e.g. 64" min="0" max="100" step="0.1" />
+            </div>
+            <button id="applySquareRootCurveBtn" class="calculate-btn">Apply Square Root Curve</button>
+          </div>
+
+          <div class="results-section">
+            <h3>Results</h3>
+            <div id="output" class="output"></div>
+            <div id="chartContainer" class="chart-container">
+              <canvas id="scoreChart"></canvas>
+            </div>
+          </div>
+
+        </div>
+      </main>
+
+      <article class="calculator-article">
+        <h2>Understanding Grade Curves</h2>
+        <p>Grade curves are statistical methods used to adjust student grades based on class performance. This tool helps educators implement fair grading systems.</p>
+        
+        <div class="info-section">
+          <h3>How Grade Curves Work</h3>
+          <p><strong>Bell Curve Distribution:</strong> This method distributes grades based on statistical percentiles. Students are ranked by their scores, and grades are assigned based on where they fall in the distribution.</p>
+          <p><strong>Square Root Curve:</strong> This mathematical adjustment helps lower scores more than higher scores. Formula: New Score = √(Original Score ÷ 100) × 100</p>
+          <p><strong>Example:</strong> With 30 students and scores from 50-90, the bell curve will rank all students and assign grades based on their relative performance, not just their raw scores.</p>
+        </div>
+
+        <h3>Types of Curves Available</h3>
+        <ul>
+          <li><strong>Standard Bell Curve:</strong> Traditional distribution (10% A's, 20% B's, 40% C's, 20% D's, 10% F's)</li>
+          <li><strong>Lenient Curve:</strong> More generous distribution with fewer failing grades</li>
+          <li><strong>Strict Curve:</strong> More demanding distribution with higher standards</li>
+          <li><strong>Square Root Method:</strong> Mathematical curve that benefits lower scores proportionally more</li>
+        </ul>
+        
+        <p>Use this calculator to determine the most appropriate grading method for your class. Remember that curves should be used thoughtfully and communicated clearly to students.</p>
+      </article>
+    </div>
+
+    <aside class="right-sidebar">
+      <div class="ad-space">
+        <div class="ad-placeholder">
+          <img src="../learn-more-heinz-300x250-call-to-action.webp" alt="Advertisement 1">
+        </div>
+      </div>
+      <div class="ad-space">
+        <div class="ad-placeholder">
+          <img src="../learn-more-heinz-300x250-call-to-action.webp" alt="Advertisement 2">
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>About CalcHub</h3>
+        <p>Your trusted source for online calculation tools</p>
+      </div>
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#tools">Tools</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#privacy">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Contact Us</h3>
+        <p>Email: info@calchub.com</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 CalcHub. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="../js/calculator.js"></script>
+  <script>
+    // Tab functionality
+    const gradeCurveTab = document.getElementById("gradeCurveTab");
+    const squareRootCurveTab = document.getElementById("squareRootCurveTab");
+    const gradeCurveInputs = document.getElementById("gradeCurveInputs");
+    const squareRootInputs = document.getElementById("squareRootCurveInputs");
+    const output = document.getElementById("output");
+    const chartContainer = document.getElementById("chartContainer");
+    const curveType = document.getElementById("curveType");
+    const customDistribution = document.getElementById("customDistribution");
+
+    let chart;
+
+    // Show/hide custom distribution inputs
+    curveType.addEventListener("change", () => {
+      if (curveType.value === "custom") {
+        customDistribution.style.display = "block";
+      } else {
+        customDistribution.style.display = "none";
+      }
+    });
+
+    gradeCurveTab.addEventListener("click", () => {
+      gradeCurveTab.classList.add("active");
+      squareRootCurveTab.classList.remove("active");
+      gradeCurveInputs.classList.add("active");
+      squareRootInputs.classList.remove("active");
+      clearResults();
+    });
+
+    squareRootCurveTab.addEventListener("click", () => {
+      squareRootCurveTab.classList.add("active");
+      gradeCurveTab.classList.remove("active");
+      squareRootInputs.classList.add("active");
+      gradeCurveInputs.classList.remove("active");
+      clearResults();
+    });
+
+    function clearResults() {
+      output.textContent = "";
+      output.classList.remove("show");
+      chartContainer.classList.remove("show");
+      if (chart) {
+        chart.destroy();
+        chart = null;
+      }
+    }
+
+    // Grade distribution presets
+    const distributions = {
+      standard: { A: 10, B: 20, C: 40, D: 20, F: 10 },
+      lenient: { A: 20, B: 25, C: 35, D: 15, F: 5 },
+      strict: { A: 5, B: 15, C: 30, D: 25, F: 25 }
+    };
+
+    // Bell Curve Calculator
+    document.getElementById("applyGradeCurveBtn").addEventListener("click", () => {
+      const total = parseInt(document.getElementById("totalPopulation").value);
+      const highest = parseFloat(document.getElementById("highestScore").value);
+      const lowest = parseFloat(document.getElementById("lowestScore").value);
+      const selectedCurve = curveType.value;
+
+      // Input validation
+      if (!total || isNaN(highest) || isNaN(lowest) || total <= 0) {
+        showError("Please enter valid inputs. All fields are required.");
+        return;
+      }
+
+      if (highest <= lowest) {
+        showError("Highest score must be greater than lowest score.");
+        return;
+      }
+
+      if (highest > 100 || lowest < 0) {
+        showError("Scores must be between 0 and 100.");
+        return;
+      }
+
+      let distribution;
+      if (selectedCurve === "custom") {
+        const customA = parseFloat(document.getElementById("customA").value) || 0;
+        const customB = parseFloat(document.getElementById("customB").value) || 0;
+        const customC = parseFloat(document.getElementById("customC").value) || 0;
+        const customD = parseFloat(document.getElementById("customD").value) || 0;
+        const customF = parseFloat(document.getElementById("customF").value) || 0;
+
+        const total_percent = customA + customB + customC + customD + customF;
+        if (Math.abs(total_percent - 100) > 0.1) {
+          showError("Custom distribution percentages must total 100%.");
+          return;
+        }
+
+        distribution = { A: customA, B: customB, C: customC, D: customD, F: customF };
+      } else {
+        distribution = distributions[selectedCurve];
+      }
+
+      // Calculate grade thresholds based on bell curve distribution
+      const results = calculateBellCurve(total, highest, lowest, distribution);
+
+      let resultText = "Bell Curve Grade Distribution:\n\n";
+      resultText += "Grade Cutoffs (Score Ranges):\n";
+      
+      results.forEach((r, index) => {
+        const range = index === 0 ? 
+          `${r.minScore.toFixed(1)} - ${highest.toFixed(1)}` :
+          index === results.length - 1 ?
+          `${lowest.toFixed(1)} - ${r.maxScore.toFixed(1)}` :
+          `${r.minScore.toFixed(1)} - ${r.maxScore.toFixed(1)}`;
+        
+        resultText += `${r.grade}: ${range} points → ${r.count} students (${r.percentage.toFixed(1)}%)\n`;
+      });
+      
+      resultText += `\nTotal Students: ${total}`;
+      resultText += `\nScore Range: ${lowest.toFixed(1)} - ${highest.toFixed(1)}`;
+      resultText += `\nCurve Type: ${selectedCurve.charAt(0).toUpperCase() + selectedCurve.slice(1)}`;
+
+      output.textContent = resultText;
+      output.classList.add("show");
+
+      // Create chart
+      createChart(results);
+    });
+
+    function calculateBellCurve(totalStudents, highestScore, lowestScore, distribution) {
+      const scoreRange = highestScore - lowestScore;
+      const grades = ["A", "B", "C", "D", "F"];
+      const results = [];
+      
+      let cumulativePercentage = 0;
+      
+      grades.forEach((grade, index) => {
+        const percentage = distribution[grade];
+        const count = Math.round((percentage / 100) * totalStudents);
+        
+        // Calculate score thresholds based on percentile ranks
+        const upperPercentile = cumulativePercentage + percentage;
+        const lowerPercentile = cumulativePercentage;
+        
+        // Convert percentiles to score ranges (higher percentiles = higher scores)
+        const maxScore = highestScore - (lowerPercentile / 100) * scoreRange;
+        const minScore = highestScore - (upperPercentile / 100) * scoreRange;
+        
+        results.push({
+          grade: grade,
+          count: count,
+          percentage: percentage,
+          minScore: Math.max(minScore, lowestScore),
+          maxScore: Math.min(maxScore, highestScore)
+        });
+        
+        cumulativePercentage += percentage;
+      });
+      
+      // Adjust for rounding errors
+      const totalAssigned = results.reduce((sum, r) => sum + r.count, 0);
+      const difference = totalStudents - totalAssigned;
+      
+      if (difference !== 0) {
+        // Adjust the most common grade (usually C)
+        const cIndex = results.findIndex(r => r.grade === 'C');
+        results[cIndex].count += difference;
+        results[cIndex].percentage = (results[cIndex].count / totalStudents) * 100;
+      }
+      
+      return results;
+    }
+
+    function createChart(results) {
+      if (chart) {
+        chart.destroy();
+      }
+
+      chartContainer.classList.add("show");
+      
+      const ctx = document.getElementById("scoreChart").getContext("2d");
+      chart = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: results.map(r => `Grade ${r.grade}`),
+          datasets: [{
+            label: "Number of Students",
+            data: results.map(r => r.count),
+            backgroundColor: [
+              "#4CAF50", // A - Green
+              "#2196F3", // B - Blue  
+              "#FFC107", // C - Amber
+              "#FF9800", // D - Orange
+              "#F44336"  // F - Red
+            ],
+            borderColor: [
+              "#388E3C",
+              "#1976D2", 
+              "#FFA000",
+              "#F57C00",
+              "#D32F2F"
+            ],
+            borderWidth: 2,
+            borderRadius: 8,
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { 
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  const result = results[context.dataIndex];
+                  return [
+                    `Students: ${result.count}`,
+                    `Percentage: ${result.percentage.toFixed(1)}%`,
+                    `Score Range: ${result.minScore.toFixed(1)} - ${result.maxScore.toFixed(1)}`
+                  ];
+                }
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Number of Students'
+              }
+            },
+            x: {
+              title: {
+                display: true,
+                text: 'Grade Level'
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // Square Root Curve Calculator
+    document.getElementById("applySquareRootCurveBtn").addEventListener("click", () => {
+      const percent = parseFloat(document.getElementById("percentageGrade").value);
+
+      if (isNaN(percent) || percent < 0 || percent > 100) {
+        showError("Please enter a valid percentage between 0 and 100.");
+        return;
+      }
+
+      const curved = Math.sqrt(percent / 100) * 100;
+      const improvement = curved - percent;
+      
+      let resultText = `Square Root Curve Results:\n\n`;
+      resultText += `Original Score: ${percent.toFixed(2)}%\n`;
+      resultText += `Curved Score: ${curved.toFixed(2)}%\n`;
+      resultText += `Improvement: ${improvement >= 0 ? '+' : ''}${improvement.toFixed(2)} points\n\n`;
+      
+      // Determine letter grade
+      let letterGrade = 'F';
+      if (curved >= 90) letterGrade = 'A';
+      else if (curved >= 80) letterGrade = 'B';
+      else if (curved >= 70) letterGrade = 'C';
+      else if (curved >= 60) letterGrade = 'D';
+      
+      resultText += `Letter Grade: ${letterGrade}\n\n`;
+      resultText += `Formula: √(${percent}/100) × 100 = ${curved.toFixed(2)}\n\n`;
+      resultText += `Note: Square root curve benefits lower scores more.\n`;
+      resultText += `Examples: 49% → 70%, 64% → 80%, 81% → 90%`;
+
+      output.textContent = resultText;
+      output.classList.add("show");
+      chartContainer.classList.remove("show");
+      
+      if (chart) {
+        chart.destroy();
+        chart = null;
+      }
+    });
+
+    function showError(message) {
+      output.textContent = "Error: " + message;
+      output.classList.add("show");
+      chartContainer.classList.remove("show");
+    }
+
+    // Enter key support
+    document.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        if (gradeCurveInputs.classList.contains('active')) {
+          document.getElementById('applyGradeCurveBtn').click();
+        } else {
+          document.getElementById('applySquareRootCurveBtn').click();
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

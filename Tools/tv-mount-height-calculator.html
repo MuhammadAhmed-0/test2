@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TV Wall Mount Height Calculator - CalcHub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/tools/apush.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* Result Section */
+        #result {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            display: none;
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #result::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(180deg); }
+        }
+
+        #result h3 {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Main Mount Height Result */
+        #mountHeight {
+            font-size: 4rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Mount Height Advice */
+        #mountAdvice {
+            font-size: 1.3rem;
+            color: #f0f0f0;
+            margin-top: 1rem;
+            font-weight: 500;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* TV Visualization Section */
+        #tv-visual {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(240, 147, 251, 0.3);
+            display: none;
+        }
+
+        #tv-visual p {
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .tv-mount-visual {
+            position: relative;
+            height: 150px;
+            margin: 20px 0;
+            background: linear-gradient(to bottom, #87CEEB 0%, #87CEEB 60%, #8B4513 60%, #8B4513 100%);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .wall-line {
+            position: absolute;
+            left: 50px;
+            top: 0;
+            width: 3px;
+            height: 100%;
+            background: #654321;
+        }
+
+        .tv-screen {
+            position: absolute;
+            left: 30px;
+            width: 80px;
+            height: 45px;
+            background: linear-gradient(45deg, #2c3e50, #34495e);
+            border: 2px solid #1a252f;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .eye-level-line {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ff6b35, transparent);
+            box-shadow: 0 0 4px #ff6b35;
+        }
+
+        .viewing-angle {
+            position: absolute;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        /* Additional Recommendations Section */
+        #additional-recommendations {
+            margin-top: 2rem;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(252, 182, 159, 0.3);
+            display: none;
+        }
+
+        #additional-recommendations h4 {
+            font-size: 1.8rem;
+            color: #8b4513;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(139, 69, 19, 0.2);
+        }
+
+        .recommendation-item {
+            background: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1rem;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-left: 4px solid #ff6b35;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .recommendation-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .recommendation-item p {
+            font-size: 1.1rem;
+            color: #2c3e50;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .recommendation-label {
+            font-weight: 700;
+            color: #e74c3c;
+        }
+
+        /* Room Layout Section */
+        #room-layout {
+            margin-top: 2rem;
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(168, 237, 234, 0.3);
+            display: none;
+        }
+
+        #room-layout h4 {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .layout-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .layout-item {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .layout-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #667eea;
+        }
+
+        /* Calculate Button */
+        .calculate-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.2rem 3rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calculate-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .calculate-btn:hover::before {
+            left: 100%;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+
+        .calculate-btn:active {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Input Fields */
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 1.2rem;
+            border: 2px solid #e0e6ed;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        /* Viewing Scenario Tabs */
+        .scenario-tabs {
+            display: flex;
+            margin-bottom: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 0.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .scenario-tab {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: #6c757d;
+        }
+
+        .scenario-tab.active {
+            background: #667eea;
+            color: white;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .scenario-tab:hover:not(.active) {
+            background: #e9ecef;
+        }
+
+        /* Animations */
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .animate-result {
+            animation: bounceIn 0.6s ease-out;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            #mountHeight {
+                font-size: 2.5rem;
+            }
+            
+            #result {
+                padding: 1.5rem;
+            }
+            
+            .calculate-btn {
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+
+            .input-row {
+                grid-template-columns: 1fr;
+            }
+
+            .scenario-tabs {
+                flex-direction: column;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- Announcemnet section -->
+    <div class="top-announcement-bar">
+        <div class="announcement-number">New Announcement</div>
+        <div class="announcement-text">
+            Explore the latest IT tools and expert resources at <a href="https://resourcesofdev.com" target="_blank"
+                rel="noopener noreferrer" class="announcement-link">Resourcesofdev.com</a>
+        </div>
+    </div>
+
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>CalcHub</h1>
+            </div>
+            <div class="nav-links">
+                <a href="../index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="../index.html"><i class="fas fa-tools"></i> Tools</a>
+                <a href="#about"><i class="fas fa-info-circle"></i> About</a>
+                <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+            </div>
+            <div class="mobile-menu-toggle" id="mobileMenuToggle">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+    <!-- Mobile Menu Panel -->
+    <div class="mobile-menu-panel" id="mobileMenuPanel">
+        <div class="mobile-menu-header">
+            <h2>Menu</h2>
+            <button class="mobile-menu-close" id="mobileMenuClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="mobile-menu-items">
+            <a href="index.html">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="#tools">
+                <i class="fas fa-tools"></i>
+                <span>Tools</span>
+            </a>
+            <a href="#about">
+                <i class="fas fa-info-circle"></i>
+                <span>About</span>
+            </a>
+            <a href="#contact">
+                <i class="fas fa-envelope"></i>
+                <span>Contact</span>
+            </a>
+        </div>
+    </div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>TV Wall Mount Height Calculator</h1>
+        </div>
+    </section>
+
+    <div class="tool-container">
+        <aside class="left-sidebar">
+            <h3>Related Tools</h3>
+            <ul>
+                <li><a href="dunk-calculator.html">Dunk Calculator</a></li>
+                <li><a href="snow-day-calculator.html">Snow Day Calculator</a></li>
+                <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
+            </ul>
+        </aside>
+        <div class="main-content-column">
+            <main class="calculator-content">
+                <h1>Find Your Perfect TV Mount Height</h1>
+                <div class="calculator-box">
+                    <!-- Viewing Scenario Tabs -->
+                    <div class="scenario-tabs">
+                        <button class="scenario-tab active" onclick="setScenario('living')">
+                            <i class="fas fa-couch"></i> Living Room
+                        </button>
+                        <button class="scenario-tab" onclick="setScenario('bedroom')">
+                            <i class="fas fa-bed"></i> Bedroom
+                        </button>
+                        <button class="scenario-tab" onclick="setScenario('custom')">
+                            <i class="fas fa-cog"></i> Custom
+                        </button>
+                    </div>
+
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label for="tvSize">TV Size (inches):</label>
+                            <input type="number" id="tvSize" min="20" max="100" placeholder="e.g., 55 inches">
+                        </div>
+                        <div class="input-group">
+                            <label for="viewingDistance">Viewing Distance (feet):</label>
+                            <input type="number" id="viewingDistance" min="3" max="20" step="0.5" placeholder="e.g., 8">
+                        </div>
+                    </div>
+
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label for="eyeHeight">Eye Level Height (inches):</label>
+                            <input type="number" id="eyeHeight" min="30" max="60" placeholder="e.g., 42 inches">
+                        </div>
+                        <div class="input-group">
+                            <label for="ceilingHeight">Ceiling Height (feet):</label>
+                            <input type="number" id="ceilingHeight" min="7" max="15" step="0.5" placeholder="e.g., 9">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="mountType">Mount Type:</label>
+                        <select id="mountType">
+                            <option value="fixed">Fixed Mount</option>
+                            <option value="tilt">Tilting Mount</option>
+                            <option value="full-motion">Full Motion Mount</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group" id="tiltOptions" style="display: none;">
+                        <label for="tiltAngle">Preferred Tilt Angle (degrees):</label>
+                        <input type="number" id="tiltAngle" min="0" max="15" step="1" value="0" placeholder="0-15">
+                    </div>
+
+                    <button onclick="calculateTVMount()" class="calculate-btn">
+                        <i class="fas fa-tv"></i> Calculate Mount Height
+                    </button>
+
+                    <div id="result" class="result">
+                        <h3>Optimal TV Mount Height</h3>
+                        <p id="mountHeight"></p>
+                        <p id="mountAdvice"></p>
+                    </div>
+
+                    <!-- TV Visualization -->
+                    <div id="tv-visual">
+                        <p>📺 TV Positioning Preview</p>
+                        <div class="tv-mount-visual">
+                            <div class="wall-line"></div>
+                            <div class="tv-screen" id="tv-position"></div>
+                            <div class="eye-level-line" id="eye-level-indicator"></div>
+                            <div class="viewing-angle" id="angle-display">0°</div>
+                        </div>
+                        <p id="visual-description"></p>
+                    </div>
+
+                    <!-- Additional Recommendations -->
+                    <div id="additional-recommendations" class="additional-recommendations">
+                        <h4>📋 Professional Recommendations</h4>
+                        <div class="recommendation-item">
+                            <p id="ergonomicAdvice"></p>
+                        </div>
+                        <div class="recommendation-item">
+                            <p id="viewingAngleAdvice"></p>
+                        </div>
+                        <div class="recommendation-item">
+                            <p id="distanceAdvice"></p>
+                        </div>
+                        <div class="recommendation-item">
+                            <p id="mountTypeAdvice"></p>
+                        </div>
+                        <div class="recommendation-item">
+                            <p id="roomLightingAdvice"></p>
+                        </div>
+                    </div>
+
+                    <!-- Room Layout Considerations -->
+                    <div id="room-layout">
+                        <h4>🏠 Room Setup Considerations</h4>
+                        <div class="layout-grid">
+                            <div class="layout-item">
+                                <div class="layout-icon"><i class="fas fa-eye"></i></div>
+                                <h5>Eye Strain Prevention</h5>
+                                <p id="eyeStrainTip"></p>
+                            </div>
+                            <div class="layout-item">
+                                <div class="layout-icon"><i class="fas fa-lightbulb"></i></div>
+                                <h5>Lighting Setup</h5>
+                                <p id="lightingTip"></p>
+                            </div>
+                            <div class="layout-item">
+                                <div class="layout-icon"><i class="fas fa-volume-up"></i></div>
+                                <h5>Audio Positioning</h5>
+                                <p id="audioTip"></p>
+                            </div>
+                            <div class="layout-item">
+                                <div class="layout-icon"><i class="fas fa-plug"></i></div>
+                                <h5>Cable Management</h5>
+                                <p id="cableTip"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <article class="calculator-article">
+                <h2>Understanding TV Wall Mount Height</h2>
+                <p>Proper TV mounting height is crucial for comfortable viewing and preventing neck strain. The ideal height depends on several factors including your seating position, TV size, and room layout.</p>
+                
+                <h3>Key Factors to Consider:</h3>
+                <ul>
+                    <li><strong>Eye Level Alignment:</strong> The center of your TV screen should be at or slightly below eye level when seated</li>
+                    <li><strong>Viewing Distance:</strong> Larger TVs can be mounted slightly higher due to increased viewing distance</li>
+                    <li><strong>Room Function:</strong> Living rooms, bedrooms, and kitchens have different optimal heights</li>
+                    <li><strong>Mount Type:</strong> Tilting mounts allow for higher placement with downward angle adjustment</li>
+                </ul>
+
+                <h3>Professional Installation Tips:</h3>
+                <ul>
+                    <li>Always locate wall studs for secure mounting</li>
+                    <li>Consider cable routing and power outlet placement</li>
+                    <li>Leave adequate ventilation space around the TV</li>
+                    <li>Test the height with tape on the wall before drilling</li>
+                </ul>
+            </article>
+        </div>
+
+        <aside class="right-sidebar">
+            <div class="ad-space">
+                <div class="ad-placeholder">
+                    <img src="../learn-more-heinz-300x250-call-to-action.webp" alt="Advertisement 1">
+                </div>
+            </div>
+            <div class="ad-space">
+                <div class="ad-placeholder">
+                    <img src="../learn-more-heinz-300x250-call-to-action.webp" alt="Advertisement 2">
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About CalcHub</h3>
+                <p>Your trusted source for online calculation tools</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#tools">Tools</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@calchub.com</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 CalcHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/calculator.js"></script>
+    <script>
+ let currentScenario = 'living';
+
+function setScenario(scenario) {
+    currentScenario = scenario;
+
+    // Update tab appearance
+    document.querySelectorAll('.scenario-tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    event.target.classList.add('active');
+
+    // Set default values based on scenario
+    const defaults = {
+        living: { eyeHeight: 42, viewingDistance: 8, ceilingHeight: 9 },
+        bedroom: { eyeHeight: 36, viewingDistance: 6, ceilingHeight: 8.5 },
+        custom: { eyeHeight: 42, viewingDistance: 8, ceilingHeight: 9 }
+    };
+
+    if (scenario !== 'custom') {
+        document.getElementById('eyeHeight').value = defaults[scenario].eyeHeight;
+        document.getElementById('viewingDistance').value = defaults[scenario].viewingDistance;
+        document.getElementById('ceilingHeight').value = defaults[scenario].ceilingHeight;
+    }
+}
+
+// Show/hide tilt options based on mount type
+document.getElementById('mountType').addEventListener('change', function () {
+    const tiltOptions = document.getElementById('tiltOptions');
+    if (this.value === 'tilt' || this.value === 'full-motion') {
+        tiltOptions.style.display = 'block';
+    } else {
+        tiltOptions.style.display = 'none';
+    }
+});
+
+function calculateTVMount() {
+    // Get input values
+    const tvSize = parseFloat(document.getElementById('tvSize').value);
+    const viewingDistance = parseFloat(document.getElementById('viewingDistance').value);
+    const eyeHeight = parseFloat(document.getElementById('eyeHeight').value);
+    const ceilingHeight = parseFloat(document.getElementById('ceilingHeight').value);
+    const mountType = document.getElementById('mountType').value;
+    const tiltAngle = parseFloat(document.getElementById('tiltAngle').value) || 0;
+
+    // Input validation
+    if (!tvSize || !viewingDistance || !eyeHeight || !ceilingHeight) {
+        showError("Please fill in all required fields to calculate the optimal mount height.");
+        return;
+    }
+
+    if (tvSize < 20 || tvSize > 100) {
+        showError("Please enter a TV size between 20 and 100 inches.");
+        return;
+    }
+
+    // Calculate TV dimensions
+    const tvHeight = tvSize * 0.49; // 16:9 aspect ratio height
+    const tvWidth = tvSize * 0.87; // 16:9 aspect ratio width
+
+    // Base calculation: Center of TV at eye level
+    let optimalHeight = eyeHeight;
+
+    // Adjust for TV size and viewing distance
+    const distanceFactor = Math.max(0.8, Math.min(1.2, viewingDistance / 8));
+    optimalHeight += (tvSize - 50) * 0.1 * distanceFactor;
+
+    // Adjust for room scenario
+    const scenarioAdjustments = {
+        living: 0,
+        bedroom: -3, // Slightly lower for bed viewing
+        custom: 0
+    };
+    optimalHeight += scenarioAdjustments[currentScenario];
+
+    // Adjust for mount type and tilt
+    if (mountType === 'tilt' && tiltAngle > 0) {
+        optimalHeight += tiltAngle * 0.8; // Allow higher mounting with tilt
+    } else if (mountType === 'full-motion') {
+        optimalHeight += 2; // Slightly higher for flexibility
+    }
+
+    // Ensure TV fits within ceiling constraints
+    const maxHeight = (ceilingHeight * 12) - (tvHeight / 2) - 6; // 6 inches from ceiling
+    const minHeight = tvHeight / 2 + 12; // At least 12 inches from floor
+
+    optimalHeight = Math.max(minHeight, Math.min(maxHeight, optimalHeight));
+
+    // Calculate viewing angle
+    const viewingAngle = Math.abs(Math.atan((optimalHeight - eyeHeight) / (viewingDistance * 12)) * 180 / Math.PI);
+
+    // Determine if height is optimal
+    let advice = '';
+    let resultClass = '';
+
+    if (viewingAngle <= 10) {
+        advice = `🎯 Perfect! This height provides optimal viewing comfort with minimal neck strain.`;
+        resultClass = 'result animate-result';
+    } else if (viewingAngle <= 15) {
+        advice = `✅ Good positioning. Slight upward viewing angle is comfortable for most people.`;
+        resultClass = 'result animate-result';
+    } else {
+        advice = `⚠️ Consider lowering if possible. High viewing angles may cause neck strain during long viewing sessions.`;
+        resultClass = 'result animate-result';
+    }
+
+    // Update main result
+    const resultDiv = document.getElementById('result');
+    resultDiv.style.display = 'block';
+    resultDiv.className = resultClass;
+
+    document.getElementById('mountHeight').textContent = `${Math.round(optimalHeight)} inches`;
+    document.getElementById('mountAdvice').textContent = advice;
+
+    // Update visualization
+    updateVisualization(optimalHeight, eyeHeight, tvHeight, viewingAngle);
+
+    // Show additional sections
+    showRecommendations(tvSize, viewingDistance, viewingAngle, mountType, optimalHeight, eyeHeight);
+    showRoomLayout(tvSize, viewingDistance, currentScenario);
+
+    document.getElementById('tv-visual').style.display = 'block';
+    document.getElementById('additional-recommendations').style.display = 'block';
+    document.getElementById('room-layout').style.display = 'block';
+}
+
+// Visualization updates
+function updateVisualization(optimalHeight, eyeHeight, tvHeight, viewingAngle) {
+    const tvPosition = document.getElementById('tv-position');
+    const eyeLevelIndicator = document.getElementById('eye-level-indicator');
+    const angleDisplay = document.getElementById('angle-display');
+    const visualDescription = document.getElementById('visual-description');
+
+    // Update the TV position based on the calculated height
+    tvPosition.style.height = `${tvHeight}px`;
+    tvPosition.style.bottom = `${optimalHeight}px`;
+
+    // Update the eye level position
+    eyeLevelIndicator.style.height = `${eyeHeight}px`;
+
+    // Update viewing angle text
+    angleDisplay.textContent = `${Math.round(viewingAngle)}°`;
+
+    // Visual description
+    visualDescription.textContent = `🔍 At this height, the TV's viewing angle is ${Math.round(viewingAngle)}°, making it ideal for comfortable viewing.`;
+}
+
+// Show recommendations based on input data
+function showRecommendations(tvSize, viewingDistance, viewingAngle, mountType, optimalHeight, eyeHeight) {
+    // Ergonomics advice
+    const ergonomicAdvice = document.getElementById('ergonomicAdvice');
+    if (viewingAngle > 15) {
+        ergonomicAdvice.textContent = "💡 Consider lowering the TV slightly to reduce neck strain.";
+    } else {
+        ergonomicAdvice.textContent = "✅ This height should be comfortable for most users.";
+    }
+
+    // Viewing angle advice
+    const viewingAngleAdvice = document.getElementById('viewingAngleAdvice');
+    if (viewingAngle > 10) {
+        viewingAngleAdvice.textContent = "📏 A smaller viewing angle is better for comfort. Try adjusting the height.";
+    } else {
+        viewingAngleAdvice.textContent = "👍 Your viewing angle is excellent!";
+    }
+
+    // Distance advice
+    const distanceAdvice = document.getElementById('distanceAdvice');
+    if (viewingDistance < 6) {
+        distanceAdvice.textContent = "⚠️ You may want to sit a little further away for optimal viewing.";
+    } else {
+        distanceAdvice.textContent = "✅ This viewing distance should work well with most TV sizes.";
+    }
+
+    // Mount type advice
+    const mountTypeAdvice = document.getElementById('mountTypeAdvice');
+    if (mountType === 'tilt') {
+        mountTypeAdvice.textContent = "🛠️ Tilt mounts allow for more flexibility and may be mounted slightly higher.";
+    } else if (mountType === 'full-motion') {
+        mountTypeAdvice.textContent = "🔄 Full-motion mounts offer great flexibility but consider the wall space.";
+    } else {
+        mountTypeAdvice.textContent = "🔒 Fixed mounts are simple but require precise height calculations.";
+    }
+
+    // Room lighting advice
+    const roomLightingAdvice = document.getElementById('roomLightingAdvice');
+    roomLightingAdvice.textContent = "💡 Consider minimizing glare by positioning the TV away from direct light sources.";
+}
+
+// Show room layout considerations
+function showRoomLayout(tvSize, viewingDistance, scenario) {
+    const eyeStrainTip = document.getElementById('eyeStrainTip');
+    const lightingTip = document.getElementById('lightingTip');
+    const audioTip = document.getElementById('audioTip');
+    const cableTip = document.getElementById('cableTip');
+
+    // Adjust tips based on scenario
+    if (scenario === 'living') {
+        eyeStrainTip.textContent = "Ensure comfortable seating and avoid placing the TV too high.";
+        lightingTip.textContent = "Position the TV to avoid glare from windows or lamps.";
+        audioTip.textContent = "Position speakers at ear level for the best sound experience.";
+        cableTip.textContent = "Use cable management solutions to avoid clutter in the living room.";
+    } else if (scenario === 'bedroom') {
+        eyeStrainTip.textContent = "For beds, a slightly lower TV height can improve comfort.";
+        lightingTip.textContent = "Consider low lighting in the room for late-night viewing.";
+        audioTip.textContent = "Use a soundbar or speakers to enhance audio in a smaller space.";
+        cableTip.textContent = "Hide cables behind furniture for a cleaner look.";
+    }
+}
+
+// Error handling
+function showError(message) {
+    const errorDiv = document.getElementById('error-message');
+    errorDiv.style.display = 'block';
+    errorDiv.textContent = message;
+
+    // Hide results and other sections
+    document.getElementById('result').style.display = 'none';
+    document.getElementById('tv-visual').style.display = 'none';
+    document.getElementById('additional-recommendations').style.display = 'none';
+    document.getElementById('room-layout').style.display = 'none';
+}
+
+document.getElementById('calculateBtn').addEventListener('click', calculateTVMount);
+
+// Default scenario set to 'living'
+setScenario('living');
+
+ </script>
+</body>
+
+</html>
