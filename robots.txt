@@ -1,0 +1,15 @@
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://your-domain.com/sitemap.xml
+
+# Block access to admin areas (if any)
+Disallow: /admin/
+Disallow: /private/
+
+# Allow access to CSS and JS files
+Allow: /css/
+Allow: /js/
+Allow: /Tools/

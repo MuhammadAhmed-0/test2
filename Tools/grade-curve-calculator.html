@@ -4,7 +4,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Grade Curve Calculator - CalcHub</title>
+  <meta name="description" content="Calculate grade curves & distributions for educators. Bell curve, square root curve & custom distributions. Fair grading made easy!">
+  <title>Grade Curve Calculator</title>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Grade Curve Calculator",
+    "description": "Calculate grade curves & distributions for educators. Bell curve, square root curve & custom distributions. Fair grading made easy!",
+    "url": "https://calchub.com/Tools/grade-curve-calculator.html",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web Browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "creator": {
+      "@type": "Organization",
+      "name": "CalcHub"
+    }
+  }
+  </script>
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/tools/apush.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -339,12 +360,12 @@
         <li><a href="dunk-calculator.html">Dunk Calculator</a></li>
       </ul>
     </aside>
-    
+
     <div class="main-content-column">
       <main class="calculator-content">
         <h1>Calculate Grade Distribution and Curves</h1>
         <div class="calculator-box">
-          
+
           <div class="tabs">
             <button id="gradeCurveTab" class="tab-button active">Bell Curve Distribution</button>
             <button id="squareRootCurveTab" class="tab-button">Square Root Curve</button>
@@ -414,7 +435,7 @@
       <article class="calculator-article">
         <h2>Understanding Grade Curves</h2>
         <p>Grade curves are statistical methods used to adjust student grades based on class performance. This tool helps educators implement fair grading systems.</p>
-        
+
         <div class="info-section">
           <h3>How Grade Curves Work</h3>
           <p><strong>Bell Curve Distribution:</strong> This method distributes grades based on statistical percentiles. Students are ranked by their scores, and grades are assigned based on where they fall in the distribution.</p>
@@ -429,7 +450,7 @@
           <li><strong>Strict Curve:</strong> More demanding distribution with higher standards</li>
           <li><strong>Square Root Method:</strong> Mathematical curve that benefits lower scores proportionally more</li>
         </ul>
-        
+
         <p>Use this calculator to determine the most appropriate grading method for your class. Remember that curves should be used thoughtfully and communicated clearly to students.</p>
       </article>
     </div>
@@ -451,16 +472,18 @@
   <footer>
     <div class="footer-content">
       <div class="footer-section">
-        <h3>About CalcHub</h3>
+        <h3>About Calculator Tools</h3>
         <p>Your trusted source for online calculation tools</p>
       </div>
       <div class="footer-section">
         <h3>Quick Links</h3>
         <ul>
-          <li><a href="#tools">Tools</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
-          <li><a href="#privacy">Privacy Policy</a></li>
+          <li><a href="../index.html#tools">Tools</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+          <li><a href="../privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="../terms-of-service.html">Terms of Service</a></li>
+          <li><a href="../disclaimer.html">Disclaimer</a></li>
         </ul>
       </div>
       <div class="footer-section">
@@ -581,17 +604,17 @@
 
       let resultText = "Bell Curve Grade Distribution:\n\n";
       resultText += "Grade Cutoffs (Score Ranges):\n";
-      
+
       results.forEach((r, index) => {
         const range = index === 0 ? 
           `${r.minScore.toFixed(1)} - ${highest.toFixed(1)}` :
           index === results.length - 1 ?
           `${lowest.toFixed(1)} - ${r.maxScore.toFixed(1)}` :
           `${r.minScore.toFixed(1)} - ${r.maxScore.toFixed(1)}`;
-        
+
         resultText += `${r.grade}: ${range} points → ${r.count} students (${r.percentage.toFixed(1)}%)\n`;
       });
-      
+
       resultText += `\nTotal Students: ${total}`;
       resultText += `\nScore Range: ${lowest.toFixed(1)} - ${highest.toFixed(1)}`;
       resultText += `\nCurve Type: ${selectedCurve.charAt(0).toUpperCase() + selectedCurve.slice(1)}`;
@@ -607,21 +630,21 @@
       const scoreRange = highestScore - lowestScore;
       const grades = ["A", "B", "C", "D", "F"];
       const results = [];
-      
+
       let cumulativePercentage = 0;
-      
+
       grades.forEach((grade, index) => {
         const percentage = distribution[grade];
         const count = Math.round((percentage / 100) * totalStudents);
-        
+
         // Calculate score thresholds based on percentile ranks
         const upperPercentile = cumulativePercentage + percentage;
         const lowerPercentile = cumulativePercentage;
-        
+
         // Convert percentiles to score ranges (higher percentiles = higher scores)
         const maxScore = highestScore - (lowerPercentile / 100) * scoreRange;
         const minScore = highestScore - (upperPercentile / 100) * scoreRange;
-        
+
         results.push({
           grade: grade,
           count: count,
@@ -629,21 +652,21 @@
           minScore: Math.max(minScore, lowestScore),
           maxScore: Math.min(maxScore, highestScore)
         });
-        
+
         cumulativePercentage += percentage;
       });
-      
+
       // Adjust for rounding errors
       const totalAssigned = results.reduce((sum, r) => sum + r.count, 0);
       const difference = totalStudents - totalAssigned;
-      
+
       if (difference !== 0) {
         // Adjust the most common grade (usually C)
         const cIndex = results.findIndex(r => r.grade === 'C');
         results[cIndex].count += difference;
         results[cIndex].percentage = (results[cIndex].count / totalStudents) * 100;
       }
-      
+
       return results;
     }
 
@@ -653,7 +676,7 @@
       }
 
       chartContainer.classList.add("show");
-      
+
       const ctx = document.getElementById("scoreChart").getContext("2d");
       chart = new Chart(ctx, {
         type: "bar",
@@ -728,19 +751,19 @@
 
       const curved = Math.sqrt(percent / 100) * 100;
       const improvement = curved - percent;
-      
+
       let resultText = `Square Root Curve Results:\n\n`;
       resultText += `Original Score: ${percent.toFixed(2)}%\n`;
       resultText += `Curved Score: ${curved.toFixed(2)}%\n`;
       resultText += `Improvement: ${improvement >= 0 ? '+' : ''}${improvement.toFixed(2)} points\n\n`;
-      
+
       // Determine letter grade
       let letterGrade = 'F';
       if (curved >= 90) letterGrade = 'A';
       else if (curved >= 80) letterGrade = 'B';
       else if (curved >= 70) letterGrade = 'C';
       else if (curved >= 60) letterGrade = 'D';
-      
+
       resultText += `Letter Grade: ${letterGrade}\n\n`;
       resultText += `Formula: √(${percent}/100) × 100 = ${curved.toFixed(2)}\n\n`;
       resultText += `Note: Square root curve benefits lower scores more.\n`;
@@ -749,7 +772,7 @@
       output.textContent = resultText;
       output.classList.add("show");
       chartContainer.classList.remove("show");
-      
+
       if (chart) {
         chart.destroy();
         chart = null;

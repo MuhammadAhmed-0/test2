@@ -4,7 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Split Bill Calculator - CalcHub</title>
+    <meta name="description" content="Split restaurant bills fairly! Calculate tips, taxes & individual shares. Perfect for group dining, parties & shared expenses.">
+    <title>Split Bill Calculator</title>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Split Bill Calculator",
+      "description": "Split restaurant bills fairly! Calculate tips, taxes & individual shares. Perfect for group dining, parties & shared expenses.",
+      "url": "https://calchub.com/Tools/split-bill-calculator.html",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "creator": {
+        "@type": "Organization",
+        "name": "CalcHub"
+      }
+    }
+    </script>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/tools/apush.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -721,16 +742,18 @@
     <footer>
         <div class="footer-content">
             <div class="footer-section">
-                <h3>About CalcHub</h3>
+                <h3>About Calculator Tools</h3>
                 <p>Your trusted source for online calculation tools</p>
             </div>
             <div class="footer-section">
                 <h3>Quick Links</h3>
                 <ul>
-                    <li><a href="#tools">Tools</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    <li><a href="#privacy">Privacy Policy</a></li>
+                    <li><a href="../index.html#tools">Tools</a></li>
+                    <li><a href="../about.html">About</a></li>
+                    <li><a href="../contact.html">Contact</a></li>
+                    <li><a href="../privacy-policy.html">Privacy Policy</a></li>
+                    <li><a href="../terms-of-service.html">Terms of Service</a></li>
+                    <li><a href="../disclaimer.html">Disclaimer</a></li>
                 </ul>
             </div>
             <div class="footer-section">
@@ -800,7 +823,7 @@ function removePerson(personId) {
 function renderPeople() {
     const container = document.getElementById('peopleContainer');
     container.innerHTML = '';
-    
+
     people.forEach(person => {
         const personDiv = document.createElement('div');
         personDiv.className = 'person-card';
@@ -845,7 +868,7 @@ function renderPeople() {
 function editPersonName(personId) {
     const person = people.find(p => p.id === personId);
     if (!person) return;
-    
+
     const newName = prompt('Enter new name:', person.name);
     if (newName && newName.trim()) {
         person.name = newName.trim();
@@ -889,7 +912,7 @@ function removeItem(itemId) {
 function renderItems() {
     const container = document.getElementById('itemsContainer');
     container.innerHTML = '';
-    
+
     items.forEach(item => {
         const itemDiv = document.createElement('div');
         itemDiv.className = 'item-card';
@@ -950,20 +973,20 @@ function updateItemPrice(itemId, price) {
 function togglePersonForItem(itemId, personId) {
     const item = items.find(i => i.id === itemId);
     if (!item) return;
-    
+
     const index = item.sharedBy.indexOf(personId);
     if (index > -1) {
         item.sharedBy.splice(index, 1);
     } else {
         item.sharedBy.push(personId);
     }
-    
+
     // Ensure at least one person is assigned
     if (item.sharedBy.length === 0) {
         item.sharedBy.push(personId);
         alert('At least one person must be assigned to each item!');
     }
-    
+
     renderItems();
 }
 
@@ -973,11 +996,11 @@ function quickSplit(numPeople) {
     items = [];
     personIdCounter = 1;
     itemIdCounter = 1;
-    
+
     for (let i = 1; i <= numPeople; i++) {
         addPerson(`Person ${i}`);
     }
-    
+
     isCustomSplit = false;
     setQuickSplitActive(numPeople);
 }
@@ -991,7 +1014,7 @@ function setQuickSplitActive(val) {
     document.querySelectorAll('.quick-btn').forEach(btn => {
         btn.classList.remove('active');
     });
-    
+
     // Set active based on the button clicked
     if (val === 2) {
         document.querySelector('.quick-btn[onclick="quickSplit(2)"]').classList.add('active');
@@ -1052,12 +1075,12 @@ function calculateSplit() {
     if (items.length > 0 && items.some(item => item.price > 0)) {
         // Item-based calculation
         let totalItemsPrice = 0;
-        
+
         items.forEach(item => {
             if (item.price > 0 && item.sharedBy.length > 0) {
                 const pricePerPerson = item.price / item.sharedBy.length;
                 totalItemsPrice += item.price;
-                
+
                 item.sharedBy.forEach(personId => {
                     if (personTotals[personId]) {
                         personTotals[personId].subtotal += pricePerPerson;
@@ -1089,10 +1112,10 @@ function calculateSplit() {
     } else {
         // Check if custom amounts are used
         const hasCustomAmounts = people.some(person => person.customAmount > 0);
-        
+
         if (hasCustomAmounts) {
             const totalCustom = people.reduce((sum, person) => sum + person.customAmount, 0);
-            
+
             if (Math.abs(totalCustom - billTotal) > 0.01) {
                 const confirmed = confirm(
                     `Custom amounts total $${totalCustom.toFixed(2)} but bill is $${billTotal.toFixed(2)}. Continue anyway?`
@@ -1127,7 +1150,7 @@ function calculateSplit() {
         const proportion = personTotals[person.id].subtotal / billTotal;
         const personTip = tipAmount * proportion;
         const personTax = taxAmount * proportion;
-        
+
         personTotals[person.id].tip = personTip;
         personTotals[person.id].tax = personTax;
         personTotals[person.id].total = personTotals[person.id].subtotal + personTip + personTax;
@@ -1243,7 +1266,7 @@ function exportToText() {
     let exportText = `BILL SPLIT SUMMARY\n`;
     exportText += `==================\n\n`;
     exportText += `Original Bill: $${billTotal.toFixed(2)}\n`;
-    
+
     if (tipAmount > 0) {
         if (tipType === 'percent') {
             exportText += `Tip (${tipValue}%): $${tipAmount.toFixed(2)}\n`;
@@ -1251,11 +1274,11 @@ function exportToText() {
             exportText += `Tip: $${tipAmount.toFixed(2)}\n`;
         }
     }
-    
+
     if (taxAmount > 0) {
         exportText += `Tax (${taxPercent}%): $${taxAmount.toFixed(2)}\n`;
     }
-    
+
     exportText += `Total: ${totalAmount}\n\n`;
     exportText += `INDIVIDUAL AMOUNTS:\n`;
     exportText += `------------------\n`;
@@ -1266,13 +1289,13 @@ function exportToText() {
         const nameElement = card.querySelector('h4');
         const amountElement = card.querySelector('.amount-owed');
         const breakdownElement = card.querySelector('.item-breakdown');
-        
+
         if (nameElement && amountElement) {
             // Clean up the name (remove icons)
             const name = nameElement.textContent.trim().replace(/^\s*[\s\S]*?\s+/, '');
             const amount = amountElement.textContent;
             exportText += `${name}: ${amount}\n`;
-            
+
             // Add breakdown details
             if (breakdownElement) {
                 const breakdownItems = breakdownElement.querySelectorAll('.breakdown-item');
@@ -1329,22 +1352,22 @@ function shareResults() {
 
     const totalAmount = document.getElementById('totalWithTipTax').textContent;
     const personResults = document.querySelectorAll('.person-result');
-    
+
     let shareText = `💰 Bill Split Results 💰\n\n`;
     shareText += `Total: ${totalAmount}\n\n`;
     shareText += `Individual amounts:\n`;
-    
+
     personResults.forEach(card => {
         const nameElement = card.querySelector('h4');
         const amountElement = card.querySelector('.amount-owed');
-        
+
         if (nameElement && amountElement) {
             const name = nameElement.textContent.trim().replace(/^\s*[\s\S]*?\s+/, '');
             const amount = amountElement.textContent;
             shareText += `• ${name}: ${amount}\n`;
         }
     });
-    
+
     shareText += `\nCalculated with CalcHub Split Bill Calculator`;
 
     // Try native sharing first (mobile)
@@ -1439,16 +1462,16 @@ function printResults() {
     // Get individual results
     const personResults = document.querySelectorAll('.person-result');
     let personResultsHTML = '';
-    
+
     personResults.forEach(card => {
         const nameElement = card.querySelector('h4');
         const amountElement = card.querySelector('.amount-owed');
         const breakdownElement = card.querySelector('.item-breakdown');
-        
+
         if (nameElement && amountElement) {
             const name = nameElement.textContent.trim().replace(/^\s*[\s\S]*?\s+/, '');
             const amount = amountElement.textContent;
-            
+
             // Clean up breakdown HTML for printing
             let breakdownHTML = '';
             if (breakdownElement) {
@@ -1456,7 +1479,7 @@ function printResults() {
                     .replace(/style="[^"]*"/g, '') // Remove inline styles
                     .replace(/class="[^"]*"/g, ''); // Remove classes
             }
-            
+
             personResultsHTML += `
                 <div style="margin: 20px 0; padding: 15px; border: 2px solid #eee; border-radius: 10px; page-break-inside: avoid;">
                     <div style="font-size: 1.2em; font-weight: bold; color: #333; margin-bottom: 10px;">${name}</div>
@@ -1512,12 +1535,12 @@ function printResults() {
         </body>
         </html>
     `;
-    
+
     const printWindow = window.open('', '_blank');
     if (printWindow) {
         printWindow.document.write(printContent);
         printWindow.document.close();
-        
+
         // Auto-print after a short delay to ensure content is loaded
         setTimeout(() => {
             printWindow.print();
@@ -1532,7 +1555,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add default people
     addPerson('Person 1');
     addPerson('Person 2');
-    
+
     // Currency format for bill total
     const billTotalInput = document.getElementById('billTotal');
     if (billTotalInput) {
@@ -1540,7 +1563,7 @@ document.addEventListener('DOMContentLoaded', function() {
             formatCurrencyInput(this);
         });
     }
-    
+
     // Tip type change handler
     const tipTypeSelect = document.getElementById('tipType');
     if (tipTypeSelect) {

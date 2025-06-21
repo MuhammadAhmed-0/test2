@@ -4,7 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TV Wall Mount Height Calculator - CalcHub</title>
+    <meta name="description" content="Find the perfect TV wall mount height! Calculate optimal viewing angle based on TV size, room layout & seating position. Easy tool!">
+    <title>TV Wall Mount Height Calculator</title>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "TV Wall Mount Height Calculator",
+      "description": "Find the perfect TV wall mount height! Calculate optimal viewing angle based on TV size, room layout & seating position. Easy tool!",
+      "url": "https://calchub.com/Tools/tv-mount-height-calculator.html",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "creator": {
+        "@type": "Organization",
+        "name": "CalcHub"
+      }
+    }
+    </script>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/tools/apush.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -373,11 +394,11 @@
             #mountHeight {
                 font-size: 2.5rem;
             }
-            
+
             #result {
                 padding: 1.5rem;
             }
-            
+
             .calculate-btn {
                 padding: 1rem 2rem;
                 font-size: 1rem;
@@ -597,7 +618,7 @@
             <article class="calculator-article">
                 <h2>Understanding TV Wall Mount Height</h2>
                 <p>Proper TV mounting height is crucial for comfortable viewing and preventing neck strain. The ideal height depends on several factors including your seating position, TV size, and room layout.</p>
-                
+
                 <h3>Key Factors to Consider:</h3>
                 <ul>
                     <li><strong>Eye Level Alignment:</strong> The center of your TV screen should be at or slightly below eye level when seated</li>
@@ -632,28 +653,32 @@
 
     <footer>
         <div class="footer-content">
-            <div class="footer-section">
-                <h3>About CalcHub</h3>
-                <p>Your trusted source for online calculation tools</p>
-            </div>
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="#tools">Tools</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    <li><a href="#privacy">Privacy Policy</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Contact Us</h3>
-                <p>Email: info@calchub.com</p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                </div>
-            </div>
+            
+<div class="footer-section">
+          <h3>About Calculator Tools</h3>
+          <p>Your trusted source for online calculation tools</p>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="../index.html#tools">Tools</a></li>
+            <li><a href="../about.html">About</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+            <li><a href="../privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="../terms-of-service.html">Terms of Service</a></li>
+            <li><a href="../disclaimer.html">Disclaimer</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Contact Us</h3>
+          <p>Email: info@calchub.com</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+          </div>
+        </div>
+
         </div>
         <div class="footer-bottom">
             <p>&copy; 2024 CalcHub. All rights reserved.</p>
@@ -814,7 +839,7 @@ function showRecommendations(tvSize, viewingDistance, viewingAngle, mountType, o
     const ergonomicAdvice = document.getElementById('ergonomicAdvice');
     if (viewingAngle > 15) {
         ergonomicAdvice.textContent = "💡 Consider lowering the TV slightly to reduce neck strain.";
-    } else {
+    } else{
         ergonomicAdvice.textContent = "✅ This height should be comfortable for most users.";
     }
 

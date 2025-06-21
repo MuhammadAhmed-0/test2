@@ -1,0 +1,294 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn about Calculator Tools Hub - your trusted source for free online calculators. Our mission, team, and commitment to providing accurate calculation tools.">
+    <title>About Us - Calculator Tools Hub</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Schema Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "AboutPage",
+      "name": "About Calculator Tools Hub",
+      "description": "Learn about Calculator Tools Hub - your trusted source for free online calculators.",
+      "url": "https://your-domain.com/about.html",
+      "mainEntity": {
+        "@type": "Organization",
+        "name": "Calculator Tools Hub",
+        "description": "Free online calculator tools for finance, construction, health, and more.",
+        "foundingDate": "2024",
+        "url": "https://your-domain.com"
+      }
+    }
+    </script>
+
+    <style>
+        .about-hero {
+            background: linear-gradient(rgba(37, 99, 235, 0.9), rgba(30, 64, 175, 0.9));
+            color: white;
+            padding: 6rem 2rem 4rem;
+            text-align: center;
+        }
+
+        .about-content {
+            max-width: 1000px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .about-section {
+            background: white;
+            border-radius: 15px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .about-section h2 {
+            color: #2563eb;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+
+        .about-section p {
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: #4b5563;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: #f8fafc;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .feature-card i {
+            font-size: 2.5rem;
+            color: #2563eb;
+            margin-bottom: 1rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 2rem;
+            background: #2563eb;
+            color: white;
+            border-radius: 10px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .about-hero {
+                padding: 4rem 1rem 3rem;
+            }
+            
+            .about-section {
+                padding: 2rem;
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Announcement section -->
+    <div class="top-announcement-bar">
+        <div class="announcement-number">New Announcement</div>
+        <div class="announcement-text">
+            Explore the latest IT tools and expert resources at <a href="https://resourcesofdev.com" target="_blank"
+                rel="noopener noreferrer" class="announcement-link">Resourcesofdev.com</a>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>Calculator Tools</h1>
+            </div>
+            <div class="nav-links">
+                <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="index.html#tools"><i class="fas fa-tools"></i> Tools</a>
+                <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
+                <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+            </div>
+            <div class="mobile-menu-toggle" id="mobileMenuToggle">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+    <!-- Mobile Menu Panel -->
+    <div class="mobile-menu-panel" id="mobileMenuPanel">
+        <div class="mobile-menu-header">
+            <h2>Menu</h2>
+            <button class="mobile-menu-close" id="mobileMenuClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="mobile-menu-items">
+            <a href="index.html">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="index.html#tools">
+                <i class="fas fa-tools"></i>
+                <span>Tools</span>
+            </a>
+            <a href="about.html">
+                <i class="fas fa-info-circle"></i>
+                <span>About</span>
+            </a>
+            <a href="contact.html">
+                <i class="fas fa-envelope"></i>
+                <span>Contact</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- About Hero Section -->
+    <section class="about-hero">
+        <div class="hero-content">
+            <h1>About Calculator Tools Hub</h1>
+            <p>Your trusted source for accurate, free online calculation tools</p>
+        </div>
+    </section>
+
+    <!-- About Content -->
+    <div class="about-content">
+        <div class="about-section">
+            <h2>Our Mission</h2>
+            <p>At Calculator Tools Hub, we believe that everyone should have access to powerful, accurate calculation tools without barriers. Our mission is to provide free, user-friendly calculators that help people make informed decisions in their personal and professional lives.</p>
+            <p>Whether you're planning a home renovation, calculating mortgage payments, analyzing financial investments, or working on educational projects, we're here to simplify complex calculations and save you time.</p>
+        </div>
+
+        <div class="about-section">
+            <h2>What We Offer</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-calculator"></i>
+                    <h3>Comprehensive Tools</h3>
+                    <p>Over 20+ specialized calculators covering finance, construction, health, education, and more.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>Mobile Friendly</h3>
+                    <p>All our tools work seamlessly on desktop, tablet, and mobile devices.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Privacy Focused</h3>
+                    <p>No registration required. Your calculations are private and secure.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>Always Available</h3>
+                    <p>24/7 access to all tools with instant results and reliable performance.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="about-section">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">20+</div>
+                    <div>Calculator Tools</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div>Free to Use</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div>Available</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">0</div>
+                    <div>Registration Required</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="about-section">
+            <h2>Our Commitment</h2>
+            <p>We are committed to maintaining the highest standards of accuracy and reliability in all our calculation tools. Our team regularly reviews and updates our algorithms to ensure precise results.</p>
+            <p>We also believe in continuous improvement. If you have suggestions for new calculators or improvements to existing ones, we'd love to hear from you through our contact page.</p>
+        </div>
+
+        <div class="about-section">
+            <h2>Why Choose Us?</h2>
+            <p><strong>Accuracy:</strong> All our calculators are built with precision and tested thoroughly to ensure reliable results.</p>
+            <p><strong>Simplicity:</strong> Clean, intuitive interfaces that make complex calculations accessible to everyone.</p>
+            <p><strong>Speed:</strong> Instant results without any waiting time or processing delays.</p>
+            <p><strong>No Cost:</strong> Completely free to use with no hidden fees or premium features.</p>
+            <p><strong>No Signup:</strong> Start calculating immediately without creating accounts or providing personal information.</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Calculator Tools</h3>
+                <p>Your trusted source for online calculation tools</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html#tools">Tools</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                    <li><a href="terms-of-service.html">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@calchub.com</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Calculator Tools. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/calculator.js"></script>
+</body>
+
+</html>

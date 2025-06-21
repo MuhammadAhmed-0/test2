@@ -4,7 +4,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Land Loan Calculator - CalcHub</title>
+  <meta name="description" content="Calculate land loan payments & qualify for financing. Raw, improved & agricultural land loans with DTI analysis. Get accurate estimates!">
+  <title>Land Loan Calculator</title>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Land Loan Calculator",
+    "description": "Calculate land loan payments & qualify for financing. Raw, improved & agricultural land loans with DTI analysis. Get accurate estimates!",
+    "url": "https://calchub.com/Tools/land-mortgage-calculator.html",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Web Browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "creator": {
+      "@type": "Organization",
+      "name": "CalcHub"
+    }
+  }
+  </script>
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/tools/apush.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -553,7 +574,7 @@
       <article class="calculator-article">
         <h2>Understanding Land Loans</h2>
         <p>Land loans are specialized financing options for purchasing vacant land. They differ significantly from traditional home mortgages in terms of requirements, rates, and terms:</p>
-        
+
         <h3>Types of Land Loans</h3>
         <ul>
           <li><strong>Raw Land Loans:</strong> For undeveloped land without utilities or road access. Highest rates and down payments (25-50%)</li>
@@ -600,16 +621,18 @@
   <footer>
     <div class="footer-content">
       <div class="footer-section">
-        <h3>About CalcHub</h3>
+        <h3>About Calculator Tools</h3>
         <p>Your trusted source for online calculation tools</p>
       </div>
       <div class="footer-section">
         <h3>Quick Links</h3>
         <ul>
-          <li><a href="#tools">Tools</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
-          <li><a href="#privacy">Privacy Policy</a></li>
+          <li><a href="../index.html#tools">Tools</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+          <li><a href="../privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="../terms-of-service.html">Terms of Service</a></li>
+          <li><a href="../disclaimer.html">Disclaimer</a></li>
         </ul>
       </div>
       <div class="footer-section">
@@ -688,7 +711,7 @@ function calculateLandLoan() {
         dti = (debts / income) * 100;
         const dtiStatus = dti <= 28 ? 'excellent' : (dti <= 36 ? 'good' : (dti <= 43 ? 'acceptable' : 'high'));
         dtiMessage = `Your current debt-to-income ratio is <strong>${dti.toFixed(2)}%</strong>, which is considered ${dtiStatus} for land loans. `;
-        
+
         if (dti > 43) {
             dtiMessage += 'You may need to reduce debt or increase income to qualify for most land loan programs.';
         } else if (dti > 36) {
@@ -753,7 +776,7 @@ function calculateLandLoan() {
 
 function getLandTypeInfo(landType, downPayment, creditScore) {
     let info = '';
-    
+
     switch(landType) {
         case 'raw':
             info = `<strong>Raw/Undeveloped Land Loan:</strong><br>
@@ -776,7 +799,7 @@ function getLandTypeInfo(landType, downPayment, creditScore) {
         case 'recreational':
             info = `<strong>Recreational Land Loan:</strong><br>
                     • Typical down payment: 20-30% (yours: ${downPayment.toFixed(1)}%)<br>
-                    • Moderate interest rates<br>
+                                        • Moderate interest rates<br>
                     • Used for hunting, camping, or recreation<br>
                     • May have seasonal access limitations<br>
                     • Consider ongoing maintenance costs<br>

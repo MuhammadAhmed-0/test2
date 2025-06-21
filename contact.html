@@ -1,0 +1,407 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact Calculator Tools Hub. Get in touch with us for support, feedback, or suggestions about our free online calculator tools. We're here to help!">
+    <title>Contact Us - Calculator Tools Hub</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        .contact-hero {
+            background: linear-gradient(rgba(37, 99, 235, 0.9), rgba(30, 64, 175, 0.9));
+            color: white;
+            padding: 6rem 2rem 4rem;
+            text-align: center;
+        }
+
+        .contact-content {
+            max-width: 1000px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info {
+            background: white;
+            border-radius: 15px;
+            padding: 3rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            height: fit-content;
+        }
+
+        .contact-form {
+            background: white;
+            border-radius: 15px;
+            padding: 3rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .contact-info h2,
+        .contact-form h2 {
+            color: #2563eb;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: #f8fafc;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .contact-item i {
+            font-size: 1.5rem;
+            color: #2563eb;
+            margin-right: 1rem;
+            width: 30px;
+        }
+
+        .contact-item-content h3 {
+            margin-bottom: 0.5rem;
+            color: #374151;
+        }
+
+        .contact-item-content p {
+            color: #6b7280;
+            margin: 0;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #374151;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-submit {
+            background: #2563eb;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            width: 100%;
+        }
+
+        .form-submit:hover {
+            background: #1e40af;
+        }
+
+        .faq-section {
+            max-width: 1000px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .faq-container {
+            background: white;
+            border-radius: 15px;
+            padding: 3rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .faq-container h2 {
+            color: #2563eb;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e5e7eb;
+            padding: 1.5rem 0;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-question {
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .faq-answer {
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .contact-hero {
+                padding: 4rem 1rem 3rem;
+            }
+            
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .contact-info,
+            .contact-form {
+                padding: 2rem;
+            }
+
+            .contact-item {
+                padding: 1rem;
+            }
+
+            .faq-container {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Announcement section -->
+    <div class="top-announcement-bar">
+        <div class="announcement-number">New Announcement</div>
+        <div class="announcement-text">
+            Explore the latest IT tools and expert resources at <a href="https://resourcesofdev.com" target="_blank"
+                rel="noopener noreferrer" class="announcement-link">Resourcesofdev.com</a>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>Calculator Tools</h1>
+            </div>
+            <div class="nav-links">
+                <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="index.html#tools"><i class="fas fa-tools"></i> Tools</a>
+                <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
+                <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+            </div>
+            <div class="mobile-menu-toggle" id="mobileMenuToggle">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+    <!-- Mobile Menu Panel -->
+    <div class="mobile-menu-panel" id="mobileMenuPanel">
+        <div class="mobile-menu-header">
+            <h2>Menu</h2>
+            <button class="mobile-menu-close" id="mobileMenuClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="mobile-menu-items">
+            <a href="index.html">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="index.html#tools">
+                <i class="fas fa-tools"></i>
+                <span>Tools</span>
+            </a>
+            <a href="about.html">
+                <i class="fas fa-info-circle"></i>
+                <span>About</span>
+            </a>
+            <a href="contact.html">
+                <i class="fas fa-envelope"></i>
+                <span>Contact</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Contact Hero Section -->
+    <section class="contact-hero">
+        <div class="hero-content">
+            <h1>Contact Us</h1>
+            <p>We'd love to hear from you. Get in touch with our team!</p>
+        </div>
+    </section>
+
+    <!-- Contact Content -->
+    <div class="contact-content">
+        <div class="contact-info">
+            <h2>Get in Touch</h2>
+            
+            <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <div class="contact-item-content">
+                    <h3>Email Us</h3>
+                    <p>info@calchub.com</p>
+                </div>
+            </div>
+
+            <div class="contact-item">
+                <i class="fas fa-clock"></i>
+                <div class="contact-item-content">
+                    <h3>Response Time</h3>
+                    <p>We typically respond within 24 hours</p>
+                </div>
+            </div>
+
+            <div class="contact-item">
+                <i class="fas fa-headset"></i>
+                <div class="contact-item-content">
+                    <h3>Support</h3>
+                    <p>Free support for all our calculator tools</p>
+                </div>
+            </div>
+
+            <div class="contact-item">
+                <i class="fas fa-lightbulb"></i>
+                <div class="contact-item-content">
+                    <h3>Suggestions</h3>
+                    <p>Have ideas for new calculators? Let us know!</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-form">
+            <h2>Send us a Message</h2>
+            
+            <form action="#" method="POST">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" placeholder="Tell us how we can help you..." required></textarea>
+                </div>
+
+                <button type="submit" class="form-submit">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="faq-section">
+        <div class="faq-container">
+            <h2>Frequently Asked Questions</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">Are your calculators really free to use?</div>
+                <div class="faq-answer">Yes, all our calculator tools are completely free to use. No registration, no hidden fees, no premium features.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">How accurate are your calculations?</div>
+                <div class="faq-answer">Our calculators use industry-standard formulas and are regularly tested for accuracy. However, results should be used for informational purposes and we recommend consulting professionals for important decisions.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Can I use these calculators on my mobile device?</div>
+                <div class="faq-answer">Absolutely! All our calculators are fully responsive and work seamlessly on desktop, tablet, and mobile devices.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Do you store my calculation data?</div>
+                <div class="faq-answer">We prioritize your privacy. Calculation inputs and results are not stored on our servers. Please review our Privacy Policy for more details.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">How can I request a new calculator?</div>
+                <div class="faq-answer">We welcome suggestions! Use the contact form above to send us your ideas for new calculators you'd like to see on our platform.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Do you provide customer support?</div>
+                <div class="faq-answer">Yes, we provide free support for all our tools. Contact us via email and we'll respond as quickly as possible, typically within 24 hours.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Calculator Tools</h3>
+                <p>Your trusted source for online calculation tools</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html#tools">Tools</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                    <li><a href="terms-of-service.html">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@calchub.com</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Calculator Tools. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/calculator.js"></script>
+</body>
+
+</html>

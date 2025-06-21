@@ -4,7 +4,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blended Rate Calculator - CalcHub</title>
+  <meta name="description" content="Calculate weighted average interest rates for multiple loans. Perfect for debt consolidation, refinancing & portfolio analysis. Free tool!">
+  <title>Blended Rate Calculator</title>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Blended Rate Calculator",
+    "description": "Calculate weighted average interest rates for multiple loans. Perfect for debt consolidation, refinancing & portfolio analysis. Free tool!",
+    "url": "https://calchub.com/Tools/blended-rate-calculator.html",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Web Browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "creator": {
+      "@type": "Organization",
+      "name": "CalcHub"
+    }
+  }
+  </script>
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/tools/apush.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -589,11 +610,11 @@
   .loan-inputs {
     grid-template-columns: 1fr;
   }
-  
+
   .comparison-cards {
     grid-template-columns: 1fr;
   }
-  
+
   .preset-buttons {
     grid-template-columns: 1fr;
   }
@@ -683,7 +704,7 @@
     <div class="main-content-column">
       <main class="calculator-content">
         <h1>Calculate Your Blended Interest Rate</h1>
-        
+
         <!-- Quick Presets -->
         <div class="preset-buttons">
           <button class="preset-btn" onclick="loadPreset('mortgage')">
@@ -765,18 +786,18 @@
           <li><strong>Business Finance:</strong> Determining overall cost of debt for financial planning</li>
           <li><strong>Personal Finance:</strong> Optimizing debt consolidation strategies</li>
         </ul>
-        
+
         <h3>How Blended Rate Calculation Works</h3>
         <p>The blended rate is calculated using the formula:</p>
         <p><strong>Blended Rate = Σ(Loan Amount × Interest Rate) / Total Loan Amount</strong></p>
-        
+
         <p>Each loan's contribution to the blended rate is proportional to its size relative to the total portfolio. Larger loans have more influence on the overall rate than smaller ones.</p>
-        
+
         <h3>Practical Applications</h3>
         <p><strong>Mortgage Refinancing:</strong> Compare your current blended rate across multiple mortgages with refinancing options.</p>
         <p><strong>Debt Consolidation:</strong> Determine if consolidating multiple debts into a single loan would improve your overall rate.</p>
         <p><strong>Business Financing:</strong> Evaluate the cost-effectiveness of different financing combinations for business expansion.</p>
-        
+
         <p>Use this advanced calculator to make informed financial decisions and optimize your borrowing strategy.</p>
       </article>
     </div>
@@ -798,16 +819,18 @@
   <footer>
     <div class="footer-content">
       <div class="footer-section">
-        <h3>About CalcHub</h3>
+        <h3>About Calculator Tools</h3>
         <p>Your trusted source for online calculation tools</p>
       </div>
       <div class="footer-section">
         <h3>Quick Links</h3>
         <ul>
-          <li><a href="#tools">Tools</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
-          <li><a href="#privacy">Privacy Policy</a></li>
+          <li><a href="../index.html#tools">Tools</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+          <li><a href="../privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="../terms-of-service.html">Terms of Service</a></li>
+          <li><a href="../disclaimer.html">Disclaimer</a></li>
         </ul>
       </div>
       <div class="footer-section">
@@ -838,11 +861,11 @@
     function addLoan(amount = '', rate = '', name = '') {
       loanCount++;
       const container = document.getElementById('loans-container');
-      
+
       const loanDiv = document.createElement('div');
       loanDiv.className = 'loan-entry';
       loanDiv.id = `loan-${loanCount}`;
-      
+
       loanDiv.innerHTML = `
         <h4>
           <span>${name || `Loan ${loanCount}`}</span>
@@ -863,9 +886,9 @@
           </div>
         </div>
       `;
-      
+
       container.appendChild(loanDiv);
-      
+
       // Add animation
       setTimeout(() => {
         loanDiv.classList.add('animate-result');
@@ -886,8 +909,7 @@
 
       switch(type) {
         case 'mortgage':
-          addLoan(350000, 3.8, 'Primary Mortgage');
-          addLoan(80000, 4.2, 'HELOC');
+          addLoan(350000, 3.8, 'Primary Mortgage');          addLoan(80000, 4.2, 'HELOC');
           addLoan(25000, 6.5, 'Home Improvement Loan');
           break;
         case 'business':
@@ -919,12 +941,12 @@
         const amountElement = document.getElementById(`amount-${i}`);
         const rateElement = document.getElementById(`rate-${i}`);
         const nameElement = document.getElementById(`name-${i}`);
-        
+
         if (amountElement && rateElement) {
           const amount = parseFloat(amountElement.value) || 0;
           const rate = parseFloat(rateElement.value) || 0;
           const name = nameElement ? nameElement.value || `Loan ${i}` : `Loan ${i}`;
-          
+
           if (amount > 0 && rate >= 0) {
             loans.push({ amount, rate, name, id: i });
             totalAmount += amount;
@@ -960,7 +982,7 @@
       const highestRate = Math.max(...loans.map(loan => loan.rate));
       const lowestRate = Math.min(...loans.map(loan => loan.rate));
       const rateSpread = highestRate - lowestRate;
-      
+
       const largestLoan = loans.reduce((max, loan) => loan.amount > max.amount ? loan : max);
       const largestLoanWeight = (largestLoan.amount / totalAmount) * 100;
 
@@ -1006,7 +1028,7 @@
       loans.forEach((loan, index) => {
         const weight = (loan.amount / totalAmount) * 100;
         const contribution = (loan.amount * loan.rate) / totalAmount;
-        
+
         const row = document.createElement('tr');
         row.innerHTML = `
           <td><strong>${loan.name}</strong></td>
@@ -1037,19 +1059,19 @@
       comparisonSection.style.display = 'block';
 
       const comparisonCards = document.getElementById('comparison-cards');
-      
+
       const highestRate = Math.max(...loans.map(loan => loan.rate));
       const lowestRate = Math.min(...loans.map(loan => loan.rate));
       const averageRate = loans.reduce((sum, loan) => sum + loan.rate, 0) / loans.length;
-      
+
       // Calculate potential savings scenarios
       const totalAmount = loans.reduce((sum, loan) => sum + loan.amount, 0);
       const currentAnnualCost = totalAmount * (blendedRate / 100);
-      
+
       // Scenario 1: If all loans were at the lowest rate
       const bestCaseAnnualCost = totalAmount * (lowestRate / 100);
       const bestCaseSavings = currentAnnualCost - bestCaseAnnualCost;
-      
+
       // Scenario 2: If all loans were at a competitive rate (assuming 1% below blended)
       const competitiveRate = Math.max(blendedRate - 1, lowestRate);
       const competitiveAnnualCost = totalAmount * (competitiveRate / 100);
@@ -1118,7 +1140,7 @@
             const rate = document.getElementById(`rate-${i}`);
             return amount && rate && parseFloat(amount.value) > 0 && parseFloat(rate.value) >= 0;
           });
-          
+
           if (hasValidLoan) {
             calculateBlendedRate();
           }
@@ -1152,12 +1174,12 @@
         const amountElement = document.getElementById(`amount-${i}`);
         const rateElement = document.getElementById(`rate-${i}`);
         const nameElement = document.getElementById(`name-${i}`);
-        
+
         if (amountElement && rateElement) {
           const amount = parseFloat(amountElement.value) || 0;
           const rate = parseFloat(rateElement.value) || 0;
           const name = nameElement ? nameElement.value || `Loan ${i}` : `Loan ${i}`;
-          
+
           if (amount > 0 && rate >= 0) {
             loans.push({ amount, rate, name });
             totalAmount += amount;
@@ -1170,7 +1192,7 @@
 
       const blendedRate = weightedSum / totalAmount;
       const currentDate = new Date().toLocaleDateString();
-      
+
       let exportText = `Blended Rate Calculator Results - ${currentDate}\n`;
       exportText += `${'='.repeat(50)}\n\n`;
       exportText += `Blended Rate: ${blendedRate.toFixed(3)}%\n`;
@@ -1178,7 +1200,7 @@
       exportText += `Number of Loans: ${loans.length}\n\n`;
       exportText += `Loan Breakdown:\n`;
       exportText += `${'-'.repeat(50)}\n`;
-      
+
       loans.forEach((loan, index) => {
         const weight = (loan.amount / totalAmount) * 100;
         exportText += `${loan.name}:\n`;

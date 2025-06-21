@@ -4,7 +4,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Oklahoma Mortgage Calculator - CalcHub</title>
+  <meta name="description" content="Calculate Oklahoma mortgage payments with state programs. OHFA, veteran loans & rural development options. County-specific calculations!">
+  <title>Oklahoma Mortgage Calculator</title>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Oklahoma Mortgage Calculator",
+    "description": "Calculate Oklahoma mortgage payments with state programs. OHFA, veteran loans & rural development options. County-specific calculations!",
+    "url": "https://calchub.com/Tools/oklahoma-mortgage-calculator.html",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Web Browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "creator": {
+      "@type": "Organization",
+      "name": "CalcHub"
+    }
+  }
+  </script>
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/tools/apush.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -376,7 +397,7 @@
       </a>
     </div>
   </div>
-  
+
   <!-- Hero Section -->
   <section class="hero">
     <div class="hero-content">
@@ -395,17 +416,17 @@
         <li><a href="dunk-calculator.html">Dunk Calculator</a></li>
       </ul>
     </aside>
-    
+
     <div class="main-content-column">
       <main class="calculator-content">
         <h1>Calculate Your Oklahoma Mortgage Payment</h1>
         <div class="calculator-box">
-          
+
           <div class="input-group">
             <label for="homePrice">Home Price:</label>
             <input type="text" id="homePrice" value="$175000" placeholder="Enter home price">
           </div>
-          
+
           <div class="input-group">
             <label for="downPayment">Down Payment:</label>
             <div class="toggle-input">
@@ -416,7 +437,7 @@
               </select>
             </div>
           </div>
-          
+
           <div class="input-group">
             <label for="loanTerm">Loan Term (Years):</label>
             <select id="loanTerm">
@@ -426,12 +447,12 @@
               <option value="30" selected>30 years</option>
             </select>
           </div>
-          
+
           <div class="input-group">
             <label for="interestRate">Interest Rate (%):</label>
             <input type="number" step="0.01" id="interestRate" value="7.25" placeholder="Enter interest rate">
           </div>
-          
+
           <div class="input-group">
             <label for="county">Oklahoma County:</label>
             <select id="county">
@@ -448,29 +469,29 @@
               <option value="other">Other County</option>
             </select>
           </div>
-          
+
           <div class="input-group">
             <label for="propTax">Property Tax Rate (%):</label>
             <input type="number" step="0.01" id="propTax" value="1.1" placeholder="Enter property tax rate">
             <small style="color: #666; font-size: 0.9rem;">Oklahoma average: 0.9% - 1.3%</small>
           </div>
-          
+
           <div class="input-group">
             <label for="insurance">Homeowners Insurance (Yearly):</label>
             <input type="text" id="insurance" value="$2400" placeholder="Enter yearly insurance">
             <small style="color: #666; font-size: 0.9rem;">Oklahoma average: $2,000 - $3,500</small>
           </div>
-          
+
           <div class="input-group">
             <label for="pmi">PMI (Monthly):</label>
             <input type="text" id="pmi" value="$200" placeholder="Enter monthly PMI">
           </div>
-          
+
           <div class="input-group">
             <label for="hoa">HOA Dues (Monthly):</label>
             <input type="text" id="hoa" value="$0" placeholder="Enter monthly HOA dues">
           </div>
-          
+
           <div class="input-group">
             <label for="income">Annual Household Income:</label>
             <input type="text" id="income" value="$75000" placeholder="Enter annual income">
@@ -527,7 +548,7 @@
       <article class="calculator-article">
         <h2>Oklahoma Mortgage Guide</h2>
         <p>Oklahoma offers unique opportunities for homebuyers with various state-specific programs and competitive market conditions. Here's what you need to know about getting a mortgage in Oklahoma:</p>
-        
+
         <h3>Oklahoma Housing Market Overview</h3>
         <ul>
           <li><strong>Median Home Price:</strong> Oklahoma has one of the most affordable housing markets in the US</li>
@@ -573,16 +594,18 @@
   <footer>
     <div class="footer-content">
       <div class="footer-section">
-        <h3>About CalcHub</h3>
+        <h3>About Calculator Tools</h3>
         <p>Your trusted source for online calculation tools</p>
       </div>
       <div class="footer-section">
         <h3>Quick Links</h3>
         <ul>
-          <li><a href="#tools">Tools</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
-          <li><a href="#privacy">Privacy Policy</a></li>
+          <li><a href="../index.html#tools">Tools</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+          <li><a href="../privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="../terms-of-service.html">Terms of Service</a></li>
+          <li><a href="../disclaimer.html">Disclaimer</a></li>
         </ul>
       </div>
       <div class="footer-section">
@@ -615,7 +638,7 @@ function calculateOklahomaMortgage() {
     const pmi = parseFloat(document.getElementById('pmi').value.replace(/[^0-9.]/g, '')) || 0;
     const hoa = parseFloat(document.getElementById('hoa').value.replace(/[^0-9.]/g, '')) || 0;
     const annualIncome = parseFloat(document.getElementById('income').value.replace(/[^0-9.]/g, '')) || 0;
-    
+
     // Oklahoma program checkboxes
     const ohfaProgram = document.getElementById('ohfaProgram').checked;
     const veteranProgram = document.getElementById('veteranProgram').checked;
@@ -718,10 +741,10 @@ function calculateOklahomaMortgage() {
         const affordabilitySection = document.getElementById('affordability-info');
         affordabilitySection.style.display = 'block';
         document.getElementById('affordabilityAmount').textContent = '$' + maxAffordableHomePrice.toFixed(0);
-        
+
         const affordabilityStatus = totalMonthly <= maxAffordablePayment ? 'within' : 'above';
         const statusColor = affordabilityStatus === 'within' ? '#ffd700' : '#dc3545';
-        
+
         document.getElementById('affordabilityDetails').innerHTML = `
             <span style="color: ${statusColor}">This payment is ${affordabilityStatus} your recommended budget of $${maxAffordablePayment.toFixed(0)}/month</span>
         `;
@@ -741,14 +764,14 @@ function calculateOklahomaMortgage() {
         • HOA Dues: $${hoa.toFixed(2)}<br><br>
 
         <strong>Total Monthly Payment: $${totalMonthly.toFixed(2)}</strong><br><br>
-        
+
         <strong>Loan Details:</strong><br>
         • Home Price: ${homePrice.toFixed(0)}<br>
         • Down Payment: ${adjustedDownPayment.toFixed(0)} (${((adjustedDownPayment/homePrice)*100).toFixed(1)}%)<br>
         • Loan Amount: ${loanAmount.toFixed(0)}<br>
         • Interest Rate: ${(adjustedInterestRate*100).toFixed(3)}%<br>
         • Loan Term: ${loanTerm} years<br><br>
-        
+
         <strong>Oklahoma Market Info:</strong><br>
         • County: ${countyName}<br>
         • Property Tax Rate: ${(propTaxRate*countyTaxMultiplier*100).toFixed(2)}%<br>
@@ -782,7 +805,8 @@ function getCountyName(county) {
         'comanche': 'Comanche County',
         'canadian': 'Canadian County',
         'washington': 'Washington County',
-        'muskogee': 'Muskogee County',
+        'muskogee': '```text
+Muskogee County',
         'garfield': 'Garfield County',
         'payne': 'Payne County',
         'rogers': 'Rogers County',
@@ -796,11 +820,11 @@ function calculateMaxHomePrice(monthlyIncome, interestRate, loanTerm, propTaxRat
     const monthlyRate = interestRate / 12;
     const totalPayments = loanTerm * 12;
     const monthlyInsurance = yearlyInsurance / 12;
-    
+
     // Estimate maximum home price using iterative approach
     let homePrice = 100000;
     let increment = 50000;
-    
+
     for (let i = 0; i < 20; i++) {
         const loanAmount = homePrice * 0.8; // Assume 20% down
         const monthlyPI = monthlyRate > 0 ? 
@@ -808,17 +832,17 @@ function calculateMaxHomePrice(monthlyIncome, interestRate, loanTerm, propTaxRat
             loanAmount / totalPayments;
         const monthlyPropTax = (homePrice * propTaxRate) / 12;
         const totalPayment = monthlyPI + monthlyPropTax + monthlyInsurance;
-        
+
         if (totalPayment < maxPayment) {
             homePrice += increment;
         } else {
             homePrice -= increment;
             increment /= 2;
         }
-        
+
         if (increment < 1000) break;
     }
-    
+
     return homePrice;
 }
 
