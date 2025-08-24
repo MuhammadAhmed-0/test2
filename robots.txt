@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://your-domain.com/sitemap.xml
+Sitemap: https://usefreecalculator.com/sitemap.xml
 
 # Block access to admin areas (if any)
 Disallow: /admin/
