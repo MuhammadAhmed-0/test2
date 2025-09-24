@@ -4,7 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Calculate manufactured home mortgage payments. Mobile home financing with DTI analysis, PMI & qualification requirements. Free calculator!">
+  <meta name="description"
+    content="Calculate manufactured home mortgage payments. Mobile home financing with DTI analysis, PMI & qualification requirements. Free calculator!">
   <title>Manufactured Home Mortgage Calculator</title>
   <script type="application/ld+json">
   {
@@ -275,9 +276,9 @@
 
     /* Responsive Design */
     @media (max-width: 768px) {
-                  .calculator-box {
-                padding: 1.5rem;
-            }
+      .calculator-box {
+        padding: 1.5rem;
+      }
 
       #monthlyPayment {
         font-size: 2.5rem;
@@ -316,9 +317,9 @@
 
   <header>
     <nav>
-            <div class="logo">
-                <h1>Free Calculator</h1>
-            </div>
+      <div class="logo">
+        <h1>Free Calculator</h1>
+      </div>
       <div class="nav-links">
         <a href="../index.html"><i class="fas fa-home"></i> Home</a>
         <a href="../index.html"><i class="fas fa-tools"></i> Tools</a>
@@ -372,15 +373,15 @@
 
   <div class="tool-container">
     <aside class="left-sidebar">
-            <h3>Related Tools</h3>
-            <ul>
-                <li><a href="land-mortgage-calculator.html">Land Mortgage Calculator</a></li>
-                <li><a href="oklahoma-mortgage-calculator.html">Oklahoma Mortgage Calculator</a></li>
-                <li><a href="blended-rate-calculator.html">Blended Rate Calculator</a></li>
-                <li><a href="stock-average-down-calculator.html">Stock Average Down Calculator</a></li>
-                <li><a href="split-bill-calculator.html">Split Bill Calculator</a></li>
-            </ul>
-        </aside>
+      <h3>Related Tools</h3>
+      <ul>
+        <li><a href="land-mortgage-calculator.html">Land Mortgage Calculator</a></li>
+        <li><a href="oklahoma-mortgage-calculator.html">Oklahoma Mortgage Calculator</a></li>
+        <li><a href="blended-rate-calculator.html">Blended Rate Calculator</a></li>
+        <li><a href="stock-average-down-calculator.html">Stock Average Down Calculator</a></li>
+        <li><a href="split-bill-calculator.html">Split Bill Calculator</a></li>
+      </ul>
+    </aside>
     <div class="main-content-column">
       <main class="calculator-content">
         <h1>Calculate Your Manufactured Home Mortgage</h1>
@@ -468,20 +469,203 @@
 
 
       <article class="calculator-article">
-        <h2>Understanding Manufactured Home Mortgages</h2>
-        <p>Manufactured homes offer an affordable path to homeownership, but financing can be different from traditional
-          mortgages. Here's what you need to know:</p>
+
+        <h2>Manufactured Home Mortgage Calculator – Estimate Your Monthly Payments</h2>
+        <p>
+          Planning to buy a manufactured or mobile home? The <strong>Manufactured Home Mortgage Calculator</strong>
+          allows you to estimate your monthly mortgage payment, understand your debt-to-income ratio (DTI), and assess
+          qualification requirements. Enter your income, debts, home price, down payment, loan term, interest rate, PMI,
+          insurance, property tax, and HOA fees to get an accurate monthly payment breakdown.
+        </p>
+
+        <h2>Why Using This Calculator Matters</h2>
+
+        <h3>Financial Planning</h3>
+        <p>
+          Manufactured homes often have different financing options, including chattel loans (personal property) and
+          traditional real estate loans (land + home). This calculator helps determine monthly affordability and
+          prevents overextending your budget.
+        </p>
+
+        <h3>Debt-to-Income Analysis</h3>
+        <p>
+          Lenders use DTI to evaluate eligibility. A DTI below 36% is ideal, while ratios above 43–50% may require
+          additional documentation or adjustments.
+        </p>
+
+        <h3>Comparing Loan Options</h3>
+        <p>
+          By entering different down payments, interest rates, or loan terms, you can compare monthly payments across
+          multiple scenarios, helping you select the best financing option for your situation.
+        </p>
+
+        <h2>How the Manufactured Home Mortgage Calculator Works</h2>
+
+        <h3>Inputs Required</h3>
         <ul>
-          <li><strong>Loan Types:</strong> Chattel loans (personal property) vs. real estate loans (land + home)</li>
-          <li><strong>Down Payment:</strong> Typically 5-20% depending on the loan program</li>
-          <li><strong>Interest Rates:</strong> May be higher than traditional mortgages</li>
-          <li><strong>Debt-to-Income Ratio:</strong> Lenders prefer DTI under 36%, but some allow up to 50%</li>
-          <li><strong>Credit Requirements:</strong> Minimum credit score usually 620-640</li>
-          <li><strong>PMI:</strong> Private Mortgage Insurance may be required with less than 20% down</li>
+          <li><strong>Gross Monthly Income:</strong> Your total income before taxes.</li>
+          <li><strong>Monthly Debts:</strong> Existing obligations like car loans, credit cards, or personal loans.</li>
+          <li><strong>Home Price:</strong> Total cost of the manufactured home.</li>
+          <li><strong>Down Payment:</strong> Amount or percentage of home price.</li>
+          <li><strong>Loan Term:</strong> Duration in years.</li>
+          <li><strong>Interest Rate:</strong> Annual percentage rate (APR).</li>
+          <li><strong>Credit Score:</strong> Influences eligibility and interest rate.</li>
+          <li><strong>Property Tax:</strong> Annual property tax.</li>
+          <li><strong>Insurance:</strong> Annual homeowners insurance.</li>
+          <li><strong>PMI:</strong> Private mortgage insurance (required if down < 20%).</li>
+          <li><strong>HOA Dues:</strong> Monthly homeowner association fees.</li>
         </ul>
-        <p>Use this calculator to estimate your monthly payments and determine if you qualify for financing. Always
-          consult with a qualified mortgage professional for personalized advice.</p>
+
+        <h3>Calculation Logic</h3>
+        <p>
+          The calculator first determines the loan amount (<em>home price − down payment</em>), then calculates the
+          monthly principal and interest using the standard mortgage formula. PMI is included if down payment is below
+          20%. Monthly property tax, insurance, and HOA dues are added to compute the total monthly payment. Finally,
+          the DTI is calculated as <em>monthly debts ÷ gross income × 100</em> and interpreted to provide qualification
+          insights.
+        </p>
+
+        <h2>Step-by-Step Guide to Using the Calculator</h2>
+
+        <h3>1. Enter Home Price</h3>
+        <p>
+          Input the total cost of your manufactured home. Accuracy is crucial for reliable results.
+        </p>
+
+        <h3>2. Enter Down Payment</h3>
+        <p>
+          Enter the down payment as a dollar amount or percentage. Larger down payments reduce loan amount, PMI, and
+          monthly payments.
+        </p>
+
+        <h3>3. Choose Loan Term & Interest Rate</h3>
+        <p>
+          Select the number of years for repayment and the interest rate (APR). Longer terms reduce monthly payment but
+          increase total interest.
+        </p>
+
+        <h3>4. Enter Property Tax, Insurance, and HOA Fees</h3>
+        <p>
+          Provide annual property tax, homeowners insurance, and monthly HOA dues to calculate total monthly costs.
+        </p>
+
+        <h3>5. Input Income and Monthly Debts</h3>
+        <p>
+          Enter gross monthly income and current monthly debts to calculate DTI, a key metric for loan qualification.
+        </p>
+
+        <h3>6. Click “Calculate Mortgage”</h3>
+        <p>
+          The calculator displays the total monthly payment, a breakdown of principal, interest, PMI, taxes, insurance,
+          HOA, and your DTI percentage with guidance.
+        </p>
+
+        <h2>Understanding Your Results</h2>
+
+        <h3>Monthly Payment Breakdown</h3>
+        <ul>
+          <li><strong>Principal & Interest:</strong> The core mortgage payment based on loan amount, term, and interest
+            rate.</li>
+          <li><strong>PMI:</strong> Required if down payment < 20%.</li>
+          <li><strong>Property Tax & Insurance:</strong> Divided into monthly contributions.</li>
+          <li><strong>HOA Dues:</strong> Monthly homeowner association fees.</li>
+          <li><strong>Total Payment:</strong> Sum of all components.</li>
+        </ul>
+
+        <h3>Debt-to-Income Ratio (DTI)</h3>
+        <p>
+          The DTI helps assess your ability to afford the mortgage. A DTI <36% is excellent, 36–43% is good, 43–50%
+            acceptable, and above 50% may require adjustments or reduce approval chances. </p>
+
+            <h3>Credit Score Impact</h3>
+            <p>
+              Higher credit scores may reduce interest rates and PMI requirements, resulting in lower monthly payments.
+            </p>
+
+            <h2>Example Scenarios</h2>
+
+            <h3>Example A – 100k Home, 20k Down, 30-Year Loan, 7.5% Interest</h3>
+            <p>
+              Loan Amount: $80,000<br>
+              Monthly PI: $559.46<br>
+              PMI: $0 (down ≥20%)<br>
+              Property Tax: $100/month<br>
+              Insurance: $66.67/month<br>
+              Total Monthly Payment: $725.13<br>
+              DTI: 25% → Excellent
+            </p>
+
+            <h3>Example B – 120k Home, 10% Down, 25-Year Loan, 8% Interest</h3>
+            <p>
+              Loan Amount: $108,000<br>
+              Monthly PI: $832.07<br>
+              PMI: $150/month<br>
+              Property Tax: $120/month<br>
+              Insurance: $75/month<br>
+              Total Monthly Payment: $1,177.07<br>
+              DTI: 40% → Good
+            </p>
+
+            <h2>Best Practices & Tips</h2>
+            <ul>
+              <li>Save for a larger down payment to reduce PMI and monthly payments.</li>
+              <li>Maintain low DTI to improve loan approval chances.</li>
+              <li>Improve credit score to qualify for better rates.</li>
+              <li>Compare loan types: chattel loans vs real estate loans.</li>
+              <li>Include property tax, insurance, and HOA in budgeting.</li>
+            </ul>
+
+            <h2>Frequently Asked Questions (FAQs)</h2>
+
+            <h3>What is PMI and why is it required?</h3>
+            <p>
+              Private Mortgage Insurance protects lenders if your down payment is less than 20%. It increases monthly
+              payments but can sometimes be removed later.
+            </p>
+
+            <h3>How does down payment affect monthly payment?</h3>
+            <p>
+              Higher down payment reduces loan amount, potentially eliminating PMI and lowering monthly payments.
+            </p>
+
+            <h3>What is a good DTI ratio?</h3>
+            <p>
+              Under 36% is ideal. Lenders may accept up to 50%, but lower is better for loan approval and financial
+              health.
+            </p>
+
+            <h3>Can I qualify with a low credit score?</h3>
+            <p>
+              Possibly, but interest rates may be higher. Improving credit score before applying can reduce costs.
+            </p>
+
+            <h3>Does loan term affect total interest?</h3>
+            <p>
+              Yes. Longer terms reduce monthly payments but increase total interest paid over the life of the loan.
+            </p>
+
+            <h3>Are property taxes and insurance included in the monthly payment?</h3>
+            <p>
+              Yes. Including them ensures accurate budgeting for total monthly housing costs.
+            </p>
+
+            <h3>Difference between chattel loan and real estate loan?</h3>
+            <p>
+              Chattel loans finance only the home (personal property) and often have higher rates. Real estate loans
+              include land + home and have lower rates.
+            </p>
+
+            <h2>Conclusion & Next Steps</h2>
+            <p>
+              Use the <strong>Manufactured Home Mortgage Calculator</strong> to estimate your monthly payments, assess
+              DTI, and plan your budget. Compare scenarios, adjust down payment or loan term, and consult a mortgage
+              professional to finalize financing. Proper planning ensures affordability and a smooth path to
+              homeownership.
+            </p>
+
       </article>
+
+
     </div>
 
     <aside class="right-sidebar">
@@ -532,98 +716,98 @@
 
   <script src="../js/calculator.js"></script>
   <script>
-function calculateMortgage() {
-    // Get input values and remove any dollar signs or non-numeric characters
-    const income = parseFloat(document.getElementById('income').value.replace(/[^0-9.]/g, '')) || 0;
-    const debts = parseFloat(document.getElementById('debts').value.replace(/[^0-9.]/g, '')) || 0;
-    const homePrice = parseFloat(document.getElementById('homePrice').value.replace(/[^0-9.]/g, '')) || 0;
-    let downPayment = parseFloat(document.getElementById('downPayment').value.replace(/[^0-9.]/g, '')) || 0;
-    const downType = document.getElementById('downType').value;
-    const interestRate = parseFloat(document.getElementById('interestRate').value) / 100 || 0;
-    const loanTerm = parseInt(document.getElementById('loanTerm').value) || 30;
-    const pmiYearly = parseFloat(document.getElementById('pmi').value.replace(/[^0-9.]/g, '')) || 0;
-    const hoa = parseFloat(document.getElementById('hoa').value.replace(/[^0-9.]/g, '')) || 0;
-    const propTax = parseFloat(document.getElementById('propTax').value.replace(/[^0-9.]/g, '')) || 0;
-    const insurance = parseFloat(document.getElementById('insurance').value.replace(/[^0-9.]/g, '')) || 0;
+    function calculateMortgage() {
+      // Get input values and remove any dollar signs or non-numeric characters
+      const income = parseFloat(document.getElementById('income').value.replace(/[^0-9.]/g, '')) || 0;
+      const debts = parseFloat(document.getElementById('debts').value.replace(/[^0-9.]/g, '')) || 0;
+      const homePrice = parseFloat(document.getElementById('homePrice').value.replace(/[^0-9.]/g, '')) || 0;
+      let downPayment = parseFloat(document.getElementById('downPayment').value.replace(/[^0-9.]/g, '')) || 0;
+      const downType = document.getElementById('downType').value;
+      const interestRate = parseFloat(document.getElementById('interestRate').value) / 100 || 0;
+      const loanTerm = parseInt(document.getElementById('loanTerm').value) || 30;
+      const pmiYearly = parseFloat(document.getElementById('pmi').value.replace(/[^0-9.]/g, '')) || 0;
+      const hoa = parseFloat(document.getElementById('hoa').value.replace(/[^0-9.]/g, '')) || 0;
+      const propTax = parseFloat(document.getElementById('propTax').value.replace(/[^0-9.]/g, '')) || 0;
+      const insurance = parseFloat(document.getElementById('insurance').value.replace(/[^0-9.]/g, '')) || 0;
 
-    // Validate homePrice (only this field is mandatory)
-    if (homePrice <= 0) {
+      // Validate homePrice (only this field is mandatory)
+      if (homePrice <= 0) {
         alert('Please enter a valid value for home price.');
         return;
-    }
+      }
 
-    // Convert percentage down payment to dollar amount
-    if (downType === '%') {
+      // Convert percentage down payment to dollar amount
+      if (downType === '%') {
         downPayment = (downPayment / 100) * homePrice;
-    }
+      }
 
-    // Calculate loan amount
-    const loanAmount = homePrice - downPayment;
+      // Calculate loan amount
+      const loanAmount = homePrice - downPayment;
 
-    if (loanAmount <= 0) {
+      if (loanAmount <= 0) {
         alert('Down payment cannot be greater than or equal to home price.');
         return;
-    }
+      }
 
-    // Monthly interest rate
-    const monthlyRate = interestRate / 12;
-    const totalPayments = loanTerm * 12;
+      // Monthly interest rate
+      const monthlyRate = interestRate / 12;
+      const totalPayments = loanTerm * 12;
 
-    // Calculate monthly principal and interest
-    let monthlyPI = 0;
-    if (monthlyRate > 0) {
+      // Calculate monthly principal and interest
+      let monthlyPI = 0;
+      if (monthlyRate > 0) {
         monthlyPI = (loanAmount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -totalPayments));
-    } else {
+      } else {
         monthlyPI = loanAmount / totalPayments;
-    }
+      }
 
-    // Calculate PMI (only if down payment is less than 20%)
-    const downPaymentPercentage = downPayment / homePrice;
-    const monthlyPMI = (downPaymentPercentage < 0.2) ? (pmiYearly / 12) : 0;
+      // Calculate PMI (only if down payment is less than 20%)
+      const downPaymentPercentage = downPayment / homePrice;
+      const monthlyPMI = (downPaymentPercentage < 0.2) ? (pmiYearly / 12) : 0;
 
-    // Calculate monthly property tax and insurance
-    const monthlyPropTax = propTax / 12;
-    const monthlyInsurance = insurance / 12;
+      // Calculate monthly property tax and insurance
+      const monthlyPropTax = propTax / 12;
+      const monthlyInsurance = insurance / 12;
 
-    // Calculate total monthly payment (excluding the "debts")
-    const totalMonthly = monthlyPI + monthlyPMI + monthlyPropTax + monthlyInsurance + hoa;
+      // Calculate total monthly payment (excluding the "debts")
+      const totalMonthly = monthlyPI + monthlyPMI + monthlyPropTax + monthlyInsurance + hoa;
 
-    // Calculate debt-to-income ratio (DTI) **only using debts and income**
-    let dti = 0;
-    let dtiMessage = '';
-    if (income > 0 && debts > 0) {
+      // Calculate debt-to-income ratio (DTI) **only using debts and income**
+      let dti = 0;
+      let dtiMessage = '';
+      if (income > 0 && debts > 0) {
         // Use only the user's debts, not totalMonthly
         const totalDebt = debts;
         dti = (totalDebt / income) * 100;
 
         // DTI calculation message
         const dtiStatus = dti <= 36 ? 'excellent' : (dti <= 43 ? 'good' : (dti <= 50 ? 'acceptable' : 'high'));
-        dtiMessage = `Your debt-to-income ratio is <strong>${dti.toFixed(2)}%</strong>, which is considered ${dtiStatus}. ` + 
-                    (dti > 50 ? 'You may need to reduce debt or increase income to qualify for most loan programs.' : 
-                    dti > 43 ? 'You should qualify for most loan programs, but shop around for the best rates.' :
-                    'You have excellent qualifying ratios for most loan programs.');
-    } else {
+        dtiMessage = `Your debt-to-income ratio is <strong>${dti.toFixed(2)}%</strong>, which is considered ${dtiStatus}. ` +
+          (dti > 50 ? 'You may need to reduce debt or increase income to qualify for most loan programs.' :
+            dti > 43 ? 'You should qualify for most loan programs, but shop around for the best rates.' :
+              'You have excellent qualifying ratios for most loan programs.');
+      } else {
         // If DTI fields are not provided, add message to results
         dtiMessage = 'To calculate the Debt-to-Income ratio, please enter both your monthly income and monthly debts.';
-    }
+      }
 
-    // Display results
-    const resultDiv = document.getElementById('result');
-    resultDiv.style.display = 'block';
-    resultDiv.className = 'result animate-result';
+      // Display results
+      const resultDiv = document.getElementById('result');
+      resultDiv.style.display = 'block';
+      resultDiv.className = 'result animate-result';
 
-    document.getElementById('monthlyPayment').textContent = '$' + totalMonthly.toFixed(2);
+      document.getElementById('monthlyPayment').textContent = '$' + totalMonthly.toFixed(2);
 
-    // Show DTI section
-    const dtiSection = document.getElementById('dti-info');
-    dtiSection.style.display = 'block';
-    document.getElementById('dtiRatio').textContent = dti > 0 ? dti.toFixed(2) + '%' : 'N/A';
+      // Show DTI section
+      const dtiSection = document.getElementById('dti-info');
+      dtiSection.style.display = 'block';
+      document.getElementById('dtiRatio').textContent = dti > 0 ? dti.toFixed(2) + '%' : 'N/A';
 
-    // Show summary section
-    const summarySection = document.getElementById('summary-section');
-    summarySection.style.display = 'block';
+      // Show summary section
+      const summarySection = document.getElementById('summary-section');
+      summarySection.style.display = 'block';
 
-    document.getElementById('summaryText').innerHTML = `
+      document.getElementById('summaryText').innerHTML = `
         <strong>Monthly Payment Breakdown:</strong><br>
         • Principal & Interest: $${monthlyPI.toFixed(2)}<br>
         • Property Tax: $${monthlyPropTax.toFixed(2)}<br>
@@ -634,7 +818,7 @@ function calculateMortgage() {
         <strong>Total Monthly Payment: $${totalMonthly.toFixed(2)}</strong><br><br>
         ${dtiMessage}
     `;
-}
+    }
 
 
 

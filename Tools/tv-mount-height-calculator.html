@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Find the perfect TV wall mount height! Calculate optimal viewing angle based on TV size, room layout & seating position. Easy tool!">
+    <meta name="description"
+        content="Find the perfect TV wall mount height! Calculate optimal viewing angle based on TV size, room layout & seating position. Easy tool!">
     <title>TV Wall Mount Height Calculator</title>
     <script type="application/ld+json">
     {
@@ -52,13 +53,20 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
             animation: shimmer 3s ease-in-out infinite;
         }
 
         @keyframes shimmer {
-            0%, 100% { transform: rotate(0deg); }
-            50% { transform: rotate(180deg); }
+
+            0%,
+            100% {
+                transform: rotate(0deg);
+            }
+
+            50% {
+                transform: rotate(180deg);
+            }
         }
 
         #result h3 {
@@ -66,7 +74,7 @@
             font-size: 1.8rem;
             font-weight: 600;
             margin-bottom: 1.5rem;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
             position: relative;
             z-index: 1;
         }
@@ -77,7 +85,7 @@
             font-weight: 800;
             color: #ffffff;
             margin-bottom: 1rem;
-            text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             position: relative;
             z-index: 1;
             background: linear-gradient(45deg, #ffd700, #ffed4e);
@@ -92,7 +100,7 @@
             color: #f0f0f0;
             margin-top: 1rem;
             font-weight: 500;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             position: relative;
             z-index: 1;
         }
@@ -112,7 +120,7 @@
             font-size: 1.4rem;
             font-weight: 600;
             margin-bottom: 1rem;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .tv-mount-visual {
@@ -141,7 +149,7 @@
             background: linear-gradient(45deg, #2c3e50, #34495e);
             border: 2px solid #1a252f;
             border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
         .eye-level-line {
@@ -192,14 +200,14 @@
             margin-bottom: 1rem;
             padding: 1rem 1.5rem;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             border-left: 4px solid #ff6b35;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .recommendation-item:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
 
         .recommendation-item p {
@@ -244,7 +252,7 @@
             padding: 1rem;
             border-radius: 10px;
             text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         .layout-icon {
@@ -278,7 +286,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             transition: left 0.5s;
         }
 
@@ -309,7 +317,8 @@
             font-size: 1.1rem;
         }
 
-        .input-group input, .input-group select {
+        .input-group input,
+        .input-group select {
             width: 100%;
             padding: 1.2rem;
             border: 2px solid #e0e6ed;
@@ -317,10 +326,11 @@
             font-size: 1.1rem;
             background: #f8f9fa;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
-        .input-group input:focus, .input-group select:focus {
+        .input-group input:focus,
+        .input-group select:focus {
             outline: none;
             border-color: #667eea;
             background-color: #ffffff;
@@ -341,7 +351,7 @@
             background: #f8f9fa;
             border-radius: 12px;
             padding: 0.5rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .scenario-tab {
@@ -372,13 +382,16 @@
                 opacity: 0;
                 transform: scale(0.3);
             }
+
             50% {
                 opacity: 1;
                 transform: scale(1.05);
             }
+
             70% {
                 transform: scale(0.9);
             }
+
             100% {
                 opacity: 1;
                 transform: scale(1);
@@ -618,25 +631,264 @@
             </main>
 
             <article class="calculator-article">
-                <h2>Understanding TV Wall Mount Height</h2>
-                <p>Proper TV mounting height is crucial for comfortable viewing and preventing neck strain. The ideal height depends on several factors including your seating position, TV size, and room layout.</p>
 
-                <h3>Key Factors to Consider:</h3>
+                <h2>TV Wall Mount Height Calculator – Accurate, Ergonomic & Safe</h2>
+                <p>
+                    Mounting your TV at the right height can transform your viewing experience.
+                    The <strong>TV Wall Mount Height Calculator</strong> takes the guesswork out of
+                    installation by factoring in <em>TV size, viewing distance, eye level height,
+                        ceiling height, mount type, and tilt angle</em>. With built-in presets for
+                    <strong>Living Room</strong>, <strong>Bedroom</strong>, and <strong>Custom</strong>
+                    scenarios, this tool helps homeowners, renters, and installers find the optimal
+                    placement for comfort, safety, and aesthetics.
+                </p>
+
+                <h2>Why TV Wall Mount Height Matters</h2>
+                <h3>Comfort and Ergonomics</h3>
+                <p>
+                    Ergonomics is the most critical factor when mounting a TV. A screen that is mounted
+                    too high forces viewers to look up, which can cause <strong>neck strain, back discomfort,
+                        and eye fatigue</strong>. The calculator ensures that your TV’s center aligns with
+                    your <strong>seated eye level</strong>, adjusting for distance and tilt angle.
+                </p>
+
+                <h3>Room Aesthetics and Balance</h3>
+                <p>
+                    TVs are often the focal point of modern living rooms and bedrooms. Incorrect mounting
+                    height can disrupt <em>room balance, furniture alignment, and décor</em>. By factoring
+                    in <strong>ceiling height, furniture clearance, and fireplace mantels</strong>, the tool
+                    ensures your TV looks naturally integrated into the space.
+                </p>
+
+                <h3>Safety and Practical Constraints</h3>
+                <p>
+                    A TV that is mounted too low risks collisions with furniture, while one too high
+                    may compromise mount stability. The calculator enforces <strong>minimum 12 inches clearance
+                        from the floor</strong> and <strong>6 inches from the ceiling</strong>, ensuring safety,
+                    ventilation, and structural integrity.
+                </p>
+
+                <h2>How the Calculator Works (Inputs & Logic)</h2>
+                <h3>Inputs You’ll Provide</h3>
                 <ul>
-                    <li><strong>Eye Level Alignment:</strong> The center of your TV screen should be at or slightly below eye level when seated</li>
-                    <li><strong>Viewing Distance:</strong> Larger TVs can be mounted slightly higher due to increased viewing distance</li>
-                    <li><strong>Room Function:</strong> Living rooms, bedrooms, and kitchens have different optimal heights</li>
-                    <li><strong>Mount Type:</strong> Tilting mounts allow for higher placement with downward angle adjustment</li>
+                    <li><strong>TV Size:</strong> diagonal measurement in inches (20–100").</li>
+                    <li><strong>Viewing Distance:</strong> seating-to-wall distance in feet (3–20 ft).</li>
+                    <li><strong>Eye Level Height:</strong> seated eye height in inches (30–60").</li>
+                    <li><strong>Ceiling Height:</strong> room height in feet (7–15 ft).</li>
+                    <li><strong>Mount Type:</strong> fixed, tilting, or full-motion.</li>
+                    <li><strong>Tilt Angle:</strong> 0–15° downward tilt (if applicable).</li>
                 </ul>
 
-                <h3>Professional Installation Tips:</h3>
+                <h3>Presets for Common Scenarios</h3>
+                <p>
+                    To make setup easier, the calculator includes <strong>scenario presets</strong>:
                 <ul>
-                    <li>Always locate wall studs for secure mounting</li>
-                    <li>Consider cable routing and power outlet placement</li>
-                    <li>Leave adequate ventilation space around the TV</li>
-                    <li>Test the height with tape on the wall before drilling</li>
+                    <li><strong>Living Room:</strong> assumes ~42" eye level and 8–10 ft viewing distance.</li>
+                    <li><strong>Bedroom:</strong> assumes higher eye level (~45–48") and reclining positions.</li>
+                    <li><strong>Custom:</strong> lets you enter all values manually.</li>
                 </ul>
+                </p>
+
+                <h3>Calculation Logic</h3>
+                <p>
+                    The calculator starts with your <strong>eye level</strong> as the baseline.
+                    It then applies adjustments for:
+                </p>
+                <ul>
+                    <li><strong>TV size and distance:</strong> Larger TVs, viewed from farther away, can be mounted
+                        slightly higher.</li>
+                    <li><strong>Room type:</strong> Bedroom scenarios lower the screen by ~3 inches for reclined
+                        viewing.</li>
+                    <li><strong>Mount type:</strong> Tilt and full-motion mounts allow higher placements with a downward
+                        angle.</li>
+                    <li><strong>Clearance checks:</strong> Ensures TV is not too close to ceiling or floor.</li>
+                </ul>
+                <p>
+                    The result is displayed as the <strong>optimal mounting height (in inches from floor to TV
+                        center)</strong>.
+                    Additional outputs include <strong>viewing angle, ergonomic rating (Perfect, Good, Too
+                        High)</strong>,
+                    visualization, and tailored recommendations.
+                </p>
+
+                <h2>Step-by-Step Guide to Using the Calculator</h2>
+                <h3>1. Measure Your Seated Eye Height</h3>
+                <p>
+                    Sit in your usual position and measure from the floor to the center of your eyes.
+                    The average adult’s seated eye level is around <strong>40–42 inches</strong>.
+                </p>
+
+                <h3>2. Determine Viewing Distance</h3>
+                <p>
+                    Measure from your seating to the wall. General rules:
+                    - For a 55" TV, sit 7–9 ft away.
+                    - For a 65" TV, sit 9–11 ft away.
+                    - For a 75" TV, sit 10–12 ft away.
+                    The calculator adjusts height based on distance.
+                </p>
+
+                <h3>3. Enter TV Size and Ceiling Height</h3>
+                <p>
+                    Input your TV’s diagonal size. The calculator derives its <strong>screen height and width</strong>.
+                    Ceiling height ensures enough clearance above and below the TV for safe placement.
+                </p>
+
+                <h3>4. Select Mount Type and Tilt Angle</h3>
+                <p>
+                    If using a tilting or full-motion mount, add tilt angle (0–15°).
+                    A tilt of <strong>10–15° downward</strong> compensates for higher placements (e.g., over a
+                    fireplace).
+                </p>
+
+                <h3>5. Review Results and Recommendations</h3>
+                <p>
+                    The tool provides:
+                    - <strong>Height from floor</strong> to TV center
+                    - <strong>Viewing angle rating</strong>
+                    - <strong>Diagram preview</strong>
+                    - <strong>Recommendations</strong> for ergonomics, glare, mount type, and room layout
+                </p>
+
+                <h2>Real-World Examples & Sample Calculations</h2>
+                <h3>Example A: 55-Inch TV, Living Room Sofa</h3>
+                <p>
+                    Inputs: 55" TV, 8 ft distance, 42" eye level, 9 ft ceiling.
+                    Output: Mount center ~43" from floor.
+                    Result: Perfect ergonomic angle.
+                </p>
+
+                <h3>Example B: 65-Inch TV, Bedroom Recliner</h3>
+                <p>
+                    Inputs: 65" TV, 10 ft distance, 46" eye level, 8 ft ceiling, tilt mount.
+                    Output: Mount center ~48". Tilt 10° downward.
+                    Result: Comfortable reclined viewing.
+                </p>
+
+                <h3>Example C: 75-Inch TV, Over Fireplace</h3>
+                <p>
+                    Inputs: 75" TV, 11 ft distance, 42" eye level, mantel height 52", tilt mount.
+                    Output: Mount center ~60". Tilt 12° downward.
+                    Result: Acceptable, though slightly above ergonomic range.
+                </p>
+
+                <h3>Example D: Small Room with Low Ceiling</h3>
+                <p>
+                    Inputs: 50" TV, 7 ft ceiling, 40" eye level.
+                    Output: Mount center ~38".
+                    Result: Adjusted downward to avoid ceiling clash.
+                </p>
+
+                <h3>Example E: Open-Plan Living Room with Multiple Seats</h3>
+                <p>
+                    Inputs: 65" TV, seats at 8–12 ft, average eye level 41".
+                    Output: Mount center ~44".
+                    Result: Balanced placement for all seats.
+                </p>
+
+                <h2>Best Practices for TV Mounting</h2>
+                <h3>Eye-Level Alignment</h3>
+                <p>
+                    The <strong>center of the screen</strong> should be at or slightly below eye height.
+                    For most living rooms, this means <strong>42–48 inches from floor</strong>.
+                </p>
+
+                <h3>Multiple Seating Positions</h3>
+                <p>
+                    In shared spaces, aim for average eye level or use an articulating mount to serve multiple seats.
+                </p>
+
+                <h3>Mount Types and Comfort</h3>
+                <ul>
+                    <li><strong>Fixed:</strong> Affordable, stable, best when eye level and TV align.</li>
+                    <li><strong>Tilt:</strong> Allows mounting 10–15" higher with downward angle.</li>
+                    <li><strong>Full-Motion:</strong> Ideal for large or open rooms; offers maximum flexibility.</li>
+                </ul>
+
+                <h3>Furniture and Lighting Considerations</h3>
+                <p>
+                    Maintain <strong>6–12 inches clearance</strong> above furniture.
+                    Avoid glare by checking windows and ceiling lights.
+                </p>
+
+                <h2>Comparing Wall Mount Types</h2>
+                <h3>Fixed Mounts</h3>
+                <p>Simple, secure, and affordable. Ideal for direct-on seating positions.</p>
+
+                <h3>Tilt Mounts</h3>
+                <p>Recommended for high placements (e.g., fireplaces). Supports 10–15° tilt.</p>
+
+                <h3>Full-Motion Mounts</h3>
+                <p>Flexible: swivel, extend, and tilt. Best for multi-seat or dynamic rooms.</p>
+
+                <h3>Trade-Offs</h3>
+                <p>
+                    Tilt and full-motion mounts cost more and require careful installation.
+                    Fixed mounts are cheaper but less adaptable.
+                </p>
+
+                <h2>Frequently Asked Questions</h2>
+                <h3>How high should a 65-inch TV be mounted?</h3>
+                <p>Typically 42–48 inches from floor to center in a living room.</p>
+
+                <h3>Can I mount a TV above a fireplace?</h3>
+                <p>Yes, but use a tilt mount (10–15°). Expect center height ~60 inches or higher.</p>
+
+                <h3>What tilt angle is best?</h3>
+                <p>10–15° is optimal. Over 20° may cause image distortion and discomfort.</p>
+
+                <h3>What if my sofa is lower or higher than average?</h3>
+                <p>Measure your own eye level and enter it into the calculator for accuracy.</p>
+
+                <h3>How much clearance should I leave above furniture?</h3>
+                <p>6–12 inches minimum between furniture top and TV bottom.</p>
+
+                <h3>Why does the calculator ask for ceiling height?</h3>
+                <p>To ensure safe clearance. It prevents placing the TV too close to ceiling or floor.</p>
+
+                <h3>Can I use the tool for very large TVs (75–85")?</h3>
+                <p>Yes. Larger TVs often require slightly higher placement to maintain comfortable viewing angles.</p>
+
+                <h3>Should I measure to the bottom or center of the screen?</h3>
+                <p>Always measure to the <strong>center of the screen</strong> for consistent ergonomics.</p>
+
+                <h3>Does room type affect height?</h3>
+                <p>Yes. Bedrooms and recliners typically need lower placements than living rooms.</p>
+
+                <h3>How can I avoid glare and reflections?</h3>
+                <p>Use curtains, anti-glare coatings, and mounts with tilt/swivel to adjust angles.</p>
+
+                <h2>Installation & Practical Tips</h2>
+                <ul>
+                    <li>Always locate wall studs for secure mounting.</li>
+                    <li>Plan cable routing and outlet access before drilling.</li>
+                    <li>Leave at least 2 inches clearance for ventilation.</li>
+                    <li>Test placement with painter’s tape on the wall before drilling holes.</li>
+                    <li>Account for soundbars or consoles that may sit below the TV.</li>
+                </ul>
+
+                <h2>Conclusion & Next Steps</h2>
+                <p>
+                    The <strong>TV Wall Mount Height Calculator</strong> ensures your TV is mounted at the
+                    perfect height for comfort, aesthetics, and safety. Enter your TV size, viewing distance,
+                    eye level, ceiling height, and mount type to receive precise recommendations and visual guidance.
+                </p>
+                <p>
+                    <em>Quick Checklist:</em>
+                    - Measure seated eye level
+                    - Enter TV size and room dimensions
+                    - Select mount type and tilt angle
+                    - Review results and visualization
+                    - Confirm clearance before drilling
+                </p>
+                <p>
+                    Mount with confidence knowing your setup is backed by ergonomic science
+                    and tailored calculations.
+                </p>
+
             </article>
+
+
+
         </div>
 
         <aside class="right-sidebar">
@@ -656,30 +908,30 @@
     <footer>
         <div class="footer-content">
 
-<div class="footer-section">
-          <h3>About Calculator Tools</h3>
-          <p>Your trusted source for online calculation tools</p>
-        </div>
-        <div class="footer-section">
-          <h3>Quick Links</h3>
-          <ul>
-            <li><a href="../index.html#tools">Tools</a></li>
-            <li><a href="../about.html">About</a></li>
-            <li><a href="../contact.html">Contact</a></li>
-            <li><a href="../privacy-policy.html">Privacy Policy</a></li>
-            <li><a href="../terms-of-service.html">Terms of Service</a></li>
-            <li><a href="../disclaimer.html">Disclaimer</a></li>
-          </ul>
-        </div>
-        <div class="footer-section">
-          <h3>Contact Us</h3>
-          <p>Email: info@freecalculator.com</p>
-          <div class="social-links">
-            <a href="#"><i class="fab fa-facebook"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-linkedin"></i></a>
-          </div>
-        </div>
+            <div class="footer-section">
+                <h3>About Calculator Tools</h3>
+                <p>Your trusted source for online calculation tools</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="../index.html#tools">Tools</a></li>
+                    <li><a href="../about.html">About</a></li>
+                    <li><a href="../contact.html">Contact</a></li>
+                    <li><a href="../privacy-policy.html">Privacy Policy</a></li>
+                    <li><a href="../terms-of-service.html">Terms of Service</a></li>
+                    <li><a href="../disclaimer.html">Disclaimer</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@freecalculator.com</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
 
         </div>
         <div class="footer-bottom">
@@ -689,233 +941,233 @@
 
     <script src="../js/calculator.js"></script>
     <script>
- let currentScenario = 'living';
+        let currentScenario = 'living';
 
-function setScenario(scenario) {
-    currentScenario = scenario;
+        function setScenario(scenario) {
+            currentScenario = scenario;
 
-    // Update tab appearance
-    document.querySelectorAll('.scenario-tab').forEach(tab => {
-        tab.classList.remove('active');
-    });
-    event.target.classList.add('active');
+            // Update tab appearance
+            document.querySelectorAll('.scenario-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
 
-    // Set default values based on scenario
-    const defaults = {
-        living: { eyeHeight: 42, viewingDistance: 8, ceilingHeight: 9 },
-        bedroom: { eyeHeight: 36, viewingDistance: 6, ceilingHeight: 8.5 },
-        custom: { eyeHeight: 42, viewingDistance: 8, ceilingHeight: 9 }
-    };
+            // Set default values based on scenario
+            const defaults = {
+                living: { eyeHeight: 42, viewingDistance: 8, ceilingHeight: 9 },
+                bedroom: { eyeHeight: 36, viewingDistance: 6, ceilingHeight: 8.5 },
+                custom: { eyeHeight: 42, viewingDistance: 8, ceilingHeight: 9 }
+            };
 
-    if (scenario !== 'custom') {
-        document.getElementById('eyeHeight').value = defaults[scenario].eyeHeight;
-        document.getElementById('viewingDistance').value = defaults[scenario].viewingDistance;
-        document.getElementById('ceilingHeight').value = defaults[scenario].ceilingHeight;
-    }
-}
+            if (scenario !== 'custom') {
+                document.getElementById('eyeHeight').value = defaults[scenario].eyeHeight;
+                document.getElementById('viewingDistance').value = defaults[scenario].viewingDistance;
+                document.getElementById('ceilingHeight').value = defaults[scenario].ceilingHeight;
+            }
+        }
 
-// Show/hide tilt options based on mount type
-document.getElementById('mountType').addEventListener('change', function () {
-    const tiltOptions = document.getElementById('tiltOptions');
-    if (this.value === 'tilt' || this.value === 'full-motion') {
-        tiltOptions.style.display = 'block';
-    } else {
-        tiltOptions.style.display = 'none';
-    }
-});
+        // Show/hide tilt options based on mount type
+        document.getElementById('mountType').addEventListener('change', function () {
+            const tiltOptions = document.getElementById('tiltOptions');
+            if (this.value === 'tilt' || this.value === 'full-motion') {
+                tiltOptions.style.display = 'block';
+            } else {
+                tiltOptions.style.display = 'none';
+            }
+        });
 
-function calculateTVMount() {
-    // Get input values
-    const tvSize = parseFloat(document.getElementById('tvSize').value);
-    const viewingDistance = parseFloat(document.getElementById('viewingDistance').value);
-    const eyeHeight = parseFloat(document.getElementById('eyeHeight').value);
-    const ceilingHeight = parseFloat(document.getElementById('ceilingHeight').value);
-    const mountType = document.getElementById('mountType').value;
-    const tiltAngle = parseFloat(document.getElementById('tiltAngle').value) || 0;
+        function calculateTVMount() {
+            // Get input values
+            const tvSize = parseFloat(document.getElementById('tvSize').value);
+            const viewingDistance = parseFloat(document.getElementById('viewingDistance').value);
+            const eyeHeight = parseFloat(document.getElementById('eyeHeight').value);
+            const ceilingHeight = parseFloat(document.getElementById('ceilingHeight').value);
+            const mountType = document.getElementById('mountType').value;
+            const tiltAngle = parseFloat(document.getElementById('tiltAngle').value) || 0;
 
-    // Input validation
-    if (!tvSize || !viewingDistance || !eyeHeight || !ceilingHeight) {
-        showError("Please fill in all required fields to calculate the optimal mount height.");
-        return;
-    }
+            // Input validation
+            if (!tvSize || !viewingDistance || !eyeHeight || !ceilingHeight) {
+                showError("Please fill in all required fields to calculate the optimal mount height.");
+                return;
+            }
 
-    if (tvSize < 20 || tvSize > 100) {
-        showError("Please enter a TV size between 20 and 100 inches.");
-        return;
-    }
+            if (tvSize < 20 || tvSize > 100) {
+                showError("Please enter a TV size between 20 and 100 inches.");
+                return;
+            }
 
-    // Calculate TV dimensions
-    const tvHeight = tvSize * 0.49; // 16:9 aspect ratio height
-    const tvWidth = tvSize * 0.87; // 16:9 aspect ratio width
+            // Calculate TV dimensions
+            const tvHeight = tvSize * 0.49; // 16:9 aspect ratio height
+            const tvWidth = tvSize * 0.87; // 16:9 aspect ratio width
 
-    // Base calculation: Center of TV at eye level
-    let optimalHeight = eyeHeight;
+            // Base calculation: Center of TV at eye level
+            let optimalHeight = eyeHeight;
 
-    // Adjust for TV size and viewing distance
-    const distanceFactor = Math.max(0.8, Math.min(1.2, viewingDistance / 8));
-    optimalHeight += (tvSize - 50) * 0.1 * distanceFactor;
+            // Adjust for TV size and viewing distance
+            const distanceFactor = Math.max(0.8, Math.min(1.2, viewingDistance / 8));
+            optimalHeight += (tvSize - 50) * 0.1 * distanceFactor;
 
-    // Adjust for room scenario
-    const scenarioAdjustments = {
-        living: 0,
-        bedroom: -3, // Slightly lower for bed viewing
-        custom: 0
-    };
-    optimalHeight += scenarioAdjustments[currentScenario];
+            // Adjust for room scenario
+            const scenarioAdjustments = {
+                living: 0,
+                bedroom: -3, // Slightly lower for bed viewing
+                custom: 0
+            };
+            optimalHeight += scenarioAdjustments[currentScenario];
 
-    // Adjust for mount type and tilt
-    if (mountType === 'tilt' && tiltAngle > 0) {
-        optimalHeight += tiltAngle * 0.8; // Allow higher mounting with tilt
-    } else if (mountType === 'full-motion') {
-        optimalHeight += 2; // Slightly higher for flexibility
-    }
+            // Adjust for mount type and tilt
+            if (mountType === 'tilt' && tiltAngle > 0) {
+                optimalHeight += tiltAngle * 0.8; // Allow higher mounting with tilt
+            } else if (mountType === 'full-motion') {
+                optimalHeight += 2; // Slightly higher for flexibility
+            }
 
-    // Ensure TV fits within ceiling constraints
-    const maxHeight = (ceilingHeight * 12) - (tvHeight / 2) - 6; // 6 inches from ceiling
-    const minHeight = tvHeight / 2 + 12; // At least 12 inches from floor
+            // Ensure TV fits within ceiling constraints
+            const maxHeight = (ceilingHeight * 12) - (tvHeight / 2) - 6; // 6 inches from ceiling
+            const minHeight = tvHeight / 2 + 12; // At least 12 inches from floor
 
-    optimalHeight = Math.max(minHeight, Math.min(maxHeight, optimalHeight));
+            optimalHeight = Math.max(minHeight, Math.min(maxHeight, optimalHeight));
 
-    // Calculate viewing angle
-    const viewingAngle = Math.abs(Math.atan((optimalHeight - eyeHeight) / (viewingDistance * 12)) * 180 / Math.PI);
+            // Calculate viewing angle
+            const viewingAngle = Math.abs(Math.atan((optimalHeight - eyeHeight) / (viewingDistance * 12)) * 180 / Math.PI);
 
-    // Determine if height is optimal
-    let advice = '';
-    let resultClass = '';
+            // Determine if height is optimal
+            let advice = '';
+            let resultClass = '';
 
-    if (viewingAngle <= 10) {
-        advice = `🎯 Perfect! This height provides optimal viewing comfort with minimal neck strain.`;
-        resultClass = 'result animate-result';
-    } else if (viewingAngle <= 15) {
-        advice = `✅ Good positioning. Slight upward viewing angle is comfortable for most people.`;
-        resultClass = 'result animate-result';
-    } else {
-        advice = `⚠️ Consider lowering if possible. High viewing angles may cause neck strain during long viewing sessions.`;
-        resultClass = 'result animate-result';
-    }
+            if (viewingAngle <= 10) {
+                advice = `🎯 Perfect! This height provides optimal viewing comfort with minimal neck strain.`;
+                resultClass = 'result animate-result';
+            } else if (viewingAngle <= 15) {
+                advice = `✅ Good positioning. Slight upward viewing angle is comfortable for most people.`;
+                resultClass = 'result animate-result';
+            } else {
+                advice = `⚠️ Consider lowering if possible. High viewing angles may cause neck strain during long viewing sessions.`;
+                resultClass = 'result animate-result';
+            }
 
-    // Update main result
-    const resultDiv = document.getElementById('result');
-    resultDiv.style.display = 'block';
-    resultDiv.className = resultClass;
+            // Update main result
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            resultDiv.className = resultClass;
 
-    document.getElementById('mountHeight').textContent = `${Math.round(optimalHeight)} inches`;
-    document.getElementById('mountAdvice').textContent = advice;
+            document.getElementById('mountHeight').textContent = `${Math.round(optimalHeight)} inches`;
+            document.getElementById('mountAdvice').textContent = advice;
 
-    // Update visualization
-    updateVisualization(optimalHeight, eyeHeight, tvHeight, viewingAngle);
+            // Update visualization
+            updateVisualization(optimalHeight, eyeHeight, tvHeight, viewingAngle);
 
-    // Show additional sections
-    showRecommendations(tvSize, viewingDistance, viewingAngle, mountType, optimalHeight, eyeHeight);
-    showRoomLayout(tvSize, viewingDistance, currentScenario);
+            // Show additional sections
+            showRecommendations(tvSize, viewingDistance, viewingAngle, mountType, optimalHeight, eyeHeight);
+            showRoomLayout(tvSize, viewingDistance, currentScenario);
 
-    document.getElementById('tv-visual').style.display = 'block';
-    document.getElementById('additional-recommendations').style.display = 'block';
-    document.getElementById('room-layout').style.display = 'block';
-}
+            document.getElementById('tv-visual').style.display = 'block';
+            document.getElementById('additional-recommendations').style.display = 'block';
+            document.getElementById('room-layout').style.display = 'block';
+        }
 
-// Visualization updates
-function updateVisualization(optimalHeight, eyeHeight, tvHeight, viewingAngle) {
-    const tvPosition = document.getElementById('tv-position');
-    const eyeLevelIndicator = document.getElementById('eye-level-indicator');
-    const angleDisplay = document.getElementById('angle-display');
-    const visualDescription = document.getElementById('visual-description');
+        // Visualization updates
+        function updateVisualization(optimalHeight, eyeHeight, tvHeight, viewingAngle) {
+            const tvPosition = document.getElementById('tv-position');
+            const eyeLevelIndicator = document.getElementById('eye-level-indicator');
+            const angleDisplay = document.getElementById('angle-display');
+            const visualDescription = document.getElementById('visual-description');
 
-    // Update the TV position based on the calculated height
-    tvPosition.style.height = `${tvHeight}px`;
-    tvPosition.style.bottom = `${optimalHeight}px`;
+            // Update the TV position based on the calculated height
+            tvPosition.style.height = `${tvHeight}px`;
+            tvPosition.style.bottom = `${optimalHeight}px`;
 
-    // Update the eye level position
-    eyeLevelIndicator.style.height = `${eyeHeight}px`;
+            // Update the eye level position
+            eyeLevelIndicator.style.height = `${eyeHeight}px`;
 
-    // Update viewing angle text
-    angleDisplay.textContent = `${Math.round(viewingAngle)}°`;
+            // Update viewing angle text
+            angleDisplay.textContent = `${Math.round(viewingAngle)}°`;
 
-    // Visual description
-    visualDescription.textContent = `🔍 At this height, the TV's viewing angle is ${Math.round(viewingAngle)}°, making it ideal for comfortable viewing.`;
-}
+            // Visual description
+            visualDescription.textContent = `🔍 At this height, the TV's viewing angle is ${Math.round(viewingAngle)}°, making it ideal for comfortable viewing.`;
+        }
 
-// Show recommendations based on input data
-function showRecommendations(tvSize, viewingDistance, viewingAngle, mountType, optimalHeight, eyeHeight) {
-    // Ergonomics advice
-    const ergonomicAdvice = document.getElementById('ergonomicAdvice');
-    if (viewingAngle > 15) {
-        ergonomicAdvice.textContent = "💡 Consider lowering the TV slightly to reduce neck strain.";
-    } else{
-        ergonomicAdvice.textContent = "✅ This height should be comfortable for most users.";
-    }
+        // Show recommendations based on input data
+        function showRecommendations(tvSize, viewingDistance, viewingAngle, mountType, optimalHeight, eyeHeight) {
+            // Ergonomics advice
+            const ergonomicAdvice = document.getElementById('ergonomicAdvice');
+            if (viewingAngle > 15) {
+                ergonomicAdvice.textContent = "💡 Consider lowering the TV slightly to reduce neck strain.";
+            } else {
+                ergonomicAdvice.textContent = "✅ This height should be comfortable for most users.";
+            }
 
-    // Viewing angle advice
-    const viewingAngleAdvice = document.getElementById('viewingAngleAdvice');
-    if (viewingAngle > 10) {
-        viewingAngleAdvice.textContent = "📏 A smaller viewing angle is better for comfort. Try adjusting the height.";
-    } else {
-        viewingAngleAdvice.textContent = "👍 Your viewing angle is excellent!";
-    }
+            // Viewing angle advice
+            const viewingAngleAdvice = document.getElementById('viewingAngleAdvice');
+            if (viewingAngle > 10) {
+                viewingAngleAdvice.textContent = "📏 A smaller viewing angle is better for comfort. Try adjusting the height.";
+            } else {
+                viewingAngleAdvice.textContent = "👍 Your viewing angle is excellent!";
+            }
 
-    // Distance advice
-    const distanceAdvice = document.getElementById('distanceAdvice');
-    if (viewingDistance < 6) {
-        distanceAdvice.textContent = "⚠️ You may want to sit a little further away for optimal viewing.";
-    } else {
-        distanceAdvice.textContent = "✅ This viewing distance should work well with most TV sizes.";
-    }
+            // Distance advice
+            const distanceAdvice = document.getElementById('distanceAdvice');
+            if (viewingDistance < 6) {
+                distanceAdvice.textContent = "⚠️ You may want to sit a little further away for optimal viewing.";
+            } else {
+                distanceAdvice.textContent = "✅ This viewing distance should work well with most TV sizes.";
+            }
 
-    // Mount type advice
-    const mountTypeAdvice = document.getElementById('mountTypeAdvice');
-    if (mountType === 'tilt') {
-        mountTypeAdvice.textContent = "🛠️ Tilt mounts allow for more flexibility and may be mounted slightly higher.";
-    } else if (mountType === 'full-motion') {
-        mountTypeAdvice.textContent = "🔄 Full-motion mounts offer great flexibility but consider the wall space.";
-    } else {
-        mountTypeAdvice.textContent = "🔒 Fixed mounts are simple but require precise height calculations.";
-    }
+            // Mount type advice
+            const mountTypeAdvice = document.getElementById('mountTypeAdvice');
+            if (mountType === 'tilt') {
+                mountTypeAdvice.textContent = "🛠️ Tilt mounts allow for more flexibility and may be mounted slightly higher.";
+            } else if (mountType === 'full-motion') {
+                mountTypeAdvice.textContent = "🔄 Full-motion mounts offer great flexibility but consider the wall space.";
+            } else {
+                mountTypeAdvice.textContent = "🔒 Fixed mounts are simple but require precise height calculations.";
+            }
 
-    // Room lighting advice
-    const roomLightingAdvice = document.getElementById('roomLightingAdvice');
-    roomLightingAdvice.textContent = "💡 Consider minimizing glare by positioning the TV away from direct light sources.";
-}
+            // Room lighting advice
+            const roomLightingAdvice = document.getElementById('roomLightingAdvice');
+            roomLightingAdvice.textContent = "💡 Consider minimizing glare by positioning the TV away from direct light sources.";
+        }
 
-// Show room layout considerations
-function showRoomLayout(tvSize, viewingDistance, scenario) {
-    const eyeStrainTip = document.getElementById('eyeStrainTip');
-    const lightingTip = document.getElementById('lightingTip');
-    const audioTip = document.getElementById('audioTip');
-    const cableTip = document.getElementById('cableTip');
+        // Show room layout considerations
+        function showRoomLayout(tvSize, viewingDistance, scenario) {
+            const eyeStrainTip = document.getElementById('eyeStrainTip');
+            const lightingTip = document.getElementById('lightingTip');
+            const audioTip = document.getElementById('audioTip');
+            const cableTip = document.getElementById('cableTip');
 
-    // Adjust tips based on scenario
-    if (scenario === 'living') {
-        eyeStrainTip.textContent = "Ensure comfortable seating and avoid placing the TV too high.";
-        lightingTip.textContent = "Position the TV to avoid glare from windows or lamps.";
-        audioTip.textContent = "Position speakers at ear level for the best sound experience.";
-        cableTip.textContent = "Use cable management solutions to avoid clutter in the living room.";
-    } else if (scenario === 'bedroom') {
-        eyeStrainTip.textContent = "For beds, a slightly lower TV height can improve comfort.";
-        lightingTip.textContent = "Consider low lighting in the room for late-night viewing.";
-        audioTip.textContent = "Use a soundbar or speakers to enhance audio in a smaller space.";
-        cableTip.textContent = "Hide cables behind furniture for a cleaner look.";
-    }
-}
+            // Adjust tips based on scenario
+            if (scenario === 'living') {
+                eyeStrainTip.textContent = "Ensure comfortable seating and avoid placing the TV too high.";
+                lightingTip.textContent = "Position the TV to avoid glare from windows or lamps.";
+                audioTip.textContent = "Position speakers at ear level for the best sound experience.";
+                cableTip.textContent = "Use cable management solutions to avoid clutter in the living room.";
+            } else if (scenario === 'bedroom') {
+                eyeStrainTip.textContent = "For beds, a slightly lower TV height can improve comfort.";
+                lightingTip.textContent = "Consider low lighting in the room for late-night viewing.";
+                audioTip.textContent = "Use a soundbar or speakers to enhance audio in a smaller space.";
+                cableTip.textContent = "Hide cables behind furniture for a cleaner look.";
+            }
+        }
 
-// Error handling
-function showError(message) {
-    const errorDiv = document.getElementById('error-message');
-    errorDiv.style.display = 'block';
-    errorDiv.textContent = message;
+        // Error handling
+        function showError(message) {
+            const errorDiv = document.getElementById('error-message');
+            errorDiv.style.display = 'block';
+            errorDiv.textContent = message;
 
-    // Hide results and other sections
-    document.getElementById('result').style.display = 'none';
-    document.getElementById('tv-visual').style.display = 'none';
-    document.getElementById('additional-recommendations').style.display = 'none';
-    document.getElementById('room-layout').style.display = 'none';
-}
+            // Hide results and other sections
+            document.getElementById('result').style.display = 'none';
+            document.getElementById('tv-visual').style.display = 'none';
+            document.getElementById('additional-recommendations').style.display = 'none';
+            document.getElementById('room-layout').style.display = 'none';
+        }
 
-document.getElementById('calculateBtn').addEventListener('click', calculateTVMount);
+        document.getElementById('calculateBtn').addEventListener('click', calculateTVMount);
 
-// Default scenario set to 'living'
-setScenario('living');
+        // Default scenario set to 'living'
+        setScenario('living');
 
- </script>
+    </script>
 </body>
 
 </html>

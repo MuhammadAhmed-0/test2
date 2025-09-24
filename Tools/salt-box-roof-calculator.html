@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Calculate salt box roof materials & costs. Asymmetrical roof shingles, underlayment & sheathing calculator. Perfect for contractors!">
+    <meta name="description"
+        content="Calculate salt box roof materials & costs. Asymmetrical roof shingles, underlayment & sheathing calculator. Perfect for contractors!">
     <title>Salt Box Roof Calculator</title>
     <script type="application/ld+json">
     {
@@ -68,7 +69,7 @@
             font-size: 1.1rem;
             background: #f8f9fa;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .input-group input:focus,
@@ -107,7 +108,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             transition: left 0.5s;
         }
 
@@ -145,13 +146,20 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
             animation: shimmer 3s ease-in-out infinite;
         }
 
         @keyframes shimmer {
-            0%, 100% { transform: rotate(0deg); }
-            50% { transform: rotate(180deg); }
+
+            0%,
+            100% {
+                transform: rotate(0deg);
+            }
+
+            50% {
+                transform: rotate(180deg);
+            }
         }
 
         #results h3 {
@@ -159,7 +167,7 @@
             font-size: 1.8rem;
             font-weight: 600;
             margin-bottom: 1.5rem;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
             position: relative;
             z-index: 1;
             text-align: center;
@@ -175,7 +183,7 @@
             margin-bottom: 1rem;
             padding: 1rem 1.5rem;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             border-left: 4px solid #ffd700;
             backdrop-filter: blur(10px);
         }
@@ -185,7 +193,7 @@
             margin: 0;
             font-size: 1.1rem;
             font-weight: 500;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
         }
 
         .result-label {
@@ -215,13 +223,16 @@
                 opacity: 0;
                 transform: scale(0.3);
             }
+
             50% {
                 opacity: 1;
                 transform: scale(1.05);
             }
+
             70% {
                 transform: scale(0.9);
             }
+
             100% {
                 opacity: 1;
                 transform: scale(1);
@@ -402,17 +413,193 @@
             </main>
 
             <article class="calculator-article">
-                <h2>Understanding Salt Box Roof Calculations</h2>
-                <p>A salt box roof is a traditional asymmetrical roof design where one side has a longer slope than the other. This calculator helps you determine the materials needed for your salt box roof project:</p>
+
+                <h2>Salt Box Roof Calculator – Accurate Material & Cost Estimation</h2>
+                <p>
+                    Planning a salt box roof project can be complex due to the asymmetrical slopes.
+                    The <strong>Salt Box Roof Calculator</strong> helps homeowners, contractors, and DIY enthusiasts
+                    calculate <strong>roof surface area, shingles, underlayment, sheathing, and total material
+                        cost</strong>.
+                    By entering building dimensions, roof pitches, overhangs, waste factor, shingle type, and price per
+                    sq ft,
+                    this tool ensures you order the right amount of materials for a safe, efficient, and cost-effective
+                    project.
+                </p>
+
+                <h2>Why Accurate Roof Calculations Matter</h2>
+                <h3>Budget Control</h3>
+                <p>
+                    Roofing materials are a major investment. Accurate calculation prevents overbuying,
+                    saving money, and avoiding unnecessary waste.
+                </p>
+
+                <h3>Material Planning</h3>
+                <p>
+                    Knowing the exact amount of shingles, underlayment, and sheathing allows
+                    you to plan deliveries, storage, and labor efficiently.
+                </p>
+
+                <h3>Reducing Waste</h3>
+                <p>
+                    Roof cutting and overlaps often create leftover materials.
+                    By applying a <strong>waste factor</strong>, the calculator ensures you have extra for errors
+                    without overordering.
+                </p>
+
+                <h3>Structural Accuracy</h3>
+                <p>
+                    A salt box roof’s asymmetry makes accurate pitch measurement crucial for structural integrity.
+                    Calculating slopes precisely prevents uneven installation and potential leaks.
+                </p>
+
+                <h2>How the Salt Box Roof Calculator Works</h2>
+                <h3>Inputs You’ll Need</h3>
                 <ul>
-                    <li><strong>Roof Surface Area:</strong> Total area including both short and long slopes with overhang</li>
-                    <li><strong>Shingles Needed:</strong> Calculated in bundles (assuming 33.3 sq ft per bundle)</li>
-                    <li><strong>Underlayment:</strong> Protective layer underneath shingles (matches roof area)</li>
-                    <li><strong>Sheathing:</strong> Plywood or OSB sheets (4x8 sheets = 32 sq ft each)</li>
-                    <li><strong>Pitch Angles:</strong> Converted from rise:run ratio to degrees for proper installation</li>
+                    <li><strong>Building Width:</strong> Distance across the shorter side in feet.</li>
+                    <li><strong>Building Length:</strong> Distance along the long side in feet.</li>
+                    <li><strong>Overhang:</strong> Optional extension of the roof beyond walls, in inches.</li>
+                    <li><strong>Short Side Pitch:</strong> Roof slope ratio (rise:run), e.g., 6:12.</li>
+                    <li><strong>Long Side Pitch:</strong> Roof slope ratio (rise:run), e.g., 4:12.</li>
+                    <li><strong>Waste Factor:</strong> Percentage of extra material to account for cuts and errors.</li>
+                    <li><strong>Shingle Type:</strong> Asphalt, Metal, Clay Tile, Wood Shake, Slate.</li>
+                    <li><strong>Currency & Price per sq ft:</strong> For cost estimation.</li>
                 </ul>
-                <p>The waste factor accounts for cuts, overlaps, and potential mistakes during installation. A 10% waste factor is typical for most roofing projects.</p>
+
+                <h3>Calculation Logic</h3>
+                <p>
+                    The calculator converts pitch ratios to angles using trigonometry, computes the slope length of each
+                    side,
+                    and multiplies by the effective roof length (including overhangs).
+                    It sums short and long slopes to find total surface area, then applies the waste factor.
+                    Outputs include shingles needed (bundles), underlayment area, sheathing sheets (4x8 ft), and
+                    estimated cost.
+                </p>
+
+                <h2>Step-by-Step Guide to Using the Calculator</h2>
+                <h3>1. Measure Your Building</h3>
+                <p>Measure the width and length of your building accurately. Include any overhangs.</p>
+
+                <h3>2. Determine Roof Pitches</h3>
+                <p>Enter short side and long side pitches in rise:run format. Example: 6:12 means 6 inches of rise per
+                    12 inches of run.</p>
+
+                <h3>3. Add Waste Factor</h3>
+                <p>Typical waste factor is 10%, but complex or angled roofs may require 15–20% to cover errors.</p>
+
+                <h3>4. Select Shingle Type & Price</h3>
+                <p>Choose the material type and enter price per sq ft. The calculator will use this to compute total
+                    cost.</p>
+
+                <h3>5. Review Results</h3>
+                <p>The calculator outputs:</p>
+                <ul>
+                    <li>Total roof surface area (including overhang and slopes)</li>
+                    <li>Pitch angles (degrees) for short and long sides</li>
+                    <li>Shingles needed (in bundles)</li>
+                    <li>Underlayment required (sq ft)</li>
+                    <li>Sheathing sheets required (4x8 ft sheets)</li>
+                    <li>Estimated material cost</li>
+                </ul>
+
+                <h2>Sample Calculations</h2>
+                <h3>Example A: Residential Home – 24x36 ft</h3>
+                <p>
+                    Inputs: Width = 24 ft, Length = 36 ft, Overhang = 12 inches, Short Pitch = 6:12, Long Pitch = 4:12,
+                    Waste = 10%, Asphalt shingles @ $3/sq ft.
+                    Results: Total area ≈ 2,160 sq ft, shingles ≈ 65 bundles, underlayment ≈ 2,160 sq ft, sheathing = 68
+                    sheets, cost ≈ $6,480.
+                </p>
+
+                <h3>Example B: DIY Shed – 12x20 ft</h3>
+                <p>
+                    Short Pitch = 5:12, Long Pitch = 3:12, Waste = 10%, Metal shingles @ $2.50/sq ft.
+                    Outputs: Area ≈ 576 sq ft, shingles ≈ 17 bundles, underlayment 576 sq ft, sheathing 18 sheets, cost
+                    ≈ $1,440.
+                </p>
+
+                <h3>Example C: Garage – 18x24 ft with Overhang</h3>
+                <p>
+                    Short Pitch = 4:12, Long Pitch = 6:12, Overhang = 12 inches, Waste = 12%, Wood shake @ $4/sq ft.
+                    Outputs: Area ≈ 1,080 sq ft, shingles ≈ 32 bundles, underlayment 1,080 sq ft, sheathing 34 sheets,
+                    cost ≈ $4,320.
+                </p>
+
+                <h2>Understanding Salt Box Roofs</h2>
+                <p>
+                    A salt box roof is asymmetrical with one longer slope. This design allows for more interior space
+                    and efficient water drainage. Correct pitch calculation is essential for materials estimation and
+                    structural integrity.
+                </p>
+
+                <h2>Roof Pitch & Design Considerations</h2>
+                <p>
+                    The short slope usually faces the front; the long slope extends toward the rear. Typical pitches
+                    range from 3:12 to 6:12. Steeper pitches increase surface area and material requirements. Using the
+                    calculator, you can see how pitch changes impact shingles, underlayment, and cost.
+                </p>
+
+                <h2>Material Estimation & Waste Factors</h2>
+                <p>
+                    Roofing material includes shingles, underlayment, and plywood/OSB sheathing. Waste factors account
+                    for:
+                <ul>
+                    <li>Cut-offs from slope and valleys</li>
+                    <li>Misalignment or mistakes</li>
+                    <li>Extra for overhangs and trim</li>
+                </ul>
+                Typically, 10% extra is sufficient for standard projects.
+                </p>
+
+                <h2>Best Practices for Salt Box Roof Projects</h2>
+                <ul>
+                    <li>Measure width, length, and overhang accurately before calculating.</li>
+                    <li>Convert pitch correctly from rise:run to degrees if needed for planning.</li>
+                    <li>Check shingle type and cost for budget planning.</li>
+                    <li>Factor in waste for cut-offs and trims.</li>
+                    <li>Use scaffolding and safety measures when handling sloped roofs.</li>
+                </ul>
+
+                <h2>Frequently Asked Questions (FAQs)</h2>
+                <h3>How do I calculate the area of a salt box roof?</h3>
+                <p>Enter building width, length, short and long pitch, overhang, and waste factor in the calculator. It
+                    computes slope areas and total roof area automatically.</p>
+
+                <h3>What is a typical waste factor for shingles?</h3>
+                <p>10% is standard; complex roofs may require 15–20%.</p>
+
+                <h3>Can I estimate cost for different shingle types?</h3>
+                <p>Yes. Enter the price per sq ft and select the shingle type; the calculator outputs total material
+                    cost.</p>
+
+                <h3>How do pitch angles affect material quantity?</h3>
+                <p>Steeper slopes increase the surface area, which increases shingles, underlayment, and sheathing
+                    requirements.</p>
+
+                <h3>Can I use this for metal, wood shake, or slate shingles?</h3>
+                <p>Yes. Select your shingle type and enter its cost to calculate total project expense.</p>
+
+                <h3>Does the calculator account for overhangs?</h3>
+                <p>Yes. Enter the overhang in inches; it is included in the roof area calculation.</p>
+
+                <h3>Is this suitable for DIY or contractor use?</h3>
+                <p>Both. It simplifies planning for small-scale projects as well as professional construction jobs.</p>
+
+                <h2>Conclusion & Next Steps</h2>
+                <p>
+                    The <strong>Salt Box Roof Calculator</strong> simplifies roof material estimation, ensuring accurate
+                    calculations of shingles, underlayment, sheathing, and total cost. Enter your dimensions, pitches,
+                    overhang, waste factor, shingle type, and price to get precise results.
+                    This reduces waste, saves money, and helps plan your salt box roof project confidently.
+                </p>
+                <p>
+                    <em>Checklist:</em> Measure building → Enter width, length, and overhang → Enter short and long
+                    pitch → Set waste factor → Select shingle type & price → Review results & plan material orders.
+                </p>
+
             </article>
+
+
+
         </div>
 
         <aside class="right-sidebar">
@@ -431,31 +618,31 @@
 
     <footer>
         <div class="footer-content">
-            
-        <div class="footer-section">
-          <h3>About Calculator Tools</h3>
-          <p>Your trusted source for online calculation tools</p>
-        </div>
-        <div class="footer-section">
-          <h3>Quick Links</h3>
-          <ul>
-            <li><a href="../index.html#tools">Tools</a></li>
-            <li><a href="../about.html">About</a></li>
-            <li><a href="../contact.html">Contact</a></li>
-            <li><a href="../privacy-policy.html">Privacy Policy</a></li>
-            <li><a href="../terms-of-service.html">Terms of Service</a></li>
-            <li><a href="../disclaimer.html">Disclaimer</a></li>
-          </ul>
-        </div>
-        <div class="footer-section">
-          <h3>Contact Us</h3>
-          <p>Email: info@freecalculator.com</p>
-          <div class="social-links">
-            <a href="#"><i class="fab fa-facebook"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-linkedin"></i></a>
-          </div>
-        </div>
+
+            <div class="footer-section">
+                <h3>About Calculator Tools</h3>
+                <p>Your trusted source for online calculation tools</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="../index.html#tools">Tools</a></li>
+                    <li><a href="../about.html">About</a></li>
+                    <li><a href="../contact.html">Contact</a></li>
+                    <li><a href="../privacy-policy.html">Privacy Policy</a></li>
+                    <li><a href="../terms-of-service.html">Terms of Service</a></li>
+                    <li><a href="../disclaimer.html">Disclaimer</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@freecalculator.com</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
         </div>
         <div class="footer-bottom">
             <p>&copy; 2025 Free Calculator Hub. All rights reserved.</p>
