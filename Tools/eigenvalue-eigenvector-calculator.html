@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eigenvalue & Eigenvector Calculator</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/tools/apush.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
+    <meta name="description" content="Use our Eigenvalue & Eigenvector Calculator to compute eigenvalues, eigenvectors, and matrix properties like determinant and trace. Ideal for students and professionals.">
+
+   <script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Eigenvalue Eigenvector Calculator",
+    "description": "Quickly calculate eigenvalues, eigenvectors, and matrix properties like determinant, trace, and
+    characteristic polynomial. Ideal for students, researchers, and engineers.",
+    "url": "https://usefreecalculator.com/Tools/eigenvalue-eigenvector-calculator.html",
+    "applicationCategory": "Math Education",
+    "operatingSystem": "Web Browser",
+    "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+    },
+    "creator": {
+    "@type": "Organization",
+    "name": "Free Calculator"
+    }
+    }
+    </script>
+
+    <style>
+        /* Calculator Section Styles */
+        .input-section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .size-control {
+            margin-bottom: 30px;
+        }
+
+        .size-control label {
+            display: block;
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .size-control input {
+            width: 100%;
+            max-width: 200px;
+            padding: 12px 20px;
+            font-size: 1.1em;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        .size-control input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .matrix-section {
+            margin-top: 30px;
+        }
+
+        .matrix-label {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .matrix-label span {
+            color: #f59e0b;
+            font-style: italic;
+            margin-left: 10px;
+        }
+
+        .matrix-grid {
+            display: inline-grid;
+            gap: 10px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .matrix-grid input {
+            width: 80px;
+            height: 50px;
+            text-align: center;
+            font-size: 1.1em;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .matrix-grid input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            transform: scale(1.05);
+        }
+
+        .calculate-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .calculate-btn:active {
+            transform: translateY(0);
+        }
+
+        .results-section {
+            margin-top: 30px;
+        }
+
+        .result-card {
+            background: linear-gradient(135deg, #f6f8fb 0%, #e9ecef 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border-left: 5px solid #667eea;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-title {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .result-title::before {
+            content: "→";
+            color: #667eea;
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+
+        .eigenvalue-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .eigenvalue-box h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        .eigenvalue-box .value {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: #333;
+            font-family: 'Courier New', monospace;
+        }
+
+        .steps-section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .steps-title {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 25px;
+            text-align: center;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .step {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .step-header {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .step-content {
+            color: #555;
+            line-height: 1.8;
+            font-size: 1.05em;
+        }
+
+        .matrix-display {
+            font-family: 'Courier New', monospace;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            display: inline-block;
+            border: 1px solid #ddd;
+            white-space: pre-wrap;
+        }
+
+        .equation {
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+            color: #333;
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 4px solid #f5c6cb;
+        }
+
+        .success {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 4px solid #c3e6cb;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .matrix-grid input {
+                width: 60px;
+                height: 45px;
+                font-size: 1em;
+            }
+
+            .calculate-btn {
+                padding: 12px 30px;
+                font-size: 1em;
+            }
+
+            .size-control input {
+                max-width: 100%;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- Announcement section -->
+    <div class="top-announcement-bar">
+        <div class="announcement-number">New Announcement</div>
+        <div class="announcement-text">
+            Explore the latest IT tools and expert resources at <a href="https://resourcesofdev.com" target="_blank"
+                rel="noopener noreferrer" class="announcement-link">Resourcesofdev.com</a>
+        </div>
+    </div>
+
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>CalcHub</h1>
+            </div>
+            <div class="nav-links">
+                <a href="../index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="../index.html"><i class="fas fa-tools"></i> Tools</a>
+                <a href="#about"><i class="fas fa-info-circle"></i> About</a>
+                <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+            </div>
+            <div class="mobile-menu-toggle" id="mobileMenuToggle">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+    <!-- Mobile Menu Panel -->
+    <div class="mobile-menu-panel" id="mobileMenuPanel">
+        <div class="mobile-menu-header">
+            <h2>Menu</h2>
+            <button class="mobile-menu-close" id="mobileMenuClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="mobile-menu-items">
+            <a href="../index.html">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="#tools">
+                <i class="fas fa-tools"></i>
+                <span>Tools</span>
+            </a>
+            <a href="#about">
+                <i class="fas fa-info-circle"></i>
+                <span>About</span>
+            </a>
+            <a href="#contact">
+                <i class="fas fa-envelope"></i>
+                <span>Contact</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>⚡ Eigenvalue & Eigenvector Calculator</h1>
+        </div>
+    </section>
+
+    <!-- Responsive Banner -->
+    <section class="banner" style="text-align: center; margin-top: 10px;">
+        <a href="https://bluehost.sjv.io/aeducateweb" target="_blank" style="display: inline-block;">
+            <img src="../Hosting 1-728x90.png" alt="Advertisement"
+                style="max-width: 100%; height: auto; width: 700px; display: inline-block;">
+        </a>
+    </section>
+
+
+    <div class="tool-container">
+        <aside class="left-sidebar">
+            <h3>Related Tools</h3>
+            <ul>
+                <li><a href="snow-day-calculator.html">Snow Day Calculator</a></li>
+                <li><a href="terminus-calculator.html">Terminus Calculator</a></li>
+                <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
+                <li><a href="dunk-calculator.html">Dunk Calculator</a></li>
+            </ul>
+        </aside>
+
+        <div class="main-content-column">
+            <main class="calculator-content">
+                <h1>Calculate Eigenvalues & Eigenvectors</h1>
+                <div class="calculator-box">
+                    <div class="input-section">
+                        <div class="size-control">
+                            <label for="matrixSize">Size of the matrix:</label>
+                            <input type="number" id="matrixSize" min="2" max="5" value="2">
+                        </div>
+
+                        <div class="matrix-section">
+                            <div class="matrix-label">
+                                Matrix: <span>A</span>
+                            </div>
+                            <div id="matrixContainer"></div>
+                        </div>
+
+                        <button class="calculate-btn" onclick="calculate()">Calculate Eigenvalues &
+                            Eigenvectors</button>
+                    </div>
+
+                    <div id="resultsContainer"></div>
+                </div>
+            </main>
+
+            <article class="calculator-article">
+                <h2>What is an Eigenvalue Eigenvector Calculator?</h2>
+                <p>
+                    The <strong>Eigenvalue Eigenvector Calculator</strong> is a powerful online tool designed to help
+                    <em>students, researchers, engineers, and data scientists</em> quickly calculate the eigenvalues and
+                    eigenvectors of any square matrix. Whether you’re working with a <strong>2x2 matrix</strong>, a
+                    <strong>3x3 matrix</strong>, or larger matrices (n×n), this tool provides precise results for the
+                    eigenvalues (λ) and corresponding eigenvectors (v).
+                    It also computes the <strong>characteristic polynomial</strong> and allows users to explore
+                    important matrix properties, including the determinant, trace, and diagonalization potential.
+                </p>
+                <p>
+                    Eigenvalues and eigenvectors are critical concepts in many fields, including <em>machine
+                        learning</em>, <em>data science</em>, <em>quantum mechanics</em>, and <em>engineering</em>. They
+                    help to describe the behavior of linear transformations, allowing you to better understand how
+                    matrices manipulate vectors in a vector space.
+                    This calculator not only simplifies the process but also helps you visualize and interpret the
+                    results, making it an essential tool for anyone dealing with linear algebra problems.
+                </p>
+
+                <h3>Formula for Eigenvalue Calculation</h3>
+                <p>
+                    The first step in computing eigenvalues is solving the **characteristic equation** for the matrix
+                    <strong>A</strong>:
+                </p>
+                <pre>
+        det(A - λI) = 0
+    </pre>
+                <p>
+                    Where: <br>
+                    - <strong>det</strong> is the determinant of a matrix. <br>
+                    - <strong>A</strong> is the original matrix. <br>
+                    - <strong>λ</strong> represents the eigenvalue. <br>
+                    - <strong>I</strong> is the identity matrix of the same size as <strong>A</strong>.
+                </p>
+                <p>
+                    The **determinant** is calculated by taking the determinant of the matrix <strong>(A − λI)</strong>,
+                    and the roots of this equation give the eigenvalues of the matrix. These eigenvalues tell you how
+                    the matrix scales vectors along certain directions.
+                </p>
+
+                <h3>Formula for Eigenvector Calculation</h3>
+                <p>
+                    After finding the eigenvalues (λ), the corresponding eigenvectors (v) can be determined by solving
+                    the following system:
+                </p>
+                <pre>
+        (A - λI)v = 0
+    </pre>
+                <p>
+                    Where: <br>
+                    - <strong>v</strong> represents the eigenvector corresponding to the eigenvalue <strong>λ</strong>.
+                    <br>
+                    - <strong>A</strong> is the original matrix. <br>
+                    - <strong>I</strong> is the identity matrix. <br>
+                    - <strong>0</strong> is the zero vector.
+                </p>
+                <p>
+                    Solving for <strong>v</strong> involves finding the null space of the matrix <strong>(A -
+                        λI)</strong>. This eigenvector remains in the same direction even after the matrix
+                    transformation, scaling by the eigenvalue <strong>λ</strong>.
+                </p>
+
+                <h3>Key Features of the Eigenvalue Eigenvector Calculator</h3>
+                <ul>
+                    <li><strong>Matrix Size Support:</strong> Supports square matrices of any size, including
+                        <strong>2x2, 3x3, 4x4, and larger matrices</strong> (n×n).
+                    </li>
+                    <li><strong>Real and Complex Numbers:</strong> Handles both real and complex eigenvalues and
+                        eigenvectors, ensuring flexibility for a wide range of matrices.</li>
+                    <li><strong>Comprehensive Calculations:</strong> Computes not only eigenvalues and eigenvectors but
+                        also the <strong>characteristic polynomial</strong>, <strong>determinant</strong>, and
+                        <strong>trace</strong>.
+                    </li>
+                    <li><strong>Step-by-Step Solutions:</strong> Provides a detailed breakdown of the calculation
+                        process, helping students and professionals alike understand how the results were obtained.</li>
+                    <li><strong>Advanced Settings:</strong> Allows for adjusting precision, exporting results, and
+                        visualizing results for higher-order matrices (4x4, 5x5, etc.).</li>
+                </ul>
+
+                <h3>Applications of Eigenvalue and Eigenvector Calculations</h3>
+                <p>
+                    Understanding eigenvalues and eigenvectors is not just useful in academia; they have real-world
+                    applications in various fields. Here are some of the key areas where these calculations are crucial:
+                </p>
+                <ul>
+                    <li><strong>Principal Component Analysis (PCA):</strong> PCA is widely used in <em>data science</em>
+                        and <em>machine learning</em> to reduce dimensionality by identifying the most important
+                        features of a dataset. This involves computing the eigenvalues and eigenvectors of the
+                        covariance matrix.</li>
+                    <li><strong>Stability Analysis:</strong> In <em>engineering</em>, eigenvalues are used to assess the
+                        stability of systems, such as control systems, by analyzing the behavior of their characteristic
+                        equation.</li>
+                    <li><strong>Quantum Mechanics:</strong> In physics, eigenvalues and eigenvectors are used to
+                        describe the state of quantum systems. They play a role in finding the possible measurement
+                        outcomes for quantum observables.</li>
+                    <li><strong>Matrix Diagonalization:</strong> Diagonalizing a matrix is an essential task in solving
+                        systems of linear differential equations, and it requires finding the matrix's eigenvalues and
+                        eigenvectors.</li>
+                    <li><strong>Vibration Analysis:</strong> In mechanical engineering, eigenvalue problems are used to
+                        determine the natural frequencies of vibrating systems, such as beams and bridges, helping to
+                        design structures that avoid resonance.</li>
+                </ul>
+
+                <h3>How to Use the Eigenvalue Eigenvector Calculator</h3>
+                <p>
+                    Using the <strong>Eigenvalue Eigenvector Calculator</strong> is simple and straightforward. Just
+                    follow these steps:
+                </p>
+                <ol>
+                    <li><strong>Step 1 – Input Your Matrix:</strong> Enter the matrix elements into the calculator.
+                        Ensure that the matrix is square (2x2, 3x3, etc.).</li>
+                    <li><strong>Step 2 – Choose Your Calculation Type:</strong> Select whether you want to calculate
+                        just the eigenvalues or both the eigenvalues and eigenvectors.</li>
+                    <li><strong>Step 3 – Review the Results:</strong> The tool will compute the eigenvalues,
+                        eigenvectors, characteristic polynomial, determinant, and trace. You can also see a step-by-step
+                        solution explaining how the calculations are done.</li>
+
+                </ol>
+
+                <h3>Benefits of Using the Eigenvalue Eigenvector Calculator</h3>
+                <ul>
+                    <li><strong>Time Efficiency:</strong> Eigenvalue and eigenvector problems can be complex and
+                        time-consuming, especially for larger matrices. This tool performs calculations in seconds,
+                        saving you time.</li>
+                    <li><strong>Accuracy and Precision:</strong> The calculator eliminates human error in performing
+                        tedious matrix operations, ensuring precise results every time.</li>
+                    <li><strong>Learning Aid:</strong> The tool is perfect for students and learners of linear algebra.
+                        It explains the process step-by-step, enhancing understanding and reinforcing concepts.</li>
+                    <li><strong>Real-World Applications:</strong> Whether you’re analyzing data, solving engineering
+                        problems, or working on quantum mechanics, this calculator provides the accurate results needed
+                        for a wide variety of fields.</li>
+                </ul>
+
+                <h3>Frequently Asked Questions (FAQ)</h3>
+                <h4>What is an eigenvalue and an eigenvector?</h4>
+                <p>
+                    An **eigenvalue** is a scalar value that indicates how much a matrix stretches or shrinks vectors.
+                    An **eigenvector** is a vector that remains in the same direction after a matrix transformation,
+                    though it may be stretched or compressed by the eigenvalue.
+                </p>
+
+                <h4>What if my matrix has repeated eigenvalues?</h4>
+                <p>
+                    If a matrix has repeated eigenvalues (also known as degenerate eigenvalues), the calculator will
+                    compute the corresponding eigenvectors. In some cases, the matrix might not have a full set of
+                    linearly independent eigenvectors, meaning it cannot be diagonalized.
+                </p>
+
+                <h4>Can the calculator handle complex eigenvalues?</h4>
+                <p>
+                    Yes, the calculator is capable of computing both **real** and **complex eigenvalues**. It will
+                    display both the real and imaginary parts of complex eigenvalues, ensuring that your results are
+                    comprehensive.
+                </p>
+
+                <h4>Can this tool be used for diagonalization?</h4>
+                <p>
+                    Yes, this calculator can help with **diagonalization** by providing the eigenvalues and
+                    eigenvectors. If the matrix is diagonalizable, you can form a diagonal matrix using its eigenvalues
+                    and eigenvectors.
+                </p>
+
+                <h4>Why are eigenvalues and eigenvectors important in data science?</h4>
+                <p>
+                    Eigenvalues and eigenvectors are foundational in **Principal Component Analysis (PCA)**, a technique
+                    used for dimensionality reduction. PCA helps reduce the number of features in a dataset while
+                    preserving its most important variance, which is crucial in machine learning and data analysis.
+                </p>
+
+                <h3>Summary & Conclusion</h3>
+                <p>
+                    The <strong>Eigenvalue Eigenvector Calculator</strong> is a versatile, fast, and accurate tool for
+                    solving matrix problems. Whether you're a student, researcher, or engineer, this tool simplifies the
+                    calculation of eigenvalues, eigenvectors, and associated matrix properties.
+                    It also enhances learning by providing step-by-step solutions that clarify the process behind each
+                    calculation.
+                    With applications in various scientific and engineering fields, the tool is invaluable for anyone
+                    working with matrices. Start using it today to simplify your matrix calculations and deepen your
+                    understanding of linear algebra.
+                </p>
+            </article>
+
+        </div>
+
+        <aside class="right-sidebar">
+            <div class="ad-space">
+                <div class="ad-placeholder">
+                    <a href="https://bluehost.sjv.io/aeducateweb" target="_blank">
+                        <img src="../Bluehost300by250.webp" alt="Advertisement 1">
+                    </a>
+                </div>
+            </div>
+            <div class="ad-space">
+                <div class="ad-placeholder">
+                    <a href="https://hostgator.pvxt.net/aeducateweb" target="_blank">
+                        <img src="../Hostgator_300x250.webp" alt="Advertisement 2">
+                    </a>
+                </div>
+            </div>
+            <div class="ad-space">
+                <div class="ad-placeholder">
+                    <a href="https://hostinger.sjv.io/aeducateweb" target="_blank">
+                        <img src="../Hostinger300x250-EN.webp" alt="Advertisement 3">
+                    </a>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About CalcHub</h3>
+                <p>Your trusted source for online calculation tools</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#tools">Tools</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@calchub.com</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 CalcHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/calculator.js"></script>
+    <script>
+        let matrixSize = 2;
+
+        function createMatrixInputs() {
+            const size = parseInt(document.getElementById('matrixSize').value);
+            matrixSize = size;
+            const container = document.getElementById('matrixContainer');
+
+            const grid = document.createElement('div');
+            grid.className = 'matrix-grid';
+            grid.style.gridTemplateColumns = `repeat(${size}, 80px)`;
+
+            for (let i = 0; i < size; i++) {
+                for (let j = 0; j < size; j++) {
+                    const input = document.createElement('input');
+                    input.type = 'number';
+                    input.step = 'any';
+                    input.id = `cell-${i}-${j}`;
+                    input.value = i === j ? 1 : 0;
+                    grid.appendChild(input);
+                }
+            }
+
+            container.innerHTML = '';
+            container.appendChild(grid);
+        }
+
+        function getMatrixFromInputs() {
+            const matrix = [];
+            for (let i = 0; i < matrixSize; i++) {
+                const row = [];
+                for (let j = 0; j < matrixSize; j++) {
+                    const value = parseFloat(document.getElementById(`cell-${i}-${j}`).value) || 0;
+                    row.push(value);
+                }
+                matrix.push(row);
+            }
+            return matrix;
+        }
+
+        function formatMatrix(matrix) {
+            let result = '[\n';
+            for (let i = 0; i < matrix.length; i++) {
+                result += '  [';
+                for (let j = 0; j < matrix[i].length; j++) {
+                    const val = typeof matrix[i][j] === 'number' ? matrix[i][j] : matrix[i][j];
+                    result += val.toFixed(4).padStart(10);
+                    if (j < matrix[i].length - 1) result += ', ';
+                }
+                result += ']';
+                if (i < matrix.length - 1) result += ',\n';
+            }
+            result += '\n]';
+            return result;
+        }
+
+        function formatComplexNumber(num) {
+            if (typeof num === 'number') {
+                return num.toFixed(6);
+            }
+
+            if (num && typeof num === 'object') {
+                const real = num.re !== undefined ? num.re : (num.toNumber ? num.toNumber() : num);
+                const imag = num.im !== undefined ? num.im : 0;
+
+                if (Math.abs(imag) < 1e-10) {
+                    return (typeof real === 'number' ? real : parseFloat(real)).toFixed(6);
+                }
+
+                if (Math.abs(real) < 1e-10) {
+                    return `${imag.toFixed(6)}i`;
+                }
+
+                const sign = imag >= 0 ? '+' : '-';
+                return `${real.toFixed(6)} ${sign} ${Math.abs(imag).toFixed(6)}i`;
+            }
+
+            return String(num);
+        }
+
+        function formatVector(vector) {
+            let result = '[';
+            for (let i = 0; i < vector.length; i++) {
+                result += formatComplexNumber(vector[i]);
+                if (i < vector.length - 1) result += ', ';
+            }
+            result += ']';
+            return result;
+        }
+
+        function extractVectorValues(vec) {
+            if (Array.isArray(vec)) {
+                return vec;
+            }
+            if (vec._data) {
+                return vec._data;
+            }
+            if (vec.toArray) {
+                return vec.toArray();
+            }
+            return [vec];
+        }
+
+        function simplifyEigenvector(vec) {
+            const values = vec.map(v => {
+                if (typeof v === 'number') return v;
+                if (v.re !== undefined) return v.re;
+                return parseFloat(v);
+            });
+
+            const cleaned = values.map(v => Math.abs(v) < 1e-10 ? 0 : v);
+
+            const firstNonZero = cleaned.find(v => Math.abs(v) > 1e-10);
+            if (!firstNonZero || Math.abs(firstNonZero) < 1e-10) {
+                return cleaned;
+            }
+
+            const scaled = cleaned.map(v => v / firstNonZero);
+
+            const asIntegers = scaled.map(v => {
+                const rounded = Math.round(v);
+                return Math.abs(v - rounded) < 0.01 ? rounded : v;
+            });
+
+            const nonZero = asIntegers.filter(v => Math.abs(v) > 1e-10);
+            if (nonZero.length > 0 && nonZero.every(v => Number.isInteger(v))) {
+                const gcd = (a, b) => b === 0 ? Math.abs(a) : gcd(b, a % b);
+                const commonGCD = Math.abs(nonZero.reduce((acc, val) => gcd(acc, val)));
+                if (commonGCD > 1) {
+                    return asIntegers.map(v => v / commonGCD);
+                }
+            }
+
+            return asIntegers;
+        }
+
+        function calculate() {
+            try {
+                const matrix = getMatrixFromInputs();
+
+                if (!matrix || matrix.length === 0) {
+                    throw new Error("Please enter valid matrix values");
+                }
+
+                for (let i = 0; i < matrix.length; i++) {
+                    for (let j = 0; j < matrix[i].length; j++) {
+                        if (isNaN(matrix[i][j])) {
+                            throw new Error("All matrix values must be valid numbers");
+                        }
+                    }
+                }
+
+                let eigenResult;
+
+                try {
+                    eigenResult = math.eigs(matrix);
+                } catch (err) {
+                    console.error("Math.js error:", err);
+                    throw new Error("Unable to calculate eigenvalues. The matrix may not have computable eigenvalues.");
+                }
+
+                const eigenvalues = eigenResult.values;
+                const eigenvectors = eigenResult.vectors;
+
+                let html = '<div class="results-section">';
+
+                html += '<div class="result-card">';
+                html += '<div class="result-title">Eigenvalues</div>';
+
+                for (let i = 0; i < eigenvalues.length; i++) {
+                    const val = eigenvalues[i];
+                    const displayVal = formatComplexNumber(val);
+
+                    html += `<div class="eigenvalue-box">
+            <h3>λ${i + 1}</h3>
+            <div class="value">${displayVal}</div>
+          </div>`;
+                }
+                html += '</div>';
+
+                html += '<div class="result-card">';
+                html += '<div class="result-title">Eigenvectors</div>';
+
+                for (let i = 0; i < eigenvectors.length; i++) {
+                    const vec = extractVectorValues(eigenvectors[i]);
+                    const simplified = simplifyEigenvector(vec);
+
+                    html += `<div class="eigenvalue-box">
+            <h3>v${i + 1} (for λ${i + 1})</h3>
+            <div class="equation">${formatVector(simplified)}</div>
+          </div>`;
+                }
+                html += '</div>';
+
+                html += '<div class="steps-section">';
+                html += '<div class="steps-title">📝 Detailed Solution Steps</div>';
+
+                html += `<div class="step">
+          <div class="step-header">Step 1: Set up the characteristic equation</div>
+          <div class="step-content">
+            To find eigenvalues, we solve: <span class="highlight">det(A - λI) = 0</span><br><br>
+            Where:<br>
+            • A is our input matrix<br>
+            • λ (lambda) is the eigenvalue we're looking for<br>
+            • I is the ${matrixSize}×${matrixSize} identity matrix<br>
+            • det denotes the determinant
+          </div>
+        </div>`;
+
+                html += `<div class="step">
+          <div class="step-header">Step 2: Our matrix A</div>
+          <div class="step-content">
+            <div class="matrix-display">${formatMatrix(matrix)}</div>
+          </div>
+        </div>`;
+
+                html += `<div class="step">
+          <div class="step-header">Step 3: Form (A - λI)</div>
+          <div class="step-content">
+            We create a new matrix by subtracting λ from each diagonal element of A:<br><br>`;
+
+                if (matrixSize === 2) {
+                    html += `<div class="matrix-display">A - λI = [
+  [(${matrix[0][0]}) - λ,  ${matrix[0][1]}]
+  [${matrix[1][0]},  (${matrix[1][1]}) - λ]
+]</div>`;
+                } else {
+                    html += `<div class="matrix-display">Each diagonal element becomes (a<sub>ii</sub> - λ)</div>`;
+                }
+                html += `</div></div>`;
+
+                if (matrixSize === 2) {
+                    const a = matrix[0][0];
+                    const b = matrix[0][1];
+                    const c = matrix[1][0];
+                    const d = matrix[1][1];
+
+                    html += `<div class="step">
+            <div class="step-header">Step 4: Calculate the determinant</div>
+            <div class="step-content">
+              For a 2×2 matrix, det(A - λI) = (a - λ)(d - λ) - bc<br><br>
+              <div class="equation">det(A - λI) = (${a} - λ)(${d} - λ) - (${b})(${c})</div>
+              <div class="equation">= λ² - ${a + d}λ + ${a * d - b * c}</div>
+              <br>
+              Setting this equal to zero and solving gives us the eigenvalues.
+            </div>
+          </div>`;
+                } else {
+                    html += `<div class="step">
+            <div class="step-header">Step 4: Calculate the determinant</div>
+            <div class="step-content">
+              For a ${matrixSize}×${matrixSize} matrix, we calculate the determinant using cofactor expansion or other methods.<br><br>
+              Setting det(A - λI) = 0 gives us a polynomial equation whose roots are the eigenvalues.
+            </div>
+          </div>`;
+                }
+
+                html += `<div class="step">
+          <div class="step-header">Step 5: The eigenvalues</div>
+          <div class="step-content">
+            Solving the characteristic equation, we get:<br><br>`;
+
+                for (let i = 0; i < eigenvalues.length; i++) {
+                    html += `<div class="equation">λ${i + 1} = ${formatComplexNumber(eigenvalues[i])}</div>`;
+                }
+                html += `</div></div>`;
+
+                html += `<div class="step">
+          <div class="step-header">Step 6: Find eigenvectors</div>
+          <div class="step-content">
+            For each eigenvalue λ<sub>i</sub>, we solve the system: <span class="highlight">(A - λ<sub>i</sub>I)v = 0</span><br><br>
+            This gives us a system of linear equations. The non-trivial solutions form the eigenvector v<sub>i</sub>.<br><br>
+            The eigenvectors represent the directions along which the linear transformation only scales (doesn't rotate).
+          </div>
+        </div>`;
+
+                html += `<div class="step">
+          <div class="step-header">Step 7: Summary of Results</div>
+          <div class="step-content">`;
+
+                for (let i = 0; i < eigenvalues.length; i++) {
+                    const vec = extractVectorValues(eigenvectors[i]);
+                    const simplified = simplifyEigenvector(vec);
+
+                    html += `<div class="eigenvalue-box" style="margin: 15px 0;">
+            <strong>Eigenvalue ${i + 1}:</strong> λ${i + 1} = ${formatComplexNumber(eigenvalues[i])}<br>
+            <strong>Eigenvector ${i + 1}:</strong> v${i + 1} = ${formatVector(simplified)}
+          </div>`;
+                }
+
+                html += `<br><div class="success">✓ These eigenvalue-eigenvector pairs satisfy the equation Av = λv</div>`;
+                html += `</div></div>`;
+
+                html += '</div>';
+                html += '</div>';
+
+                document.getElementById('resultsContainer').innerHTML = html;
+
+            } catch (error) {
+                console.error('Calculation error:', error);
+                document.getElementById('resultsContainer').innerHTML =
+                    `<div class="error">
+            <strong>Error:</strong> ${error.message}<br><br>
+            Please ensure:<br>
+            • All matrix values are valid numbers<br>
+            • The matrix is square (${matrixSize}×${matrixSize})<br>
+            • Values are entered correctly
+          </div>`;
+            }
+        }
+
+        document.getElementById('matrixSize').addEventListener('change', createMatrixInputs);
+        createMatrixInputs();
+
+        document.getElementById('cell-0-0').value = 1;
+        document.getElementById('cell-0-1').value = 2;
+        document.getElementById('cell-1-0').value = 0;
+        document.getElementById('cell-1-1').value = 3;
+    </script>
+</body>
+
+</html>
