@@ -4,43 +4,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="canonical" href="https://usefreecalculator.com/Tools/split-bill-calculator">
     <meta name="description"
-        content="Split restaurant bills fairly! Calculate tips, taxes & individual shares. Perfect for group dining, parties & shared expenses.">
-    <title>Split Bill Calculator</title>
+        content="Split a bill in seconds. Add tip and tax, choose who pays for what, and see everyone’s total instantly. Free and perfect for groups. No Signup Required!">
+    <title>Split Bill Calculator – Split Bills Fairly with Tip & Tax</title>
     <!-- Favicon Link -->
     <link rel="icon" href="../Favicon.png" type="image/png">
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "Split Bill Calculator",
-      "description": "Split restaurant bills fairly! Calculate tips, taxes & individual shares. Perfect for group dining, parties & shared expenses.",
-      "url": "https://usefreecalculator.com/Tools/split-bill-calculator.html",
-      "applicationCategory": "FinanceApplication",
-      "operatingSystem": "Web Browser",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "creator": {
-        "@type": "Organization",
-        "name": "Free Calculator"
-      }
-    }
+        {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Split Bill Calculator",
+        "description": "Split a restaurant bill for a group. Add tip and tax, split equally or itemize items, and see each person's share instantly.",
+        "url": "https://usefreecalculator.com/Tools/split-bill-calculator",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Web",
+        "isAccessibleForFree": true,
+        "offers": {
+            "@type": "Offer",
+            "price": "0"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Free Calculator",
+            "url": "https://usefreecalculator.com/"
+        }
+        }
     </script>
+
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/tools/apush.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
-        /* Calculator Specific Styles */
+        /* =========================
+   Calculator Specific Styles
+   ========================= */
+
         .calculator-box {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             border-radius: 20px;
             padding: 2.5rem;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
             margin-bottom: 2rem;
+            box-sizing: border-box;
         }
 
         /* Input Groups */
@@ -66,6 +73,7 @@
             background: #f8f9fa;
             transition: all 0.3s ease;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
         }
 
         .input-group input:focus,
@@ -77,13 +85,17 @@
             transform: translateY(-1px);
         }
 
-        /* People Section */
+        /* =========================
+   People Section
+   ========================= */
+
         .people-section {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-radius: 15px;
             padding: 2rem;
             margin: 2rem 0;
             color: white;
+            box-sizing: border-box;
         }
 
         .people-section h3 {
@@ -102,6 +114,7 @@
             margin-bottom: 1rem;
             border: 1px solid rgba(255, 255, 255, 0.2);
             transition: all 0.3s ease;
+            box-sizing: border-box;
         }
 
         .person-card:hover {
@@ -114,6 +127,7 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 1rem;
+            gap: 0.75rem;
         }
 
         .person-name {
@@ -159,6 +173,7 @@
             margin-bottom: 0.5rem;
             width: 100%;
             font-size: 1rem;
+            box-sizing: border-box;
         }
 
         .person-details {
@@ -168,12 +183,16 @@
             margin-top: 1rem;
         }
 
-        /* Items Section */
+        /* =========================
+   Items Section
+   ========================= */
+
         .items-section {
             background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
             border-radius: 15px;
             padding: 2rem;
             margin: 2rem 0;
+            box-sizing: border-box;
         }
 
         .items-section h3 {
@@ -191,6 +210,7 @@
             margin-bottom: 1rem;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             border-left: 4px solid #ff6b35;
+            box-sizing: border-box;
         }
 
         .item-header {
@@ -198,6 +218,7 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 1rem;
+            gap: 0.75rem;
         }
 
         .item-name {
@@ -228,6 +249,7 @@
             display: flex;
             align-items: center;
             gap: 0.3rem;
+            transition: transform 0.2s ease;
         }
 
         .person-tag.selected {
@@ -239,7 +261,10 @@
             transform: scale(1.05);
         }
 
-        /* Add Buttons */
+        /* =========================
+   Buttons
+   ========================= */
+
         .add-btn {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -262,7 +287,6 @@
             box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
         }
 
-        /* Calculate Button */
         .calculate-btn {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -302,7 +326,10 @@
             box-shadow: 0 20px 50px rgba(102, 126, 234, 0.6);
         }
 
-        /* Results Section */
+        /* =========================
+   Results Section
+   ========================= */
+
         .results-section {
             margin-top: 2rem;
             padding: 2rem;
@@ -313,6 +340,7 @@
             color: white;
             position: relative;
             overflow: hidden;
+            box-sizing: border-box;
         }
 
         .results-section::before {
@@ -344,6 +372,14 @@
             position: relative;
             z-index: 1;
         }
+
+        .per-person-summary {
+            margin-top: 0.6rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #ffd700;
+        }
+
 
         .total-amount {
             font-size: 3rem;
@@ -463,41 +499,280 @@
             transform: translateY(-2px);
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .calculator-box {
-                padding: 1.5rem;
-            }
+        /* =========================
+   Step Flow (Accordion)
+   ========================= */
 
-            .person-details {
-                grid-template-columns: 1fr;
-            }
-
-            .results-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .total-amount {
-                font-size: 2rem;
-            }
-
-            .quick-split {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .export-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .calculate-btn {
-                padding: 1.2rem 2rem;
-                font-size: 1.1rem;
-            }
+        .step-container {
+            margin-bottom: 1.5rem;
         }
 
-        /* Animation */
+        .step-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .step-header:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .step-header.completed {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+        }
+
+        .step-number {
+            background: rgba(255, 255, 255, 0.3);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 0.75rem;
+        }
+
+        .step-title-group {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+
+        .step-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .step-chevron {
+            transition: transform 0.3s ease;
+        }
+
+        .step-chevron.rotated {
+            transform: rotate(180deg);
+        }
+
+        .step-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .step-content.open {
+            max-height: 2000px;
+            padding: 1rem 0;
+        }
+
+        /* Currency input wrapper */
+        .currency-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .currency-input-wrapper .currency-symbol {
+            position: absolute;
+            left: 1.2rem;
+            font-size: 1.2rem;
+            color: #667eea;
+            font-weight: 600;
+            pointer-events: none;
+        }
+
+        .currency-input-wrapper input {
+            padding-left: 2.5rem !important;
+        }
+
+        /* Number stepper */
+        .number-stepper {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+
+        .stepper-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .stepper-btn:hover:not(:disabled) {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+        }
+
+        .stepper-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .stepper-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        /* Tip toggle */
+        .tip-toggle {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            background: rgba(102, 126, 234, 0.1);
+            padding: 0.5rem;
+            border-radius: 12px;
+        }
+
+        .tip-toggle-btn {
+            flex: 1;
+            padding: 0.8rem;
+            border: 2px solid transparent;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .tip-toggle-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #ffd700;
+        }
+
+        /* =========================
+   Sticky Result Card
+   ========================= */
+
+        .sticky-result-card {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            display: none;
+            /* default hidden on desktop */
+        }
+
+        .sticky-result-card.visible {
+            transform: translateY(0);
+        }
+
+        .sticky-result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding-bottom: 0.5rem;
+        }
+
+        .sticky-result-main {
+            text-align: center;
+        }
+
+        .sticky-result-amount {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #ffd700;
+        }
+
+        .sticky-result-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .sticky-result-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .sticky-result-details.expanded {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-top: 1rem;
+        }
+
+        .sticky-collapse-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Advanced options accordion */
+        .advanced-section {
+            margin-top: 1rem;
+            border-top: 2px solid rgba(102, 126, 234, 0.2);
+            padding-top: 1rem;
+        }
+
+        .advanced-toggle {
+            background: rgba(102, 126, 234, 0.1);
+            border: 2px dashed rgba(102, 126, 234, 0.3);
+            padding: 1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: 600;
+            color: #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .advanced-toggle:hover {
+            background: rgba(102, 126, 234, 0.2);
+            border-color: #667eea;
+        }
+
+        .advanced-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .advanced-content.open {
+            max-height: 3000px;
+            margin-top: 1rem;
+        }
+
+        /* =========================
+   Animation
+   ========================= */
+
         @keyframes bounceIn {
             0% {
                 opacity: 0;
@@ -522,17 +797,156 @@
         .animate-result {
             animation: bounceIn 0.6s ease-out;
         }
+
+        /* =========================
+   Warning
+   ========================= */
+
+        .warning-message {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            color: #856404;
+            display: none;
+        }
+
+        .warning-message.show {
+            display: block;
+        }
+
+        .results-section::before {
+            pointer-events: none;
+        }
+
+        /* =========================
+   RESPONSIVE (Single clean block)
+   ========================= */
+
+        @media (max-width: 768px) {
+
+            /* Make sizing predictable */
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box !important;
+            }
+
+            /* Remove any page padding/margins that may push layout */
+            html,
+            body {
+                width: 100% !important;
+                max-width: 100% !important;
+                overflow-x: hidden !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            /* Mobile calculate button fix */
+            .calculate-btn {
+                width: 100%;
+                max-width: 360px;
+                padding: 14px 18px;
+                font-size: 1rem;
+                letter-spacing: 0.5px;
+                border-radius: 18px;
+                line-height: 1.2;
+                margin: 1.25rem auto;
+            }
+
+            /* Hide sidebars */
+            .left-sidebar,
+            .right-sidebar {
+                display: none !important;
+                width: 0 !important;
+                max-width: 0 !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            /* IMPORTANT: correct selector (no space) */
+            .tool-container {
+                display: block !important;
+                /* kill desktop flex layout */
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 12px !important;
+                /* small safe padding */
+                overflow-x: hidden !important;
+            }
+
+            .main-content-column {
+                width: 100% !important;
+                max-width: 100% !important;
+                min-width: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            /* Prevent any inner sections from exceeding screen width */
+            .calculator-content,
+            .calculator-box,
+            .step-container,
+            .people-section,
+            .items-section,
+            .results-section {
+                width: 100% !important;
+                max-width: 100% !important;
+                min-width: 0 !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+
+            /* Fix the common overflow culprit: long flex rows */
+            .item-header {
+                flex-wrap: wrap !important;
+            }
+
+            /* Mobile results layout fix */
+            .results-grid {
+                grid-template-columns: 1fr;
+                width: 100%;
+                max-width: 100%;
+            }
+
+
+            /* Banner image safety */
+            .banner img {
+                width: 100% !important;
+                max-width: 100% !important;
+                height: auto !important;
+                display: block !important;
+            }
+        }
+
+
+        /* Desktop only */
+        @media (min-width: 769px) {
+            .sticky-result-card {
+                display: none;
+            }
+
+            .results-section {
+                position: relative;
+                transform: none !important;
+            }
+        }
     </style>
+
+
 </head>
 
 <body>
-<!-- Announcement section -->
-<div class="top-announcement-bar">
-    <div class="announcement-number">New Announcement</div>
-    <div class="announcement-text">
-        Black Friday: Up to 85% OFF on Hosting! <a href="https://blackfridaydeals.pages.dev/" target="_blank" rel="noopener noreferrer" class="announcement-link">Grab Your Deal Now!</a>
+    <!-- Announcement section -->
+    <div class="top-announcement-bar">
+        <div class="announcement-number">New Announcement</div>
+        <div class="announcement-text">
+            Black Friday: Up to 85% OFF on Hosting! <a href="https://blackfridaydeals.pages.dev/" target="_blank"
+                rel="noopener noreferrer" class="announcement-link">Grab Your Deal Now!</a>
+        </div>
     </div>
-</div>
 
     <header>
         <nav>
@@ -588,18 +1002,21 @@
     <section class="hero">
         <div class="hero-content">
             <h1>Split Bill Calculator</h1>
+            <p>
+                Use this split bill calculator to divide expenses fairly. Split equally, use custom
+                amounts, or assign items with tax and tip included.
+            </p>
+
         </div>
     </section>
 
-<!-- Responsive Banner -->
-<section class="banner" style="text-align: center; margin-top: 10px;">
-  <a href="https://bluehost.sjv.io/aeducateweb" target="_blank" style="display: inline-block;">
-    <img 
-      src="../Hosting 1-728x90.png" 
-      alt="Advertisement" 
-      style="max-width: 100%; height: auto; width: 700px; display: inline-block;">
-  </a>
-</section>
+    <!-- Responsive Banner -->
+    <section class="banner" style="text-align: center; margin-top: 10px;">
+        <a href="https://bluehost.sjv.io/aeducateweb" target="_blank" style="display: inline-block;">
+            <img src="../Hosting 1-728x90.png" alt="Advertisement"
+                style="max-width: 100%; height: auto; width: 700px; display: inline-block;">
+        </a>
+    </section>
 
     <div class="tool-container">
         <aside class="left-sidebar">
@@ -615,76 +1032,209 @@
 
         <div class="main-content-column">
             <main class="calculator-content">
-                <h1>Smart Split Bill Calculator</h1>
-
                 <div class="calculator-box">
-                    <!-- Basic Bill Info -->
-                    <div class="input-group">
-                        <label for="billTotal">Total Bill Amount:</label>
-                        <input type="text" id="billTotal" placeholder="Enter total amount" value="$100.00">
+                    <h2>Split a bill instantly between friends. Tip & tax are optional.</h2><br>
+                    <!-- Warning Message -->
+                    <div id="warningMessage" class="warning-message">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span id="warningText"></span>
                     </div>
 
-                    <div class="input-group">
-                        <label>
-                            Tip Type:
-                            <select id="tipType">
-                                <option value="percent">Percentage (%)</option>
-                                <option value="amount">Amount ($)</option>
-                            </select>
-                        </label>
-                        <input type="number" id="tipValue" placeholder="Tip %" value="15" min="0" step="0.01">
-                    </div>
-
-                    <div class="input-group">
-                        <label for="taxPercent">Tax Percentage:</label>
-                        <input type="number" id="taxPercent" placeholder="Enter tax %" value="8.5" min="0" max="20"
-                            step="0.1">
-                    </div>
-
-                    <!-- Quick Split Options -->
-                    <div class="quick-split">
-                        <button class="quick-btn" onclick="quickSplit(2)">Split 2 Ways</button>
-                        <button class="quick-btn" onclick="quickSplit(3)">Split 3 Ways</button>
-                        <button class="quick-btn" onclick="quickSplit(4)">Split 4 Ways</button>
-                        <button class="quick-btn active" onclick="enableCustomSplit()">Custom Split</button>
-                    </div>
-
-                    <!-- People Section -->
-                    <div class="people-section">
-                        <h3><i class="fas fa-users"></i> People</h3>
-                        <div id="peopleContainer">
-                            <!-- People will be added dynamically -->
+                    <!-- STEP 1: Bill Basics -->
+                    <div class="step-container">
+                        <div class="step-header" onclick="toggleStep(1)" role="button" aria-expanded="true">
+                            <div class="step-title-group">
+                                <div class="step-number">1</div>
+                                <div class="step-title">Bill Total & People</div>
+                            </div>
+                            <i class="fas fa-chevron-down step-chevron rotated"></i>
                         </div>
-                        <button class="add-btn" onclick="addPerson()">
-                            <i class="fas fa-user-plus"></i> Add Person
-                        </button>
-                    </div>
+                        <div class="step-content open" id="step1Content">
+                            <div class="input-group">
+                                <label for="billTotal">Total Bill Amount</label>
+                                <div class="currency-input-wrapper">
+                                    <!-- <span class="currency-symbol">$</span> -->
+                                    <input type="text" id="billTotal" placeholder="Enter amount in (your currency)"
+                                        inputmode="decimal" aria-label="Total bill amount">
+                                </div>
+                            </div>
 
-                    <!-- Items Section -->
-                    <div class="items-section">
-                        <h3><i class="fas fa-receipt"></i> Items (Optional)</h3>
-                        <p style="text-align: center; margin-bottom: 1rem; color: #666;">
-                            Add specific items to split costs more precisely
-                        </p>
-                        <div id="itemsContainer">
-                            <!-- Items will be added dynamically -->
+                            <div class="input-group">
+                                <label>Number of People</label>
+                                <div class="number-stepper">
+                                    <button type="button" class="stepper-btn" onclick="decrementPeople()"
+                                        aria-label="Decrease people">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <div class="stepper-value" id="peopleCount">2</div>
+                                    <button type="button" class="stepper-btn" onclick="incrementPeople()"
+                                        aria-label="Increase people">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <button class="add-btn" onclick="addItem()">
-                            <i class="fas fa-plus"></i> Add Item
-                        </button>
                     </div>
 
-                    <button class="calculate-btn" onclick="calculateSplit()">
-                        <i class="fas fa-calculator"></i> Calculate Split
+                    <!-- STEP 2: Tip & Tax (Optional) -->
+                    <div class="step-container">
+                        <div class="step-header" onclick="toggleStep(2)" role="button" aria-expanded="false">
+                            <div class="step-title-group">
+                                <div class="step-number">2</div>
+                                <div class="step-title">Tip & Tax <small>(optional)</small></div>
+                            </div>
+                            <i class="fas fa-chevron-down step-chevron"></i>
+                        </div>
+                        <div class="step-content" id="step2Content">
+                            <div class="input-group">
+                                <label>Tip</label>
+                                <div class="tip-toggle" role="radiogroup" aria-label="Tip type">
+                                    <button type="button" class="tip-toggle-btn active" id="tipPercentBtn"
+                                        onclick="setTipType('percent')" role="radio" aria-checked="true">
+                                        Percentage (%)
+                                    </button>
+                                    <button type="button" class="tip-toggle-btn" id="tipAmountBtn"
+                                        onclick="setTipType('amount')" role="radio" aria-checked="false">
+                                        Amount
+                                        <!-- Amount ($) -->
+                                    </button>
+                                </div>
+                                <input type="number" id="tipValue" placeholder="Enter tip" min="0" step="0.01"
+                                    inputmode="decimal" aria-label="Tip value">
+
+                            </div>
+
+                            <div class="input-group">
+                                <label for="taxPercent">Tax Percentage (%)</label>
+                                <input type="number" id="taxPercent" placeholder="Enter tax in percentage % (optional)"
+                                    min="0" max="100" step="0.1" inputmode="decimal" aria-label="Tax percentage">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- STEP 3: Split Method -->
+                    <div class="step-container">
+                        <div class="step-header" onclick="toggleStep(3)" role="button" aria-expanded="false">
+                            <div class="step-title-group">
+                                <div class="step-number">3</div>
+                                <div class="step-title">Split Method</div>
+                            </div>
+                            <i class="fas fa-chevron-down step-chevron"></i>
+                        </div>
+                        <div class="step-content" id="step3Content">
+                            <div class="quick-split">
+                                <button type="button" class="quick-btn active" onclick="quickSplit('equal')"
+                                    aria-pressed="true">
+                                    <i class="fas fa-equals"></i> Equal Split
+                                </button>
+                                <button type="button" class="quick-btn" onclick="quickSplit('custom')"
+                                    aria-pressed="false">
+                                    <i class="fas fa-sliders-h"></i> Custom Amounts
+                                </button>
+                            </div>
+
+                            <!-- Advanced Options -->
+                            <div class="advanced-section">
+                                <div class="advanced-toggle" onclick="toggleAdvanced()" role="button"
+                                    aria-expanded="false">
+                                    <i class="fas fa-cog"></i> Advanced Options (Itemized Split & Payment Methods)
+                                </div>
+                                <div class="advanced-content" id="advancedContent">
+                                    <!-- People Section -->
+                                    <div class="people-section">
+                                        <h3><i class="fas fa-users"></i> People Details</h3>
+                                        <div id="peopleContainer" class="people-scroll-container">
+                                            <!-- People will be added dynamically -->
+                                        </div>
+                                        <button type="button" class="add-btn" onclick="addPerson()">
+                                            <i class="fas fa-user-plus"></i> Add Person
+                                        </button>
+                                    </div>
+
+                                    <!-- Items Section -->
+                                    <div class="items-section">
+                                        <h3><i class="fas fa-receipt"></i> Itemized Split</h3>
+                                        <p style="text-align: center; margin-bottom: 1rem; color: #666;">
+                                            Add specific items to split costs precisely
+                                        </p>
+                                        <div id="itemsContainer">
+                                            <!-- Items will be added dynamically -->
+                                        </div>
+                                        <button type="button" class="add-btn" onclick="addItem()">
+                                            <i class="fas fa-plus"></i> Add Item
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="calculate-btn" onclick="calculateSplit()">
+                        <i class="fas fa-calculator"></i> Calculate
                     </button>
+                </div>
+
+                <!-- Sticky Result Card (Mobile) -->
+                <div id="stickyResultCard" class="sticky-result-card" role="region" aria-label="Calculation results">
+                    <div class="sticky-result-header" onclick="toggleStickyDetails()">
+                        <div class="sticky-result-main">
+                            <div class="sticky-result-amount" id="stickyAmount">0.00</div>
+                            <div class="sticky-result-label">Each person pays</div>
+                        </div>
+                        <button type="button" class="sticky-collapse-btn" aria-label="Toggle details"
+                            aria-expanded="false">
+                            <i class="fas fa-chevron-up"></i>
+                        </button>
+                    </div>
+                    <div class="sticky-result-details" id="stickyDetails">
+                        <div style="font-size: 0.9rem; opacity: 0.95; margin-bottom: 1rem;">
+                            <div style="display: flex; justify-content: space-between; margin: 0.5rem 0;">
+                                <span>Bill Total:</span>
+                                <span id="stickyBillTotal">0.00</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin: 0.5rem 0;">
+                                <span>Tip:</span>
+                                <span id="stickyTip">0.00</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin: 0.5rem 0;">
+                                <span>Tax:</span>
+                                <span id="stickyTax">0.00</span>
+                            </div>
+                            <div
+                                style="display: flex; justify-content: space-between; margin: 0.5rem 0; border-top: 2px solid rgba(255,255,255,0.3); padding-top: 0.5rem; font-weight: bold;">
+                                <span>Grand Total:</span>
+                                <span id="stickyGrandTotal">0.00</span>
+                            </div>
+                        </div>
+                        <div id="stickyPersonList"></div>
+                        <div class="export-buttons" style="margin-top: 1rem;">
+                            <button type="button" class="export-btn" onclick="shareResults()">
+                                <i class="fas fa-share"></i> Share
+                            </button>
+                            <button type="button" class="export-btn" onclick="exportToText()">
+                                <i class="fas fa-file-text"></i> Export
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Results Section -->
                 <div id="resultsSection" class="results-section">
                     <div class="results-header">
                         <h2>Bill Split Results</h2>
-                        <div class="total-amount" id="totalWithTipTax">$0.00</div>
-                        <p>Total including tip and tax</p>
+                        <div style="
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-top: 6px;
+  margin-bottom: 14px;
+  opacity: 0.9;
+">
+                            Results are shown in the same currency as your bill
+                        </div>
+
+                        <div class="total-label">Your Total Bill in Your Currency</div>
+                        <div class="total-amount" id="totalWithTipTax">0.00</div>
+                        <div class="per-person-summary" id="perPersonSummary"></div>
                     </div>
 
                     <div class="results-grid" id="resultsGrid">
@@ -715,44 +1265,73 @@
                     conversations at the table.</p>
 
                 <h2>What Is a Split Bill Calculator?</h2>
-                <h3>Definition and Purpose</h3>
-                <p>A split bill calculator is a digital tool that quickly calculates how much each person owes when
-                    sharing a bill. Instead of manually dividing the amount, you simply input the total bill, choose a
-                    tip option, add tax (if applicable), and the calculator handles the math instantly. It can split
-                    evenly among participants or distribute costs unequally if different people consumed different
-                    items.</p>
+                <p>
+                    A split bill calculator is a digital calculation tool that determines how a total bill should be
+                    divided
+                    among multiple participants. It takes into account the base bill amount, applicable taxes, tips, and
+                    optional custom assignments such as individual menu items or unequal contributions.
+                </p>
+
+                <p>
+                    Traditional bill splitting often leads to errors, especially when people order different items or
+                    when
+                    tax and tip must be shared proportionally. A split bill calculator automates this process, ensuring
+                    fairness and consistency in every calculation.
+                </p>
+
 
                 <h3>When People Use It</h3>
                 <ul>
-                    <li><strong>Restaurants and Cafes:</strong> Dividing a check when everyone ordered different meals
-                        and drinks.</li>
-                    <li><strong>Roommates:</strong> Sharing monthly utility bills, groceries, or internet costs.</li>
-                    <li><strong>Travel Groups:</strong> Splitting costs of accommodation, tours, or transportation among
-                        friends.</li>
-                    <li><strong>Events and Parties:</strong> Dividing catering, decorations, or group activities fairly.
+                    <li><strong>Restaurants and Cafés:</strong> When friends order different meals, drinks, or desserts.
                     </li>
+                    <li><strong>Roommates:</strong> Sharing groceries, electricity, water, or internet bills.</li>
+                    <li><strong>Group Travel:</strong> Dividing hotel rooms, fuel, tours, or transportation costs.</li>
+                    <li><strong>Events and Parties:</strong> Splitting catering, decorations, or venue expenses.</li>
                 </ul>
 
                 <h3>Equal Split vs Custom Split</h3>
-                <p>There are two main ways to split a bill:</p>
+                <p>
+                    There are two primary approaches to splitting a bill, and both are supported by this calculator.
+                </p>
                 <ul>
                     <li><strong>Equal Split:</strong> Divide the total evenly among all people. Works best when everyone
                         shared the bill equally.</li>
-                    <li><strong>Custom Split:</strong> Assign specific amounts or items to each person for fairness when
-                        orders differ.</li>
+                    <li><strong>Custom Split:</strong> A custom split is used when spending differs between individuals.
+                        In this case, specific amounts or individual items can be assigned to each person. The
+                        calculator then distributes tax and tip proportionally based on each person’s share of the base
+                        bill.</li>
                 </ul>
 
                 <h2>How the Split Bill Calculator Works</h2>
                 <h3>Core Formula for Equal Split</h3>
                 <p>The basic formula is simple: <strong>Total Bill ÷ Number of People</strong>. If a $100 bill is split
                     among 4 friends, each owes $25.</p>
+                <ul>
+                    <li>
+                        <strong>Tax Amount:</strong>
+                        Base Bill × (Tax Percentage ÷ 100)
+                    </li>
+                    <li>
+                        <strong>Tip Amount:</strong>
+                        Base Bill × (Tip Percentage ÷ 100) <em>or</em> a fixed tip amount entered by the user
+                    </li>
+                    <li>
+                        <strong>Person Subtotal:</strong>
+                        Custom amount, itemized share (item price ÷ number of assigned people), or equal share of the
+                        base bill
+                    </li>
+                    <li>
+                        <strong>Individual Share:</strong>
+                        Person Subtotal + proportional tax + proportional tip
+                    </li>
+                </ul>
 
                 <h3>Adding Tax and Tip Automatically</h3>
                 <p>The calculator adjusts the bill by adding tax and tip before dividing. For example, if the bill is
                     $120 with 8% tax and a 15% tip, the adjusted total becomes $147.60. Splitting evenly among 3 people
                     means each pays $49.20.</p>
 
-                <h3>Custom Splits with Item Assignment</h3>
+                <h3>Custom Splits with Itemized Distribution</h3>
                 <p>One of the most powerful features of this tool is the ability to assign <strong>individual menu
                         items</strong> to specific people. If Alice ordered a $20 entrée and Bob ordered a $30 entrée,
                     each pays accordingly, plus their share of tax and tip. This avoids unfairness when people order
@@ -781,30 +1360,91 @@
                 <p>The calculator allows you to record how each person pays — whether it’s <strong>cash, card, Venmo,
                         PayPal, or Zelle</strong>. That makes it easier to reconcile payments later.</p>
 
-                <h2>Step-by-Step Guide — How to Use the Calculator</h2>
-                <h3>Enter Total Bill and Choose Tip Type</h3>
-                <p>Start by entering the bill total. Select whether the tip will be calculated as a
-                    <strong>percentage</strong> or as a <strong>fixed amount</strong>. For example, you may set a 15%
-                    tip or manually add $20.</p>
+                <h2>How to Use the Split Bill Calculator</h2>
 
-                <h3>Add Tax % If Applicable</h3>
-                <p>Input the local tax rate, usually ranging between 5–10% for restaurants. The calculator applies it
-                    automatically to the base bill.</p>
+                <h3>1) Enter Amount in Your Currency</h3>
+                <p>
+                    Start by typing the total bill amount in <strong>your currency</strong>. This calculator is
+                    currency-neutral,
+                    so you can use it anywhere in the world. The tool uses the number you enter as the base bill
+                    for all calculations.
+                </p>
 
-                <h3>Select Quick Split vs Custom Split</h3>
+                <h3>2) Select the Number of People</h3>
+                <p>
+                    Choose how many people are splitting the bill. By default, the calculator starts with <strong>2
+                        people</strong>.
+                    You can increase or decrease the number of participants, and the tool will update the split options
+                    for them.
+                </p>
+
+                <h3>3) Add Tip and Tax (Optional)</h3>
+                <p>
+                    Tip and tax are optional. If you want to include them:
+                </p>
                 <ul>
-                    <li><strong>Quick Split:</strong> Choose 2, 3, or 4 people to divide the bill equally.</li>
-                    <li><strong>Custom Split:</strong> Add as many people as you want and assign amounts or items
-                        manually.</li>
+                    <li>
+                        <strong>Tip:</strong> choose <strong>percentage</strong> (example: 10%, 15%, 20%) <em>or</em>
+                        enter a
+                        <strong>fixed amount</strong> (example: 500 in your currency).
+                    </li>
+                    <li>
+                        <strong>Tax:</strong> enter tax as a <strong>percentage</strong> (example: 5%, 8%, 10%).
+                    </li>
                 </ul>
+                <p>
+                    After you add tip and/or tax, the calculator distributes them fairly based on each person’s share.
+                </p>
 
-                <h3>Assign Items or Custom Amounts</h3>
-                <p>Use the itemized feature to allocate menu items to each person. Alternatively, input custom amounts
-                    when some people want to cover specific shares (like couples paying together).</p>
+                <h3>4) Default Split: Equal Split</h3>
+                <p>
+                    By default, the tool splits the bill <strong>equally</strong>. This is best when everyone wants to
+                    pay the same
+                    amount. Once you calculate, the results show a clear summary and a detailed breakdown for each
+                    person.
+                </p>
 
-                <h3>Export or Share Results Instantly</h3>
-                <p>Once the split is calculated, share results directly with friends via text or email, print them for
-                    transparency, or copy them to the clipboard.</p>
+                <h3>5) Advanced Option: Custom Amount Split</h3>
+                <p>
+                    If the bill should not be split equally, select <strong>Custom Amount</strong>. Then open the
+                    <strong>Advanced</strong> section to enter what each person will pay.
+                </p>
+                <p>
+                    Example: If the total bill is 100 and you want Person 1 to pay 70 and Person 2 to pay 30, enter
+                    those custom
+                    amounts. The tool will still calculate and distribute tip and tax on top of those shares (if tip/tax
+                    is added).
+                </p>
+
+                <h3>6) Advanced Option: Itemized Split (Assign Items to People)</h3>
+                <p>
+                    If you want the most accurate split, use <strong>Itemized Split</strong>. Add items by name and
+                    price, then
+                    assign each item to the person (or people) who shared it.
+                </p>
+                <ul>
+                    <li><strong>Item name:</strong> for example “Bread”</li>
+                    <li><strong>Item price:</strong> for example 40</li>
+                    <li><strong>Assign to person:</strong> select Person 1 (or multiple people if shared)</li>
+                </ul>
+                <p>
+                    Example: “Bread” priced at 40 assigned to Person 1 means Person 1 covers that item. If an item is
+                    shared,
+                    the item price is split evenly among the selected people.
+                </p>
+
+                <h3>7) View Results: Summary + Detailed Cards</h3>
+                <p>
+                    After calculation, you will see:
+                </p>
+                <ul>
+                    <li><strong>Summary:</strong> total with tip and tax included</li>
+                    <li><strong>Detailed cards:</strong> per-person subtotal, tip share, tax share, and final total owed
+                    </li>
+                </ul>
+                <p>
+                    This makes it easy to settle payments without confusion, especially for groups.
+                </p>
 
                 <h2>Manual Calculation Methods</h2>
                 <h3>Simple Division Method</h3>
@@ -842,26 +1482,76 @@
                 <p>In a $90 bill split three ways, Alex pays $30 in cash, Bella pays $30 via Venmo, and Chris pays $30
                     by card. The calculator helps record this so the total still matches $90 without confusion.</p>
 
-                <h2>FAQs About Bill Splitting</h2>
-                <h3>Can This Calculator Split Unevenly?</h3>
-                <p>Yes. You can assign specific amounts or items to each person for a custom split. This is especially
-                    helpful when everyone ordered differently.</p>
 
-                <h3>How Do I Include Tax and Tip in the Split?</h3>
-                <p>Simply enter the tax percentage and tip amount or percentage. The calculator automatically adds them
-                    before dividing the bill.</p>
+                <h2>Frequently Asked Questions About the Split Bill Calculator</h2>
 
-                <h3>Can I Assign Menu Items to Individuals?</h3>
-                <p>Yes. Use the item assignment feature to allocate dishes, drinks, or extras to the people who ordered
-                    them.</p>
+                <h3>Can I use this split bill calculator with any currency?</h3>
+                <p>
+                    Yes. This calculator is currency-independent. You can enter the bill amount in any
+                    currency, and all calculations will follow the same currency automatically. The tool
+                    does not convert currencies—it simply splits the amount you enter.
+                </p>
 
-                <h3>What If Someone Wants to Pay by Venmo or PayPal?</h3>
-                <p>The calculator allows you to select different payment methods. This way, you can keep track of who
-                    paid in cash, who used a card, or who transferred via an app.</p>
+                <h3>What happens if I don’t add tip or tax?</h3>
+                <p>
+                    Tip and tax are completely optional. If you leave these fields empty, the calculator
+                    will split only the base bill amount. You can add tip and tax later without resetting
+                    the people or item assignments.
+                </p>
 
-                <h3>Is This Calculator Only for Restaurants?</h3>
-                <p>No. It works for <strong>any shared expense</strong> — from group taxis to party decorations, utility
-                    bills, or even holiday rentals.</p>
+                <h3>How does the calculator split the bill by default?</h3>
+                <p>
+                    By default, the calculator performs an equal split. The total bill is divided evenly
+                    among all selected people. This is ideal when everyone agrees to pay the same amount.
+                </p>
+
+                <h3>How does custom amount splitting work?</h3>
+                <p>
+                    When you select <strong>Custom Amount</strong> and open the <strong>Advanced</strong>
+                    section, you can manually enter how much each person should pay. If the custom amounts
+                    do not match the total bill, the calculator shows a warning but still calculates the
+                    results so you can adjust as needed.
+                </p>
+
+                <h3>Can I split the bill by individual items?</h3>
+                <p>
+                    Yes. With the <strong>Itemized Split</strong> option, you can add items by name and
+                    price, then assign each item to one or more people. If an item is shared, its cost is
+                    divided equally among the selected people.
+                </p>
+
+                <h3>What if item prices don’t add up to the total bill?</h3>
+                <p>
+                    If item totals are less than the bill, the remaining amount is split evenly among all
+                    people. If item totals exceed the bill, the calculator shows a warning and uses the
+                    item totals as the base for calculation to avoid undercharging.
+                </p>
+
+                <h3>How are tip and tax distributed between people?</h3>
+                <p>
+                    Tip and tax are distributed <strong>proportionally</strong>. Each person pays tip and
+                    tax based on their share of the bill, not equally. This ensures fairness when spending
+                    amounts differ.
+                </p>
+
+                <h3>How does the calculator handle rounding?</h3>
+                <p>
+                    All results are rounded to two decimal places. If rounding causes a small difference,
+                    the calculator automatically adjusts the final person’s total so that all individual
+                    amounts add up exactly to the grand total.
+                </p>
+
+                <h3>Can different people use different payment methods?</h3>
+                <p>
+                    Yes. You can assign payment methods such as cash, card, Venmo, PayPal, or Zelle to each
+                    person. This helps track who pays how, especially in group situations.
+                </p>
+
+                <h3>Is my data saved or shared?</h3>
+                <p>
+                    No. All calculations run locally in your browser. No personal data, bill details, or
+                    payment information is stored or sent to any server.
+                </p>
 
                 <h2>Conclusion</h2>
                 <h3>Key Takeaways</h3>
@@ -897,32 +1587,33 @@
                     <li>Export results to keep track of who owes what</li>
                     <li>Use custom percentages when people want to split unevenly</li>
                 </ul>
+
             </article>
         </div>
 
         <aside class="right-sidebar">
-      <div class="ad-space">
-        <div class="ad-placeholder">
-          <a href="https://bluehost.sjv.io/aeducateweb" target="_blank">
-            <img src="../Bluehost300by250.webp" alt="Advertisement 1">
-          </a>
-        </div>
-      </div>
-      <div class="ad-space">
-        <div class="ad-placeholder">
-          <a href="https://hostgator.pvxt.net/aeducateweb" target="_blank">
-            <img src="../Hostgator_300x250.webp" alt="Advertisement 2">
-          </a>
-        </div>
-      </div>
-      <div class="ad-space">
-        <div class="ad-placeholder">
-          <a href="https://hostinger.sjv.io/aeducateweb" target="_blank">
-            <img src="../Hostinger300x250-EN.webp" alt="Advertisement 3">
-          </a>
-        </div>
-      </div>
-    </aside>
+            <div class="ad-space">
+                <div class="ad-placeholder">
+                    <a href="https://bluehost.sjv.io/aeducateweb" target="_blank">
+                        <img src="../Bluehost300by250.webp" alt="Advertisement 1">
+                    </a>
+                </div>
+            </div>
+            <div class="ad-space">
+                <div class="ad-placeholder">
+                    <a href="https://hostgator.pvxt.net/aeducateweb" target="_blank">
+                        <img src="../Hostgator_300x250.webp" alt="Advertisement 2">
+                    </a>
+                </div>
+            </div>
+            <div class="ad-space">
+                <div class="ad-placeholder">
+                    <a href="https://hostinger.sjv.io/aeducateweb" target="_blank">
+                        <img src="../Hostinger300x250-EN.webp" alt="Advertisement 3">
+                    </a>
+                </div>
+            </div>
+        </aside>
     </div>
 
     <footer>
@@ -956,819 +1647,10 @@
             <p>&copy; 2025 Free Calculator Hub. All rights reserved.</p>
         </div>
     </footer>
+    <script src="../js/split-bill-calculator.js"></script>
 
     <script src="../js/calculator.js"></script>
-    <script>
-        // ===== Data Structures =====
-        let people = [];
-        let items = [];
-        let personIdCounter = 1;
-        let itemIdCounter = 1;
-        let isCustomSplit = true;
 
-        // ===== Utility Functions =====
-        function formatCurrencyInput(input) {
-            let value = input.value.replace(/[^0-9.]/g, '');
-            if (value && !isNaN(value)) {
-                input.value = '$' + parseFloat(value).toFixed(2);
-            }
-        }
-
-        // ===== People Handlers =====
-        function addPerson(name = '') {
-            const personId = personIdCounter++;
-            const person = {
-                id: personId,
-                name: name || `Person ${personId}`,
-                customAmount: 0,
-                paymentMethod: 'cash',
-                items: []
-            };
-            people.push(person);
-            renderPeople();
-            renderItems();
-        }
-
-        function removePerson(personId) {
-            if (people.length <= 1) {
-                alert('You need at least one person to split the bill!');
-                return;
-            }
-            people = people.filter(p => p.id !== personId);
-            // Update items to remove this person from shared lists
-            items.forEach(item => {
-                item.sharedBy = item.sharedBy.filter(id => id !== personId);
-                if (item.sharedBy.length === 0 && people.length > 0) {
-                    item.sharedBy.push(people[0].id);
-                }
-            });
-            renderPeople();
-            renderItems();
-        }
-
-        function renderPeople() {
-            const container = document.getElementById('peopleContainer');
-            container.innerHTML = '';
-
-            people.forEach(person => {
-                const personDiv = document.createElement('div');
-                personDiv.className = 'person-card';
-                personDiv.innerHTML = `
-            <div class="person-header">
-                <div class="person-name">${person.name}</div>
-                <div class="person-controls">
-                    <button class="control-btn edit-btn" onclick="editPersonName(${person.id})" title="Edit Name">
-                        <i class="fas fa-edit"></i>
-                    </button>
-                    <button class="control-btn delete" onclick="removePerson(${person.id})" title="Remove Person">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="person-details">
-                <div>
-                    <label>Custom Amount ($):</label>
-                    <input type="number" 
-                           class="person-input" 
-                           value="${person.customAmount}" 
-                           onchange="updatePersonAmount(${person.id}, this.value)" 
-                           placeholder="0.00" 
-                           step="0.01">
-                </div>
-                <div>
-                    <label>Payment Method:</label>
-                    <select class="person-input" onchange="updatePersonPayment(${person.id}, this.value)">
-                        <option value="cash" ${person.paymentMethod === 'cash' ? 'selected' : ''}>Cash</option>
-                        <option value="card" ${person.paymentMethod === 'card' ? 'selected' : ''}>Card</option>
-                        <option value="venmo" ${person.paymentMethod === 'venmo' ? 'selected' : ''}>Venmo</option>
-                        <option value="paypal" ${person.paymentMethod === 'paypal' ? 'selected' : ''}>PayPal</option>
-                        <option value="zelle" ${person.paymentMethod === 'zelle' ? 'selected' : ''}>Zelle</option>
-                    </select>
-                </div>
-            </div>
-        `;
-                container.appendChild(personDiv);
-            });
-        }
-
-        function editPersonName(personId) {
-            const person = people.find(p => p.id === personId);
-            if (!person) return;
-
-            const newName = prompt('Enter new name:', person.name);
-            if (newName && newName.trim()) {
-                person.name = newName.trim();
-                renderPeople();
-                renderItems();
-            }
-        }
-
-        function updatePersonAmount(personId, amount) {
-            const person = people.find(p => p.id === personId);
-            if (person) {
-                person.customAmount = parseFloat(amount) || 0;
-            }
-        }
-
-        function updatePersonPayment(personId, method) {
-            const person = people.find(p => p.id === personId);
-            if (person) {
-                person.paymentMethod = method;
-            }
-        }
-
-        // ===== Items Handlers =====
-        function addItem() {
-            const itemId = itemIdCounter++;
-            const item = {
-                id: itemId,
-                name: `Item ${itemId}`,
-                price: 0,
-                sharedBy: [...people.map(p => p.id)]
-            };
-            items.push(item);
-            renderItems();
-        }
-
-        function removeItem(itemId) {
-            items = items.filter(i => i.id !== itemId);
-            renderItems();
-        }
-
-        function renderItems() {
-            const container = document.getElementById('itemsContainer');
-            container.innerHTML = '';
-
-            items.forEach(item => {
-                const itemDiv = document.createElement('div');
-                itemDiv.className = 'item-card';
-                itemDiv.innerHTML = `
-            <div class="item-header">
-                <input type="text" 
-                       class="person-input item-name-input" 
-                       value="${item.name}" 
-                       onchange="updateItemName(${item.id}, this.value)" 
-                       placeholder="Item name" 
-                       style="width: 60%; margin: 0;">
-                <div class="item-price">
-                    $<input type="number" 
-                           class="item-price-input" 
-                           value="${item.price}" 
-                           onchange="updateItemPrice(${item.id}, this.value)" 
-                           placeholder="0.00" 
-                           step="0.01"
-                           style="width: 80px; border: none; background: transparent; font-weight: 700; color: #e74c3c; font-size: 1.3rem;">
-                </div>
-                <button class="control-btn delete" onclick="removeItem(${item.id})" title="Remove Item">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </div>
-            <div>
-                <label style="color: #666; font-size: 0.9rem; margin-bottom: 0.5rem; display: block;">
-                    Shared by (click to toggle):
-                </label>
-                <div class="shared-with">
-                    ${people.map(person => `
-                        <div class="person-tag ${item.sharedBy.includes(person.id) ? 'selected' : ''}" 
-                             onclick="togglePersonForItem(${item.id}, ${person.id})">
-                            ${person.name}
-                            <i class="fas fa-${item.sharedBy.includes(person.id) ? 'check' : 'times'}"></i>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-        `;
-                container.appendChild(itemDiv);
-            });
-        }
-
-        function updateItemName(itemId, name) {
-            const item = items.find(i => i.id === itemId);
-            if (item) {
-                item.name = name;
-            }
-        }
-
-        function updateItemPrice(itemId, price) {
-            const item = items.find(i => i.id === itemId);
-            if (item) {
-                item.price = parseFloat(price) || 0;
-            }
-        }
-
-        function togglePersonForItem(itemId, personId) {
-            const item = items.find(i => i.id === itemId);
-            if (!item) return;
-
-            const index = item.sharedBy.indexOf(personId);
-            if (index > -1) {
-                item.sharedBy.splice(index, 1);
-            } else {
-                item.sharedBy.push(personId);
-            }
-
-            // Ensure at least one person is assigned
-            if (item.sharedBy.length === 0) {
-                item.sharedBy.push(personId);
-                alert('At least one person must be assigned to each item!');
-            }
-
-            renderItems();
-        }
-
-        // ===== Quick Split Functions =====
-        function quickSplit(numPeople) {
-            people = [];
-            items = [];
-            personIdCounter = 1;
-            itemIdCounter = 1;
-
-            for (let i = 1; i <= numPeople; i++) {
-                addPerson(`Person ${i}`);
-            }
-
-            isCustomSplit = false;
-            setQuickSplitActive(numPeople);
-        }
-
-        function enableCustomSplit() {
-            isCustomSplit = true;
-            setQuickSplitActive('custom');
-        }
-
-        function setQuickSplitActive(val) {
-            document.querySelectorAll('.quick-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-
-            // Set active based on the button clicked
-            if (val === 2) {
-                document.querySelector('.quick-btn[onclick="quickSplit(2)"]').classList.add('active');
-            } else if (val === 3) {
-                document.querySelector('.quick-btn[onclick="quickSplit(3)"]').classList.add('active');
-            } else if (val === 4) {
-                document.querySelector('.quick-btn[onclick="quickSplit(4)"]').classList.add('active');
-            } else if (val === 'custom') {
-                document.querySelector('.quick-btn[onclick="enableCustomSplit()"]').classList.add('active');
-            }
-        }
-
-        // ===== Calculation Logic =====
-        function calculateSplit() {
-            const billTotalInput = document.getElementById('billTotal').value;
-            const billTotal = parseFloat(billTotalInput.replace(/[^0-9.]/g, '')) || 0;
-            const tipType = document.getElementById('tipType').value;
-            const tipValue = parseFloat(document.getElementById('tipValue').value) || 0;
-            const taxPercent = parseFloat(document.getElementById('taxPercent').value) || 0;
-
-            if (billTotal <= 0) {
-                alert('Please enter a valid bill amount!');
-                return;
-            }
-
-            if (people.length === 0) {
-                alert('Please add at least one person!');
-                return;
-            }
-
-            // Calculate tip and tax
-            let tipAmount = 0;
-            if (tipType === 'percent') {
-                tipAmount = (billTotal * tipValue) / 100;
-            } else {
-                tipAmount = tipValue;
-            }
-
-            const taxAmount = (billTotal * taxPercent) / 100;
-            const totalWithTipTax = billTotal + tipAmount + taxAmount;
-
-            // Initialize person totals
-            const personTotals = {};
-            people.forEach(person => {
-                personTotals[person.id] = {
-                    name: person.name,
-                    subtotal: 0,
-                    itemDetails: [],
-                    paymentMethod: person.paymentMethod,
-                    customAmount: person.customAmount,
-                    tip: 0,
-                    tax: 0,
-                    total: 0
-                };
-            });
-
-            // Calculate based on items or custom amounts or equal split
-            if (items.length > 0 && items.some(item => item.price > 0)) {
-                // Item-based calculation
-                let totalItemsPrice = 0;
-
-                items.forEach(item => {
-                    if (item.price > 0 && item.sharedBy.length > 0) {
-                        const pricePerPerson = item.price / item.sharedBy.length;
-                        totalItemsPrice += item.price;
-
-                        item.sharedBy.forEach(personId => {
-                            if (personTotals[personId]) {
-                                personTotals[personId].subtotal += pricePerPerson;
-                                personTotals[personId].itemDetails.push({
-                                    name: item.name,
-                                    amount: pricePerPerson,
-                                    sharedWith: item.sharedBy.length
-                                });
-                            }
-                        });
-                    }
-                });
-
-                // Handle remaining amount if items don't add up to bill total
-                const remainingAmount = billTotal - totalItemsPrice;
-                if (remainingAmount > 0) {
-                    const remainingPerPerson = remainingAmount / people.length;
-                    people.forEach(person => {
-                        personTotals[person.id].subtotal += remainingPerPerson;
-                        if (remainingPerPerson > 0.01) {
-                            personTotals[person.id].itemDetails.push({
-                                name: 'Other items/charges',
-                                amount: remainingPerPerson,
-                                sharedWith: people.length
-                            });
-                        }
-                    });
-                }
-            } else {
-                // Check if custom amounts are used
-                const hasCustomAmounts = people.some(person => person.customAmount > 0);
-
-                if (hasCustomAmounts) {
-                    const totalCustom = people.reduce((sum, person) => sum + person.customAmount, 0);
-
-                    if (Math.abs(totalCustom - billTotal) > 0.01) {
-                        const confirmed = confirm(
-                            `Custom amounts total $${totalCustom.toFixed(2)} but bill is $${billTotal.toFixed(2)}. Continue anyway?`
-                        );
-                        if (!confirmed) return;
-                    }
-
-                    people.forEach(person => {
-                        personTotals[person.id].subtotal = person.customAmount;
-                        personTotals[person.id].itemDetails.push({
-                            name: 'Custom amount',
-                            amount: person.customAmount,
-                            sharedWith: 1
-                        });
-                    });
-                } else {
-                    // Equal split
-                    const equalShare = billTotal / people.length;
-                    people.forEach(person => {
-                        personTotals[person.id].subtotal = equalShare;
-                        personTotals[person.id].itemDetails.push({
-                            name: 'Equal share of bill',
-                            amount: equalShare,
-                            sharedWith: people.length
-                        });
-                    });
-                }
-            }
-
-            // Add tip and tax proportionally
-            people.forEach(person => {
-                const proportion = personTotals[person.id].subtotal / billTotal;
-                const personTip = tipAmount * proportion;
-                const personTax = taxAmount * proportion;
-
-                personTotals[person.id].tip = personTip;
-                personTotals[person.id].tax = personTax;
-                personTotals[person.id].total = personTotals[person.id].subtotal + personTip + personTax;
-            });
-
-            displayResults(personTotals, {
-                billTotal,
-                tipAmount,
-                taxAmount,
-                totalWithTipTax,
-                tipPercent: tipType === 'percent' ? tipValue : null,
-                tipAmountUser: tipType === 'amount' ? tipValue : null,
-                taxPercent
-            });
-        }
-
-        function displayResults(personTotals, totals) {
-            const resultsSection = document.getElementById('resultsSection');
-            const resultsGrid = document.getElementById('resultsGrid');
-            const totalAmount = document.getElementById('totalWithTipTax');
-
-            resultsSection.style.display = 'block';
-            resultsSection.className = 'results-section animate-result';
-            totalAmount.textContent = `$${totals.totalWithTipTax.toFixed(2)}`;
-
-            resultsGrid.innerHTML = '';
-
-            Object.values(personTotals).forEach(person => {
-                const resultCard = document.createElement('div');
-                resultCard.className = 'person-result';
-
-                const paymentMethodIcon = {
-                    'cash': 'fas fa-money-bill-wave',
-                    'card': 'fas fa-credit-card',
-                    'venmo': 'fab fa-venmo',
-                    'paypal': 'fab fa-paypal',
-                    'zelle': 'fas fa-university'
-                };
-
-                resultCard.innerHTML = `
-            <h4>
-                <i class="${paymentMethodIcon[person.paymentMethod] || 'fas fa-wallet'}"></i>
-                ${person.name}
-            </h4>
-            <div class="amount-owed">$${person.total.toFixed(2)}</div>
-            <div class="item-breakdown">
-                <div class="breakdown-item">
-                    <span>Subtotal:</span>
-                    <span>$${person.subtotal.toFixed(2)}</span>
-                </div>
-                ${(person.tip > 0 && totals.tipPercent != null) ? `
-                <div class="breakdown-item">
-                    <span>Tip (${totals.tipPercent}%):</span>
-                    <span>$${person.tip.toFixed(2)}</span>
-                </div>` : ''}
-                ${(person.tip > 0 && totals.tipAmountUser != null) ? `
-                <div class="breakdown-item">
-                    <span>Tip (amount):</span>
-                    <span>$${person.tip.toFixed(2)}</span>
-                </div>` : ''}
-                ${person.tax > 0 ? `
-                <div class="breakdown-item">
-                    <span>Tax (${totals.taxPercent}%):</span>
-                    <span>$${person.tax.toFixed(2)}</span>
-                </div>` : ''}
-                <div class="breakdown-item" style="border-top: 2px solid rgba(255,255,255,0.3); margin-top: 0.5rem; padding-top: 0.5rem; font-weight: bold;">
-                    <span>Total:</span>
-                    <span>$${person.total.toFixed(2)}</span>
-                </div>
-                ${person.itemDetails.length > 0 ? `
-                <div style="margin-top: 1rem; font-size: 0.8rem; opacity: 0.9;">
-                    <strong>Items:</strong><br>
-                    ${person.itemDetails.map(item =>
-                    `• ${item.name}: $${item.amount.toFixed(2)}${item.sharedWith > 1 ? ` (split ${item.sharedWith} ways)` : ''}`
-                ).join('<br>')}
-                </div>` : ''}
-            </div>
-        `;
-                resultsGrid.appendChild(resultCard);
-            });
-
-            resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-
-        // ===== Export/Share/Print Functions =====
-
-        // ===== Export/Share/Print Functions =====
-        function exportToText() {
-            const resultsSection = document.getElementById('resultsSection');
-            if (resultsSection.style.display === 'none') {
-                alert('Please calculate the split first!');
-                return;
-            }
-
-            // Get bill details
-            const billTotalInput = document.getElementById('billTotal').value;
-            const billTotal = parseFloat(billTotalInput.replace(/[^0-9.]/g, '')) || 0;
-            const tipType = document.getElementById('tipType').value;
-            const tipValue = parseFloat(document.getElementById('tipValue').value) || 0;
-            const taxPercent = parseFloat(document.getElementById('taxPercent').value) || 0;
-            const totalAmount = document.getElementById('totalWithTipTax').textContent;
-
-            // Calculate tip and tax amounts
-            let tipAmount = 0;
-            if (tipType === 'percent') {
-                tipAmount = (billTotal * tipValue) / 100;
-            } else {
-                tipAmount = tipValue;
-            }
-            const taxAmount = (billTotal * taxPercent) / 100;
-
-            // Build export text
-            let exportText = `BILL SPLIT SUMMARY\n`;
-            exportText += `==================\n\n`;
-            exportText += `Original Bill: $${billTotal.toFixed(2)}\n`;
-
-            if (tipAmount > 0) {
-                if (tipType === 'percent') {
-                    exportText += `Tip (${tipValue}%): $${tipAmount.toFixed(2)}\n`;
-                } else {
-                    exportText += `Tip: $${tipAmount.toFixed(2)}\n`;
-                }
-            }
-
-            if (taxAmount > 0) {
-                exportText += `Tax (${taxPercent}%): $${taxAmount.toFixed(2)}\n`;
-            }
-
-            exportText += `Total: ${totalAmount}\n\n`;
-            exportText += `INDIVIDUAL AMOUNTS:\n`;
-            exportText += `------------------\n`;
-
-            // Get individual results
-            const personResults = document.querySelectorAll('.person-result');
-            personResults.forEach(card => {
-                const nameElement = card.querySelector('h4');
-                const amountElement = card.querySelector('.amount-owed');
-                const breakdownElement = card.querySelector('.item-breakdown');
-
-                if (nameElement && amountElement) {
-                    // Clean up the name (remove icons)
-                    const name = nameElement.textContent.trim().replace(/^\s*[\s\S]*?\s+/, '');
-                    const amount = amountElement.textContent;
-                    exportText += `${name}: ${amount}\n`;
-
-                    // Add breakdown details
-                    if (breakdownElement) {
-                        const breakdownItems = breakdownElement.querySelectorAll('.breakdown-item');
-                        breakdownItems.forEach(item => {
-                            const itemText = item.textContent.trim();
-                            if (itemText && !itemText.includes('Total:')) {
-                                exportText += `  ${itemText}\n`;
-                            }
-                        });
-                    }
-                    exportText += `\n`;
-                }
-            });
-
-            exportText += `Generated by Free Calculator Split Bill Calculator\n`;
-            exportText += `${new Date().toLocaleString()}\n`;
-
-            // Try to copy to clipboard, fallback to opening in new window
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(exportText).then(() => {
-                    alert('Results copied to clipboard!');
-                }).catch(() => {
-                    fallbackTextExport(exportText);
-                });
-            } else {
-                fallbackTextExport(exportText);
-            }
-        }
-
-        function fallbackTextExport(exportText) {
-            const newWindow = window.open('', '_blank');
-            if (newWindow) {
-                newWindow.document.write(`
-            <html>
-            <head><title>Bill Split Results</title></head>
-            <body>
-                <pre style="font-family: monospace; white-space: pre-wrap; padding: 20px;">${exportText}</pre>
-                <button onclick="navigator.clipboard.writeText(document.querySelector('pre').textContent).then(() => alert('Copied!')).catch(() => alert('Please select all text and copy manually'))">Copy to Clipboard</button>
-            </body>
-            </html>
-        `);
-                newWindow.document.close();
-            } else {
-                alert('Please allow popups to export results, or copy the text manually from the results section.');
-            }
-        }
-
-        function shareResults() {
-            const resultsSection = document.getElementById('resultsSection');
-            if (resultsSection.style.display === 'none') {
-                alert('Please calculate the split first!');
-                return;
-            }
-
-            const totalAmount = document.getElementById('totalWithTipTax').textContent;
-            const personResults = document.querySelectorAll('.person-result');
-
-            let shareText = `💰 Bill Split Results 💰\n\n`;
-            shareText += `Total: ${totalAmount}\n\n`;
-            shareText += `Individual amounts:\n`;
-
-            personResults.forEach(card => {
-                const nameElement = card.querySelector('h4');
-                const amountElement = card.querySelector('.amount-owed');
-
-                if (nameElement && amountElement) {
-                    const name = nameElement.textContent.trim().replace(/^\s*[\s\S]*?\s+/, '');
-                    const amount = amountElement.textContent;
-                    shareText += `• ${name}: ${amount}\n`;
-                }
-            });
-
-            shareText += `\nCalculated with Free Calculator Split Bill Calculator`;
-
-            // Try native sharing first (mobile)
-            if (navigator.share) {
-                navigator.share({
-                    title: 'Bill Split Results',
-                    text: shareText,
-                    url: window.location.href
-                }).catch((error) => {
-                    console.log('Error sharing:', error);
-                    fallbackShare(shareText);
-                });
-            } else {
-                fallbackShare(shareText);
-            }
-        }
-
-        function fallbackShare(shareText) {
-            // Try clipboard first
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(shareText + '\n\n' + window.location.href).then(() => {
-                    alert('Share text copied to clipboard! You can now paste it anywhere.');
-                }).catch(() => {
-                    manualShare(shareText);
-                });
-            } else {
-                manualShare(shareText);
-            }
-        }
-
-        function manualShare(shareText) {
-            const newWindow = window.open('', '_blank', 'width=500,height=400');
-            if (newWindow) {
-                newWindow.document.write(`
-            <html>
-            <head><title>Share Bill Split</title></head>
-            <body style="font-family: Arial; padding: 20px;">
-                <h3>Share your bill split results:</h3>
-                <textarea readonly style="width: 100%; height: 250px; font-family: monospace;">${shareText}\n\n${window.location.href}</textarea>
-                <br><br>
-                <button onclick="navigator.clipboard.writeText(document.querySelector('textarea').value).then(() => alert('Copied!')).catch(() => alert('Please select all text and copy manually'))" style="padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer;">Copy All</button>
-                <button onclick="window.close()" style="padding: 10px 20px; background: #ccc; border: none; border-radius: 5px; cursor: pointer; margin-left: 10px;">Close</button>
-            </body>
-            </html>
-        `);
-                newWindow.document.close();
-            } else {
-                alert('Please allow popups to share results, or copy the results manually.');
-            }
-        }
-
-        function printResults() {
-            const resultsSection = document.getElementById('resultsSection');
-            if (resultsSection.style.display === 'none') {
-                alert('Please calculate the split first!');
-                return;
-            }
-
-            // Get bill details for print header
-            const billTotalInput = document.getElementById('billTotal').value;
-            const billTotal = parseFloat(billTotalInput.replace(/[^0-9.]/g, '')) || 0;
-            const tipType = document.getElementById('tipType').value;
-            const tipValue = parseFloat(document.getElementById('tipValue').value) || 0;
-            const taxPercent = parseFloat(document.getElementById('taxPercent').value) || 0;
-            const totalAmount = document.getElementById('totalWithTipTax').textContent;
-
-            // Calculate tip and tax for display
-            let tipAmount = 0;
-            if (tipType === 'percent') {
-                tipAmount = (billTotal * tipValue) / 100;
-            } else {
-                tipAmount = tipValue;
-            }
-            const taxAmount = (billTotal * taxPercent) / 100;
-
-            // Build bill summary
-            let billSummary = `
-        <div style="text-align: center; border-bottom: 2px solid #eee; padding-bottom: 20px; margin-bottom: 30px;">
-            <h2>Bill Split Summary</h2>
-            <div style="font-size: 0.9em; color: #666;">
-                <p>Original Bill: $${billTotal.toFixed(2)}</p>
-                ${tipAmount > 0 ? (tipType === 'percent' ?
-                    `<p>Tip (${tipValue}%): $${tipAmount.toFixed(2)}</p>` :
-                    `<p>Tip: $${tipAmount.toFixed(2)}</p>`) : ''}
-                ${taxAmount > 0 ? `<p>Tax (${taxPercent}%): $${taxAmount.toFixed(2)}</p>` : ''}
-            </div>
-            <div style="font-size: 2em; color: #667eea; font-weight: bold; margin-top: 15px;">${totalAmount}</div>
-            <p style="color: #666;">Total including tip and tax</p>
-        </div>
-    `;
-
-            // Get individual results
-            const personResults = document.querySelectorAll('.person-result');
-            let personResultsHTML = '';
-
-            personResults.forEach(card => {
-                const nameElement = card.querySelector('h4');
-                const amountElement = card.querySelector('.amount-owed');
-                const breakdownElement = card.querySelector('.item-breakdown');
-
-                if (nameElement && amountElement) {
-                    const name = nameElement.textContent.trim().replace(/^\s*[\s\S]*?\s+/, '');
-                    const amount = amountElement.textContent;
-
-                    // Clean up breakdown HTML for printing
-                    let breakdownHTML = '';
-                    if (breakdownElement) {
-                        breakdownHTML = breakdownElement.innerHTML
-                            .replace(/style="[^"]*"/g, '') // Remove inline styles
-                            .replace(/class="[^"]*"/g, ''); // Remove classes
-                    }
-
-                    personResultsHTML += `
-                <div style="margin: 20px 0; padding: 15px; border: 2px solid #eee; border-radius: 10px; page-break-inside: avoid;">
-                    <div style="font-size: 1.2em; font-weight: bold; color: #333; margin-bottom: 10px;">${name}</div>
-                    <div style="font-size: 1.5em; color: #e74c3c; font-weight: bold; margin-bottom: 15px;">${amount}</div>
-                    <div style="font-size: 0.9em; color: #666;">${breakdownHTML}</div>
-                </div>
-            `;
-                }
-            });
-
-            const printContent = `
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <title>Bill Split Results</title>
-            <style>
-                @media print {
-                    body { margin: 0; }
-                    .no-print { display: none; }
-                }
-                body { 
-                    font-family: Arial, sans-serif; 
-                    margin: 20px; 
-                    line-height: 1.4;
-                }
-                .breakdown-item {
-                    display: flex;
-                    justify-content: space-between;
-                    margin: 3px 0;
-                    padding: 2px 0;
-                    border-bottom: 1px solid #eee;
-                }
-                .breakdown-item:last-child {
-                    border-bottom: none;
-                    font-weight: bold;
-                    border-top: 2px solid #ddd;
-                    margin-top: 8px;
-                    padding-top: 8px;
-                }
-            </style>
-        </head>
-        <body>
-            ${billSummary}
-            <h3 style="color: #333; border-bottom: 1px solid #ccc; padding-bottom: 10px;">Individual Amounts:</h3>
-            ${personResultsHTML}
-            <div style="text-align: center; margin-top: 30px; color: #999; font-size: 0.8em; border-top: 1px solid #eee; padding-top: 20px;">
-                Generated by Free Calculator Split Bill Calculator on ${new Date().toLocaleString()}
-            </div>
-            <div class="no-print" style="text-align: center; margin-top: 20px;">
-                <button onclick="window.print()" style="padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer; margin-right: 10px;">Print</button>
-                <button onclick="window.close()" style="padding: 10px 20px; background: #ccc; border: none; border-radius: 5px; cursor: pointer;">Close</button>
-            </div>
-        </body>
-        </html>
-    `;
-
-            const printWindow = window.open('', '_blank');
-            if (printWindow) {
-                printWindow.document.write(printContent);
-                printWindow.document.close();
-
-                // Auto-print after a short delay to ensure content is loaded
-                setTimeout(() => {
-                    printWindow.print();
-                }, 500);
-            } else {
-                alert('Please allow popups to print results.');
-            }
-        }
-
-        // ===== Initialize App =====
-        document.addEventListener('DOMContentLoaded', function () {
-            // Add default people
-            addPerson('Person 1');
-            addPerson('Person 2');
-
-            // Currency format for bill total
-            const billTotalInput = document.getElementById('billTotal');
-            if (billTotalInput) {
-                billTotalInput.addEventListener('blur', function () {
-                    formatCurrencyInput(this);
-                });
-            }
-
-            // Tip type change handler
-            const tipTypeSelect = document.getElementById('tipType');
-            if (tipTypeSelect) {
-                tipTypeSelect.addEventListener('change', function () {
-                    const tipValueInput = document.getElementById('tipValue');
-                    if (this.value === 'percent') {
-                        tipValueInput.placeholder = "Tip %";
-                        tipValueInput.step = "0.01";
-                        tipValueInput.value = "15";
-                    } else {
-                        tipValueInput.placeholder = "Tip $";
-                        tipValueInput.step = "0.01";
-                        tipValueInput.value = "0";
-                    }
-                });
-            }
-        });
-
-    </script>
 </body>
 
 </html>
