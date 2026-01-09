@@ -4,23 +4,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Calculate grade curves & distributions for educators. Bell curve, square root curve & custom distributions. Fair grading made easy!">
-  <title>Grade Curve Calculator</title>
+  <meta name="description"
+    content="Quickly calculate fair grades with our Grade Curve Calculator! Use Bell Curve, Square Root, or Custom Distributions to ensure fair grading for your students.">
+  <title>Grade Curve Calculator – Bell Curve & Custom Grading Tool</title>
+  <link rel="canonical" href="https://usefreecalculator.com/Tools/grade-curve-calculator" />
   <!-- Favicon Link -->
   <link rel="icon" href="../Favicon.png" type="image/png">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "Grade Curve Calculator",
-    "description": "Calculate grade curves & distributions for educators. Bell curve, square root curve & custom distributions. Fair grading made easy!",
-    "url": "https://usefreecalculator.com/Tools/grade-curve-calculator.html",
+    "name": "Grade Curve Calculator – Bell Curve & Custom Grading Tool",
+    "description": "Quickly calculate fair grades with our Grade Curve Calculator! Use Bell Curve, Square Root, or Custom Distributions to ensure fair grading for your students.",
+    "url": "https://usefreecalculator.com/Tools/grade-curve-calculator",
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "Web Browser",
     "offers": {
       "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
+      "price": "0"
     },
     "creator": {
       "@type": "Organization",
@@ -28,6 +29,79 @@
     }
   }
   </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a Grade Curve Calculator?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It is a tool that helps educators calculate grade distributions using methods like bell curve, square root curve, or custom percentages to ensure fair grading."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does the bell curve grading method work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Bell curve grading distributes scores based on a normal distribution so that only a percentage of students receive each grade, adjusting for overall class performance."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the square root curve in grading?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The square root curve adjusts scores so that lower scores increase more significantly than higher ones, giving struggling students a relative boost while maintaining ranking order."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I customize the grade distribution?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. You can manually set the percentage of students who should receive A, B, C, and other grades with the custom distribution option."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the Grade Curve Calculator free to use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, this Grade Curve Calculator is totally free to use and requires no signup or payment."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why should I use this tool instead of doing calculations manually?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This tool saves time, increases accuracy, and helps avoid bias by automatically calculating grade distributions based on your selected method."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need to enter the number of students to use this tool?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, you need to provide the total number of students and their scores so the calculator can distribute grades correctly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Will this tool work on mobile devices?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, the Grade Curve Calculator is optimized for both desktop and mobile devices, allowing you to calculate grades on the go."
+      }
+    }
+  ]
+}
+</script>
+
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/tools/apush.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -89,7 +163,8 @@
       font-size: 1.1rem;
     }
 
-    .input-group input, .input-group select {
+    .input-group input,
+    .input-group select {
       width: 100%;
       padding: 1.2rem;
       border: 2px solid #e0e6ed;
@@ -100,7 +175,8 @@
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
 
-    .input-group input:focus, .input-group select:focus {
+    .input-group input:focus,
+    .input-group select:focus {
       outline: none;
       border-color: #667eea;
       background-color: #ffffff;
@@ -215,13 +291,14 @@
     }
 
     @keyframes fadeIn {
-      from { 
-        opacity: 0; 
-        transform: translateY(20px); 
+      from {
+        opacity: 0;
+        transform: translateY(20px);
       }
-      to { 
-        opacity: 1; 
-        transform: translateY(0); 
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
     }
 
@@ -230,6 +307,7 @@
         opacity: 0;
         transform: translateY(30px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -256,6 +334,26 @@
     }
 
     @media (max-width: 768px) {
+
+      .input-group input,
+      .input-group select {
+        width: 100%;
+        padding: 1rem;
+        font-size: 1rem;
+        /* Adjust font size for smaller screens */
+      }
+
+      .calculate-btn {
+        padding: 1rem 2rem;
+        font-size: 1rem;
+        /* Adjust button font size */
+      }
+
+      .output {
+        padding: 1.5rem;
+        font-size: 1rem;
+      }
+
       .tabs {
         flex-direction: column;
         align-items: center;
@@ -267,18 +365,9 @@
         margin-bottom: 0.5rem;
       }
 
-      .calculate-btn {
-        padding: 1rem 2rem;
-        font-size: 1rem;
-      }
-
-      .output {
-        padding: 1.5rem;
-        font-size: 1rem;
-      }
-
       #customDistribution .custom-grid {
         grid-template-columns: repeat(2, 1fr);
+        /* Stack the inputs in 2 columns */
       }
     }
   </style>
@@ -286,20 +375,21 @@
 </head>
 
 <body>
-<!-- Announcement section -->
-<div class="top-announcement-bar">
+  <!-- Announcement section -->
+  <div class="top-announcement-bar">
     <div class="announcement-number">New Announcement</div>
     <div class="announcement-text">
-        Black Friday: Up to 85% OFF on Hosting! <a href="https://blackfridaydeals.pages.dev/" target="_blank" rel="noopener noreferrer" class="announcement-link">Grab Your Deal Now!</a>
+      Black Friday: Up to 85% OFF on Hosting! <a href="https://blackfridaydeals.pages.dev/" target="_blank"
+        rel="noopener noreferrer" class="announcement-link">Grab Your Deal Now!</a>
     </div>
-</div>
+  </div>
 
 
   <header>
     <nav>
-            <div class="logo">
-                <a href="index.html" class="logo-link">Free Calculator</a>
-            </div>
+      <div class="logo">
+        <a href="index.html" class="logo-link">Free Calculator</a>
+      </div>
       <div class="nav-links">
         <a href="../index.html"><i class="fas fa-home"></i> Home</a>
         <a href="../index.html"><i class="fas fa-tools"></i> Tools</a>
@@ -349,34 +439,35 @@
   <section class="hero">
     <div class="hero-content">
       <h1>Grade Curve Calculator</h1>
+      <p>Calculate fair grades for your class using Bell Curve, Square Root Curve, or Custom Distributions. Perfect for
+        educators who want to ensure accurate and unbiased grading.</p>
+
     </div>
   </section>
 
-<!-- Responsive Banner -->
-<section class="banner" style="text-align: center; margin-top: 10px;">
-  <a href="https://bluehost.sjv.io/aeducateweb" target="_blank" style="display: inline-block;">
-    <img 
-      src="../Hosting 1-728x90.png" 
-      alt="Advertisement" 
-      style="max-width: 100%; height: auto; width: 700px; display: inline-block;">
-  </a>
-</section>
+  <!-- Responsive Banner -->
+  <section class="banner" style="text-align: center; margin-top: 10px;">
+    <a href="https://bluehost.sjv.io/aeducateweb" target="_blank" style="display: inline-block;">
+      <img src="../Hosting 1-728x90.png" alt="Advertisement"
+        style="max-width: 100%; height: auto; width: 700px; display: inline-block;">
+    </a>
+  </section>
 
   <div class="tool-container">
     <aside class="left-sidebar">
-            <h3>Related Tools</h3>
-            <ul>
-                <li><a href="apush-score-calculator.html">APUSH Score Calculator</a></li>
-                <li><a href="reverse-percentage-calculator.html">Reverse Percentage Calculator</a></li>
-                <li><a href="productivity-calculator.html">Productivity Calculator</a></li>
-                <li><a href="eigenvalue-eigenvector-calculator.html">Eigenvalue Eigenvector Calculator</a></li>
-                <li><a href="crosswind-component-calculator.html">Crosswind Component Calculator</a></li>
-            </ul>
-        </aside>
+      <h3>Related Tools</h3>
+      <ul>
+        <li><a href="apush-score-calculator.html">APUSH Score Calculator</a></li>
+        <li><a href="reverse-percentage-calculator.html">Reverse Percentage Calculator</a></li>
+        <li><a href="productivity-calculator.html">Productivity Calculator</a></li>
+        <li><a href="eigenvalue-eigenvector-calculator.html">Eigenvalue Eigenvector Calculator</a></li>
+        <li><a href="crosswind-component-calculator.html">Crosswind Component Calculator</a></li>
+      </ul>
+    </aside>
 
     <div class="main-content-column">
       <main class="calculator-content">
-        <h1>Calculate Grade Distribution and Curves</h1>
+        <h2>Calculate Grade Distribution and Curves</h2>
         <div class="calculator-box">
 
           <div class="tabs">
@@ -447,38 +538,44 @@
 
 <article class="calculator-article">
 
-  <h2>What is a Grade Curve?</h2>
-  <p>A grade curve is a statistical adjustment applied to raw student scores to create a fairer distribution of grades across a class. Instead of assigning grades solely on absolute performance, curving compares students to each other, spreading results along a chosen pattern. This ensures that grade cutoffs reflect the relative performance of the group rather than just raw scores.</p>
-  <p>Curving is commonly used in large classes where exams may be unusually difficult or where score distributions cluster too closely together. By applying a curve, instructors can normalize results, maintain consistent grading standards, and avoid penalizing students for exam variations.</p>
+  <h2>What is a Grade Curve and Why is It Used?</h2>
+  <p>A grade curve is a statistical adjustment applied to raw student scores to create a fairer distribution of grades across a class. Instead of assigning grades solely on absolute performance, curving compares students to each other, spreading results along a chosen pattern. This ensures that grade cutoffs reflect the relative performance of the group rather than just raw scores. A grade curve makes grading more fair and transparent, particularly in large classes or when exams are unexpectedly difficult.</p>
+  <p>Curving is commonly used in large classes where exams may be unusually difficult, or where score distributions cluster too closely together. By applying a curve, instructors can normalize results, maintain consistent grading standards, and avoid penalizing students for exam variations or class difficulty.</p>
+  <p>For example, in large university courses, instructors often face challenges with exam results clustering around the same score. In such cases, curving allows higher-performing students to be recognized even if the class performed poorly overall.</p>
 
   <h3>Why Educators Use Grade Curves</h3>
-  <p>Professors and teachers often use curves for three main reasons: (1) to normalize grading across multiple exam sessions, (2) to ensure fairness when assessments are harder than expected, and (3) to manage competition in large cohorts. For example, if the highest exam score is only 85 out of 100, a curve may shift grade boundaries upward to recognize strong relative performance.</p>
+  <p>Professors and teachers often use curves for three main reasons: (1) to normalize grading across multiple exam sessions, (2) to ensure fairness when assessments are harder than expected, and (3) to manage competition in large cohorts. For example, if the highest exam score is only 85 out of 100, a curve may shift grade boundaries upward to recognize strong relative performance, allowing more students to score higher even if their absolute scores are lower.</p>
+  <p>In cases where exams are unexpectedly difficult, a curve can help reduce the impact of an outlier question that may have been too hard for the class as a whole.</p>
 
   <h3>Benefits and Drawbacks of Curving</h3>
   <p>On the positive side, curving prevents entire classes from underperforming due to a difficult test. It can also reward top-performing students without requiring a perfect score. However, critics argue that curving can create unhealthy competition, make grades less transparent, and occasionally lower a student’s score if the system is percentile-based. For these reasons, most educators use curves cautiously and explain their methods clearly to students.</p>
+  <p>While some educators use curves for fairness, others argue that it can incentivize competition and reduce collaboration among students. It's important for teachers to communicate the curving methodology clearly at the start of the course to avoid misunderstandings.</p>
 
-  <h2>Grade Curve Calculator Features &amp; How It Works</h2>
-  <p>The Grade Curve Calculator provides multiple curving methods, allowing educators to test scenarios instantly. Instead of manually plotting distributions, the calculator automates the math, generates grade thresholds, and visualizes results with easy-to-read charts.</p>
+  <h2>Grade Curve Calculator Features & How It Works</h2>
+  <p>The Grade Curve Calculator provides multiple curving methods, allowing educators to test different grading scenarios instantly. Instead of manually plotting distributions, the calculator automates the math, generates grade thresholds, and visualizes results with easy-to-read charts. Whether you're using the Bell Curve, Square Root Curve, or a Custom Distribution, the calculator makes the process quick and easy.</p>
+  <p>This tool provides flexibility for educators to experiment with multiple grading scenarios and visualize how different curve types affect final grades.</p>
 
   <h3>Bell Curve Distribution Explained</h3>
-  <p>The bell curve, also called a Gaussian distribution, is the most common curving method. Students are ranked, then divided into percentile groups that align with letter grades. A standard bell curve might assign 10% A’s, 20% B’s, 40% C’s, 20% D’s, and 10% F’s. This ensures that only a portion of the class earns top or bottom grades, regardless of absolute scores.</p>
+  <p>The Bell Curve, also known as a Gaussian distribution, is the most common curving method. Students are ranked, then divided into percentile groups that align with letter grades. A standard bell curve might assign 10% A’s, 20% B’s, 40% C’s, 20% D’s, and 10% F’s. This ensures that only a portion of the class earns top or bottom grades, regardless of absolute scores.</p>
   <p>Example: In a class of 30 students with scores ranging from 50 to 90, the calculator distributes grades based on relative position rather than fixed cutoffs. The top 10% earn A’s even if the highest score is 90 instead of 100.</p>
+  <p>Real-life use case: In competitive exams like medical school admissions or law school exams, Bell Curves help standardize performance and ensure only the best-performing students receive the top grades, based on their relative rank rather than absolute marks.</p>
 
   <h3>Square Root Curve Explained</h3>
-  <p>The square root curve benefits students with lower scores by adjusting results upward proportionally more than higher scores. The formula is:</p>
+  <p>The Square Root Curve benefits students with lower scores by adjusting results upward proportionally more than higher scores. The formula is:</p>
   <p><code>New Score = √(Original Score ÷ 100) × 100</code></p>
-  <p>For instance, a student with 49% would curve to 70%, while a student with 81% would curve to 90%. This method reduces grade gaps and prevents weaker scores from being overly penalized.</p>
+  <p>For instance, a student with 49% would curve to 70%, while a student with 81% would curve to 90%. This method reduces grade gaps and prevents weaker scores from being overly penalized. The Square Root Curve is useful in introductory courses where the goal is to provide more equitable opportunities for struggling students.</p>
 
   <h3>Custom Distribution Options</h3>
-  <p>Not every class fits a strict model. The calculator allows custom input so teachers can define their own percentages for A, B, C, D, and F. This flexibility helps align with institutional policies or department-specific grading practices.</p>
+  <p>Not every class fits a strict model. The calculator allows custom input so teachers can define their own percentages for A, B, C, D, and F. This flexibility helps align with institutional policies or department-specific grading practices, offering more control over grading than traditional systems. For example, a business school might set an A grade to 90% and above, while a history class might have an A grade starting at 85% due to different grading expectations.</p>
 
   <h3>Visual Results with Graphs and Cutoffs</h3>
-  <p>Once data is entered, the tool produces two outputs: (1) a detailed text breakdown with grade cutoffs, student counts, and percentages; and (2) a visual bar chart displaying how many students fall into each grade category. This dual output ensures both quick interpretation and transparent documentation.</p>
+  <p>Once data is entered, the tool produces two outputs: (1) a detailed text breakdown with grade cutoffs, student counts, and percentages; and (2) a visual bar chart displaying how many students fall into each grade category. This dual output ensures both quick interpretation and transparent documentation for educators and administrators.</p>
+  <p>The visual chart allows educators to easily interpret how the class performed and spot trends, such as a higher concentration of students in the C or D range. This can lead to more targeted instructional adjustments.</p>
 
   <h2>Step-by-Step Guide: Using the Grade Curve Calculator</h2>
 
   <h3>Entering Student Data</h3>
-  <p>Start by inputting the total number of students, highest exam score, and lowest exam score. Accurate boundaries help the calculator spread grades fairly across the range.</p>
+  <p>Start by inputting the total number of students, highest exam score, and lowest exam score. Accurate boundaries help the calculator spread grades fairly across the range, ensuring that no student is unfairly advantaged or disadvantaged by extreme scores. For best results, make sure the data is accurate and up-to-date.</p>
 
   <h3>Choosing Curve Type</h3>
   <p>Next, select a curve distribution from the drop-down menu. The tool offers standard, lenient, strict, or custom distributions. Each option modifies grade thresholds differently:</p>
@@ -490,7 +587,7 @@
   </ul>
 
   <h3>Interpreting Output</h3>
-  <p>The results section displays grade cutoffs (e.g., A = 82–90, B = 75–81), number of students in each band, and their percentages. This helps educators explain exactly how many students received each grade and why.</p>
+  <p>The results section displays grade cutoffs (e.g., A = 82–90, B = 75–81), number of students in each band, and their percentages. This helps educators explain exactly how many students received each grade and why, providing transparency in the grading process.</p>
 
   <h3>Example Calculation</h3>
   <p>Imagine 30 students scored between 50 and 90 on an exam. Under the standard curve, the calculator might output:</p>
@@ -501,12 +598,12 @@
     <li>D: 58–64 → 6 students (20%)</li>
     <li>F: 50–57 → 3 students (10%)</li>
   </ul>
-  <p>This ensures proportional grading based on group performance rather than raw cutoffs.</p>
+  <p>This ensures proportional grading based on group performance rather than raw cutoffs, providing fairness across a range of scores.</p>
 
   <h2>Comparing Different Curving Methods</h2>
 
   <h3>Bell Curve vs. Square Root Curve</h3>
-  <p>The bell curve emphasizes ranking, while the square root curve emphasizes lifting lower scores. Bell curves are better for competitive classes where only top performance deserves an A, while square root curves are better for supportive grading where weaker students need a boost.</p>
+  <p>The Bell Curve emphasizes ranking, while the Square Root Curve emphasizes lifting lower scores. Bell curves are better for competitive classes where only top performance deserves an A, while square root curves are better for supportive grading where weaker students need a boost.</p>
 
   <h3>Strict vs. Lenient Distributions</h3>
   <p>A strict curve increases failing rates, reinforcing high academic standards but risking discouragement. A lenient curve improves pass rates, which can be helpful in remedial classes or introductory courses. Educators should choose based on course objectives and institutional policy.</p>
@@ -531,7 +628,7 @@
   <h3>How do curved grades affect GPA?</h3>
   <p>Curved grades impact GPA the same as uncurved grades, since GPA depends on final letter grades. The difference lies in how those letters are assigned through distribution methods.</p>
 
-  <h2>Expert Insights &amp; Best Practices for Educators</h2>
+  <h2>Expert Insights & Best Practices for Educators</h2>
 
   <h3>Communicating Curves Clearly to Students</h3>
   <p>Students should always know how grades will be assigned. Explain the curve type, grade cutoffs, and reasons behind the chosen method at the beginning of the term to avoid confusion or disputes later.</p>
@@ -546,8 +643,6 @@
   <p>Whether you’re an educator balancing a large class, or a student curious about how your results may be adjusted, the Grade Curve Calculator provides accurate, transparent, and customizable results. Enter your class data, select a curve type, and instantly see grade cutoffs and distributions. For related tools, explore our <a href="reverse-percentage-calculator.html">Reverse Percentage Calculator</a> to further analyze academic performance.</p>
 
 </article>
-
-
 
     </div>
 
@@ -713,11 +808,11 @@
       resultText += "Grade Cutoffs (Score Ranges):\n";
 
       results.forEach((r, index) => {
-        const range = index === 0 ? 
+        const range = index === 0 ?
           `${r.minScore.toFixed(1)} - ${highest.toFixed(1)}` :
           index === results.length - 1 ?
-          `${lowest.toFixed(1)} - ${r.maxScore.toFixed(1)}` :
-          `${r.minScore.toFixed(1)} - ${r.maxScore.toFixed(1)}`;
+            `${lowest.toFixed(1)} - ${r.maxScore.toFixed(1)}` :
+            `${r.minScore.toFixed(1)} - ${r.maxScore.toFixed(1)}`;
 
         resultText += `${r.grade}: ${range} points → ${r.count} students (${r.percentage.toFixed(1)}%)\n`;
       });
@@ -801,7 +896,7 @@
             ],
             borderColor: [
               "#388E3C",
-              "#1976D2", 
+              "#1976D2",
               "#FFA000",
               "#F57C00",
               "#D32F2F"
@@ -813,11 +908,11 @@
         options: {
           responsive: true,
           maintainAspectRatio: false,
-          plugins: { 
+          plugins: {
             legend: { display: false },
             tooltip: {
               callbacks: {
-                label: function(context) {
+                label: function (context) {
                   const result = results[context.dataIndex];
                   return [
                     `Students: ${result.count}`,
@@ -893,7 +988,7 @@
     }
 
     // Enter key support
-    document.addEventListener('keypress', function(e) {
+    document.addEventListener('keypress', function (e) {
       if (e.key === 'Enter') {
         if (gradeCurveInputs.classList.contains('active')) {
           document.getElementById('applyGradeCurveBtn').click();
