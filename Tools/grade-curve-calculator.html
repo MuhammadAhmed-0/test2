@@ -108,6 +108,28 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 
   <style>
+    /* Remove space between the advertisement and the form */
+    .banner {
+      margin-bottom: 0;
+      /* Remove any bottom margin after the advertisement */
+      padding-bottom: 0;
+      /* Remove any padding at the bottom of the banner */
+    }
+
+    /* Reduce the space between the advertisement and the form */
+    .tool-container {
+      margin-top: 0;
+      /* Remove top margin for the form container */
+      padding-top: 0;
+      /* Remove top padding for the form container */
+    }
+
+    /* Further reduce the gap between the advertisement and the form */
+    .main-content-column {
+      margin-top: 0;
+      /* Remove top margin for form column */
+    }
+
     /* Calculator Section Styles */
     .tabs {
       display: flex;
@@ -536,113 +558,182 @@
         </div>
       </main>
 
-<article class="calculator-article">
+      <article class="calculator-article">
 
-  <h2>What is a Grade Curve and Why is It Used?</h2>
-  <p>A grade curve is a statistical adjustment applied to raw student scores to create a fairer distribution of grades across a class. Instead of assigning grades solely on absolute performance, curving compares students to each other, spreading results along a chosen pattern. This ensures that grade cutoffs reflect the relative performance of the group rather than just raw scores. A grade curve makes grading more fair and transparent, particularly in large classes or when exams are unexpectedly difficult.</p>
-  <p>Curving is commonly used in large classes where exams may be unusually difficult, or where score distributions cluster too closely together. By applying a curve, instructors can normalize results, maintain consistent grading standards, and avoid penalizing students for exam variations or class difficulty.</p>
-  <p>For example, in large university courses, instructors often face challenges with exam results clustering around the same score. In such cases, curving allows higher-performing students to be recognized even if the class performed poorly overall.</p>
+        <h2>What is a Grade Curve and Why is It Used?</h2>
+        <p>A grade curve is a statistical adjustment applied to raw student scores to create a fairer distribution of
+          grades across a class. Instead of assigning grades solely on absolute performance, curving compares students
+          to each other, spreading results along a chosen pattern. This ensures that grade cutoffs reflect the relative
+          performance of the group rather than just raw scores. A grade curve makes grading more fair and transparent,
+          particularly in large classes or when exams are unexpectedly difficult.</p>
+        <p>Curving is commonly used in large classes where exams may be unusually difficult, or where score
+          distributions cluster too closely together. By applying a curve, instructors can normalize results, maintain
+          consistent grading standards, and avoid penalizing students for exam variations or class difficulty.</p>
+        <p>For example, in large university courses, instructors often face challenges with exam results clustering
+          around the same score. In such cases, curving allows higher-performing students to be recognized even if the
+          class performed poorly overall.</p>
 
-  <h3>Why Educators Use Grade Curves</h3>
-  <p>Professors and teachers often use curves for three main reasons: (1) to normalize grading across multiple exam sessions, (2) to ensure fairness when assessments are harder than expected, and (3) to manage competition in large cohorts. For example, if the highest exam score is only 85 out of 100, a curve may shift grade boundaries upward to recognize strong relative performance, allowing more students to score higher even if their absolute scores are lower.</p>
-  <p>In cases where exams are unexpectedly difficult, a curve can help reduce the impact of an outlier question that may have been too hard for the class as a whole.</p>
+        <h3>Why Educators Use Grade Curves</h3>
+        <p>Professors and teachers often use curves for three main reasons: (1) to normalize grading across multiple
+          exam sessions, (2) to ensure fairness when assessments are harder than expected, and (3) to manage competition
+          in large cohorts. For example, if the highest exam score is only 85 out of 100, a curve may shift grade
+          boundaries upward to recognize strong relative performance, allowing more students to score higher even if
+          their absolute scores are lower.</p>
+        <p>In cases where exams are unexpectedly difficult, a curve can help reduce the impact of an outlier question
+          that may have been too hard for the class as a whole.</p>
 
-  <h3>Benefits and Drawbacks of Curving</h3>
-  <p>On the positive side, curving prevents entire classes from underperforming due to a difficult test. It can also reward top-performing students without requiring a perfect score. However, critics argue that curving can create unhealthy competition, make grades less transparent, and occasionally lower a student’s score if the system is percentile-based. For these reasons, most educators use curves cautiously and explain their methods clearly to students.</p>
-  <p>While some educators use curves for fairness, others argue that it can incentivize competition and reduce collaboration among students. It's important for teachers to communicate the curving methodology clearly at the start of the course to avoid misunderstandings.</p>
+        <h3>Benefits and Drawbacks of Curving</h3>
+        <p>On the positive side, curving prevents entire classes from underperforming due to a difficult test. It can
+          also reward top-performing students without requiring a perfect score. However, critics argue that curving can
+          create unhealthy competition, make grades less transparent, and occasionally lower a student’s score if the
+          system is percentile-based. For these reasons, most educators use curves cautiously and explain their methods
+          clearly to students.</p>
+        <p>While some educators use curves for fairness, others argue that it can incentivize competition and reduce
+          collaboration among students. It's important for teachers to communicate the curving methodology clearly at
+          the start of the course to avoid misunderstandings.</p>
 
-  <h2>Grade Curve Calculator Features & How It Works</h2>
-  <p>The Grade Curve Calculator provides multiple curving methods, allowing educators to test different grading scenarios instantly. Instead of manually plotting distributions, the calculator automates the math, generates grade thresholds, and visualizes results with easy-to-read charts. Whether you're using the Bell Curve, Square Root Curve, or a Custom Distribution, the calculator makes the process quick and easy.</p>
-  <p>This tool provides flexibility for educators to experiment with multiple grading scenarios and visualize how different curve types affect final grades.</p>
+        <h2>Grade Curve Calculator Features & How It Works</h2>
+        <p>The Grade Curve Calculator provides multiple curving methods, allowing educators to test different grading
+          scenarios instantly. Instead of manually plotting distributions, the calculator automates the math, generates
+          grade thresholds, and visualizes results with easy-to-read charts. Whether you're using the Bell Curve, Square
+          Root Curve, or a Custom Distribution, the calculator makes the process quick and easy.</p>
+        <p>This tool provides flexibility for educators to experiment with multiple grading scenarios and visualize how
+          different curve types affect final grades.</p>
 
-  <h3>Bell Curve Distribution Explained</h3>
-  <p>The Bell Curve, also known as a Gaussian distribution, is the most common curving method. Students are ranked, then divided into percentile groups that align with letter grades. A standard bell curve might assign 10% A’s, 20% B’s, 40% C’s, 20% D’s, and 10% F’s. This ensures that only a portion of the class earns top or bottom grades, regardless of absolute scores.</p>
-  <p>Example: In a class of 30 students with scores ranging from 50 to 90, the calculator distributes grades based on relative position rather than fixed cutoffs. The top 10% earn A’s even if the highest score is 90 instead of 100.</p>
-  <p>Real-life use case: In competitive exams like medical school admissions or law school exams, Bell Curves help standardize performance and ensure only the best-performing students receive the top grades, based on their relative rank rather than absolute marks.</p>
+        <h3>Bell Curve Distribution Explained</h3>
+        <p>The Bell Curve, also known as a Gaussian distribution, is the most common curving method. Students are
+          ranked, then divided into percentile groups that align with letter grades. A standard bell curve might assign
+          10% A’s, 20% B’s, 40% C’s, 20% D’s, and 10% F’s. This ensures that only a portion of the class earns top or
+          bottom grades, regardless of absolute scores.</p>
+        <p>Example: In a class of 30 students with scores ranging from 50 to 90, the calculator distributes grades based
+          on relative position rather than fixed cutoffs. The top 10% earn A’s even if the highest score is 90 instead
+          of 100.</p>
+        <p>Real-life use case: In competitive exams like medical school admissions or law school exams, Bell Curves help
+          standardize performance and ensure only the best-performing students receive the top grades, based on their
+          relative rank rather than absolute marks.</p>
 
-  <h3>Square Root Curve Explained</h3>
-  <p>The Square Root Curve benefits students with lower scores by adjusting results upward proportionally more than higher scores. The formula is:</p>
-  <p><code>New Score = √(Original Score ÷ 100) × 100</code></p>
-  <p>For instance, a student with 49% would curve to 70%, while a student with 81% would curve to 90%. This method reduces grade gaps and prevents weaker scores from being overly penalized. The Square Root Curve is useful in introductory courses where the goal is to provide more equitable opportunities for struggling students.</p>
+        <h3>Square Root Curve Explained</h3>
+        <p>The Square Root Curve benefits students with lower scores by adjusting results upward proportionally more
+          than higher scores. The formula is:</p>
+        <p><code>New Score = √(Original Score ÷ 100) × 100</code></p>
+        <p>For instance, a student with 49% would curve to 70%, while a student with 81% would curve to 90%. This method
+          reduces grade gaps and prevents weaker scores from being overly penalized. The Square Root Curve is useful in
+          introductory courses where the goal is to provide more equitable opportunities for struggling students.</p>
 
-  <h3>Custom Distribution Options</h3>
-  <p>Not every class fits a strict model. The calculator allows custom input so teachers can define their own percentages for A, B, C, D, and F. This flexibility helps align with institutional policies or department-specific grading practices, offering more control over grading than traditional systems. For example, a business school might set an A grade to 90% and above, while a history class might have an A grade starting at 85% due to different grading expectations.</p>
+        <h3>Custom Distribution Options</h3>
+        <p>Not every class fits a strict model. The calculator allows custom input so teachers can define their own
+          percentages for A, B, C, D, and F. This flexibility helps align with institutional policies or
+          department-specific grading practices, offering more control over grading than traditional systems. For
+          example, a business school might set an A grade to 90% and above, while a history class might have an A grade
+          starting at 85% due to different grading expectations.</p>
 
-  <h3>Visual Results with Graphs and Cutoffs</h3>
-  <p>Once data is entered, the tool produces two outputs: (1) a detailed text breakdown with grade cutoffs, student counts, and percentages; and (2) a visual bar chart displaying how many students fall into each grade category. This dual output ensures both quick interpretation and transparent documentation for educators and administrators.</p>
-  <p>The visual chart allows educators to easily interpret how the class performed and spot trends, such as a higher concentration of students in the C or D range. This can lead to more targeted instructional adjustments.</p>
+        <h3>Visual Results with Graphs and Cutoffs</h3>
+        <p>Once data is entered, the tool produces two outputs: (1) a detailed text breakdown with grade cutoffs,
+          student counts, and percentages; and (2) a visual bar chart displaying how many students fall into each grade
+          category. This dual output ensures both quick interpretation and transparent documentation for educators and
+          administrators.</p>
+        <p>The visual chart allows educators to easily interpret how the class performed and spot trends, such as a
+          higher concentration of students in the C or D range. This can lead to more targeted instructional
+          adjustments.</p>
 
-  <h2>Step-by-Step Guide: Using the Grade Curve Calculator</h2>
+        <h2>Step-by-Step Guide: Using the Grade Curve Calculator</h2>
 
-  <h3>Entering Student Data</h3>
-  <p>Start by inputting the total number of students, highest exam score, and lowest exam score. Accurate boundaries help the calculator spread grades fairly across the range, ensuring that no student is unfairly advantaged or disadvantaged by extreme scores. For best results, make sure the data is accurate and up-to-date.</p>
+        <h3>Entering Student Data</h3>
+        <p>Start by inputting the total number of students, highest exam score, and lowest exam score. Accurate
+          boundaries help the calculator spread grades fairly across the range, ensuring that no student is unfairly
+          advantaged or disadvantaged by extreme scores. For best results, make sure the data is accurate and
+          up-to-date.</p>
 
-  <h3>Choosing Curve Type</h3>
-  <p>Next, select a curve distribution from the drop-down menu. The tool offers standard, lenient, strict, or custom distributions. Each option modifies grade thresholds differently:</p>
-  <ul>
-    <li><strong>Standard:</strong> Balanced distribution, typical in most classes.</li>
-    <li><strong>Lenient:</strong> More A’s and B’s, fewer failures.</li>
-    <li><strong>Strict:</strong> Higher bar for passing, fewer top grades.</li>
-    <li><strong>Custom:</strong> User-defined percentages for complete control.</li>
-  </ul>
+        <h3>Choosing Curve Type</h3>
+        <p>Next, select a curve distribution from the drop-down menu. The tool offers standard, lenient, strict, or
+          custom distributions. Each option modifies grade thresholds differently:</p>
+        <ul>
+          <li><strong>Standard:</strong> Balanced distribution, typical in most classes.</li>
+          <li><strong>Lenient:</strong> More A’s and B’s, fewer failures.</li>
+          <li><strong>Strict:</strong> Higher bar for passing, fewer top grades.</li>
+          <li><strong>Custom:</strong> User-defined percentages for complete control.</li>
+        </ul>
 
-  <h3>Interpreting Output</h3>
-  <p>The results section displays grade cutoffs (e.g., A = 82–90, B = 75–81), number of students in each band, and their percentages. This helps educators explain exactly how many students received each grade and why, providing transparency in the grading process.</p>
+        <h3>Interpreting Output</h3>
+        <p>The results section displays grade cutoffs (e.g., A = 82–90, B = 75–81), number of students in each band, and
+          their percentages. This helps educators explain exactly how many students received each grade and why,
+          providing transparency in the grading process.</p>
 
-  <h3>Example Calculation</h3>
-  <p>Imagine 30 students scored between 50 and 90 on an exam. Under the standard curve, the calculator might output:</p>
-  <ul>
-    <li>A: 82–90 → 3 students (10%)</li>
-    <li>B: 75–81 → 6 students (20%)</li>
-    <li>C: 65–74 → 12 students (40%)</li>
-    <li>D: 58–64 → 6 students (20%)</li>
-    <li>F: 50–57 → 3 students (10%)</li>
-  </ul>
-  <p>This ensures proportional grading based on group performance rather than raw cutoffs, providing fairness across a range of scores.</p>
+        <h3>Example Calculation</h3>
+        <p>Imagine 30 students scored between 50 and 90 on an exam. Under the standard curve, the calculator might
+          output:</p>
+        <ul>
+          <li>A: 82–90 → 3 students (10%)</li>
+          <li>B: 75–81 → 6 students (20%)</li>
+          <li>C: 65–74 → 12 students (40%)</li>
+          <li>D: 58–64 → 6 students (20%)</li>
+          <li>F: 50–57 → 3 students (10%)</li>
+        </ul>
+        <p>This ensures proportional grading based on group performance rather than raw cutoffs, providing fairness
+          across a range of scores.</p>
 
-  <h2>Comparing Different Curving Methods</h2>
+        <h2>Comparing Different Curving Methods</h2>
 
-  <h3>Bell Curve vs. Square Root Curve</h3>
-  <p>The Bell Curve emphasizes ranking, while the Square Root Curve emphasizes lifting lower scores. Bell curves are better for competitive classes where only top performance deserves an A, while square root curves are better for supportive grading where weaker students need a boost.</p>
+        <h3>Bell Curve vs. Square Root Curve</h3>
+        <p>The Bell Curve emphasizes ranking, while the Square Root Curve emphasizes lifting lower scores. Bell curves
+          are better for competitive classes where only top performance deserves an A, while square root curves are
+          better for supportive grading where weaker students need a boost.</p>
 
-  <h3>Strict vs. Lenient Distributions</h3>
-  <p>A strict curve increases failing rates, reinforcing high academic standards but risking discouragement. A lenient curve improves pass rates, which can be helpful in remedial classes or introductory courses. Educators should choose based on course objectives and institutional policy.</p>
+        <h3>Strict vs. Lenient Distributions</h3>
+        <p>A strict curve increases failing rates, reinforcing high academic standards but risking discouragement. A
+          lenient curve improves pass rates, which can be helpful in remedial classes or introductory courses. Educators
+          should choose based on course objectives and institutional policy.</p>
 
-  <h3>When to Use Custom Distributions</h3>
-  <p>Custom distributions are best when teaching goals do not align with standard models. For instance, professional training programs may require a minimum pass rate, while advanced courses may demand tougher grading. The calculator’s flexibility ensures both can be implemented seamlessly.</p>
+        <h3>When to Use Custom Distributions</h3>
+        <p>Custom distributions are best when teaching goals do not align with standard models. For instance,
+          professional training programs may require a minimum pass rate, while advanced courses may demand tougher
+          grading. The calculator’s flexibility ensures both can be implemented seamlessly.</p>
 
-  <h2>Frequently Asked Questions about Grade Curves</h2>
+        <h2>Frequently Asked Questions about Grade Curves</h2>
 
-  <h3>Is grading on a curve fair or unfair?</h3>
-  <p>It depends. Curving ensures fairness within a group but may create stress for students competing against each other. Transparency is key: when students understand the system, they perceive it as fairer.</p>
+        <h3>Is grading on a curve fair or unfair?</h3>
+        <p>It depends. Curving ensures fairness within a group but may create stress for students competing against each
+          other. Transparency is key: when students understand the system, they perceive it as fairer.</p>
 
-  <h3>Can my grade go down if the teacher curves?</h3>
-  <p>Yes, in percentile-based systems, a curve can lower some students’ grades. However, most educators avoid downward adjustments and use only upward scaling or normalization.</p>
+        <h3>Can my grade go down if the teacher curves?</h3>
+        <p>Yes, in percentile-based systems, a curve can lower some students’ grades. However, most educators avoid
+          downward adjustments and use only upward scaling or normalization.</p>
 
-  <h3>What is the difference between curving and scaling?</h3>
-  <p>Scaling adjusts all scores uniformly (e.g., +10 points to everyone). Curving redistributes scores based on distribution patterns. Scaling maintains relative differences, while curving can change rankings.</p>
+        <h3>What is the difference between curving and scaling?</h3>
+        <p>Scaling adjusts all scores uniformly (e.g., +10 points to everyone). Curving redistributes scores based on
+          distribution patterns. Scaling maintains relative differences, while curving can change rankings.</p>
 
-  <h3>Do universities use the same curve rules?</h3>
-  <p>No. Policies vary widely. Some institutions mandate bell curves, while others leave it to instructor discretion. Always check your course syllabus or institutional guidelines.</p>
+        <h3>Do universities use the same curve rules?</h3>
+        <p>No. Policies vary widely. Some institutions mandate bell curves, while others leave it to instructor
+          discretion. Always check your course syllabus or institutional guidelines.</p>
 
-  <h3>How do curved grades affect GPA?</h3>
-  <p>Curved grades impact GPA the same as uncurved grades, since GPA depends on final letter grades. The difference lies in how those letters are assigned through distribution methods.</p>
+        <h3>How do curved grades affect GPA?</h3>
+        <p>Curved grades impact GPA the same as uncurved grades, since GPA depends on final letter grades. The
+          difference lies in how those letters are assigned through distribution methods.</p>
 
-  <h2>Expert Insights & Best Practices for Educators</h2>
+        <h2>Expert Insights & Best Practices for Educators</h2>
 
-  <h3>Communicating Curves Clearly to Students</h3>
-  <p>Students should always know how grades will be assigned. Explain the curve type, grade cutoffs, and reasons behind the chosen method at the beginning of the term to avoid confusion or disputes later.</p>
+        <h3>Communicating Curves Clearly to Students</h3>
+        <p>Students should always know how grades will be assigned. Explain the curve type, grade cutoffs, and reasons
+          behind the chosen method at the beginning of the term to avoid confusion or disputes later.</p>
 
-  <h3>Ethical Considerations in Grading</h3>
-  <p>Overuse of curves can create unnecessary competition and anxiety. Ethical grading balances fairness with transparency, avoiding systems that unfairly penalize outliers.</p>
+        <h3>Ethical Considerations in Grading</h3>
+        <p>Overuse of curves can create unnecessary competition and anxiety. Ethical grading balances fairness with
+          transparency, avoiding systems that unfairly penalize outliers.</p>
 
-  <h3>Alternative Assessment Methods</h3>
-  <p>While curves can solve distribution problems, they are not always necessary. Alternatives include criterion-referenced grading, competency-based assessments, and weighted rubrics. Use curves only when they truly add fairness to the evaluation process.</p>
+        <h3>Alternative Assessment Methods</h3>
+        <p>While curves can solve distribution problems, they are not always necessary. Alternatives include
+          criterion-referenced grading, competency-based assessments, and weighted rubrics. Use curves only when they
+          truly add fairness to the evaluation process.</p>
 
-  <h2>Try the Grade Curve Calculator Now</h2>
-  <p>Whether you’re an educator balancing a large class, or a student curious about how your results may be adjusted, the Grade Curve Calculator provides accurate, transparent, and customizable results. Enter your class data, select a curve type, and instantly see grade cutoffs and distributions. For related tools, explore our <a href="reverse-percentage-calculator.html">Reverse Percentage Calculator</a> to further analyze academic performance.</p>
+        <h2>Try the Grade Curve Calculator Now</h2>
+        <p>Whether you’re an educator balancing a large class, or a student curious about how your results may be
+          adjusted, the Grade Curve Calculator provides accurate, transparent, and customizable results. Enter your
+          class data, select a curve type, and instantly see grade cutoffs and distributions. For related tools, explore
+          our <a href="reverse-percentage-calculator.html">Reverse Percentage Calculator</a> to further analyze academic
+          performance.</p>
 
-</article>
+      </article>
 
     </div>
 
