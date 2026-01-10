@@ -97,7 +97,27 @@
         /* =========================
    Calculator Specific Styles
    ========================= */
+        /* Remove space between the advertisement and the form */
+        .banner {
+            margin-bottom: 0;
+            /* Remove any bottom margin after the advertisement */
+            padding-bottom: 0;
+            /* Remove any padding at the bottom of the banner */
+        }
 
+        /* Reduce the space between the advertisement and the form */
+        .tool-container {
+            margin-top: 0;
+            /* Remove top margin for the form container */
+            padding-top: 0;
+            /* Remove top padding for the form container */
+        }
+
+        /* Further reduce the gap between the advertisement and the form */
+        .main-content-column {
+            margin-top: 0;
+            /* Remove top margin for form column */
+        }
         .calculator-box {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             border-radius: 20px;
@@ -1036,22 +1056,10 @@
             </button>
         </div>
         <div class="mobile-menu-items">
-            <a href="index.html">
-                <i class="fas fa-home"></i>
-                <span>Home</span>
-            </a>
-            <a href="#tools">
-                <i class="fas fa-tools"></i>
-                <span>Tools</span>
-            </a>
-            <a href="#about">
-                <i class="fas fa-info-circle"></i>
-                <span>About</span>
-            </a>
-            <a href="#contact">
-                <i class="fas fa-envelope"></i>
-                <span>Contact</span>
-            </a>
+            <a href="../index.html"><i class="fas fa-home"></i><span>Home</span></a>
+            <a href="../index.html#tools"><i class="fas fa-tools"></i><span>Tools</span></a>
+            <a href="../about.html"><i class="fas fa-info-circle"></i><span>About</span></a>
+            <a href="../contact.html"><i class="fas fa-envelope"></i><span>Contact</span></a>
         </div>
     </div>
 

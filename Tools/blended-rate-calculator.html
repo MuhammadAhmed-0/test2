@@ -34,6 +34,27 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
+            /* Remove space between the advertisement and the form */
+        .banner {
+            margin-bottom: 0;
+            /* Remove any bottom margin after the advertisement */
+            padding-bottom: 0;
+            /* Remove any padding at the bottom of the banner */
+        }
+
+        /* Reduce the space between the advertisement and the form */
+        .tool-container {
+            margin-top: 0;
+            /* Remove top margin for the form container */
+            padding-top: 0;
+            /* Remove top padding for the form container */
+        }
+
+        /* Further reduce the gap between the advertisement and the form */
+        .main-content-column {
+            margin-top: 0;
+            /* Remove top margin for form column */
+        }
     /* Result Section */
     #result {
       margin-top: 2rem;
@@ -633,19 +654,20 @@
 </head>
 
 <body>
-<!-- Announcement section -->
-<div class="top-announcement-bar">
+  <!-- Announcement section -->
+  <div class="top-announcement-bar">
     <div class="announcement-number">New Announcement</div>
     <div class="announcement-text">
-        Black Friday: Up to 85% OFF on Hosting! <a href="https://blackfridaydeals.pages.dev/" target="_blank" rel="noopener noreferrer" class="announcement-link">Grab Your Deal Now!</a>
+      Black Friday: Up to 85% OFF on Hosting! <a href="https://blackfridaydeals.pages.dev/" target="_blank"
+        rel="noopener noreferrer" class="announcement-link">Grab Your Deal Now!</a>
     </div>
-</div>
+  </div>
 
 
   <header>
     <nav>
       <div class="logo">
-          <a href="index.html" class="logo-link">Free Calculator</a>
+        <a href="index.html" class="logo-link">Free Calculator</a>
       </div>
       <div class="nav-links">
         <a href="../index.html"><i class="fas fa-home"></i> Home</a>
@@ -673,22 +695,10 @@
       </button>
     </div>
     <div class="mobile-menu-items">
-      <a href="index.html">
-        <i class="fas fa-home"></i>
-        <span>Home</span>
-      </a>
-      <a href="#tools">
-        <i class="fas fa-tools"></i>
-        <span>Tools</span>
-      </a>
-      <a href="#about">
-        <i class="fas fa-info-circle"></i>
-        <span>About</span>
-      </a>
-      <a href="#contact">
-        <i class="fas fa-envelope"></i>
-        <span>Contact</span>
-      </a>
+      <a href="../index.html"><i class="fas fa-home"></i><span>Home</span></a>
+      <a href="../index.html#tools"><i class="fas fa-tools"></i><span>Tools</span></a>
+      <a href="../about.html"><i class="fas fa-info-circle"></i><span>About</span></a>
+      <a href="../contact.html"><i class="fas fa-envelope"></i><span>Contact</span></a>
     </div>
   </div>
 
@@ -699,15 +709,13 @@
     </div>
   </section>
 
-<!-- Responsive Banner -->
-<section class="banner" style="text-align: center; margin-top: 10px;">
-  <a href="https://bluehost.sjv.io/aeducateweb" target="_blank" style="display: inline-block;">
-    <img 
-      src="../Hosting 1-728x90.png" 
-      alt="Advertisement" 
-      style="max-width: 100%; height: auto; width: 700px; display: inline-block;">
-  </a>
-</section>
+  <!-- Responsive Banner -->
+  <section class="banner" style="text-align: center; margin-top: 10px;">
+    <a href="https://bluehost.sjv.io/aeducateweb" target="_blank" style="display: inline-block;">
+      <img src="../Hosting 1-728x90.png" alt="Advertisement"
+        style="max-width: 100%; height: auto; width: 700px; display: inline-block;">
+    </a>
+  </section>
 
   <div class="tool-container">
     <aside class="left-sidebar">
@@ -803,7 +811,8 @@
           This is especially useful when managing multiple loans, mortgages, credit lines, or even utility and business
           costs.
           Instead of looking at each rate separately, you can calculate your true overall cost of borrowing or blended
-          percentage.</p>
+          percentage.
+        </p>
 
         <h2>What Is a Blended Rate?</h2>
         <h3>Definition in Simple Terms</h3>
@@ -818,7 +827,8 @@
 
         <h3>Why Blended Rates Matter</h3>
         <p>They allow borrowers, businesses, and investors to make better financial decisions by knowing the
-          <em>real</em> cost of capital, not just the advertised rates.</p>
+          <em>real</em> cost of capital, not just the advertised rates.
+        </p>
 
         <h2>How the Blended Rate Calculator Works</h2>
         <h3>Core Weighted Average Formula</h3>
