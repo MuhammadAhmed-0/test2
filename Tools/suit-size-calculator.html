@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Find your perfect suit size! Calculate jacket & pants sizes using chest, height & fit preferences. Get professional fitting results.">
-    <title>Suit Size Calculator</title>
+        content="Use our free Suit Size Calculator to find your perfect jacket & pants size based on chest, height, and fit preferences. Get accurate, tailored results instantly!">
+    <title>Suit Size Calculator – Find Perfect Fit for Jackets & Pants</title>
+    <link rel="canonical" href="https://usefreecalculator.com/Tools/suit-size-calculator" />
+
     <!-- Favicon Link -->
     <link rel="icon" href="../Favicon.png" type="image/png">
     <script type="application/ld+json">
@@ -15,13 +17,12 @@
       "@type": "WebApplication",
       "name": "Suit Size Calculator",
       "description": "Find your perfect suit size! Calculate jacket & pants sizes using chest, height & fit preferences. Get professional fitting results.",
-      "url": "https://usefreecalculator.com/Tools/suit-size-calculator.html",
+      "url": "https://usefreecalculator.com/Tools/suit-size-calculator",
       "applicationCategory": "LifestyleApplication",
       "operatingSystem": "Web Browser",
       "offers": {
         "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
+        "price": "0"
       },
       "creator": {
         "@type": "Organization",
@@ -34,7 +35,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
-                /* Remove space between the advertisement and the form */
+        /* Remove space between the advertisement and the form */
         .banner {
             margin-bottom: 0;
             /* Remove any bottom margin after the advertisement */
@@ -55,11 +56,12 @@
             margin-top: 0;
             /* Remove top margin for form column */
         }
-        /* Calculator Section Only: Custom, Responsive */
+
+        /* Result Section Styling */
         #result {
             margin-top: 2rem;
             padding: 2rem;
-            background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
+            background: linear-gradient(135deg, #6BB3FF 0%, #4E94FF 100%);
             border-radius: 20px;
             display: none;
             box-shadow: 0 20px 40px rgba(0, 114, 255, 0.18);
@@ -76,7 +78,8 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.09) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.12) 0%, transparent 70%);
+            /* Slight shimmer effect */
             animation: shimmer 3s ease-in-out infinite;
         }
 
@@ -102,56 +105,32 @@
             z-index: 1;
         }
 
+        /* Jacket Size Result */
         #suitSizeResult {
             font-size: 3.2rem;
             font-weight: 900;
-            color: #ffd700;
+            color: #ffffff;
+            /* Muted gold/yellow for readability */
             margin-bottom: 1rem;
             text-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
             position: relative;
             z-index: 1;
         }
 
-        #fitTypeResult {
-            font-size: 1.2rem;
-            color: #fff;
-            margin-bottom: 1.2rem;
-            font-weight: 700;
-            letter-spacing: 1px;
+        /* Pants Size (Waist and Inseam) */
+        #pantsSizeResult {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: #ffffff;
+            /* White color for pants size */
+            margin-top: 0.8rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.22);
         }
 
-        /* Tips Section */
-        #tips-section {
-            margin-top: 2rem;
-            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-            padding: 2rem;
-            border-radius: 18px;
-            box-shadow: 0 12px 30px rgba(56, 249, 215, 0.09);
-            display: none;
-        }
-
-        #tips-section h4 {
-            font-size: 1.35rem;
-            color: #0b6b6b;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            text-align: center;
-            text-shadow: 0 2px 4px rgba(11, 107, 107, 0.09);
-        }
-
-        #tipsText {
-            background: rgba(255, 255, 255, 0.92);
-            padding: 1.2rem;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            color: #2d3436;
-            line-height: 1.6;
-            text-align: left;
-        }
-
-        /* Calculate Button */
+        /* Button Styling */
         .calculate-btn {
             background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
+            /* Button gradient */
             color: white;
             padding: 1.2rem 3rem;
             border: none;
@@ -225,6 +204,7 @@
             transform: translateY(-1px);
         }
 
+        /* Toggle Unit (Cm/Inches) */
         .toggle-unit {
             display: flex;
             gap: 0.5rem;
@@ -235,48 +215,19 @@
             flex-shrink: 0;
         }
 
-        @keyframes bounceIn {
-            0% {
-                opacity: 0;
-                transform: scale(0.3);
-            }
-
-            50% {
-                opacity: 1;
-                transform: scale(1.07);
-            }
-
-            70% {
-                transform: scale(0.92);
-            }
-
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .animate-result {
-            animation: bounceIn 0.6s ease-out;
-        }
-
-        /* Responsive Design */
+        /* Mobile Responsiveness */
         @media (max-width: 768px) {
             #suitSizeResult {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
 
             #result {
-                padding: 1.2rem;
+                padding: 1.5rem;
             }
 
             .calculate-btn {
                 padding: 1rem 2rem;
                 font-size: 1rem;
-            }
-
-            #tips-section {
-                padding: 1rem;
             }
 
             .toggle-unit {
@@ -334,24 +285,20 @@
             <a href="../contact.html"><i class="fas fa-envelope"></i><span>Contact</span></a>
         </div>
     </div>
-
     <section class="hero">
         <div class="hero-content">
-            <h1>Suit Size Calculator</h1>
-            <p class="hero-subtitle">Find your perfect suit size for a sharp, tailored look—use our precise, easy tool
-                for classic or modern fits!</p>
+            <h1>Free Suit Size Calculator</h1>
+            <p class="hero-subtitle">Easily Find Your Jacket and Pants Size with Precision, Based on Chest, Height, and
+                Fit. Get Tailored Recommendations Instantly, Perfect for Online Shopping or Tailoring!</p>
         </div>
     </section>
-
-<!-- Responsive Banner -->
-<section class="banner" style="text-align: center; margin-top: 10px;">
-  <a href="https://bluehost.sjv.io/aeducateweb" target="_blank" style="display: inline-block;">
-    <img 
-      src="../Hosting 1-728x90.png" 
-      alt="Advertisement" 
-      style="max-width: 100%; height: auto; width: 700px; display: inline-block;">
-  </a>
-</section>
+    <!-- Responsive Banner -->
+    <section class="banner" style="text-align: center; margin-top: 10px;">
+        <a href="https://bluehost.sjv.io/aeducateweb" target="_blank" style="display: inline-block;">
+            <img src="../Hosting 1-728x90.png" alt="Advertisement"
+                style="max-width: 100%; height: auto; width: 700px; display: inline-block;">
+        </a>
+    </section>
 
     <div class="tool-container">
         <aside class="left-sidebar">
@@ -412,192 +359,232 @@
                             </select>
                         </div>
                     </div>
+
+                    <!-- New input fields for waist and inseam -->
+                    <div class="input-group">
+                        <label for="waist">Waist Circumference <span class="help-tip"
+                                title="Measure around the natural waist.">?</span></label>
+                        <div class="toggle-unit">
+                            <input type="number" id="waist" value="80" min="60" max="120" step="1"
+                                placeholder="e.g. 80 cm">
+                            <select id="waistUnit">
+                                <option value="cm">cm</option>
+                                <option value="in">inches</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="inseam">Inseam Length <span class="help-tip"
+                                title="Measure from the crotch (where the legs meet) to the bottom of your pant leg (ankle). This will help determine the correct pant length.">?</span></label>
+                        <div class="toggle-unit">
+                            <input type="number" id="inseam" value="80" min="60" max="120" step="1"
+                                placeholder="e.g. 80 cm">
+                            <select id="inseamUnit">
+                                <option value="cm">cm</option>
+                                <option value="in">inches</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <button onclick="calculateSuitSize()" class="calculate-btn">Show My Suit Size</button>
                     <div id="result" class="result">
-                        <h3>Recommended Jacket Size</h3>
-                        <div id="suitSizeResult">40 Regular</div>
-                        <div id="fitTypeResult"></div>
+                        <h3>Your Recommended Suit Size</h3>
+                        <!-- Clear, bold jacket size with pants size underneath -->
+                        <div id="suitSizeResult" class="suit-size-result">Jacket Size: 40 Short</div>
+                        <div id="pantsSizeResult" class="pants-size-result">Pants Waist: 33 inches / Inseam: 31 inches
+                        </div>
                     </div>
                 </div>
             </main>
-
             <article class="calculator-article">
-                <h2>Suit Size Calculator with Precise, Brand-Agnostic Recommendations</h2>
-                <p>Finding the right suit size can feel like guesswork. Sizes vary between brands, charts are often
-                    confusing, and many people don’t know how to measure themselves correctly. This suit size calculator
-                    makes the process simple and accurate. By entering just a few details — chest measurement, height,
-                    gender or body category, and your preferred fit — you get a reliable size recommendation in seconds.
-                    The calculator also explains what the result means, how it maps to international sizing systems, and
-                    what tailoring adjustments you may still want after purchase.</p>
+                <h2>Find Your Perfect Suit Size with Our Accurate, Brand-Agnostic Calculator</h2>
+                <p>Finding the right suit size can be tricky with varying brand sizes, confusing charts, and incorrect
+                    measurements. Our <strong>suit size calculator</strong> simplifies this by providing precise,
+                    tailored recommendations based on your body measurements. Just enter your chest measurement, height,
+                    gender or body category, and preferred fit to get a custom suit size in seconds. The tool also
+                    explains what the result means, how it maps to international sizing systems (US, UK, EU), and what
+                    tailoring adjustments might be needed after purchase.</p>
 
-                <h2>How the Calculator Determines Your Jacket Size</h2>
-                <p>The logic behind suit sizing may look complicated, but it follows a few clear rules. Our calculator
-                    mirrors the way professional tailors estimate size, using chest circumference and height as the two
-                    key inputs, and adjusting based on fit preference and gender.</p>
+                <h2>How the Suit Size Calculator Works</h2>
+                <p>Our tool follows professional tailoring guidelines, using key measurements like chest circumference
+                    and height, then adjusting for fit preference and gender. This guarantees an accurate recommendation
+                    for both your <strong>jacket and pants size</strong>, ensuring the best possible fit based on your
+                    specific body type.</p>
 
-                <h3>Inputs We Use and Why</h3>
+                <h3>Key Measurements for Accurate Suit Sizing</h3>
                 <ul>
-                    <li><strong>Gender or body category:</strong> Men’s and women’s suits use different measurements.
-                        Men’s suits focus on chest and drop (difference between chest and waist). Women’s suits
-                        emphasize bust and hips.</li>
-                    <li><strong>Chest circumference:</strong> The most important metric. It defines the jacket’s numeric
-                        size in both US and EU systems.</li>
-                    <li><strong>Height:</strong> Determines jacket length — Short, Regular, or Long.</li>
-                    <li><strong>Fit preference:</strong> Slim, Regular, or Relaxed. This helps refine whether to size up
-                        or down if you are between two measurements.</li>
+                    <li><strong>Gender or Body Category:</strong> Men’s suits focus on chest and waist drop, while
+                        women’s suits emphasize bust and hips.</li>
+                    <li><strong>Chest Circumference:</strong> The primary metric for determining jacket size in both US
+                        and EU sizing systems. This measurement sets your jacket's numeric size.</li>
+                    <li><strong>Height:</strong> Determines jacket length (Short, Regular, or Long) for a perfect fit.
+                    </li>
+                    <li><strong>Fit Preference:</strong> Whether you prefer a Slim, Regular, or Relaxed fit, this helps
+                        refine size recommendations, especially when you're between two sizes.</li>
                 </ul>
 
-                <h3>The Sizing Formula in Plain Language</h3>
-                <p>Suit jackets are sized in even numbers. A chest of 100 cm (39.5 inches) rounds to a US 40. If your
-                    chest is 104 cm (41 inches), that equals a US 42. The calculator rounds to the nearest even number
-                    and then applies your fit choice:</p>
+                <h3>Simplified Suit Sizing Formula</h3>
+                <p>Suit jackets are sized in even numbers. For example, a chest measurement of 100 cm (39.5 inches)
+                    rounds to a US size 40. For a chest of 104 cm (41 inches), the calculator rounds up to US size 42.
+                    Here’s how fit preferences further affect sizing:</p>
                 <ul>
-                    <li><strong>Slim fit:</strong> If you prefer a slimmer look, the tool may recommend the lower size
-                        when you are between two.</li>
-                    <li><strong>Relaxed fit:</strong> For more room in the chest and shoulders, the higher size is
-                        suggested.</li>
+                    <li><strong>Slim Fit:</strong> A smaller size is recommended for a more tailored fit when you're
+                        between sizes.</li>
+                    <li><strong>Relaxed Fit:</strong> A larger size is suggested for a looser fit, especially in the
+                        chest and shoulders.</li>
                 </ul>
-                <p>Height determines jacket length. For men, under 170 cm (5 ft 7 in) typically means a Short jacket,
-                    170–183 cm (5 ft 7 in to 6 ft) is Regular, and above 183 cm (6 ft) is Long. Women’s jackets are less
-                    standardized, but height still influences torso and sleeve length.</p>
+                <p>Height also affects jacket length. Men under 170 cm (5’7”) usually need a Short jacket, 170–183 cm
+                    (5’7” to 6’) need a Regular, and those above 183 cm (6’) require a Long jacket. Women’s jackets
+                    follow similar principles, though there’s more variation across brands and types (e.g., business,
+                    casual, formal). Our **suit size calculator for different body types** accounts for all of this.</p>
 
-                <h3>Unit Handling and Conversions</h3>
-                <p>You can measure in inches or centimeters. The calculator automatically converts. One inch equals 2.54
-                    cm. To keep results accurate, always use the same unit for chest and height. Rounding is done at
-                    half-centimeter or quarter-inch precision, so even small differences count.</p>
+                <h3>Handling Units and Conversions</h3>
+                <p>The calculator supports both metric (cm) and imperial (inches) units. One inch equals 2.54 cm. To
+                    ensure precision, use the same unit for chest, height, and other measurements. The tool rounds
+                    measurements to half-centimeter or quarter-inch precision for the best possible fit. The calculator
+                    also helps you with **inches to cm conversion** so you can feel confident about the measurements
+                    you're entering.</p>
 
-                <h2>Size Systems and Conversions You Can Trust</h2>
-                <p>Suit sizing is not the same everywhere. Knowing how systems translate avoids buying the wrong size
-                    when shopping internationally.</p>
+                <h2>Understanding Global Suit Sizing Systems</h2>
+                <p>Suit sizing can vary globally. Our calculator helps you understand these differences, providing
+                    results in US, UK, and EU systems for easier comparison.</p>
 
                 <h3>US, UK, and EU Sizing Explained</h3>
-                <p>A US 40R means chest size 40 inches, Regular length. In the UK, the label is usually the same. In the
-                    EU, sizes are given in centimeters — so US 40R equals EU 50 (roughly chest 100 cm). The calculator
-                    displays your result in both systems, making it easy to compare.</p>
+                <p>A US size 40R means a 40-inch chest in Regular length. In the UK, the size label is typically the
+                    same. In the EU, suit sizes are given in centimeters—so US 40R equals EU 50 (about 100 cm chest).
+                    The calculator automatically shows results in all three systems for easy comparison, making it easy
+                    to **convert suit sizes across brands** and regions.</p>
 
                 <h3>Women’s Sizing Considerations</h3>
-                <p>Women’s jackets depend more on bust and hips. A woman with 92 cm bust may fall into EU 38 or US 6,
-                    but shoulder width and waist taper also matter. Our calculator uses bust as the anchor measurement
-                    and cross-checks with height for proportional balance. The output shows the closest standard size,
-                    but tailoring is often essential for women’s suits.</p>
+                <p>For women, bust and hip measurements are more important. A 92 cm bust may correspond to EU 38 or US
+                    6, but shoulder width and waist tapering also affect the fit. Our calculator uses bust measurement
+                    as the primary input, cross-referencing it with height for a balanced fit. The output provides the
+                    closest standard size, though tailoring is often needed for a perfect fit. **Women’s suit size
+                    calculator** will offer the best results if these measurements are accurately entered.</p>
 
-                <h3>Fit Types and How They Change the Final Pick</h3>
-                <p>Fit is about style as much as measurement. Slim fit narrows the waist and sleeves, Regular fit
-                    follows natural lines, and Relaxed or Classic fit allows more room through the torso. Athletic fits
-                    add shoulder space while tapering the waist. The calculator accounts for these by nudging the result
-                    up or down within the nearest size bracket.</p>
+                <h3>How Fit Types Influence Suit Size</h3>
+                <p>Fit is both a style and measurement decision. Here's how each fit type impacts your size
+                    recommendation:</p>
+                <ul>
+                    <li><strong>Slim Fit:</strong> A narrow fit through the waist and sleeves for a sleek, tailored
+                        look.</li>
+                    <li><strong>Regular Fit:</strong> The classic fit that follows the natural body shape without being
+                        tight or loose.</li>
+                    <li><strong>Relaxed or Classic Fit:</strong> Provides extra room through the torso and legs for
+                        comfort.</li>
+                    <li><strong>Athletic Fit:</strong> Adds space in the shoulders while tapering in the waist, ideal
+                        for those with broader shoulders.</li>
+                </ul>
 
-                <h2>How to Measure Correctly in Under Two Minutes</h2>
-                <p>You don’t need a professional tailor to measure yourself, but accuracy matters. A flexible measuring
-                    tape and a mirror make the job easier.</p>
+                <h2>How to Measure Yourself for an Accurate Suit Fit</h2>
+                <p>Getting accurate measurements is essential for the best suit fit. Follow these simple steps to
+                    measure yourself at home:</p>
 
                 <h3>Chest / Bust</h3>
-                <p>Stand tall, arms relaxed. Wrap the tape around the fullest part of your chest or bust, just under the
-                    arms. Keep it level across the back. Breathe normally and record the measurement without pulling the
-                    tape too tight. Take it twice and average the results.</p>
+                <p>Stand tall with arms relaxed. Wrap a flexible measuring tape around the fullest part of your chest or
+                    bust, just under your arms. Keep the tape level across your back. Measure without pulling the tape
+                    too tight and repeat twice for accuracy. This is crucial to ensure you get your **ideal suit size**
+                    without relying on guesswork.</p>
 
                 <h3>Height</h3>
-                <p>Stand against a wall without shoes. Use a flat object (like a book) against the top of your head and
-                    mark the point on the wall. Measure from floor to mark. If you often wear dress shoes, consider that
-                    they add 2 to 3 cm.</p>
+                <p>Stand against a wall without shoes. Use a flat object (like a book) to mark the top of your head,
+                    then measure the distance from the floor to the mark. If you wear dress shoes regularly, add 2-3 cm
+                    to your height. Accurate **suit size measurements** begin with knowing your true height.</p>
 
-                <h3>Optional Waist and Inseam</h3>
-                <p>Waist is measured at the natural bend point above the hips. Inseam runs from the crotch seam to the
-                    bottom of the pant leg. If you already own well-fitting trousers, measure those instead. Waist and
-                    inseam matter most when pairing suit jackets with matching pants.</p>
-
-                <h2>Interpreting Your Result and What to Tailor Next</h2>
-                <p>The calculator gives you the best off-the-rack starting point. But almost every suit benefits from
-                    small alterations. Here’s how to interpret your size and what you may still want adjusted.</p>
-
-                <h3>If You Land Between Sizes</h3>
-                <p>Go down a size if you prefer a slim fit and your shoulders are not broad. Go up a size if you prefer
-                    comfort or have athletic shoulders. The calculator suggests the best option, but your body shape and
-                    fit taste matter too.</p>
-
-                <h3>When to Choose Short, Regular, or Long</h3>
-                <p>Short suits work best for men under 170 cm. Regular suits cover 170 to 183 cm. Long is for over 183
-                    cm. Women’s jackets follow similar principles but with more brand variation. Always check sleeve
-                    length — sleeves should show 1 to 1.5 cm of shirt cuff.</p>
-
-                <h3>Common Alterations After Buying</h3>
-                <p>Even with a perfect size, small tailoring makes a big difference:</p>
-                <ul>
-                    <li><strong>Sleeve length:</strong> Shorten or lengthen up to 2.5 cm easily.</li>
-                    <li><strong>Waist suppression:</strong> Taking in the torso for a sharper V-shape.</li>
-                    <li><strong>Pant hemming:</strong> Adjust inseam for the right break above shoes.</li>
-                </ul>
-                <p>Alteration costs are usually modest compared to the value of a great fit.</p>
-
-                <h2>Frequently Asked Questions</h2>
-
-                <h3>What does 40 Regular mean</h3>
-                <p>It means a 40-inch chest jacket in Regular length. Equivalent to EU 50R.</p>
-
-                <h3>Can I find my size without a tape measure</h3>
-                <p>Yes, but it’s less precise. Some calculators use height, weight, and jeans size to estimate chest.
-                    Our recommendation is to measure when possible for accuracy.</p>
-
-                <h3>How accurate is the calculator across brands</h3>
-                <p>Most brands follow similar sizing standards, but differences exist. Slim-cut Italian suits may feel
-                    tighter than American brands at the same size. Treat the calculator as your baseline, then adjust
-                    based on brand notes.</p>
-
-                <h3>What size should I pick for athletic shoulders</h3>
-                <p>If your chest size suggests one size but your shoulders feel tight, go up. Tailors can take in the
-                    waist but not add fabric to the shoulders.</p>
-
-                <h3>How do I convert US 40R to EU and UK</h3>
-                <p>US 40R is UK 40R and EU 50R. Always check both chest and length labels when shopping internationally.
+                <h3>Waist and Inseam (Optional, but Recommended)</h3>
+                <p>Measure around your natural waistline, above your hips. For inseam, measure from the crotch seam to
+                    the bottom of your pant leg. If you have well-fitting trousers, you can use those as a reference.
+                    Accurate waist and inseam measurements are especially important when pairing a suit with trousers.
                 </p>
 
-                <h3>Do I still need a tailor after this result</h3>
-                <p>Yes, in most cases. The calculator gets you 90 percent of the way. A tailor makes the final
-                    adjustments so the suit looks like it was made for you.</p>
+                <h2>Interpreting Your Suit Size Result</h2>
+                <p>The calculator gives you a starting point for an off-the-rack suit. However, some tailoring
+                    adjustments may still be needed to achieve a perfect fit. Here’s how to interpret your result and
+                    the adjustments that might be required:</p>
+
+                <h3>If You Land Between Sizes</h3>
+                <p>If your measurements suggest two sizes, consider your fit preference. Opt for the smaller size for a
+                    slimmer fit and the larger size for a more relaxed fit. Our **suit fitting guide** helps you decide.
+                </p>
+
+                <h3>Choosing Short, Regular, or Long</h3>
+                <p>Short suits are best for men under 170 cm, Regular suits for those between 170-183 cm, and Long suits
+                    for those over 183 cm. Women’s jacket lengths vary based on height and body shape. Use the **suit
+                    size calculator for different body types** to make the right decision.</p>
+
+                <h3>Common Alterations After Buying</h3>
+                <ul>
+                    <li><strong>Sleeve Length:</strong> Adjust by up to 2.5 cm.</li>
+                    <li><strong>Waist Suppression:</strong> Tailors can slim the torso for a sharper look.</li>
+                    <li><strong>Pant Hemming:</strong> Adjust the inseam for the right pant break above your shoes.</li>
+                </ul>
+                <p>Tailoring is typically affordable and can significantly enhance your suit’s fit and comfort. With
+                    these alterations, your suit will fit perfectly every time.</p>
+
+                <h2>Frequently Asked Questions (FAQs)</h2>
+                <h3>What does 40 Regular mean?</h3>
+                <p>A 40 Regular refers to a 40-inch chest in Regular length, equivalent to EU 50R.</p>
+
+                <h3>How do I find my size without a tape measure?</h3>
+                <p>While it's less precise, you can estimate your size using your weight, height, and jeans size.
+                    However, for the best results, always use a tape measure.</p>
+
+                <h3>How accurate is the Suit Size Calculator across brands?</h3>
+                <p>Most brands follow similar sizing guidelines, but there can be slight variations. Use the calculator
+                    as a baseline and adjust for any brand-specific nuances. Our tool also includes the **best suit size
+                    recommendations** for top global brands.</p>
+
+                <h3>What size should I pick for athletic shoulders?</h3>
+                <p>If your chest size suggests one size but your shoulders feel tight, go up a size. Tailors can adjust
+                    the waist and torso, but shoulders are harder to modify.</p>
+
+                <h3>Do I need a tailor after using the Suit Size Calculator?</h3>
+                <p>Yes, in most cases. The calculator provides a good off-the-rack fit, but a tailor can make small
+                    adjustments for a perfect fit tailored to your body shape.</p>
 
                 <h2>Pro Tips for a Sharper Fit</h2>
                 <ul>
-                    <li>Try on with the shirt and shoes you’ll wear most often. Shoes change pant break and jacket
-                        balance.</li>
-                    <li>Consider the season. Winter suits are heavier and may require a touch more room for layering.
+                    <li>Try on your suit with the shirt and shoes you plan to wear most often to ensure the best fit.
                     </li>
-                    <li>Mind fabric shrinkage. Natural fibers can tighten slightly after dry cleaning.</li>
-                    <li>Event context matters. A wedding suit may be tailored slimmer, while a business travel suit
-                        benefits from more comfort.</li>
+                    <li>Consider the season. Winter suits may require a bit more room for layering.</li>
+                    <li>Mind fabric shrinkage. Natural fibers can shrink slightly after dry cleaning.</li>
+                    <li>Consider the event. A wedding suit may be tailored more fitted, while a business suit might
+                        benefit from a more comfortable fit.</li>
                 </ul>
 
                 <h2>Start Using the Suit Size Calculator Today</h2>
-                <p>The suit size calculator takes the confusion out of sizing. With chest, height, gender, and fit
-                    preference, you get an accurate size in seconds. Use it before buying online, when shopping abroad,
-                    or simply to confirm your current measurements. Pair the result with a skilled tailor, and you will
-                    always step out in a suit that fits, flatters, and feels right.</p>
+                <p>Use our <strong>free Suit Size Calculator</strong> to find your perfect jacket and pants size.
+                    Whether shopping online or in-store, get accurate size recommendations based on your measurements,
+                    fit preferences, and body type. Our tool is perfect for ensuring the **best suit fit** for any
+                    occasion!</p>
             </article>
+
 
         </div>
 
         <aside class="right-sidebar">
-      <div class="ad-space">
-        <div class="ad-placeholder">
-          <a href="https://bluehost.sjv.io/aeducateweb" target="_blank">
-            <img src="../Bluehost300by250.webp" alt="Advertisement 1">
-          </a>
-        </div>
-      </div>
-      <div class="ad-space">
-        <div class="ad-placeholder">
-          <a href="https://hostgator.pvxt.net/aeducateweb" target="_blank">
-            <img src="../Hostgator_300x250.webp" alt="Advertisement 2">
-          </a>
-        </div>
-      </div>
-      <div class="ad-space">
-        <div class="ad-placeholder">
-          <a href="https://hostinger.sjv.io/aeducateweb" target="_blank">
-            <img src="../Hostinger300x250-EN.webp" alt="Advertisement 3">
-          </a>
-        </div>
-      </div>
-    </aside>
+            <div class="ad-space">
+                <div class="ad-placeholder">
+                    <a href="https://bluehost.sjv.io/aeducateweb" target="_blank">
+                        <img src="../Bluehost300by250.webp" alt="Advertisement 1">
+                    </a>
+                </div>
+            </div>
+            <div class="ad-space">
+                <div class="ad-placeholder">
+                    <a href="https://hostgator.pvxt.net/aeducateweb" target="_blank">
+                        <img src="../Hostgator_300x250.webp" alt="Advertisement 2">
+                    </a>
+                </div>
+            </div>
+            <div class="ad-space">
+                <div class="ad-placeholder">
+                    <a href="https://hostinger.sjv.io/aeducateweb" target="_blank">
+                        <img src="../Hostinger300x250-EN.webp" alt="Advertisement 3">
+                    </a>
+                </div>
+            </div>
+        </aside>
     </div>
 
     <footer>
@@ -632,7 +619,9 @@
         </div>
     </footer>
     <script src="../js/calculator.js"></script>
+
     <script>
+        // Convert inches to cm and vice versa
         function inToCm(val) { return val * 2.54; }
         function cmToIn(val) { return val / 2.54; }
 
@@ -640,7 +629,9 @@
         function setupUnitAutoConvert() {
             const pairs = [
                 { input: 'height', select: 'heightUnit', cm: 'cm', in: 'in' },
-                { input: 'chest', select: 'chestUnit', cm: 'cm', in: 'in' }
+                { input: 'chest', select: 'chestUnit', cm: 'cm', in: 'in' },
+                { input: 'waist', select: 'waistUnit', cm: 'cm', in: 'in' },
+                { input: 'inseam', select: 'inseamUnit', cm: 'cm', in: 'in' }
             ];
             pairs.forEach(pair => {
                 const input = document.getElementById(pair.input);
@@ -659,6 +650,7 @@
             });
         }
 
+        // Function to calculate the jacket and pants size based on user input
         function calculateSuitSize() {
             // Get user input
             const gender = document.getElementById('gender').value;
@@ -672,8 +664,16 @@
             let chestUnit = document.getElementById('chestUnit').value;
             if (chestUnit === "in") chest = inToCm(chest);
 
+            let waist = parseFloat(document.getElementById('waist').value) || 0;
+            let waistUnit = document.getElementById('waistUnit').value;
+            if (waistUnit === "in") waist = inToCm(waist);
+
+            let inseam = parseFloat(document.getElementById('inseam').value) || 0;
+            let inseamUnit = document.getElementById('inseamUnit').value;
+            if (inseamUnit === "in") inseam = inToCm(inseam);
+
             // Validate required fields
-            if (height <= 0 || chest <= 0) {
+            if (height <= 0 || chest <= 0 || waist <= 0 || inseam <= 0) {
                 alert("Please enter all measurements.");
                 return;
             }
@@ -686,47 +686,51 @@
 
             // Fit adjustments (slim = closer cut, athletic = adjust for V-shape, relaxed = looser)
             if (fit === "slim") baseSize -= 2;
-            // Athletic/relaxed fit adjustments are not possible without waist, so skip.
+            else if (fit === "relaxed") baseSize += 2;
 
             // Height for length
             let lengthType = "Regular";
             if (height < 168) lengthType = "Short";
             else if (height > 183) lengthType = "Long";
 
-            // Women's/Other: Suggest closest jacket (chest), then size chart reference
-            let sizeLabel = "";
-            if (gender === "male") {
-                sizeLabel = `${baseSize} ${lengthType}`;
-            } else if (gender === "female") {
-                // Estimate women's jacket size (EU): chest(cm)-bust divided by 2, or use UK/US equivalents
-                let euSize = Math.round((chest - 80) / 2) * 2 + 36;
-                sizeLabel = `EU ${euSize} / UK ${Math.round(euSize / 2 + 4)} ${lengthType}`;
-            } else {
-                // Neutral suggestion
-                sizeLabel = `${baseSize} / EU ${Math.round((chest - 80) / 2) * 2 + 36} ${lengthType}`;
+            // Calculate waist size (if no waist is entered, estimate based on chest)
+            let waistIn = cmToIn(waist);
+            if (waist <= 0) {
+                waistIn = chestIn - 6; // Estimate waist as chest - 6 inches for men
             }
 
-            // Fit type label
-            let fitLabel = "";
-            if (fit === "slim") fitLabel = "Slim Fit (tailored, close to body)";
-            else if (fit === "athletic") fitLabel = "Athletic Fit (broad shoulders, tapered waist)";
-            else if (fit === "relaxed") fitLabel = "Relaxed Fit (looser cut)";
-            else fitLabel = "Regular Fit (classic, comfortable)";
+            // Calculate inseam based on height (44% of height for men is common)
+            let inseamIn = cmToIn(inseam);
+            if (inseamIn <= 0) {
+                inseamIn = height * 0.44; // Estimate inseam based on height (44% of height)
+            }
 
-            // Show result
+            // Adjust inseam based on height
+            if (height < 170) inseamIn = 28; // If under 170 cm, the inseam should be shorter
+            else if (height > 183) inseamIn = Math.min(36, inseamIn); // If over 183 cm, the inseam should be longer but capped at 36 inches
+
+            // Show results
+            const suitSizeLabel = `Jacket Size: ${baseSize} ${lengthType}`;
+            const pantsSizeLabel = `Pants Waist: ${Math.round(waistIn)} inches / Inseam: ${Math.round(inseamIn)} inches`;
+
             const resultDiv = document.getElementById('result');
             resultDiv.style.display = 'block';
             resultDiv.className = 'result animate-result';
-            document.getElementById('suitSizeResult').textContent = sizeLabel;
-            document.getElementById('fitTypeResult').textContent = fitLabel;
+            document.getElementById('suitSizeResult').textContent = suitSizeLabel;
+            document.getElementById('pantsSizeResult').textContent = pantsSizeLabel;
         }
 
+        // Set up auto unit conversion
         if (document.readyState !== 'loading') {
             setupUnitAutoConvert();
         } else {
             document.addEventListener('DOMContentLoaded', setupUnitAutoConvert);
         }
     </script>
+
+
+
+
 </body>
 
 </html>
