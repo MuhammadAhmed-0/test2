@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Calculate your new average stock price after buying more shares. Dollar-cost averaging strategy tool with profit/loss analysis.">
-    <title>Stock Average Down Calculator</title>
+        content="Calculate your new stock average, total investment, and profit or loss instantly. Free average down calculator for smarter decisions.">
+    <title>Stock Average Down Calculator – Reduce Losses</title>
+    <link rel="canonical" href="https://usefreecalculator.com/Tools/stock-average-down-calculator" />
+
     <!-- Favicon Link -->
     <link rel="icon" href="../Favicon.png" type="image/png">
     <script type="application/ld+json">
@@ -14,14 +16,13 @@
       "@context": "https://schema.org",
       "@type": "WebApplication",
       "name": "Stock Average Down Calculator",
-      "description": "Calculate your new average stock price after buying more shares. Dollar-cost averaging strategy tool with profit/loss analysis.",
-      "url": "https://usefreecalculator.com/Tools/stock-average-down-calculator.html",
+      "description": "Calculate your new stock average, total investment, and profit or loss instantly. Free average down calculator for smarter decisions.",
+      "url": "https://usefreecalculator.com/Tools/stock-average-down-calculator",
       "applicationCategory": "FinanceApplication",
       "operatingSystem": "Web Browser",
       "offers": {
         "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
+        "price": "0"                         
       },
       "creator": {
         "@type": "Organization",
@@ -29,12 +30,61 @@
       }
     }
     </script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is averaging down a good strategy?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Averaging down can be useful when the asset is fundamentally strong and the price drop is temporary. However, it increases exposure and risk, so it should be used with clear reasoning, diversification, and risk control."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this calculator include fees, spreads, or taxes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. This calculator uses share quantity and price only. Broker fees, bid/ask spreads, and taxes vary by platform and region. You can include them manually by adjusting your effective purchase price."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many shares should I buy to reach a target average price?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This calculator shows your new average after additional purchases. To reach a specific target average, you can model scenarios by adding a new purchase and adjusting the number of shares until the desired average is reached."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use this calculator for ETFs or cryptocurrencies?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The same weighted average formula applies to ETFs, mutual funds, and cryptocurrencies. Just enter the number of units and the price paid for each purchase."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the main risks of averaging down?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The main risks include increased capital concentration, continued price declines, opportunity cost, and emotional decision-making. Averaging down should be based on fundamentals, not just price movement."
+      }
+    }
+  ]
+}
+</script>
+
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/tools/apush.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
-                /* Remove space between the advertisement and the form */
+        /* Remove space between the advertisement and the form */
         .banner {
             margin-bottom: 0;
             /* Remove any bottom margin after the advertisement */
@@ -55,6 +105,7 @@
             margin-top: 0;
             /* Remove top margin for form column */
         }
+
         * {
             box-sizing: border-box;
         }
@@ -827,18 +878,18 @@
     <section class="hero">
         <div class="hero-content">
             <h1>Stock Average Down Calculator</h1>
+            <p class="hero-subtitle">Instantly see your new average price, total investment, and profit or loss after
+                buying more shares.</p>
         </div>
     </section>
 
-<!-- Responsive Banner -->
-<section class="banner" style="text-align: center; margin-top: 10px;">
-  <a href="https://bluehost.sjv.io/aeducateweb" target="_blank" style="display: inline-block;">
-    <img 
-      src="../Hosting 1-728x90.png" 
-      alt="Advertisement" 
-      style="max-width: 100%; height: auto; width: 700px; display: inline-block;">
-  </a>
-</section>
+    <!-- Responsive Banner -->
+    <section class="banner" style="text-align: center; margin-top: 10px;">
+        <a href="https://bluehost.sjv.io/aeducateweb" target="_blank" style="display: inline-block;">
+            <img src="../Hosting 1-728x90.png" alt="Advertisement"
+                style="max-width: 100%; height: auto; width: 700px; display: inline-block;">
+        </a>
+    </section>
 
     <div class="tool-container">
         <aside class="left-sidebar">
@@ -854,7 +905,7 @@
 
         <div class="main-content-column">
             <main class="calculator-content">
-                <h1>Calculate Your Stock Average Down Strategy</h1>
+                <h2>Calculate Your Stock Average Down Strategy</h2>
 
                 <div class="risk-warning">
                     <i class="fas fa-exclamation-triangle"></i>
@@ -956,215 +1007,245 @@
                     </div>
                 </div>
             </main>
+            <article class="calculator-article" id="stock-average-down-guide">
+                <h2>Stock Average Down Calculator: Lower Your Cost Basis & Find Break-Even</h2>
+                <p>
+                    This <strong>stock average down calculator</strong> helps you calculate your
+                    <strong>new average cost per share</strong> (your updated <em>cost basis</em>)
+                    after buying more shares at a different price. It also helps you understand your
+                    <strong>total investment</strong>, <strong>break-even price</strong>, and (if you enter the current
+                    market price)
+                    your <strong>unrealized profit or loss</strong>.
+                </p>
 
-            <article class="calculator-article">
-                <h2>Stock Average Down Calculator — Lower Your Cost Basis in Stocks</h2>
-                <p>The <strong>Stock Average Down Calculator</strong> helps investors determine their new <em>average
-                        cost per share</em> after purchasing additional stock at a lower price.
-                    This tool is essential for traders and long-term investors who want to understand how averaging down
-                    affects their portfolio, breakeven point, and potential profitability.</p>
+                <div class="info-box" role="note" aria-label="Important note">
+                    <p>
+                        <strong>Note:</strong> This tool shows mathematical outcomes only. It does not provide financial
+                        advice.
+                        Broker fees, spreads, and taxes are not included unless you manually adjust your inputs.
+                    </p>
+                </div>
+
+                <h2>What This Calculator Shows</h2>
+                <ul>
+                    <li><strong>New average share price</strong> (weighted average cost)</li>
+                    <li><strong>Total shares owned</strong> after additional purchases</li>
+                    <li><strong>Total amount invested</strong> (total cost basis)</li>
+                    <li><strong>Break-even price</strong> (the average price you need to recover)</li>
+                    <li><strong>Unrealized P/L</strong> at the current market price (if provided)</li>
+                </ul>
 
                 <h2>What Is Averaging Down in Stocks?</h2>
-                <h3>Definition in Investing Terms</h3>
-                <p>Averaging down is an investment strategy where you buy more shares of a stock as its price falls,
-                    lowering your overall average purchase price.
-                    For example, if you own 100 shares at $50 each and buy 100 more at $30, your average cost becomes
-                    $40.</p>
-
-                <h3>Why Investors Use This Strategy</h3>
-                <p>Investors use averaging down to reduce their breakeven point, making it easier for a stock to turn
-                    profitable.
-                    This is especially popular among value investors who believe a stock is fundamentally strong but
-                    temporarily undervalued.</p>
-
-                <h3>Average Down vs Average Up</h3>
-                <p><strong>Averaging down</strong> means buying at lower prices to reduce cost basis.
-                    <strong>Averaging up</strong> is the opposite: buying additional shares at higher prices, often when
-                    a stock shows strong momentum.
-                    Both strategies have different risk profiles and are used depending on market conditions.
+                <h3>Simple Definition</h3>
+                <p>
+                    <strong>Averaging down</strong> means buying more shares after the price drops so your
+                    <strong>average purchase price</strong> becomes lower. This reduces your
+                    <strong>break-even</strong>,
+                    but increases the total money you have in the position.
                 </p>
+
+                <h3>Quick Example</h3>
+                <p>
+                    If you buy 100 shares at $50 and later buy 100 shares at $30, your new average cost becomes $40.
+                    That means the stock needs to reach $40 (not $50) for you to break even.
+                </p>
+
+                <h3>Averaging Down vs Dollar-Cost Averaging</h3>
+                <p>
+                    <strong>Dollar-cost averaging (DCA)</strong> usually means investing a fixed amount on a schedule.
+                    <strong>Averaging down</strong> is more targeted: you add shares mainly because price fell.
+                    DCA spreads timing risk; averaging down increases exposure when the price is declining.
+                </p>
+
+                <h2>What Changes After You Average Down?</h2>
+                <div class="table-wrap" role="region" aria-label="Averaging down impact table">
+                    <table class="info-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Metric</th>
+                                <th scope="col">What happens</th>
+                                <th scope="col">Why it matters</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Average cost per share</td>
+                                <td>Usually goes down</td>
+                                <td>Lower break-even price</td>
+                            </tr>
+                            <tr>
+                                <td>Break-even price</td>
+                                <td>Becomes easier to reach</td>
+                                <td>Smaller rebound needed</td>
+                            </tr>
+                            <tr>
+                                <td>Total investment</td>
+                                <td>Goes up</td>
+                                <td>More capital at risk</td>
+                            </tr>
+                            <tr>
+                                <td>Position risk</td>
+                                <td>Can increase</td>
+                                <td>If the stock keeps falling, losses can grow faster</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
                 <h2>How the Stock Average Down Calculator Works</h2>
-                <h3>Core Formula Explained</h3>
-                <p>The calculator uses a simple weighted average formula:</p>
+                <h3>Weighted Average Cost Formula</h3>
+                <p>The calculator uses the weighted average (cost basis) formula:</p>
                 <p><strong>New Average Price = (Σ (Shares × Price)) ÷ Total Shares</strong></p>
 
-                <h3>Step-by-Step Breakdown</h3>
+                <h3>Step-by-Step</h3>
                 <ol>
-                    <li>Enter your initial shares and price.</li>
-                    <li>Add new purchase details (shares and price).</li>
-                    <li>The calculator multiplies shares × price for each purchase.</li>
-                    <li>It sums all costs and divides by total shares to find the new average.</li>
+                    <li>Enter your first purchase: shares and price per share.</li>
+                    <li>Add one or more additional buys (new shares and new prices).</li>
+                    <li>(Optional) Enter the current market price to see unrealized profit or loss.</li>
+                    <li>Click <strong>Calculate</strong> to get your updated average and totals.</li>
                 </ol>
 
-                <h3>Inputs Needed</h3>
+                <h3>Inputs You May Use</h3>
                 <ul>
-                    <li>Number of shares bought</li>
-                    <li>Price per share of each purchase</li>
-                    <li>(Optional) Current market price to see profit/loss</li>
-                    <li>(Optional) Target selling price for future projections</li>
+                    <li><strong>Shares owned</strong> and <strong>purchase price</strong> for each buy</li>
+                    <li><strong>Current market price</strong> (optional) to calculate unrealized P/L</li>
+                    <li><strong>Multiple purchases</strong> to model different averaging down scenarios</li>
                 </ul>
 
-                <h2>Practical Applications of Averaging Down</h2>
-                <h3>Long-Term Investing and Cost Basis</h3>
-                <p>Many investors use averaging down to improve long-term positions in quality companies.
-                    By reducing cost basis, they can reach profitability faster when the stock rebounds.</p>
-
-                <h3>Dollar-Cost Averaging vs Averaging Down</h3>
-                <p><strong>Dollar-cost averaging (DCA)</strong> involves investing fixed amounts regularly regardless of
-                    price.
-                    <strong>Averaging down</strong> is targeted: you buy more only when prices fall.
-                    DCA spreads risk over time, while averaging down concentrates on taking advantage of dips.
+                <h2>When Averaging Down Can Help (And When It Can Hurt)</h2>
+                <h3>When It Can Make Sense</h3>
+                <p>
+                    Averaging down is commonly used when an investor believes the company (or ETF) is fundamentally
+                    strong
+                    and the drop is temporary. It can also be used to improve long-term cost basis in a diversified
+                    portfolio.
                 </p>
-
-                <h3>Using Averaging Down in Volatile Markets</h3>
-                <p>During market downturns, averaging down can help investors acquire more shares at discounted prices.
-                    However, in highly volatile or uncertain markets, it may magnify losses if the stock continues to
-                    decline.</p>
 
                 <h3>When Not to Average Down</h3>
-                <p>Avoid averaging down on fundamentally weak companies, speculative penny stocks, or businesses with
-                    declining revenues.
-                    Averaging down only works when a company’s fundamentals remain strong and price drops are temporary.
+                <p>
+                    Avoid averaging down if the business is in structural decline, the thesis is broken,
+                    or you’re adding mainly due to emotion. Be careful with speculative microcaps/penny stocks
+                    and highly uncertain situations where downside risk is hard to measure.
                 </p>
 
-                <h2>How to Use the Calculator — Step by Step</h2>
-                <ol>
-                    <li>Input your first stock purchase (shares + price).</li>
-                    <li>Add one or more additional positions at new prices.</li>
-                    <li>Click <strong>Calculate Average Down</strong>.</li>
-                    <li>View results: new average cost, breakeven, profit/loss analysis, and strategic recommendations.
-                    </li>
-                </ol>
-                <p>The tool also displays position tracking, showing total shares, investment, and unrealized gain/loss.
-                </p>
-
-                <h2>Manual Calculation Methods</h2>
-                <h3>Weighted Average Cost Per Share Formula</h3>
-                <p><strong>Average Cost = (Total Amount Invested) ÷ (Total Shares)</strong></p>
-
-                <h3>Worked Example</h3>
-                <p>You bought 100 shares at $50 = $5,000. Later, 100 shares at $30 = $3,000.
-                    Total = $8,000 ÷ 200 shares = $40 per share.</p>
-
-                <h3>Common Mistakes to Avoid</h3>
+                <h3>Risk Control (Simple, Not Advice)</h3>
                 <ul>
-                    <li>Using simple average of prices instead of weighted average.</li>
-                    <li>Forgetting to include share count when calculating.</li>
-                    <li>Ignoring trading fees, which can slightly increase cost basis.</li>
+                    <li><strong>Position sizing:</strong> Keep one stock from becoming too large in your portfolio.</li>
+                    <li><strong>Thesis check:</strong> Re-check why you bought it before adding more.</li>
+                    <li><strong>Capital planning:</strong> Don’t average down if it blocks better opportunities.</li>
                 </ul>
 
-                <h2>Example Problems and Solutions</h2>
-                <h3>Example 1 — Averaging Down After Price Drop</h3>
-                <p>Initial: 50 shares @ $100. New: 50 shares @ $60.
-                    Average = (5000 + 3000) ÷ 100 = $80.</p>
+                <h2>Worked Examples</h2>
+                <h3>Example 1: Two Purchases</h3>
+                <p>
+                    100 shares @ $50 = $5,000. Then 100 shares @ $30 = $3,000.
+                    Total = $8,000 ÷ 200 shares = <strong>$40 average cost</strong>.
+                </p>
 
-                <h3>Example 2 — Averaging Down with Multiple Purchases</h3>
-                <p>100 shares @ $40, 50 shares @ $30, 50 shares @ $20.
-                    Average = (4000 + 1500 + 1000) ÷ 200 = $32.50.</p>
+                <h3>Example 2: Multiple Purchases</h3>
+                <p>
+                    100 shares @ $40, 50 shares @ $30, 50 shares @ $20.
+                    Total cost = (4,000 + 1,500 + 1,000) = 6,500.
+                    New average = 6,500 ÷ 200 = <strong>$32.50</strong>.
+                </p>
 
-                <h3>Example 3 — Reducing Cost Basis in Volatile Stock</h3>
-                <p>Suppose you initially purchased 200 shares at $25 each, for a total of $5,000. The price then drops
-                    to $15, and you buy another 200 shares for $3,000. Now you hold 400 shares total.</p>
-                <p><strong>New Average = (5,000 + 3,000) ÷ 400 = 8,000 ÷ 400 = $20 per share.</strong></p>
-                <p>By averaging down, your breakeven price is now $20 instead of $25, meaning you need a smaller rebound
-                    to reach profitability.</p>
+                <h3>Example 3: Add Market Price to See Unrealized P/L</h3>
+                <p>
+                    If your new average is $40 and you own 200 shares, and the current market price is $35:
+                    Unrealized P/L = (35 − 40) × 200 = <strong>−$1,000</strong>.
+                </p>
 
-                <h3>Example 4 — Comparing Average Down vs Average Up</h3>
-                <p>Scenario A (Averaging Down): You bought 100 shares at $50 ($5,000). Later, you add 100 shares at $30
-                    ($3,000). Total = $8,000 ÷ 200 shares = $40 average.</p>
-                <p>Scenario B (Averaging Up): Instead, you bought 100 shares at $50, then another 100 shares at $70
-                    ($7,000 + $5,000 = $12,000 ÷ 200 = $60 average).</p>
-                <p><strong>Insight:</strong> Averaging down lowered your breakeven point to $40, while averaging up
-                    increased it to $60. Each strategy has a different risk/reward profile depending on your confidence
-                    in the stock.</p>
-
-                <h2>FAQs About Stock Averaging Down</h2>
-
-                <h3>Is Averaging Down a Good Strategy?</h3>
-                <p>Averaging down can be effective for fundamentally strong companies where price declines are
-                    temporary. However, it can be risky if the company faces structural decline. It works best when
-                    supported by long-term conviction and diversification.</p>
-
-                <h3>How Many Shares Should I Buy to Lower My Average to X?</h3>
-                <p>This is one of the most common questions investors ask. Our calculator allows you to enter your
-                    current cost basis and desired new average. It will instantly tell you how many shares to purchase
-                    at the new price to achieve that goal.</p>
-
-                <h3>Can I Use This Calculator for ETFs or Crypto?</h3>
-                <p>Yes. The same weighted average principle applies to any asset class where units are purchased at
-                    different prices. Whether it’s ETFs, mutual funds, or cryptocurrencies, you can input quantities and
-                    prices to calculate a new average cost per unit.</p>
-
-                <h3>What Are the Risks of Averaging Down?</h3>
+                <h2>Manual Calculation (If You Want to Double-Check)</h2>
+                <p><strong>Average Cost = (Total Amount Invested) ÷ (Total Shares)</strong></p>
                 <ul>
-                    <li><strong>Capital concentration:</strong> Tying too much money into one position increases
-                        exposure.</li>
-                    <li><strong>Falling knife problem:</strong> Stocks can continue to decline despite buying at lower
-                        levels.</li>
-                    <li><strong>Opportunity cost:</strong> Funds used to average down may be better invested in stronger
-                        opportunities.</li>
-                    <li><strong>Psychological bias:</strong> Investors may average down to avoid admitting a mistake
-                        rather than based on fundamentals.</li>
+                    <li>Don’t use a simple average of prices (that ignores share count).</li>
+                    <li>Include every buy (and consider fees/spread if you want higher accuracy).</li>
+                </ul>
+
+                <h2>FAQs About Averaging Down</h2>
+
+                <h3>Is averaging down a good strategy?</h3>
+                <p>
+                    It can be useful when the asset is still strong and the drop is temporary, but it increases exposure
+                    and risk.
+                    It’s most sensible when you have a clear thesis, risk limits, and diversification.
+                </p>
+
+                <h3>Does this calculator include fees, spreads, or taxes?</h3>
+                <p>
+                    No. This is a <strong>cost basis calculator</strong> using share quantity and price only.
+                    Fees, bid/ask spread, and taxes vary by broker and region. If you want to approximate fees,
+                    you can add them into your effective purchase price.
+                </p>
+
+                <h3>How many shares should I buy to reach a target average price?</h3>
+                <p>
+                    This calculator is designed to show your new average after additional buys. To reach a specific
+                    target average,
+                    you can model “what-if” scenarios by adding a new purchase line and adjusting shares until the
+                    average matches your goal.
+                    (If you want an exact “required shares” output, add a target-average feature to the tool UI.)
+                </p>
+
+                <h3>Can I use this calculator for ETFs or crypto?</h3>
+                <p>
+                    Yes. The same weighted average principle works for ETFs and cryptocurrencies. Just enter
+                    units/shares and prices
+                    to compute the new average cost per unit.
+                </p>
+
+                <h3>What are the main risks of averaging down?</h3>
+                <ul>
+                    <li><strong>Capital concentration:</strong> Too much money in one position increases risk.</li>
+                    <li><strong>Falling-knife risk:</strong> Price can keep dropping even after you buy more.</li>
+                    <li><strong>Opportunity cost:</strong> Capital used here may miss better opportunities elsewhere.
+                    </li>
+                    <li><strong>Behavioral bias:</strong> Averaging down can be driven by emotion instead of facts.</li>
                 </ul>
 
                 <h2>Conclusion</h2>
-
                 <h3>Key Takeaways</h3>
                 <ul>
-                    <li>Averaging down lowers your cost basis and breakeven price by buying at lower levels.</li>
-                    <li>It uses the weighted average formula: (Σ shares × price) ÷ total shares.</li>
-                    <li>Best applied to strong companies with temporary price drops, not to weak or speculative stocks.
-                    </li>
+                    <li>Averaging down can lower your <strong>average cost</strong> and <strong>break-even
+                            price</strong>.</li>
+                    <li>It uses a <strong>weighted average</strong>: (Σ shares × price) ÷ total shares.</li>
+                    <li>Lower break-even often comes with higher exposure, so risk control matters.</li>
                 </ul>
 
-                <h3>When to Use Calculator vs Manual Calculation</h3>
-                <p>Manual calculations are fine for simple two-purchase scenarios. However, if you’ve made multiple
-                    trades over time, the <strong>Stock Average Down Calculator</strong> is faster, more accurate, and
-                    can project profits or required shares to reach a target average.</p>
-
-                <h3>Next Steps — Try Related Tools</h3>
-                <p>Explore other tools that complement your investing and financial planning strategies:</p>
+                <h3>Related Calculators</h3>
+                <p>If you like finance math tools, you may also find these helpful:</p>
                 <ul>
-                    <li><a href="blended-rate-calculator.html">Blended Rate Calculator</a> — calculate weighted average
-                        rates across multiple loans.</li>
-                    <li><a href="reverse-percentage-calculator.html">Reverse Percentage Calculator</a> — find the
-                        original value before a percentage change.</li>
-                    <li><a href="apush-score-calculator.html">APUSH Score Calculator</a> — another weighted-score style
-                        tool for academics.</li>
+                    <li><a href="blended-rate-calculator.html">Blended Rate Calculator</a> — calculate a weighted
+                        average rate.</li>
+                    <li><a href="reverse-percentage-calculator.html">Reverse Percentage Calculator</a> — find original
+                        values before a percent change.</li>
                 </ul>
-                <p>By combining these calculators, you can build a complete toolkit for financial and investment
-                    decision-making.</p>
             </article>
-
-
-
-
         </div>
 
         <aside class="right-sidebar">
-      <div class="ad-space">
-        <div class="ad-placeholder">
-          <a href="https://bluehost.sjv.io/aeducateweb" target="_blank">
-            <img src="../Bluehost300by250.webp" alt="Advertisement 1">
-          </a>
-        </div>
-      </div>
-      <div class="ad-space">
-        <div class="ad-placeholder">
-          <a href="https://hostgator.pvxt.net/aeducateweb" target="_blank">
-            <img src="../Hostgator_300x250.webp" alt="Advertisement 2">
-          </a>
-        </div>
-      </div>
-      <div class="ad-space">
-        <div class="ad-placeholder">
-          <a href="https://hostinger.sjv.io/aeducateweb" target="_blank">
-            <img src="../Hostinger300x250-EN.webp" alt="Advertisement 3">
-          </a>
-        </div>
-      </div>
-    </aside>
+            <div class="ad-space">
+                <div class="ad-placeholder">
+                    <a href="https://bluehost.sjv.io/aeducateweb" target="_blank">
+                        <img src="../Bluehost300by250.webp" alt="Advertisement 1">
+                    </a>
+                </div>
+            </div>
+            <div class="ad-space">
+                <div class="ad-placeholder">
+                    <a href="https://hostgator.pvxt.net/aeducateweb" target="_blank">
+                        <img src="../Hostgator_300x250.webp" alt="Advertisement 2">
+                    </a>
+                </div>
+            </div>
+            <div class="ad-space">
+                <div class="ad-placeholder">
+                    <a href="https://hostinger.sjv.io/aeducateweb" target="_blank">
+                        <img src="../Hostinger300x250-EN.webp" alt="Advertisement 3">
+                    </a>
+                </div>
+            </div>
+        </aside>
     </div>
 
     <footer>
