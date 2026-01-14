@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Calculate your AP US History exam score! Enter MCQ, SAQ, DBQ & LEQ scores to get your estimated AP score (1-5). Free APUSH calculator.">
     <title>APUSH Score Calculator</title>
+    <meta name="description"
+        content="Use our free APUSH score calculator to estimate your AP US History exam score. Enter your MCQ, SAQ, DBQ, and LEQ results and see how you measure up against typical benchmarks. Start calculating now!">
+    <link rel="canonical" href="https://usefreecalculator.com/Tools/apush-score-calculator" />
     <!-- Favicon Link -->
     <link rel="icon" href="../Favicon.png" type="image/png">
     <script type="application/ld+json">
@@ -15,13 +16,12 @@
       "@type": "WebApplication",
       "name": "APUSH Score Calculator",
       "description": "Calculate your AP US History exam score! Enter MCQ, SAQ, DBQ & LEQ scores to get your estimated AP score (1-5). Free APUSH calculator.",
-      "url": "https://freecalculator.com/Tools/apush-score-calculator.html",
+      "url": "https://freecalculator.com/Tools/apush-score-calculator",
       "applicationCategory": "EducationalApplication",
       "operatingSystem": "Web Browser",
       "offers": {
         "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
+        "price": "0"
       },
       "creator": {
         "@type": "Organization",
@@ -29,11 +29,60 @@
       }
     }
     </script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How accurate is the APUSH Score Calculator?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The calculator uses the most recent scoring weights and typical cutoff ranges. While actual cutoffs vary slightly each year, the prediction is generally accurate within a few points."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can strong essays compensate for weaker MCQ performance?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Since DBQ and LEQ make up 40% of the score, strong essays can significantly raise your composite. However, extremely low MCQ scores are hard to fully offset."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a “good” APUSH score?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most colleges grant credit for a 4 or 5. Some state schools accept a 3. Highly selective universities may require a 5 for credit or placement."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When are APUSH scores released?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "AP scores are typically released in early July on the College Board’s website. Students need their College Board login to access them."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How can I raise my score quickly?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Focus on high-yield improvements: practice thesis writing for DBQs, review major U.S. history themes, and complete practice MCQs under timed conditions."
+      }
+    }
+  ]
+}
+</script>
+
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/tools/apush.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-<style>
+    <style>
         /* Remove space between the advertisement and the form */
         .banner {
             margin-bottom: 0 !important;
@@ -55,442 +104,443 @@
             margin-top: 0 !important;
             /* Remove top margin for form column */
         }
-      .tool-container {
-          margin-top: 80px;
-          display: grid;
-          grid-template-columns: 250px 1fr 300px;
-          gap: 2rem;
-          max-width: 1400px;
-          margin: 80px auto 0;
-          padding: 2rem;
-      }
-
-      .left-sidebar {
-          background: white;
-          padding: 1.5rem;
-          border-radius: 10px;
-          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-          max-height: 800px;
-          /* adjust height as needed */
-          overflow-y: auto;
-          /* enables scrolling if items overflow */
-
-      }
-
-      .right-sidebar {
-          background: white;
-          padding: 1.5rem;
-          border-radius: 10px;
-          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-          max-height: 800px;
-          /* adjust height as needed */
-          overflow-y: auto;
-          /* enables scrolling if items overflow */
-
-      }
-
-      .left-sidebar h3 {
-          margin-bottom: 1rem;
-          color: #1f2937;
-      }
-
-      .left-sidebar ul {
-          list-style: none;
-      }
-
-      .left-sidebar ul li {
-          margin-bottom: 0.8rem;
-      }
-
-      .left-sidebar ul li a {
-          color: #1d4ed8;
-          text-decoration: none;
-          transition: color 0.3s;
-      }
-
-      .left-sidebar ul li a:hover {
-          color: #2563eb;
-      }
-
-
-      @media (max-width: 430px) {
-
-          /* Prevent any element from causing horizontal scroll */
-          body,
-          html {
-              overflow-x: hidden;
-              width: 100%;
-          }
-
-          .tool-container {
-              grid-template-columns: 1fr;
-              gap: 1rem;
-              padding: 1rem;
-              margin: 60px auto 0;
-              max-width: 100%;
-          }
-
-          .calculator-content,
-          .calculator-box,
-          .calculator-article {
-              padding: 1rem !important;
-              border-radius: 8px;
-          }
-
-          .input-group input {
-              font-size: 0.95rem;
-              padding: 0.6rem 0.8rem;
-          }
-
-          .calculate-btn {
-              font-size: 1rem;
-              padding: 0.7rem 1.5rem;
-              width: 100%;
-          }
-
-          .calculator-article h2 {
-              font-size: 1.3rem;
-          }
-
-          .left-sidebar,
-          .right-sidebar {
-              display: none !important;
-          }
-
-          img {
-              max-width: 100%;
-              height: auto;
-          }
-
-          .calculator-article {
-              padding: 1.5rem !important;
-          }
-
-          .calculator-article ul {
-              padding: 1rem !important;
-              margin: 1rem 0 !important;
-          }
-
-          .calculator-article ul li {
-              padding-left: 1.5rem !important;
-              font-size: 1rem !important;
-          }
-
-          .calculator-article h2 {
-              font-size: 1.5rem !important;
-              margin: 1.5rem 0 1rem 0 !important;
-          }
-
-          .calculator-article h3 {
-              font-size: 1.25rem !important;
-              margin: 1rem 0 0.75rem 0 !important;
-          }
-
-          .calculator-article p {
-              font-size: 1rem !important;
-          }
-
-      }
-
-
-      @media (max-width: 1200px) {
-          .tool-container {
-              grid-template-columns: 200px 1fr 250px;
-              padding: 1.5rem;
-              gap: 1.5rem;
-          }
-      }
-
-      @media (max-width: 992px) {
-          .tool-container {
-              grid-template-columns: 1fr;
-          }
-
-          .left-sidebar,
-          .right-sidebar {
-              display: none;
-          }
-      }
-
-      @media (max-width: 768px) {
-          .calculator-box {
-              padding: 1rem;
-          }
-
-          .calculator-content {
-              padding: 1rem;
-          }
-
-          .calculator-article {
-              padding: 1rem;
-          }
-      }
-
-      .calculator-content {
-          background: white;
-          padding: 2rem;
-          border-radius: 10px;
-          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      }
-
-      .calculator-box {
-          background: #f8fafc;
-          padding: 2rem;
-          border-radius: 8px;
-          margin-bottom: 2rem;
-      }
-
-      .input-group {
-          margin-bottom: 1.5rem;
-      }
-
-      .input-group label {
-          display: block;
-          margin-bottom: 0.5rem;
-          color: #4b5563;
-          font-weight: 500;
-      }
-
-      .input-group input {
-          width: 100%;
-          padding: 0.8rem;
-          border: 1px solid #e5e7eb;
-          border-radius: 5px;
-          font-size: 1rem;
-      }
-
-      .calculate-btn {
-          background: #2563eb;
-          color: white;
-          padding: 0.8rem 2rem;
-          border: none;
-          border-radius: 5px;
-          cursor: pointer;
-          font-size: 1rem;
-          transition: background 0.3s;
-      }
-
-      .calculate-btn:hover {
-          background: #1e40af;
-      }
-
-      .result {
-          margin-top: 1.5rem;
-          padding: 1rem;
-          background: #f3f4f6;
-          border-radius: 5px;
-          display: none;
-      }
-
-      .calculator-article {
-          margin-top: 3rem;
-          padding: 3rem;
-          background: white;
-          border-radius: 12px;
-          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-          line-height: 1.8;
-          font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-          color: #374151;
-          max-width: 100%;
-          overflow-wrap: break-word;
-      }
-
-      /* Main headings */
-      .calculator-article h2 {
-          color: #111827;
-          margin: 2.5rem 0 1.5rem 0;
-          font-size: 1.875rem;
-          font-weight: 700;
-          border-bottom: 3px solid #3b82f6;
-          padding-bottom: 0.75rem;
-          position: relative;
-      }
-
-      .calculator-article h2:first-child {
-          margin-top: 0;
-      }
-
-      .calculator-article h2::before {
-          content: '';
-          position: absolute;
-          bottom: -3px;
-          left: 0;
-          width: 60px;
-          height: 3px;
-          background: #1d4ed8;
-          border-radius: 2px;
-      }
-
-      /* Sub headings */
-      .calculator-article h3 {
-          color: #1f2937;
-          margin: 2rem 0 1rem 0;
-          font-size: 1.5rem;
-          font-weight: 600;
-          position: relative;
-          padding-left: 1rem;
-      }
-
-      .calculator-article h3::before {
-          content: '';
-          position: absolute;
-          left: 0;
-          top: 50%;
-          transform: translateY(-50%);
-          width: 4px;
-          height: 1.5rem;
-          background: #3b82f6;
-          border-radius: 2px;
-      }
-
-      /* Paragraphs */
-      .calculator-article p {
-          margin-bottom: 1.5rem;
-          text-align: justify;
-          color: #4b5563;
-          font-size: 1.1rem;
-          line-height: 1.8;
-      }
-
-      /* Lists - Professional styling */
-      .calculator-article ul {
-          margin: 1.5rem 0 2rem 0;
-          padding-left: 0;
-          list-style: none;
-          background: #f8fafc;
-          border-radius: 8px;
-          padding: 1.5rem;
-          border-left: 4px solid #3b82f6;
-      }
-
-      .calculator-article ul li {
-          margin-bottom: 1rem;
-          padding-left: 2rem;
-          position: relative;
-          color: #374151;
-          font-size: 1.05rem;
-          line-height: 1.7;
-      }
-
-      .calculator-article ul li:last-child {
-          margin-bottom: 0;
-      }
-
-      /* Custom bullet points */
-      .calculator-article ul li::before {
-          content: '▶';
-          position: absolute;
-          left: 0;
-          top: 0;
-          color: #3b82f6;
-          font-size: 0.9rem;
-          font-weight: 600;
-      }
-
-      /* Ordered lists - Use natural numbering without custom bullets */
-      .calculator-article ol {
-          margin: 1.5rem 0 2rem 0;
-          background: #fefbf3;
-          border-radius: 8px;
-          padding: 1.5rem 1.5rem 1.5rem 3rem;
-          border-left: 4px solid #f59e0b;
-          list-style-type: decimal;
-          list-style-position: outside;
-      }
-
-      .calculator-article ol li {
-          margin-bottom: 1rem;
-          padding-left: 0.5rem;
-          color: #374151;
-          font-size: 1.05rem;
-          line-height: 1.7;
-      }
-
-      .calculator-article ol li:last-child {
-          margin-bottom: 0;
-      }
-
-      .calculator-article ol li::marker {
-          color: #f59e0b;
-          font-weight: 700;
-      }
-
-      /* Strong/Bold text */
-      .calculator-article strong {
-          color: #1f2937;
-          font-weight: 700;
-      }
-
-      /* Code-like elements */
-      .calculator-article code {
-          background: #f3f4f6;
-          padding: 0.2rem 0.5rem;
-          border-radius: 4px;
-          font-family: 'Monaco', 'Menlo', monospace;
-          font-size: 0.9rem;
-          color: #dc2626;
-      }
-
-      /* Emphasis blocks */
-      .calculator-article blockquote {
-          margin: 2rem 0;
-          padding: 1.5rem;
-          background: #eff6ff;
-          border-left: 4px solid #3b82f6;
-          border-radius: 0 8px 8px 0;
-          font-style: italic;
-          color: #1e40af;
-      }
-
-      /* Tables if any */
-      .calculator-article table {
-          width: 100%;
-          border-collapse: collapse;
-          margin: 2rem 0;
-          background: white;
-          border-radius: 8px;
-          overflow: hidden;
-          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-      }
-
-      .calculator-article th,
-      .calculator-article td {
-          padding: 0.75rem 1rem;
-          text-align: left;
-          border-bottom: 1px solid #e5e7eb;
-      }
-
-      .calculator-article th {
-          background: #f9fafb;
-          font-weight: 600;
-          color: #374151;
-      }
-
-      /* Links within articles */
-      .calculator-article a {
-          color: #3b82f6;
-          text-decoration: underline;
-          transition: color 0.2s ease;
-      }
-
-      .calculator-article a:hover {
-          color: #1d4ed8;
-      }
-
-      /* Highlight boxes for important information */
-      .calculator-article .highlight {
-          background: #fef3c7;
-          border: 1px solid #f59e0b;
-          border-radius: 8px;
-          padding: 1rem;
-          margin: 1.5rem 0;
-      }
-
-      .calculator-article .highlight p {
-          margin-bottom: 0;
-          color: #92400e;
-      }
-</style>
+
+        .tool-container {
+            margin-top: 80px;
+            display: grid;
+            grid-template-columns: 250px 1fr 300px;
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 80px auto 0;
+            padding: 2rem;
+        }
+
+        .left-sidebar {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            max-height: 800px;
+            /* adjust height as needed */
+            overflow-y: auto;
+            /* enables scrolling if items overflow */
+
+        }
+
+        .right-sidebar {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            max-height: 800px;
+            /* adjust height as needed */
+            overflow-y: auto;
+            /* enables scrolling if items overflow */
+
+        }
+
+        .left-sidebar h3 {
+            margin-bottom: 1rem;
+            color: #1f2937;
+        }
+
+        .left-sidebar ul {
+            list-style: none;
+        }
+
+        .left-sidebar ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .left-sidebar ul li a {
+            color: #1d4ed8;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .left-sidebar ul li a:hover {
+            color: #2563eb;
+        }
+
+
+        @media (max-width: 430px) {
+
+            /* Prevent any element from causing horizontal scroll */
+            body,
+            html {
+                overflow-x: hidden;
+                width: 100%;
+            }
+
+            .tool-container {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                padding: 1rem;
+                margin: 60px auto 0;
+                max-width: 100%;
+            }
+
+            .calculator-content,
+            .calculator-box,
+            .calculator-article {
+                padding: 1rem !important;
+                border-radius: 8px;
+            }
+
+            .input-group input {
+                font-size: 0.95rem;
+                padding: 0.6rem 0.8rem;
+            }
+
+            .calculate-btn {
+                font-size: 1rem;
+                padding: 0.7rem 1.5rem;
+                width: 100%;
+            }
+
+            .calculator-article h2 {
+                font-size: 1.3rem;
+            }
+
+            .left-sidebar,
+            .right-sidebar {
+                display: none !important;
+            }
+
+            img {
+                max-width: 100%;
+                height: auto;
+            }
+
+            .calculator-article {
+                padding: 1.5rem !important;
+            }
+
+            .calculator-article ul {
+                padding: 1rem !important;
+                margin: 1rem 0 !important;
+            }
+
+            .calculator-article ul li {
+                padding-left: 1.5rem !important;
+                font-size: 1rem !important;
+            }
+
+            .calculator-article h2 {
+                font-size: 1.5rem !important;
+                margin: 1.5rem 0 1rem 0 !important;
+            }
+
+            .calculator-article h3 {
+                font-size: 1.25rem !important;
+                margin: 1rem 0 0.75rem 0 !important;
+            }
+
+            .calculator-article p {
+                font-size: 1rem !important;
+            }
+
+        }
+
+
+        @media (max-width: 1200px) {
+            .tool-container {
+                grid-template-columns: 200px 1fr 250px;
+                padding: 1.5rem;
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .tool-container {
+                grid-template-columns: 1fr;
+            }
+
+            .left-sidebar,
+            .right-sidebar {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .calculator-box {
+                padding: 1rem;
+            }
+
+            .calculator-content {
+                padding: 1rem;
+            }
+
+            .calculator-article {
+                padding: 1rem;
+            }
+        }
+
+        .calculator-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .calculator-box {
+            background: #f8fafc;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #4b5563;
+            font-weight: 500;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .calculate-btn {
+            background: #2563eb;
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+
+        .calculate-btn:hover {
+            background: #1e40af;
+        }
+
+        .result {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: #f3f4f6;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .calculator-article {
+            margin-top: 3rem;
+            padding: 3rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            line-height: 1.8;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #374151;
+            max-width: 100%;
+            overflow-wrap: break-word;
+        }
+
+        /* Main headings */
+        .calculator-article h2 {
+            color: #111827;
+            margin: 2.5rem 0 1.5rem 0;
+            font-size: 1.875rem;
+            font-weight: 700;
+            border-bottom: 3px solid #3b82f6;
+            padding-bottom: 0.75rem;
+            position: relative;
+        }
+
+        .calculator-article h2:first-child {
+            margin-top: 0;
+        }
+
+        .calculator-article h2::before {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: #1d4ed8;
+            border-radius: 2px;
+        }
+
+        /* Sub headings */
+        .calculator-article h3 {
+            color: #1f2937;
+            margin: 2rem 0 1rem 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        .calculator-article h3::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 1.5rem;
+            background: #3b82f6;
+            border-radius: 2px;
+        }
+
+        /* Paragraphs */
+        .calculator-article p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+            color: #4b5563;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* Lists - Professional styling */
+        .calculator-article ul {
+            margin: 1.5rem 0 2rem 0;
+            padding-left: 0;
+            list-style: none;
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 1.5rem;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .calculator-article ul li {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+            position: relative;
+            color: #374151;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .calculator-article ul li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Custom bullet points */
+        .calculator-article ul li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #3b82f6;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Ordered lists - Use natural numbering without custom bullets */
+        .calculator-article ol {
+            margin: 1.5rem 0 2rem 0;
+            background: #fefbf3;
+            border-radius: 8px;
+            padding: 1.5rem 1.5rem 1.5rem 3rem;
+            border-left: 4px solid #f59e0b;
+            list-style-type: decimal;
+            list-style-position: outside;
+        }
+
+        .calculator-article ol li {
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+            color: #374151;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .calculator-article ol li:last-child {
+            margin-bottom: 0;
+        }
+
+        .calculator-article ol li::marker {
+            color: #f59e0b;
+            font-weight: 700;
+        }
+
+        /* Strong/Bold text */
+        .calculator-article strong {
+            color: #1f2937;
+            font-weight: 700;
+        }
+
+        /* Code-like elements */
+        .calculator-article code {
+            background: #f3f4f6;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.9rem;
+            color: #dc2626;
+        }
+
+        /* Emphasis blocks */
+        .calculator-article blockquote {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            color: #1e40af;
+        }
+
+        /* Tables if any */
+        .calculator-article table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .calculator-article th,
+        .calculator-article td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .calculator-article th {
+            background: #f9fafb;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        /* Links within articles */
+        .calculator-article a {
+            color: #3b82f6;
+            text-decoration: underline;
+            transition: color 0.2s ease;
+        }
+
+        .calculator-article a:hover {
+            color: #1d4ed8;
+        }
+
+        /* Highlight boxes for important information */
+        .calculator-article .highlight {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .calculator-article .highlight p {
+            margin-bottom: 0;
+            color: #92400e;
+        }
+    </style>
 
 </head>
 
@@ -545,19 +595,18 @@
     <section class="hero">
         <div class="hero-content">
             <h1>APUSH Score Calculator</h1>
-
+            <p class="hero-subtitle">Estimate your AP US History exam score quickly. Enter your MCQ, SAQ, DBQ, and LEQ
+                results to see how you measure up to typical benchmarks.</p>
         </div>
     </section>
 
-<!-- Responsive Banner -->
-<section class="banner" style="text-align: center; margin-top: 10px;">
-  <a href="https://bluehost.sjv.io/aeducateweb" target="_blank" style="display: inline-block;">
-    <img 
-      src="../Hosting 1-728x90.png" 
-      alt="Advertisement" 
-      style="max-width: 100%; height: auto; width: 700px; display: inline-block;">
-  </a>
-</section>
+    <!-- Responsive Banner -->
+    <section class="banner" style="text-align: center; margin-top: 10px;">
+        <a href="https://bluehost.sjv.io/aeducateweb" target="_blank" style="display: inline-block;">
+            <img src="../Hosting 1-728x90.png" alt="Advertisement"
+                style="max-width: 100%; height: auto; width: 700px; display: inline-block;">
+        </a>
+    </section>
 
     <div class="tool-container">
         <aside class="left-sidebar">
@@ -573,7 +622,7 @@
         </aside>
         <div class="main-content-column">
             <main class="calculator-content">
-                <h1>AP US History Score Calculator</h1>
+                <h2 style="text-align: center;">AP US History Score Calculator</h2>
                 <div class="calculator-box">
                     <div class="input-group">
                         <label for="multipleChoice">Multiple Choice Correct (out of 55):</label>
@@ -612,13 +661,15 @@
                     <strong>1, 2, 3, 4, or 5</strong>.
                     The tool mirrors the structure used by the College Board, giving you a reliable approximation of
                     performance and helping you
-                    understand how each component contributes to your composite score.</p>
+                    understand how each component contributes to your composite score.
+                </p>
 
                 <h2>Why Use an APUSH Score Calculator?</h2>
                 <p>Preparing for APUSH is not only about memorizing dates and events. It requires mastering
                     <em>historical reasoning skills</em>,
                     constructing arguments, and analyzing sources. Knowing how each section affects your score is
-                    critical because:</p>
+                    critical because:
+                </p>
                 <ul>
                     <li><strong>Score predictions reduce uncertainty:</strong> Instead of guessing your exam outcome,
                         you can see realistic score ranges.</li>
@@ -784,28 +835,28 @@
         </div>
 
         <aside class="right-sidebar">
-      <div class="ad-space">
-        <div class="ad-placeholder">
-          <a href="https://bluehost.sjv.io/aeducateweb" target="_blank">
-            <img src="../Bluehost300by250.webp" alt="Advertisement 1">
-          </a>
-        </div>
-      </div>
-      <div class="ad-space">
-        <div class="ad-placeholder">
-          <a href="https://hostgator.pvxt.net/aeducateweb" target="_blank">
-            <img src="../Hostgator_300x250.webp" alt="Advertisement 2">
-          </a>
-        </div>
-      </div>
-      <div class="ad-space">
-        <div class="ad-placeholder">
-          <a href="https://hostinger.sjv.io/aeducateweb" target="_blank">
-            <img src="../Hostinger300x250-EN.webp" alt="Advertisement 3">
-          </a>
-        </div>
-      </div>
-    </aside>
+            <div class="ad-space">
+                <div class="ad-placeholder">
+                    <a href="https://bluehost.sjv.io/aeducateweb" target="_blank">
+                        <img src="../Bluehost300by250.webp" alt="Advertisement 1">
+                    </a>
+                </div>
+            </div>
+            <div class="ad-space">
+                <div class="ad-placeholder">
+                    <a href="https://hostgator.pvxt.net/aeducateweb" target="_blank">
+                        <img src="../Hostgator_300x250.webp" alt="Advertisement 2">
+                    </a>
+                </div>
+            </div>
+            <div class="ad-space">
+                <div class="ad-placeholder">
+                    <a href="https://hostinger.sjv.io/aeducateweb" target="_blank">
+                        <img src="../Hostinger300x250-EN.webp" alt="Advertisement 3">
+                    </a>
+                </div>
+            </div>
+        </aside>
     </div>
 
     <footer>
