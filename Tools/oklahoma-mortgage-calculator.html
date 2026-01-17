@@ -5,8 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
-    content="Calculate Oklahoma mortgage payments with state programs. OHFA, veteran loans & rural development options. County-specific calculations!">
-  <title>Oklahoma Mortgage Calculator</title>
+    content="Free Estimate your Oklahoma mortgage payment with property taxes, insurance, PMI & HOA. See monthly cost breakdown and OK homebuyer program tips.">
+  <title>Oklahoma Mortgage Calculator: Payment, Taxes, PMI & HOA</title>
+  <link rel="canonical" href="https://usefreecalculator.com/Tools/oklahoma-mortgage-calculator">
   <!-- Favicon Link -->
   <link rel="icon" href="../Favicon.png" type="image/png">
   <script type="application/ld+json">
@@ -15,13 +16,12 @@
     "@type": "WebApplication",
     "name": "Oklahoma Mortgage Calculator",
     "description": "Calculate Oklahoma mortgage payments with state programs. OHFA, veteran loans & rural development options. County-specific calculations!",
-    "url": "https://usefreecalculator.com/Tools/oklahoma-mortgage-calculator.html",
+    "url": "https://usefreecalculator.com/Tools/oklahoma-mortgage-calculator",
     "applicationCategory": "FinanceApplication",
     "operatingSystem": "Web Browser",
     "offers": {
       "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
+      "price": "0"
     },
     "creator": {
       "@type": "Organization",
@@ -29,32 +29,98 @@
     }
   }
   </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does this Oklahoma mortgage calculator include property taxes and insurance?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. You can enter a property tax rate and an annual homeowners insurance amount to estimate a more complete monthly payment (often paid through escrow)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the calculator include HOA fees and PMI?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. You can add monthly HOA dues and include PMI when your down payment is below 20% on a conventional loan."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is PITI, and why does it matter?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "PITI stands for Principal, Interest, Taxes, and Insurance. It matters because it reflects a more realistic monthly housing payment than principal and interest alone."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When is PMI required, and how can I remove it?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "PMI is commonly required on conventional loans when you put less than 20% down. Depending on lender rules, PMI may be removed after your loan-to-value (LTV) improves and you meet required conditions."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use this calculator if I’m considering VA, FHA, or USDA loans?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, you can use it to estimate scenarios. Keep in mind VA and USDA have eligibility rules, and FHA has different mortgage insurance rules. Confirm exact costs with a lender."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use this calculator outside Oklahoma?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, but Oklahoma-specific program references and county assumptions won’t match other states. For best results, manually enter the correct local tax rate and insurance estimates."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this calculator include FHA mortgage insurance (MIP) or VA funding fees?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. This calculator focuses on monthly payment components like principal, interest, property taxes, homeowners insurance, PMI (for conventional loans), and HOA fees. FHA MIP and VA funding fees are not automatically calculated, so you would need to estimate those separately or adjust inputs to approximate them."
+      }
+    }
+  ]
+}
+</script>
+
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/tools/apush.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
-            /* Remove space between the advertisement and the form */
-        .banner {
-            margin-bottom: 0;
-            /* Remove any bottom margin after the advertisement */
-            padding-bottom: 0;
-            /* Remove any padding at the bottom of the banner */
-        }
+    /* Remove space between the advertisement and the form */
+    .banner {
+      margin-bottom: 0;
+      /* Remove any bottom margin after the advertisement */
+      padding-bottom: 0;
+      /* Remove any padding at the bottom of the banner */
+    }
 
-        /* Reduce the space between the advertisement and the form */
-        .tool-container {
-            margin-top: 0;
-            /* Remove top margin for the form container */
-            padding-top: 0;
-            /* Remove top padding for the form container */
-        }
+    /* Reduce the space between the advertisement and the form */
+    .tool-container {
+      margin-top: 0;
+      /* Remove top margin for the form container */
+      padding-top: 0;
+      /* Remove top padding for the form container */
+    }
 
-        /* Further reduce the gap between the advertisement and the form */
-        .main-content-column {
-            margin-top: 0;
-            /* Remove top margin for form column */
-        }
+    /* Further reduce the gap between the advertisement and the form */
+    .main-content-column {
+      margin-top: 0;
+      /* Remove top margin for form column */
+    }
+
     /* Result Section */
     #result {
       margin-top: 2rem;
@@ -420,6 +486,8 @@
   <section class="hero">
     <div class="hero-content">
       <h1>Oklahoma Mortgage Calculator</h1>
+      <p>Calculate your monthly Oklahoma mortgage payment with taxes, insurance, PMI, and HOA included—get an accurate
+        home cost estimate in seconds.</p>
     </div>
   </section>
 
@@ -445,7 +513,7 @@
 
     <div class="main-content-column">
       <main class="calculator-content">
-        <h1>Calculate Your Oklahoma Mortgage Payment</h1>
+        <h2 style="text-align: center;">Calculate Your Oklahoma Mortgage Payment</h2>
         <div class="calculator-box">
 
           <div class="input-group">
@@ -573,126 +641,325 @@
 
       <article class="calculator-article">
         <h2>Oklahoma Mortgage Calculator: Estimate Your Monthly Payments Accurately</h2>
-        <p>Buying a home in Oklahoma comes with unique considerations: county-specific property taxes, state mortgage
-          programs, and varying insurance costs. Our <strong>Oklahoma Mortgage Calculator</strong> helps you estimate
-          your monthly mortgage payments quickly and accurately, taking into account these factors and more.</p>
+        <p>
+          Buying a home in Oklahoma involves more than picking a house price and a loan term. Your real monthly housing
+          cost
+          can change based on <strong>county-specific property taxes</strong>, <strong>homeowners insurance</strong>,
+          <strong>PMI (private mortgage insurance)</strong>, <strong>HOA fees</strong>, and whether you use programs
+          like
+          <strong>OHFA</strong>, <strong>VA loans</strong>, or <strong>USDA Rural Development</strong>.
+          Our <strong>Oklahoma Mortgage Calculator</strong> helps you estimate the full monthly payment—often called
+          <strong>PITI</strong> (Principal, Interest, Taxes, Insurance)—plus optional HOA and PMI so you can plan
+          confidently.
+        </p>
+        <p>
+          This tool is helpful for first-time homebuyers, repeat buyers, and anyone comparing loan options like
+          <strong>fixed-rate</strong> vs. <strong>adjustable-rate mortgages (ARM)</strong>, or testing different down
+          payments
+          and interest rates before contacting a lender, mortgage broker, or credit union.
+        </p>
 
-        <h3>Why Use an Oklahoma Mortgage Calculator?</h3>
+        <h3>Why Use an Oklahoma-Specific Mortgage Calculator?</h3>
+        <p>
+          Many online calculators only show principal and interest. But real mortgage payments are often higher because
+          property taxes and insurance are commonly paid through an <strong>escrow account</strong>. Oklahoma homebuyers
+          also
+          face location-based differences (county taxes, insurance pricing, and market conditions) that generic
+          calculators
+          can’t reflect well.
+        </p>
         <ul>
-          <li>Quickly calculate monthly payments based on home price, down payment, interest rate, and loan term.</li>
-          <li>Account for property taxes, insurance, PMI, and HOA fees specific to Oklahoma counties.</li>
-          <li>Estimate affordability and see how state programs like OHFA, Veteran Loans, or USDA Rural Development
-            affect your payment.</li>
-          <li>Visualize the impact of different scenarios on your budget before committing to a mortgage.</li>
+          <li>Calculate a realistic monthly payment based on <strong>home price</strong>, <strong>down payment</strong>,
+            <strong>interest rate</strong>, and <strong>loan term</strong>.
+          </li>
+          <li>Include <strong>property taxes</strong>, <strong>insurance</strong>, <strong>PMI</strong>, and <strong>HOA
+              fees</strong> in your estimate.</li>
+          <li>Compare scenarios for <strong>first-time buyers</strong>, <strong>veterans</strong>, and <strong>rural
+              borrowers</strong> using Oklahoma-related programs.</li>
+          <li>Test affordability using income guidelines (like the <strong>28/36 rule</strong>) and avoid “payment
+            shock.”</li>
+          <li>Understand how changing the down payment impacts <strong>loan-to-value (LTV)</strong>, PMI, and monthly
+            cost.</li>
         </ul>
+
+        <h3>What’s Included in Your Monthly Payment?</h3>
+        <p>
+          Your monthly mortgage payment can include several components. This calculator is built to reflect a more
+          complete
+          ownership cost estimate:
+        </p>
+        <ul>
+          <li><strong>Principal:</strong> The portion that pays down your loan balance.</li>
+          <li><strong>Interest:</strong> The cost of borrowing from your lender.</li>
+          <li><strong>Property Taxes:</strong> Based on your county and entered tax rate (often escrowed monthly).</li>
+          <li><strong>Homeowners Insurance:</strong> Annual premium spread across 12 months (often escrowed monthly).
+          </li>
+          <li><strong>PMI:</strong> Typical for conventional loans when down payment is below 20% (varies by credit
+            score and LTV).</li>
+          <li><strong>HOA Fees:</strong> Monthly dues for neighborhoods/communities with associations (if applicable).
+          </li>
+        </ul>
+        <p>
+          Depending on your loan and lender, you may also have other costs not shown in a simple monthly payment:
+          <strong>closing costs</strong>, <strong>points (discount points)</strong>, <strong>origination fees</strong>,
+          and prepaid items (like initial escrow deposits). Those are usually paid at closing rather than monthly.
+        </p>
 
         <h3>Step-by-Step Guide to Using the Calculator</h3>
         <ol>
-          <li><strong>Home Price:</strong> Enter the full purchase price of the property you want to buy. Example:
-            $175,000.</li>
-          <li><strong>Down Payment:</strong> Choose either a percentage or a dollar amount. Example: 20% down = $35,000
-            on a $175,000 home.</li>
-          <li><strong>Loan Term:</strong> Select the number of years to repay the loan (15, 20, 25, or 30 years). Longer
-            terms lower monthly payments but increase total interest.</li>
-          <li><strong>Interest Rate:</strong> Enter your expected annual interest rate. Example: 7.25% for a 30-year
-            fixed mortgage.</li>
-          <li><strong>County:</strong> Choose your Oklahoma county. Property taxes vary by county, affecting your total
-            monthly payment.</li>
-          <li><strong>Property Tax Rate:</strong> Enter the county-specific property tax rate. Oklahoma averages
-            0.9%–1.3% depending on the county.</li>
-          <li><strong>Homeowners Insurance:</strong> Enter yearly insurance cost. Oklahoma’s range: $2,000–$3,500.</li>
-          <li><strong>PMI (Private Mortgage Insurance):</strong> Monthly PMI is required if your down payment is less
-            than 20%.</li>
-          <li><strong>HOA Fees:</strong> Enter any monthly homeowners association dues.</li>
-          <li><strong>Annual Household Income:</strong> Optional, used for affordability analysis.</li>
-          <li><strong>Oklahoma Programs:</strong> Check boxes for OHFA, Veteran, or USDA programs to see potential
-            benefits.</li>
+          <li><strong>Home Price:</strong> Enter the full purchase price of the home. Example: $175,000.</li>
+          <li><strong>Down Payment:</strong> Choose a percentage or dollar amount. Example: 20% down = $35,000 on a
+            $175,000 home.</li>
+          <li><strong>Loan Term:</strong> Select 15, 20, 25, or 30 years. Longer terms often lower the payment but
+            increase total interest.</li>
+          <li><strong>Interest Rate:</strong> Enter your estimated annual rate (APR and note rate can differ). Example:
+            7.25% fixed.</li>
+          <li><strong>County:</strong> Choose your Oklahoma county to reflect local tax differences in your estimate.
+          </li>
+          <li><strong>Property Tax Rate:</strong> Enter the tax rate you expect. Oklahoma often ranges around 0.9%–1.3%
+            (varies by county and assessment).</li>
+          <li><strong>Homeowners Insurance:</strong> Enter an annual estimate (commonly paid monthly through escrow).
+            Oklahoma insurance can vary widely.</li>
+          <li><strong>PMI (Private Mortgage Insurance):</strong> Enter monthly PMI if your down payment is under 20%
+            (common for conventional loans).</li>
+          <li><strong>HOA Fees:</strong> Add monthly dues if your property is in an HOA community.</li>
+          <li><strong>Annual Household Income (Optional):</strong> Used to estimate affordability and compare to income
+            guidelines.</li>
+          <li><strong>Oklahoma Programs:</strong> Select OHFA, Veteran, or USDA options to compare potential benefits.
+          </li>
         </ol>
 
-        <h3>How the Calculator Works</h3>
-        <p>The calculator estimates monthly payments by combining:</p>
+        <h3>How Your Oklahoma Mortgage Payment Is Calculated</h3>
+        <p>
+          The calculator estimates your monthly payment by combining core mortgage math with your local and optional
+          costs:
+        </p>
         <ul>
-          <li>Principal & interest based on loan amount, interest rate, and term.</li>
-          <li>Monthly property tax, scaled by county-specific multipliers.</li>
-          <li>Monthly homeowners insurance and HOA dues.</li>
-          <li>Monthly PMI if down payment is below 20%.</li>
+          <li><strong>Principal &amp; Interest (P&amp;I):</strong> Based on the loan amount, rate, and term using
+            standard amortization.</li>
+          <li><strong>Property Taxes:</strong> Annual property taxes (home price × tax rate) divided into a monthly
+            amount.</li>
+          <li><strong>Homeowners Insurance:</strong> Annual insurance cost divided into a monthly amount.</li>
+          <li><strong>PMI:</strong> Added when down payment is below 20% (or until LTV is reduced enough to remove PMI,
+            depending on the loan).</li>
+          <li><strong>HOA Fees:</strong> Added as a monthly cost if applicable.</li>
         </ul>
-        <p>Additionally, the calculator adjusts for selected Oklahoma programs:</p>
-        <ul>
-          <li><strong>OHFA First-Time Homebuyer Program:</strong> Provides up to $7,500 in down payment assistance and
-            slightly reduced interest rate.</li>
-          <li><strong>Oklahoma Veteran Loan Program:</strong> Offers minimal or no down payment and lower interest rates
-            for qualified veterans.</li>
-          <li><strong>USDA Rural Development Loan:</strong> Allows 100% financing for eligible rural properties and
-            slightly reduced interest rates.</li>
-        </ul>
+        <p>
+          In many real mortgages, taxes and insurance are handled through an <strong>escrow account</strong>. Your
+          lender collects
+          a portion each month and pays the bill when it’s due. That’s why including taxes and insurance is important
+          for a
+          realistic monthly estimate.
+        </p>
 
-        <h3>County-Specific Insights</h3>
-        <p>Property taxes and housing market conditions differ across Oklahoma counties. Here’s a brief overview:</p>
+        <h3>Oklahoma Mortgage Programs and Loan Types to Consider</h3>
+        <p>
+          Your loan program can change the down payment required, PMI/insurance costs, and eligibility rules. Here are
+          common
+          program entities Oklahoma buyers compare:
+        </p>
         <ul>
-          <li><strong>Oklahoma County:</strong> Urban amenities, slightly higher property taxes, median home prices
-            above state average.</li>
-          <li><strong>Tulsa County:</strong> Strong job market and cultural attractions, taxes near state average.</li>
-          <li><strong>Cleveland County:</strong> University-centered area, growing market.</li>
-          <li><strong>Rural Counties:</strong> Lower prices, USDA financing eligibility.</li>
+          <li><strong>OHFA First-Time Homebuyer Program:</strong> Often used for down payment assistance and
+            affordability support for eligible borrowers.</li>
+          <li><strong>VA Loan (Veterans Affairs):</strong> For qualifying veterans and service members, often with
+            flexible down payment options and no monthly PMI.</li>
+          <li><strong>USDA Rural Development Loan:</strong> Designed for eligible rural areas, sometimes allowing 100%
+            financing with specific income and property requirements.</li>
+          <li><strong>FHA Loan:</strong> Popular with lower down payments, but typically includes mortgage insurance
+            premiums (MIP).</li>
+          <li><strong>Conventional Loan:</strong> Often best for strong credit; PMI may apply if down payment is under
+            20%.</li>
         </ul>
+        <p>
+          <strong>Important:</strong> Program options in this calculator are shown as simplified estimates for
+          comparison purposes.
+          Actual benefits, interest rates, fees, and eligibility rules depend on lender requirements, credit profile,
+          income,
+          property location, and official program guidelines. Always confirm final numbers with a qualified lender or
+          housing agency.
+        </p>
+
+
+        <h3>County Property Taxes and Oklahoma Market Differences</h3>
+        <p>
+          Oklahoma’s housing costs vary by region. Property taxes can differ by county, and insurance costs can also
+          change
+          based on location, replacement cost, and local risk factors. Use your county selection and tax rate inputs to
+          refine
+          your estimate.
+        </p>
+        <ul>
+          <li><strong>Oklahoma County:</strong> A major metro area with varied neighborhoods and home values; property
+            taxes may run higher than some rural counties.</li>
+          <li><strong>Tulsa County:</strong> Strong job market, active housing demand, and tax rates that can be near
+            state averages depending on area.</li>
+          <li><strong>Cleveland County:</strong> Growth areas around Norman; taxes and prices vary by neighborhood and
+            school district.</li>
+          <li><strong>Rural Counties:</strong> Often lower home prices; some locations may align with <strong>USDA
+              eligibility</strong> depending on address.</li>
+        </ul>
+        <p>
+          For the most accurate number, consider checking your local county assessor’s information and requesting a
+          property tax
+          estimate from your real estate agent or lender during pre-approval.
+        </p>
+        <p>
+          This calculator uses the property tax rate you enter to estimate monthly taxes. County selections help guide
+          users,
+          but actual tax bills are determined by local assessments and millage rates. For precise figures, consult your
+          county
+          assessor or recent tax records.
+        </p>
+
 
         <h3>Example Calculation</h3>
-        <p>Consider a $175,000 home in Oklahoma County with a 20% down payment ($35,000), a 30-year term, 7.25% interest
-          rate, property tax of 1.1%, insurance $2,400/year, no HOA, and PMI $200/month:</p>
+        <p>
+          Example scenario: a $175,000 home in Oklahoma County with a 20% down payment ($35,000), a 30-year term, 7.25%
+          interest
+          rate, property tax of 1.1%, insurance $2,400/year, no HOA, and PMI $0 (because down payment is 20%):
+        </p>
         <ul>
-          <li>Loan Amount: $140,000</li>
-          <li>Monthly Principal & Interest: $963.89</li>
-          <li>Monthly Property Tax: $160.42</li>
-          <li>Monthly Insurance: $200.00</li>
-          <li>Monthly PMI: $0 (down payment ≥20%)</li>
-          <li>Total Monthly Payment: $1,324.31</li>
+          <li><strong>Loan Amount:</strong> $140,000</li>
+          <li><strong>Monthly Principal &amp; Interest:</strong> $963.89</li>
+          <li><strong>Monthly Property Tax:</strong> $160.42</li>
+          <li><strong>Monthly Insurance:</strong> $200.00</li>
+          <li><strong>Monthly PMI:</strong> $0 (down payment ≥ 20%)</li>
+          <li><strong>Total Monthly Payment:</strong> $1,324.31</li>
         </ul>
+        <p>
+          If you reduce the down payment (for example, 5% or 10%), your loan amount increases and PMI may apply—raising
+          the
+          monthly total. If you shorten the term to 15 years, the payment often increases but total interest paid over
+          the life
+          of the loan usually drops.
+        </p>
 
-        <h3>Affordability Analysis</h3>
-        <p>Based on the 28% rule of income allocation:</p>
+        <h3>Affordability Analysis: Income, DTI, and the 28/36 Rule</h3>
+        <p>
+          Many buyers use common guidelines to estimate affordability. One popular approach is the <strong>28/36
+            rule</strong>:
+          spending up to ~28% of gross monthly income on housing and keeping total monthly debt payments (housing +
+          other debts)
+          near ~36%. These are general rules, not strict requirements, and lenders may use different thresholds
+          depending on the
+          loan program (FHA, VA, conventional) and your credit profile.
+        </p>
         <ul>
-          <li>If your annual household income is $75,000, recommended maximum monthly housing expense = $1,750.</li>
-          <li>The calculated payment of $1,324.31 is within this limit, indicating affordability.</li>
-          <li>The calculator adjusts affordability analysis automatically when income, HOA, or loan term changes.</li>
+          <li>If your annual household income is $75,000, gross monthly income is about $6,250.</li>
+          <li>28% guideline suggests a housing budget around $1,750/month.</li>
+          <li>A payment of $1,324.31 may fit within that guideline depending on your other debts.</li>
+          <li>If you have car loans, student loans, or credit card payments, your <strong>debt-to-income (DTI)</strong>
+            ratio can change affordability.</li>
         </ul>
+        <p>
+          For a more realistic estimate, compare your projected payment with your monthly budget, emergency savings, and
+          other
+          goals (repairs, utilities, maintenance, and future rate changes if using an ARM).
+        </p>
 
-        <h3>Tips for Optimizing Your Oklahoma Mortgage</h3>
+        <h3>How to Lower Your Oklahoma Mortgage Payment</h3>
+        <p>
+          If the monthly payment is too high, there are several adjustments you can test in the calculator:
+        </p>
         <ul>
-          <li>Increase your down payment to reduce PMI and monthly payment.</li>
-          <li>Consider shorter loan terms to save on interest, but check affordability.</li>
-          <li>Compare multiple Oklahoma programs (OHFA, Veteran, USDA) to maximize benefits.</li>
-          <li>Check county property taxes before finalizing your purchase.</li>
-          <li>Ensure your DTI (Debt-to-Income) is below 36% for easier approval.</li>
+          <li><strong>Increase your down payment:</strong> Lowers loan amount and can reduce or remove PMI.</li>
+          <li><strong>Improve your credit score:</strong> Better credit often leads to better rates and lower PMI costs.
+          </li>
+          <li><strong>Shop multiple lenders:</strong> Compare banks, credit unions, and mortgage lenders for rate +
+            fees.</li>
+          <li><strong>Consider points:</strong> Paying discount points can reduce the interest rate (compare break-even
+            time).</li>
+          <li><strong>Choose a different term:</strong> 30-year lowers payment; 15-year may save long-term interest if
+            affordable.</li>
+          <li><strong>Review insurance quotes:</strong> Homeowners insurance can vary significantly between providers.
+          </li>
+          <li><strong>Check property taxes:</strong> Validate the tax rate and understand assessment changes after
+            purchase.</li>
+          <li><strong>Use the right loan program:</strong> VA, USDA, FHA, and OHFA options may improve affordability for
+            eligible buyers.</li>
         </ul>
 
         <h3>Frequently Asked Questions (FAQs)</h3>
-        <h4>1. Can I use this calculator for counties outside Oklahoma?</h4>
-        <p>Yes, but the property tax and program benefits will not be state-specific. Adjust property tax rate manually
-          if needed.</p>
 
-        <h4>2. Does the calculator include insurance and HOA fees?</h4>
-        <p>Yes, you can enter your yearly insurance and monthly HOA fees to get a complete monthly payment estimate.</p>
+        <h4>1. Does this Oklahoma mortgage calculator include property taxes and insurance?</h4>
+        <p>
+          Yes. You can enter a property tax rate and an annual homeowners insurance amount to estimate your monthly
+          payment more
+          accurately (often through escrow).
+        </p>
 
-        <h4>3. How does down payment type affect calculations?</h4>
-        <p>You can enter either a percentage or dollar amount. Percentage inputs are converted to dollar amounts
-          automatically.</p>
+        <h4>2. Does the calculator include HOA fees and PMI?</h4>
+        <p>
+          Yes. Add monthly HOA dues if your neighborhood has an association, and include PMI if your down payment is
+          below 20%
+          on a conventional loan.
+        </p>
 
-        <h4>4. What is PMI and when is it required?</h4>
-        <p>Private Mortgage Insurance is required if your down payment is less than 20%. It protects the lender in case
-          of default.</p>
+        <h4>3. What is PITI, and why does it matter?</h4>
+        <p>
+          PITI stands for Principal, Interest, Taxes, and Insurance. It’s commonly used by lenders and buyers because it
+          reflects the full monthly mortgage payment—not just the loan portion.
+        </p>
 
-        <h4>5. How are Oklahoma-specific programs applied?</h4>
-        <p>Checking program boxes applies down payment assistance, lower interest rates, or 100% financing for eligible
-          programs.</p>
+        <h4>4. When is PMI required, and how can I remove it?</h4>
+        <p>
+          PMI often applies to conventional loans when you put less than 20% down. PMI rules vary, but it can sometimes
+          be
+          removed when your loan balance drops and your LTV improves (subject to lender requirements).
+        </p>
+
+        <h4>5. Can I use this calculator if I’m considering VA, FHA, or USDA loans?</h4>
+        <p>
+          Yes. You can estimate payments for different scenarios. Keep in mind that FHA uses mortgage insurance (MIP),
+          VA loans
+          may include funding fees, and USDA may have eligibility and guarantee fee rules. Confirm final costs with a
+          lender.
+        </p>
+
+        <h4>6. Can I use this calculator outside Oklahoma?</h4>
+        <p>
+          You can, but Oklahoma program options and county assumptions won’t match other states. For best results, set
+          your
+          correct local tax rate and insurance estimates manually.
+        </p>
+        <h4>7. Does this calculator include FHA mortgage insurance (MIP) or VA funding fees?</h4>
+        <p>
+          No. This calculator focuses on monthly payment components like principal, interest, property taxes, homeowners
+          insurance,
+          PMI (for conventional loans), and HOA fees. FHA mortgage insurance premiums (MIP) and VA funding fees are not
+          automatically calculated. You can manually adjust your inputs to approximate these costs.
+        </p>
+
+        <div class="calculator-disclaimer">
+          <p><strong>Disclaimer:</strong> This tool provides estimates only and does not constitute financial or legal
+            advice.
+            Actual mortgage payments depend on lender terms, escrow requirements, county assessments, insurance pricing,
+            and eligibility for state or federal programs.</p>
+        </div>
 
         <h3>Summary</h3>
-        <p>The <strong>Oklahoma Mortgage Calculator</strong> is a comprehensive tool to help homebuyers plan their
-          budget, compare programs, and understand county-specific financial implications. By entering your home price,
-          down payment, loan term, interest rate, and other variables, you can estimate your monthly payment accurately
-          and make informed decisions before purchasing a home.</p>
+        <p>
+          The <strong>Oklahoma Mortgage Calculator</strong> helps you estimate a realistic monthly payment by combining
+          principal
+          and interest with Oklahoma-relevant factors like county property taxes, homeowners insurance, PMI, and HOA
+          fees. It’s
+          useful for comparing loan terms, testing down payment options, and exploring affordability with common
+          guidelines like
+          the 28/36 rule.
+        </p>
+        <p>
+          <strong>Important Note:</strong> This calculator provides estimates only. Actual payments depend on lender
+          terms,
+          escrow requirements, county assessments, insurance pricing, and program eligibility. Always confirm your final
+          numbers
+          with a qualified lender and local sources before making a purchase decision.
+        </p>
+        <p>
+          Use the calculator above to try multiple scenarios (different home prices, rates, and down payments) to find a
+          monthly
+          payment that fits your budget before you apply for pre-approval.
+        </p>
       </article>
-
 
     </div>
 
